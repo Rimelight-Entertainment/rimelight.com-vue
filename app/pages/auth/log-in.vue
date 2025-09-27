@@ -81,17 +81,17 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         >
           <template #description>
             Don't have an account?
-            <ULink to="/auth/sign-up" class="text-primary font-medium"
+            <ULink to="/auth/sign-up" class="font-medium text-primary"
               >Sign up</ULink
             >.
           </template>
           <template #email-hint>
-            <ULink to="#" class="text-primary font-medium" tabindex="-1"
+            <ULink to="#" class="font-medium text-primary" tabindex="-1"
               >Forgot email?</ULink
             >
           </template>
           <template #password-hint>
-            <ULink to="#" class="text-primary font-medium" tabindex="-1"
+            <ULink to="#" class="font-medium text-primary" tabindex="-1"
               >Forgot password?</ULink
             >
           </template>
@@ -99,7 +99,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
             By logging in, you agree to our
             <ULink
               to="/documents/terms-of-service"
-              class="text-primary font-medium"
+              class="font-medium text-primary"
               >Terms of Service</ULink
             >.
           </template>

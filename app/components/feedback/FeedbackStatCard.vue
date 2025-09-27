@@ -19,7 +19,7 @@ const { iconColor = `text-primary`, descriptionColor = `text-muted` } =
 <template>
   <UPopover mode="hover" arrow :open-delay="300" :close-delay="200">
     <div
-      class="flex items-center gap-3 px-4 py-3 bg-muted/20 rounded-lg border border-default cursor-pointer hover:bg-muted/30 transition-colors"
+      class="flex cursor-pointer items-center gap-3 rounded-lg border border-default bg-muted/20 px-4 py-3 transition-colors hover:bg-muted/30"
     >
       <UIcon :name="icon" :class="`size-6 ${iconColor} shrink-0`" />
       <div>
@@ -33,8 +33,8 @@ const { iconColor = `text-primary`, descriptionColor = `text-muted` } =
     </div>
 
     <template #content>
-      <div class="p-4 min-w-64">
-        <div class="flex items-center gap-2 mb-3">
+      <div class="min-w-64 p-4">
+        <div class="mb-3 flex items-center gap-2">
           <UIcon :name="icon" :class="`size-5 ${iconColor}`" />
           <h3 class="font-semibold">{{ label }} Details</h3>
         </div>
@@ -59,9 +59,9 @@ const { iconColor = `text-primary`, descriptionColor = `text-muted` } =
 
           <div
             v-if="popoverStats?.details"
-            class="pt-2 border-t border-default"
+            class="border-t border-default pt-2"
           >
-            <p class="text-muted text-xs">
+            <p class="text-xs text-muted">
               {{ popoverStats.details }}
             </p>
           </div>

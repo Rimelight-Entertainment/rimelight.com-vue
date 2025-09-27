@@ -165,7 +165,7 @@ const showPasswordConfirmation = ref(false)
                 <h1 class="text-xl">Sign Up</h1>
                 <span
                   >Already have an account?
-                  <ULink to="/auth/log-in" class="text-primary font-medium"
+                  <ULink to="/auth/log-in" class="font-medium text-primary"
                     >Log In</ULink
                   >.</span
                 >
@@ -366,7 +366,7 @@ const showPasswordConfirmation = ref(false)
                     I have read and agree to the
                     <ULink
                       to="/documents/terms-of-service"
-                      class="text-primary font-medium"
+                      class="font-medium text-primary"
                       >Terms of Service</ULink
                     >.
                   </template>
@@ -378,7 +378,7 @@ const showPasswordConfirmation = ref(false)
                   description="Unsubscribe at any time."
                 />
                 <UButton type="submit" label="Sign Up" color="primary" block />
-                <span class="text-sm text-center"
+                <span class="text-center text-sm"
                   >All these details may be changed later in your account
                   settings.</span
                 >

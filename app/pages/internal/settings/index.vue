@@ -76,7 +76,7 @@ function onFileClick() {
         label="Name"
         description="Will appear on receipts, invoices, and other communication."
         required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
+        class="flex items-start justify-between gap-4 max-sm:flex-col"
       >
         <UInput v-model="profile.name" autocomplete="off" />
       </UFormField>
@@ -86,7 +86,7 @@ function onFileClick() {
         label="Email"
         description="Used to sign in, for email receipts and product updates."
         required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
+        class="flex items-start justify-between gap-4 max-sm:flex-col"
       >
         <UInput v-model="profile.email" type="email" autocomplete="off" />
       </UFormField>
@@ -96,7 +96,7 @@ function onFileClick() {
         label="Username"
         description="Your unique username for logging in and your profile URL."
         required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
+        class="flex items-start justify-between gap-4 max-sm:flex-col"
       >
         <UInput v-model="profile.username" type="username" autocomplete="off" />
       </UFormField>
@@ -105,7 +105,7 @@ function onFileClick() {
         name="avatar"
         label="Avatar"
         description="JPG, GIF or PNG. 1MB Max."
-        class="flex max-sm:flex-col justify-between sm:items-center gap-4"
+        class="flex justify-between gap-4 max-sm:flex-col sm:items-center"
       >
         <div class="flex flex-wrap items-center gap-3">
           <UAvatar :src="profile.avatar" :alt="profile.name" size="lg" />
@@ -124,7 +124,7 @@ function onFileClick() {
         name="bio"
         label="Bio"
         description="Brief description for your profile. URLs are hyperlinked."
-        class="flex max-sm:flex-col justify-between items-start gap-4"
+        class="flex items-start justify-between gap-4 max-sm:flex-col"
         :ui="{ container: 'w-full' }"
       >
         <UTextarea v-model="profile.bio" :rows="5" autoresize class="w-full" />

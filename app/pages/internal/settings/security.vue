@@ -36,7 +36,7 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
       :schema="passwordSchema"
       :state="password"
       :validate="validate"
-      class="flex flex-col gap-4 max-w-xs"
+      class="flex max-w-xs flex-col gap-4"
     >
       <UFormField name="current">
         <UInput

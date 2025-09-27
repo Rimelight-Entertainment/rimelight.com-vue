@@ -504,7 +504,7 @@ function selectWorstPages(count: number) {
 <template>
   <div class="space-y-6">
     <div
-      class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+      class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
     >
       <Motion
         :key="`header-${chartType}`"
@@ -515,10 +515,10 @@ function selectWorstPages(count: number) {
       >
         <UIcon
           :name="chartIcon"
-          class="size-6 sm:size-5 text-primary shrink-0"
+          class="size-6 shrink-0 text-primary sm:size-5"
         />
         <div class="min-w-0">
-          <h3 class="text-lg font-semibold truncate">
+          <h3 class="truncate text-lg font-semibold">
             {{ chartTitle }}
           </h3>
           <p class="text-sm text-muted">
@@ -528,7 +528,7 @@ function selectWorstPages(count: number) {
       </Motion>
 
       <div
-        class="flex items-center max-sm:flex-row-reverse max-sm:justify-end gap-2 flex-wrap"
+        class="flex flex-wrap items-center gap-2 max-sm:flex-row-reverse max-sm:justify-end"
       >
         <AnimatePresence mode="wait">
           <Motion
@@ -550,7 +550,7 @@ function selectWorstPages(count: number) {
         </AnimatePresence>
 
         <div
-          class="flex items-center gap-1 border border-default rounded-lg p-1"
+          class="flex items-center gap-1 rounded-lg border border-default p-1"
         >
           <UButton
             v-for="type in availableChartTypes"
@@ -566,8 +566,8 @@ function selectWorstPages(count: number) {
       </div>
     </div>
 
-    <div class="relative rounded-xl overflow-hidden mb-8">
-      <div class="dot-pattern h-[300px] -top-5 left-0 right-0" />
+    <div class="relative mb-8 overflow-hidden rounded-xl">
+      <div class="dot-pattern -top-5 right-0 left-0 h-[300px]" />
 
       <LineChart
         v-if="chartType === 'overall'"
@@ -609,7 +609,7 @@ function selectWorstPages(count: number) {
       />
     </div>
 
-    <div v-if="!hasValidData" class="text-center py-4">
+    <div v-if="!hasValidData" class="py-4 text-center">
       <p class="text-sm text-muted">
         Chart shows no data - will display real trends once feedback is
         collected
@@ -632,8 +632,8 @@ function selectWorstPages(count: number) {
               <h3 class="text-lg font-semibold">
                 Select Pages to {{ chartType === "line" ? "Track" : "Compare" }}
               </h3>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-sm text-muted font-medium"
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-sm font-medium text-muted"
                   >Quick select:</span
                 >
                 <UButton
@@ -689,37 +689,37 @@ function selectWorstPages(count: number) {
             </UInput>
           </div>
 
-          <div class="space-y-3 max-h-96 overflow-y-auto">
+          <div class="max-h-96 space-y-3 overflow-y-auto">
             <div
               v-for="page in availablePages"
               :key="page.path"
-              class="flex items-center justify-between p-3 border border-default rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+              class="flex cursor-pointer items-center justify-between rounded-lg border border-default p-3 transition-colors hover:bg-muted/50"
               :class="{
-                'bg-primary/5 border-primary/20 hover:bg-primary/10':
+                'border-primary/20 bg-primary/5 hover:bg-primary/10':
                   selectedPagePaths.includes(page.path)
               }"
               @click="togglePageSelection(page.path)"
             >
-              <div class="flex items-center gap-3 flex-1 min-w-0">
+              <div class="flex min-w-0 flex-1 items-center gap-3">
                 <UCheckbox
                   :model-value="selectedPagePaths.includes(page.path)"
                   @update:model-value="togglePageSelection(page.path)"
                 />
-                <div class="flex-1 min-w-0">
-                  <div class="font-medium text-sm truncate">
+                <div class="min-w-0 flex-1">
+                  <div class="truncate text-sm font-medium">
                     {{ page.title }}
                   </div>
-                  <code class="text-xs text-muted truncate block">{{
+                  <code class="block truncate text-xs text-muted">{{
                     page.path
                   }}</code>
                 </div>
               </div>
-              <div class="flex items-center gap-2 sm:gap-4 text-sm shrink-0">
+              <div class="flex shrink-0 items-center gap-2 text-sm sm:gap-4">
                 <div class="text-center">
                   <div class="font-semibold">
                     {{ page.total }}
                   </div>
-                  <div class="text-muted text-xs">resp.</div>
+                  <div class="text-xs text-muted">resp.</div>
                 </div>
                 <div class="text-center">
                   <div
@@ -734,15 +734,15 @@ function selectWorstPages(count: number) {
                   >
                     {{ page.score.toFixed(1) }}/4
                   </div>
-                  <div class="text-muted text-xs">score</div>
+                  <div class="text-xs text-muted">score</div>
                 </div>
               </div>
             </div>
 
-            <div v-if="availablePages.length === 0" class="text-center py-8">
+            <div v-if="availablePages.length === 0" class="py-8 text-center">
               <UIcon
                 name="i-lucide-search-x"
-                class="size-8 text-muted mx-auto mb-2"
+                class="mx-auto mb-2 size-8 text-muted"
               />
               <p class="text-sm text-muted">
                 No pages found matching your search

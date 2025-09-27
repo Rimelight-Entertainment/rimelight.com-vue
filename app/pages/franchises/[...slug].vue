@@ -96,7 +96,7 @@ provide(`isEditable`, readonly(isEditable))
           </template>
           <template #bottom>
             <USeparator />
-            <span class="text-muted text-sm"
+            <span class="text-sm text-muted"
               >Last Modified:
               <time :datetime="article.lastModified">{{
                 lastModified

@@ -28,8 +28,8 @@ async function handleDelete() {
 </script>
 
 <template>
-  <div class="border border-default rounded-lg p-4">
-    <div class="flex items-start justify-between mb-3">
+  <div class="rounded-lg border border-default p-4">
+    <div class="mb-3 flex items-start justify-between">
       <div class="flex items-center gap-3">
         <div class="flex flex-col items-center">
           <span class="text-2xl">{{ rating.emoji }}</span>
@@ -38,7 +38,7 @@ async function handleDelete() {
           </span>
         </div>
         <div>
-          <div class="flex items-center gap-2 mb-1">
+          <div class="mb-1 flex items-center gap-2">
             <span class="text-sm font-medium">{{ rating.label }}</span>
           </div>
           <div class="flex items-center gap-3 text-xs text-muted">
@@ -74,7 +74,7 @@ async function handleDelete() {
 
     <div
       v-if="feedback.feedback"
-      class="text-sm leading-relaxed bg-muted/30 rounded p-3"
+      class="rounded bg-muted/30 p-3 text-sm leading-relaxed"
     >
       "{{ feedback.feedback }}"
     </div>

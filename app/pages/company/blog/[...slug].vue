@@ -172,7 +172,7 @@ const pageDetails = ref<PageDetailLink[]>([
             </IDLayoutBox>
           </IDLayoutBox>
         </template>
-        <IDLayoutBox direction="horizontal" gap="md" class="pt-6 flex-wrap">
+        <IDLayoutBox direction="horizontal" gap="md" class="flex-wrap pt-6">
           <UUser
             v-for="(author, index) in page.authors"
             :key="index"
@@ -245,7 +245,7 @@ const pageDetails = ref<PageDetailLink[]>([
           </template>
         </UContentToc>
         <div
-          class="order-first lg:order-last sticky top-(--ui-header-height) z-10 bg-default lg:bg-[initial] -mx-4 p-6 border-b border-default flex justify-between"
+          class="sticky top-(--ui-header-height) z-10 order-first -mx-4 flex justify-between border-b border-default bg-default p-6 lg:order-last lg:bg-[initial]"
         >
           <UDrawer
             v-model:open="blogDrawerOpen"

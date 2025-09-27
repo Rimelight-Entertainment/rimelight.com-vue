@@ -89,7 +89,7 @@ function onSubmit() {
     </UDashboardNavbar>
 
     <div
-      class="flex flex-col sm:flex-row justify-between gap-1 p-4 sm:px-6 border-b border-default"
+      class="flex flex-col justify-between gap-1 border-b border-default p-4 sm:flex-row sm:px-6"
     >
       <div class="flex items-start gap-4 sm:my-1.5">
         <UAvatar v-bind="mail.from.avatar" :alt="mail.from.name" size="3xl" />
@@ -104,18 +104,18 @@ function onSubmit() {
         </div>
       </div>
 
-      <p class="max-sm:pl-16 text-muted text-sm sm:mt-2">
+      <p class="text-sm text-muted max-sm:pl-16 sm:mt-2">
         {{ format(new Date(mail.date), "dd MMM HH:mm") }}
       </p>
     </div>
 
-    <div class="flex-1 p-4 sm:p-6 overflow-y-auto">
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6">
       <p class="whitespace-pre-wrap">
         {{ mail.body }}
       </p>
     </div>
 
-    <div class="pb-4 px-4 sm:px-6 shrink-0">
+    <div class="shrink-0 px-4 pb-4 sm:px-6">
       <UCard
         variant="subtle"
         class="mt-auto"
@@ -124,7 +124,7 @@ function onSubmit() {
         <template #header>
           <UIcon name="i-lucide-reply" class="size-5" />
 
-          <span class="text-sm truncate">
+          <span class="truncate text-sm">
             Reply to {{ mail.from.name }} ({{ mail.from.email }})
           </span>
         </template>

@@ -24,7 +24,7 @@ const heroLinks = ref([
       title="May the story never end!"
       :links="heroLinks"
       reverse
-      class="bg-cover bg-[url('/placeholders/grand-tale-hero-background2.webp')]"
+      class="bg-[url('/placeholders/grand-tale-hero-background2.webp')] bg-cover"
     >
       <div class="flex justify-center">
         <img src="/placeholders/grand-tale-logo.webp" />

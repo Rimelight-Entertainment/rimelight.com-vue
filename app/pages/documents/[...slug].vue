@@ -96,7 +96,7 @@ const lastModified = useDateFormat(page.value.lastModified, `DD/MM/YYYY`)
           <template #bottom>
             <USeparator />
             <UPageLinks title="Links" :links="pageLinks" />
-            <span class="text-muted text-sm"
+            <span class="text-sm text-muted"
               >Last Modified:
               <time :datetime="page.lastModified">{{
                 lastModified

@@ -116,13 +116,13 @@ const isRangeSelected = (
 </script>
 
 <template>
-  <div class="flex items-center justify-center w-full mb-4">
+  <div class="mb-4 flex w-full items-center justify-center">
     <UPopover :content="{ align: 'center' }" :modal="true">
       <UButton
         color="neutral"
         variant="outline"
         icon="i-lucide-calendar"
-        class="data-[state=open]:bg-elevated group min-w-fit"
+        class="group min-w-fit data-[state=open]:bg-elevated"
       >
         <span class="truncate">
           <template v-if="formattedDateRange">
@@ -134,21 +134,21 @@ const isRangeSelected = (
         <template #trailing>
           <UIcon
             name="i-lucide-chevron-down"
-            class="shrink-0 text-dimmed size-5 group-data-[state=open]:rotate-180 transition-transform duration-200"
+            class="size-5 shrink-0 text-dimmed transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </template>
       </UButton>
 
       <template #content>
-        <div class="flex items-stretch sm:divide-x divide-default">
-          <div class="hidden sm:flex flex-col justify-center min-w-[140px]">
+        <div class="flex items-stretch divide-default sm:divide-x">
+          <div class="hidden min-w-[140px] flex-col justify-center sm:flex">
             <UButton
               v-for="(range, index) in ranges"
               :key="index"
               :label="range.label"
               color="neutral"
               variant="ghost"
-              class="rounded-none px-4 justify-start"
+              class="justify-start rounded-none px-4"
               :class="[
                 isRangeSelected(range.preset)
                   ? 'bg-elevated'

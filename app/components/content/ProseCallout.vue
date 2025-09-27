@@ -153,20 +153,20 @@ const tooltipMap = {
           variant="soft"
           size="xl"
           :leading-icon="iconMap[internalVariant]"
-          :class="['w-fit h-fit', icon({ variant: internalVariant })]"
+          :class="['h-fit w-fit', icon({ variant: internalVariant })]"
         />
         <template #content>
           <RLLayoutBox
             tag="ul"
             direction="vertical"
-            class="w-96 max-h-96 overflow-y-auto"
+            class="max-h-96 w-96 overflow-y-auto"
           >
             <li v-for="item in items" :key="item">
               <UButton
                 :key="item.variant"
                 variant="ghost"
                 color="neutral"
-                class="rounded-none w-full"
+                class="w-full rounded-none"
                 @click="handleSelect(item)"
               >
                 <RLLayoutBox direction="horizontal" padding="xs" gap="sm">
@@ -174,14 +174,14 @@ const tooltipMap = {
                     :name="item.icon"
                     :class="[
                       icon({ variant: item.variant }),
-                      'h-4 w-4  flex-shrink-0'
+                      'h-4 w-4 flex-shrink-0'
                     ]"
                   />
                   <RLLayoutBox direction="vertical" gap="xs">
-                    <h6 class="font-bold text-sm text-start">
+                    <h6 class="text-start text-sm font-bold">
                       {{ item.label }}
                     </h6>
-                    <p class="text-xs text-start">
+                    <p class="text-start text-xs">
                       {{ item.description }}
                     </p>
                   </RLLayoutBox>

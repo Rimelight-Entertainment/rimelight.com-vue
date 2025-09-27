@@ -82,10 +82,10 @@ const columns: FooterColumn[] = [
           <UIcon
             name="first-party:logotype-white"
             color="primary"
-            class="h-12 text-neutral fill-neutral"
+            class="text-neutral fill-neutral h-12"
           />
         </NuxtLink>
-        <p class="text-muted text-sm">
+        <p class="text-sm text-muted">
           © {{ new Date().getFullYear() }} Rimelight Entertainment
         </p>
       </RLLayoutBox>
@@ -143,7 +143,7 @@ const columns: FooterColumn[] = [
           direction="vertical"
           gap="md"
           align-items="center"
-          class="md:items-end md:flex-row"
+          class="md:flex-row md:items-end"
         >
           <UColorModeSelect class="w-48" />
           <ULocaleSelect

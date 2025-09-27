@@ -95,8 +95,8 @@ const template = (d: DataRecord) =>
   >
     <template #header>
       <div>
-        <p class="text-xs text-muted uppercase mb-1.5">Revenue</p>
-        <p class="text-3xl text-highlighted font-semibold">
+        <p class="mb-1.5 text-xs text-muted uppercase">Revenue</p>
+        <p class="text-3xl font-semibold text-highlighted">
           {{ formatNumber(total) }}
         </p>
       </div>

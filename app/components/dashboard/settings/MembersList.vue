@@ -24,16 +24,16 @@ const items = [
     <li
       v-for="(member, index) in members"
       :key="index"
-      class="flex items-center justify-between gap-3 py-3 px-4 sm:px-6"
+      class="flex items-center justify-between gap-3 px-4 py-3 sm:px-6"
     >
-      <div class="flex items-center gap-3 min-w-0">
+      <div class="flex min-w-0 items-center gap-3">
         <UAvatar v-bind="member.avatar" size="md" />
 
-        <div class="text-sm min-w-0">
-          <p class="text-highlighted font-medium truncate">
+        <div class="min-w-0 text-sm">
+          <p class="truncate font-medium text-highlighted">
             {{ member.name }}
           </p>
-          <p class="text-muted truncate">
+          <p class="truncate text-muted">
             {{ member.username }}
           </p>
         </div>

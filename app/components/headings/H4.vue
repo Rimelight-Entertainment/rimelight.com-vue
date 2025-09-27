@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h4 class="font-bold text-xl text-highlighted">
+  <h4 class="text-xl font-bold text-highlighted">
     <slot />
   </h4>
 </template>

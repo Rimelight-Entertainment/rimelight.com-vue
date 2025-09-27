@@ -189,7 +189,7 @@ defineShortcuts(extractShortcuts(accountMenuItems.value))
       <UIcon
         name="first-party:logomark-white"
         color="primary"
-        class="h-12 text-neutral fill-neutral"
+        class="text-neutral fill-neutral h-12"
       />
     </template>
     <UNavigationMenu :items="items" variant="link">
@@ -203,12 +203,12 @@ defineShortcuts(extractShortcuts(accountMenuItems.value))
 
           <li v-for="child in item.children" :key="child.label">
             <ULink
-              class="text-sm text-left rounded-md p-3 transition-colors hover:bg-elevated/50"
+              class="rounded-md p-3 text-left text-sm transition-colors hover:bg-elevated/50"
             >
               <p class="font-medium text-highlighted">
                 {{ child.label }}
               </p>
-              <p class="text-muted line-clamp-2">
+              <p class="line-clamp-2 text-muted">
                 {{ child.description }}
               </p>
             </ULink>

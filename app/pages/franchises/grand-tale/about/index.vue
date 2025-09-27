@@ -222,7 +222,7 @@ around them, and optionally engage in various Tales, which are sub-games
 hosted within Grand Tale's world and plug in to the various systems of
 the base experience."
       :ui="{ description: 'max-w-192 mx-auto' }"
-      class="bg-cover bg-center bg-[url('/placeholders/grand-tale-section-background3.webp')]"
+      class="bg-[url('/placeholders/grand-tale-section-background3.webp')] bg-cover bg-center"
     />
     <UPageSection
       title="The story so far..."
@@ -308,32 +308,32 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
     <UAccordion
       :items="frequentlyAskedQuestions"
       type="multiple"
-      class="max-w-192 mx-auto"
+      class="mx-auto max-w-192"
     />
   </UPageSection>
   <USeparator />
   <UPageSection
-    class="bg-cover bg-[url('/placeholders/grand-tale-section-background2.webp')]"
+    class="bg-[url('/placeholders/grand-tale-section-background2.webp')] bg-cover"
   >
-    <UContainer class="flex flex-col gap-xl lg:flex-row">
-      <RLH2 class="text-start w-96">Product Details</RLH2>
+    <UContainer class="gap-xl flex flex-col lg:flex-row">
+      <RLH2 class="w-96 text-start">Product Details</RLH2>
       <UPageColumns class="w-full">
         <RLLayoutBox direction="vertical" gap="md">
           <RLLayoutBox direction="vertical" gap="sm" class="text-start">
             <RLH4>Genre</RLH4>
-            <ul class="list-disc list-inside">
+            <ul class="list-inside list-disc">
               <li class="text-muted">Role Playing Game (RPG)</li>
             </ul>
           </RLLayoutBox>
           <RLLayoutBox direction="vertical" gap="sm" class="text-start">
             <RLH4>Platforms</RLH4>
-            <ul class="list-disc list-inside">
+            <ul class="list-inside list-disc">
               <li class="text-muted">Windows</li>
               <li class="text-muted">Android</li>
             </ul>
           </RLLayoutBox>
         </RLLayoutBox>
-        <UPageList class="pb-4 gap-2">
+        <UPageList class="gap-2 pb-4">
           <RLH4 class="text-start">Available Languages</RLH4>
           <RLLayoutBox
             tag="ul"
@@ -341,7 +341,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
             :key="item.label"
             direction="vertical"
             gap="xs"
-            class="text-start list-disc list-inside"
+            class="list-inside list-disc text-start"
           >
             <li class="text-muted">{{ item.label }}</li>
           </RLLayoutBox>
@@ -349,7 +349,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
         <RLLayoutBox direction="vertical" gap="md">
           <RLLayoutBox direction="vertical" gap="sm" class="text-start">
             <RLH4 class="text-start">Product Requirements</RLH4>
-            <ul class="list-disc list-inside">
+            <ul class="list-inside list-disc">
               <li class="text-muted">Rimelight Entertainment Account</li>
               <li class="text-muted">Internet Connection</li>
             </ul>
@@ -360,14 +360,14 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
   </UPageSection>
   <USeparator />
   <UPageSection
-    class="bg-cover bg-[url('/placeholders/grand-tale-section-background2.webp')]"
+    class="bg-[url('/placeholders/grand-tale-section-background2.webp')] bg-cover"
   >
-    <UContainer class="flex flex-col gap-xl lg:flex-row">
-      <RLH2 class="text-start w-96">System Requirements</RLH2>
+    <UContainer class="gap-xl flex flex-col lg:flex-row">
+      <RLH2 class="w-96 text-start">System Requirements</RLH2>
       <UTabs :items="systemRequirementsItems" variant="link" class="w-full">
         <template #windows="{ item }">
           <UPageColumns>
-            <UPageList class="py-4 gap-2">
+            <UPageList class="gap-2 py-4">
               <RLH4 class="text-start">Minimum Specifications</RLH4>
               <RLLayoutBox
                 v-for="item in windowsMinimumSpecifications"
@@ -380,7 +380,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
                 <p class="text-muted">{{ item.description }}</p>
               </RLLayoutBox>
             </UPageList>
-            <UPageList class="py-4 gap-2">
+            <UPageList class="gap-2 py-4">
               <RLH4 class="text-start">Recommended Specifications</RLH4>
               <RLLayoutBox
                 v-for="item in windowsRecommendedSpecifications"
@@ -397,7 +397,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
         </template>
         <template #android="{ item }">
           <UPageColumns>
-            <UPageList class="py-4 gap-2">
+            <UPageList class="gap-2 py-4">
               <RLH4 class="text-start">Minimum Specifications</RLH4>
               <RLLayoutBox
                 v-for="item in androidMinimumSpecifications"
@@ -410,7 +410,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
                 <p class="text-muted">{{ item.description }}</p>
               </RLLayoutBox>
             </UPageList>
-            <UPageList class="py-4 gap-2">
+            <UPageList class="gap-2 py-4">
               <RLH4 class="text-start">Recommended Specifications</RLH4>
               <RLLayoutBox
                 v-for="item in androidRecommendedSpecifications"
@@ -433,7 +433,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
     variant="naked"
     title="Let your grand tale begin!"
     :links="ctaLinks"
-    class="bg-cover bg-center bg-[url('/placeholders/grand-tale-section-background3.webp')]"
+    class="bg-[url('/placeholders/grand-tale-section-background3.webp')] bg-cover bg-center"
   />
 </template>
 

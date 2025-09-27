@@ -5,7 +5,8 @@ const config = {
   singleQuote: false,
   tabWidth: 2,
   trailingComma: "none",
-  plugins: ["@prettier/plugin-oxc"]
+  plugins: ["@prettier/plugin-oxc", "prettier-plugin-tailwindcss"],
+  tailwindStylesheet: "./app/assets/css/main.css"
 }
 
 export default config

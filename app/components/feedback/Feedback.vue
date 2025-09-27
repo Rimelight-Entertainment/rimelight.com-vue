@@ -22,7 +22,7 @@ const {
   <MotionConfig
     :transition="{ type: 'spring', visualDuration: 0.25, bounce: 0 }"
   >
-    <motion.div layout class="rounded-lg max-w-md">
+    <motion.div layout class="max-w-md rounded-lg">
       <AnimatePresence mode="wait">
         <!-- Success State -->
         <motion.div
@@ -53,7 +53,7 @@ const {
             <div class="text-sm font-medium text-highlighted">
               Thank you for your feedback!
             </div>
-            <div class="text-xs text-muted mt-1">
+            <div class="mt-1 text-xs text-muted">
               Your input helps us improve the documentation.
             </div>
           </motion.div>
@@ -65,7 +65,7 @@ const {
               <motion.legend
                 id="feedback-legend"
                 layout
-                class="text-sm font-medium text-highlighted whitespace-nowrap"
+                class="text-sm font-medium whitespace-nowrap text-highlighted"
               >
                 Was this helpful?
               </motion.legend>
@@ -79,10 +79,10 @@ const {
                 <UButton
                   v-for="option in FEEDBACK_OPTIONS"
                   :key="option.value"
-                  class="flex items-center grayscale-80 hover:grayscale-0 justify-center size-8 rounded-lg border transition-all duration-150 focus:outline-2 focus:outline-primary focus:outline-offset-2"
+                  class="flex size-8 items-center justify-center rounded-lg border grayscale-80 transition-all duration-150 hover:grayscale-0 focus:outline-2 focus:outline-offset-2 focus:outline-primary"
                   :class="[
                     formState.rating === option.value
-                      ? 'border-primary bg-primary/20 hover:bg-primary/30 grayscale-0'
+                      ? 'border-primary bg-primary/20 grayscale-0 hover:bg-primary/30'
                       : 'border-default bg-accented/20 hover:border-accented/70 hover:bg-accented/80'
                   ]"
                   :aria-label="`Rate as ${option.label}`"
@@ -128,7 +128,7 @@ const {
                       id="feedback-textarea"
                       ref="textareaRef"
                       v-model="formState.feedback"
-                      class="w-full rounded-xl text-sm leading-relaxed resize-vertical"
+                      class="resize-vertical w-full rounded-xl text-sm leading-relaxed"
                       placeholder="Share your thoughts... (optional)"
                       :rows="4"
                       autoresize
@@ -139,7 +139,7 @@ const {
                       page
                     </div>
                   </UFormField>
-                  <div class="flex items-center mt-2">
+                  <div class="mt-2 flex items-center">
                     <div class="flex gap-2">
                       <UButton
                         size="sm"

@@ -49,7 +49,7 @@ defineShortcuts({
 </script>
 
 <template>
-  <div class="overflow-y-auto divide-y divide-default">
+  <div class="divide-y divide-default overflow-y-auto">
     <div
       v-for="(mail, index) in mails"
       :key="index"
@@ -60,7 +60,7 @@ defineShortcuts({
       "
     >
       <div
-        class="p-4 sm:px-6 text-sm cursor-pointer border-l-2 transition-colors"
+        class="cursor-pointer border-l-2 p-4 text-sm transition-colors sm:px-6"
         :class="[
           mail.unread ? 'text-highlighted' : 'text-toned)',
           selectedMail && selectedMail.id === mail.id
@@ -88,7 +88,7 @@ defineShortcuts({
         <p class="truncate" :class="[mail.unread && 'font-semibold']">
           {{ mail.subject }}
         </p>
-        <p class="text-dimmed line-clamp-1">
+        <p class="line-clamp-1 text-dimmed">
           {{ mail.body }}
         </p>
       </div>
