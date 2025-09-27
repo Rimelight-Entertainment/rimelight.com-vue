@@ -126,7 +126,6 @@ onMounted(() => {
   <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 0 }">
     <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator color="primary" />
-    <ConstructionBanner />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
