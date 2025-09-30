@@ -17,6 +17,10 @@ const columns: FooterColumn[] = [
     label: `Resources`,
     children: [
       {
+        label: `Rimelight Companion App`,
+        to: `/companion/`
+      },
+      {
         label: `Branding`,
         to: `/branding/`
       },
