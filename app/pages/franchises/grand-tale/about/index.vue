@@ -241,7 +241,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne
         merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen,
         quo modo."
-    class="text-center"
+    class="bg-[url('/placeholders/backgrounds/grand-tale-section-background-1.webp')] bg-cover bg-center text-center"
     :ui="{ description: 'max-w-192 mx-auto' }"
   >
     <RLLayoutBox direction="vertical" gap="xl" class="lg:flex-row">
@@ -300,7 +300,10 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
     </RLLayoutBox>
   </UPageSection>
   <USeparator />
-  <UPageSection title="Frequently Asked Questions">
+  <UPageSection
+    title="Frequently Asked Questions"
+    class="bg-[url('/placeholders/backgrounds/grand-tale-section-background-1.webp')] bg-cover bg-center"
+  >
     <template #description>
       Have a question that isn't covered in this FAQ? Please visit our
       <NuxtLink to="/support">support articles</NuxtLink>.
@@ -360,7 +363,7 @@ powerful magical artifact called the 'Ohrn' whilst on a hike. Upon its
   </UPageSection>
   <USeparator />
   <UPageSection
-    class="bg-[url('/placeholders/grand-tale-section-background2.webp')] bg-cover"
+    class="bg-[url('/placeholders/backgrounds/grand-tale-section-background-1.webp')]"
   >
     <UContainer class="gap-xl flex flex-col lg:flex-row">
       <RLH2 class="w-96 text-start">System Requirements</RLH2>

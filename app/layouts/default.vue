@@ -1,11 +1,9 @@
-<script setup lang="ts">
-import ConstructionBanner from "~/components/navigation/ConstructionBanner.vue"
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
     <RLConstructionBanner />
-    <RLAppHeader />
+    <RLAppHeader2 />
     <UMain class="bg-offwhite">
       <slot />
     </UMain>

@@ -38,6 +38,7 @@ around them, and optionally engage in various Tales, which are sub-games
 hosted within Grand Tale's world and plug in to the various systems of
 the base experience."
     />
+    <USeparator color="gold" />
     <UPageSection
       title="The story so far..."
       description="On Aleph's birthday, the trio of Aleph, Leah, and Zev encounter a

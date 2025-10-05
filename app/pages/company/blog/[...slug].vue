@@ -153,12 +153,12 @@ const pageDetails = ref<PageDetailLink[]>([
         :links="combinedLinks"
       >
         <template #headline>
-          <IDLayoutBox direction="vertical" gap="lg" align-items="start">
+          <RLLayoutBox direction="vertical" gap="lg" align-items="start">
             <UBreadcrumb
               :items="[{ label: 'Blog', to: '/blog' }, { label: page.title }]"
               class="max-w-full"
             />
-            <IDLayoutBox direction="horizontal" gap="sm">
+            <RLLayoutBox direction="horizontal" gap="sm">
               <span>
                 {{ page.category }}
               </span>
@@ -169,17 +169,17 @@ const pageDetails = ref<PageDetailLink[]>([
                   month="numeric"
                   day="numeric"
               /></span>
-            </IDLayoutBox>
-          </IDLayoutBox>
+            </RLLayoutBox>
+          </RLLayoutBox>
         </template>
-        <IDLayoutBox direction="horizontal" gap="md" class="flex-wrap pt-6">
+        <RLLayoutBox direction="horizontal" gap="md" class="flex-wrap pt-6">
           <UUser
             v-for="(author, index) in page.authors"
             :key="index"
             v-bind="author"
             :description="author.username ? `@${author.username}` : undefined"
           />
-        </IDLayoutBox>
+        </RLLayoutBox>
       </UPageHeader>
       <UPageBody>
         <ContentRenderer v-if="page.body" :value="page" />
@@ -228,7 +228,7 @@ const pageDetails = ref<PageDetailLink[]>([
                     />
                   </template>
                   <template #default>
-                    <IDLayoutBox direction="horizontal" gap="xs">
+                    <RLLayoutBox direction="horizontal" gap="xs">
                       <UIcon v-if="link.icon" size="20" :name="link.icon" />
                       <span>{{ link.label }}</span>
                       <NuxtTime
@@ -237,7 +237,7 @@ const pageDetails = ref<PageDetailLink[]>([
                         month="numeric"
                         day="numeric"
                       />
-                    </IDLayoutBox>
+                    </RLLayoutBox>
                   </template>
                 </UTooltip>
               </template>
@@ -329,7 +329,7 @@ const pageDetails = ref<PageDetailLink[]>([
                           />
                         </template>
                         <template #default>
-                          <IDLayoutBox direction="horizontal" gap="xs">
+                          <RLLayoutBox direction="horizontal" gap="xs">
                             <UIcon
                               v-if="link.icon"
                               size="20"
@@ -342,7 +342,7 @@ const pageDetails = ref<PageDetailLink[]>([
                               month="numeric"
                               day="numeric"
                             />
-                          </IDLayoutBox>
+                          </RLLayoutBox>
                         </template>
                       </UTooltip>
                     </template>

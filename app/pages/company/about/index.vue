@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { VideoStream } from "stream-vue"
+
 useHead({
   title: "Home"
 })
@@ -55,9 +57,9 @@ const musicFeatures = ref([
   }
 ])
 
-const hiringLinks = ref([
+const officeLinks = ref([
   {
-    label: "Explore Careers",
+    label: "Explore Offices",
     to: ""
   }
 ])
@@ -77,11 +79,23 @@ const hiringLinks = ref([
         alt="idantity.me"
       />
     </UPageHero>
-    <UPageCTA
-      title="We're hiring!"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    <UPageSection
+      title="WE ARE RIOT"
+      description="Riot Games was founded in 2006 to develop, publish, and support the most player-focused games in the world. As we went from one game to many, we have expanded to over 4,500 Rioters across more than 20 offices around the world bringing a global perspective to the games we create and the characters in them. From the streets of Piltover to the Radianite labs of Alpha Earth, we are all about making games and serving the people who love them."
       :links="hiringLinks"
-    />
+      orientation="horizontal"
+      reverse
+    >
+      <ScriptYouTubePlayer ref="video" video-id="d_IFKP1Ofq0" />
+    </UPageSection>
+    <UPageSection
+      title="WE ARE GLOBAL"
+      description="Riot Games’ HQ is located in sunny Los Angeles, but we have many more offices around the globe. We’re looking for passionate gamers who are also leaders in their field to help us deliver value to players — no matter where they play."
+      :links="officeLinks"
+      orientation="horizontal"
+    >
+      <RLPlaceholder class="size-24" />
+    </UPageSection>
   </UPage>
 </template>
 

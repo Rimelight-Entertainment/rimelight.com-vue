@@ -184,21 +184,7 @@ defineShortcuts(extractShortcuts(accountMenuItems.value))
 </script>
 
 <template>
-  <UHeader
-    mode="slideover"
-    :menu="{
-      side: 'left',
-      ui: {
-        slots: {
-          left: 'justify-center'
-        },
-        content: 'w-full max-w-2/3'
-      }
-    }"
-    toggle-side="left"
-    to="/"
-    class="bg-offblack"
-  >
+  <RLBaseHeader>
     <template #left>
       <UIcon
         name="first-party:logomark-white"
@@ -206,65 +192,69 @@ defineShortcuts(extractShortcuts(accountMenuItems.value))
         class="text-neutral fill-neutral inline-block h-12"
       />
     </template>
-    <UNavigationMenu :items="items" variant="link">
-      <template #franchises-content="{ item }">
-        <ul
-          class="grid gap-2 p-4 lg:w-[500px] lg:grid-cols-[minmax(0,.75fr)_minmax(0,1fr)]"
-        >
-          <li class="row-span-3">
-            <RLPlaceholder class="size-full min-h-48" />
-          </li>
+    <template #center>
+      <UNavigationMenu :items="items" variant="link">
+        <template #franchises-content="{ item }">
+          <ul
+            class="grid gap-2 p-4 lg:w-[500px] lg:grid-cols-[minmax(0,.75fr)_minmax(0,1fr)]"
+          >
+            <li class="row-span-3">
+              <RLPlaceholder class="size-full min-h-48" />
+            </li>
 
-          <li v-for="child in item.children" :key="child.label">
-            <ULink
-              class="rounded-md p-3 text-left text-sm transition-colors hover:bg-elevated/50"
-            >
-              <p class="font-medium text-highlighted">
-                {{ child.label }}
-              </p>
-              <p class="line-clamp-2 text-muted">
-                {{ child.description }}
-              </p>
-            </ULink>
-          </li>
-        </ul>
-      </template>
-    </UNavigationMenu>
-    <template #body>
-      <UNavigationMenu
-        :items="items"
-        variant="link"
-        orientation="vertical"
-        class="-mx-2.5"
+            <li v-for="child in item.children" :key="child.label">
+              <ULink
+                class="rounded-md p-3 text-left text-sm transition-colors hover:bg-elevated/50"
+              >
+                <p class="font-medium text-highlighted">
+                  {{ child.label }}
+                </p>
+                <p class="line-clamp-2 text-muted">
+                  {{ child.description }}
+                </p>
+              </ULink>
+            </li>
+          </ul>
+        </template>
+      </UNavigationMenu>
+    </template>
+    <template #right> </template>
+    <template #collapsed-left>
+      <UDrawer>
+        <UButton
+          label="Open"
+          color="neutral"
+          variant="subtle"
+          trailing-icon="i-lucide-chevron-up"
+        />
+
+        <template #content>
+          <RLPlaceholder class="m-4 h-48" />
+        </template>
+      </UDrawer>
+    </template>
+    <template #collapsed-center>
+      <UIcon
+        name="first-party:logomark-white"
+        color="primary"
+        class="text-neutral fill-neutral inline-block h-12"
       />
     </template>
-    <template #right>
-      <RLLayoutBox direction="horizontal" gap="sm">
-        <AuthState v-slot="{ loggedIn }">
-          <template v-if="loggedIn">
-            <UDropdownMenu :items="accountMenuItems" :ui="{ content: 'w-48' }">
-              <UAvatar size="xl" src="https://github.com/benjamincanac.png" />
-            </UDropdownMenu>
-          </template>
+    <template #collapsed-right>
+      <UDrawer>
+        <UButton
+          label="Open"
+          color="neutral"
+          variant="subtle"
+          trailing-icon="i-lucide-chevron-up"
+        />
 
-          <template v-else>
-            <UButton
-              variant="solid"
-              color="primary"
-              label="Log In"
-              to="/auth/log-in"
-            />
-            <UButton
-              variant="outline"
-              color="primary"
-              label="Sign Up"
-              to="/auth/sign-up"
-            />
-          </template>
-        </AuthState>
-      </RLLayoutBox>
+        <template #content>
+          <RLPlaceholder class="m-4 h-48" />
+        </template>
+      </UDrawer>
     </template>
-  </UHeader>
+  </RLBaseHeader>
 </template>
 
 <style scoped></style>

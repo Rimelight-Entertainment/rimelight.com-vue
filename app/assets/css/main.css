@@ -27,6 +27,9 @@
   --color-offblack: oklch(0.145 0 89.876);
   --color-offwhite: oklch(0.97 0 89.876);
 
+  --color-grand-tale-bg: #320c0c;
+  --color-gold-500: #f5c518;
+
   /* region Neutrals */
   --color-neutrals-50: oklch(0.984 0.003 247.858);
   --color-neutrals-100: oklch(0.968 0.007 247.896);
