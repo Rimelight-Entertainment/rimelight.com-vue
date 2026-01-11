@@ -318,6 +318,6 @@ if (import.meta.dev && !import.meta.nitro && import.meta.hot) {
 }
 /** client-end **/
 
-import cfg0 from "C:/Users/idant/WebstormProjects/idantity.me/app/app.config.ts"
+import cfg0 from "C:/Users/idant/WebstormProjects/rimelight.com/app/app.config.ts"
 
 export default /*@__PURE__*/ defuFn(cfg0, inlineConfig)

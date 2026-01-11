@@ -1,7 +1,7 @@
 export default defineAppConfig({
-  title: "idantity.me",
-  description: "Accessing me.",
-  cdn: "https://cdn.idantity.me",
+  title: "rimelight.com",
+  description: "Tell your story.",
+  cdn: "https://cdn.rimelight.com",
   logomark: "first-party:logomark-white",
   logotype: "first-party:logotype-white",
   rimelightComponents: {

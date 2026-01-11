@@ -80,7 +80,7 @@ const columns: FooterColumn[] = [
             variant="ghost"
             color="neutral"
             icon="mdi:instagram"
-            to="https://www.instagram.com/idantity.me"
+            to="https://www.instagram.com/rimelight.com"
             class="text-white hover:text-primary-100"
           />
           <UButton

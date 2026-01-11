@@ -152,9 +152,9 @@ useHead({
 })
 
 useSeoMeta({
-  titleTemplate: "%s - idantity.me",
-  ogImage: "https://cdn.idantity.me/images/logos/logomark-white.webp",
-  twitterImage: "https://cdn.idantity.me/images/logos/logomark-white.webp",
+  titleTemplate: "%s - rimelight.com",
+  ogImage: "https://cdn.rimelight.com/images/logos/logomark-white.webp",
+  twitterImage: "https://cdn.rimelight.com/images/logos/logomark-white.webp",
   twitterCard: "summary_large_image"
 })
 </script>

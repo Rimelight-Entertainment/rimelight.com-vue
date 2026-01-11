@@ -45,8 +45,6 @@ declare module '#og-image/components' {
     'Wave': typeof import('../../node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community/Wave.vue')['default']
     'WithEmojiDVue': typeof import('../../node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community/WithEmoji.d.vue.ts')['default']
     'WithEmoji': typeof import('../../node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community/WithEmoji.vue')['default']
-    '': typeof import('../../node_modules/nuxt-og-image/dist/runtime/app/components/OgImage/OgImage.js')['default']
-    'Screenshot': typeof import('../../node_modules/nuxt-og-image/dist/runtime/app/components/OgImage/OgImageScreenshot.js')['default']
   }
 }
 declare module '#og-image/unocss-config' {

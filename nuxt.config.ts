@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     },
     staging: {
       devtools: { enabled: true },
-      site: { url: "https://staging.idantity.me", indexable: false },
+      site: { url: "https://staging.rimelight.com", indexable: false },
       nitro: {
         sourceMap: true
       }
@@ -28,7 +28,7 @@ export default defineNuxtConfig({
         minify: true
       },
       // Switch to true on release
-      site: { url: "https://idantity.me", indexable: false },
+      site: { url: "https://rimelight.com", indexable: false },
       robots: {
         blockAiBots: true,
         blockNonSeoBots: true,
@@ -44,15 +44,15 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://idantity.me',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://rimelight.com',
       isTauri
     }
   },
   app: {
     baseURL: isTauri ? "" : "/",
     head: {
-      title: "idantity.me",
-      titleTemplate: "%s | idantity.me",
+      title: "Rimelight Entertainment",
+      titleTemplate: "%s | rimelight.com",
       meta: [
         {
           name: "description",
@@ -134,7 +134,7 @@ export default defineNuxtConfig({
   ...(!isTauri
     ? {
         site: {
-          url: "https://idantity.me",
+          url: "https://rimelight.com",
           name: "idantity.me",
           indexable: false
         },
@@ -150,13 +150,13 @@ export default defineNuxtConfig({
     {
       path: "~/components",
       pathPrefix: false,
-      prefix: "ID"
+      prefix: "RL"
     },
     {
       path: '~/pages',
       pattern: '**/components/**',
       pathPrefix: false,
-      prefix: "ID"
+      prefix: "RL"
     }
   ],
   pages: {
@@ -218,7 +218,7 @@ export default defineNuxtConfig({
     format: ["webp"],
     provider: "cloudflare",
     cloudflare: {
-      baseURL: "https://cdn.idantity.me"
+      baseURL: "https://cdn.rimelight.com"
     }
   },
   i18n: {

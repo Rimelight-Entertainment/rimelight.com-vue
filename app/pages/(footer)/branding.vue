@@ -92,31 +92,31 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logomark - Monochrome White"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20White.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20White.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20White.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20White.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20White.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Monochrome White | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Transparent%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Monochrome White | Inverted Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Inverted%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Monochrome White | Color Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20White/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20White%20-%20Color%20Background.svg"
                   />
                 </div>
               </RCSection>
@@ -124,24 +124,24 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logomark - Monochrome Black"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20Black.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Monochrome Black | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Transparent%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Monochrome Black | Inverted Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/idantity.me%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/JPEG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/PNG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/WEBP/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Monochrome%20Black/SVG/rimelight.com%20-%20Logomark%20-%20Monochrome%20Black%20-%20Inverted%20Background.svg"
                   />
                 </div>
               </RCSection>
@@ -149,17 +149,17 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logomark - Color"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/JPEG/idantity.me%20-%20Logomark%20-%20Color.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/PNG/idantity.me%20-%20Logomark%20-%20Color.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/WEBP/idantity.me%20-%20Logomark%20-%20Color.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/SVG/idantity.me%20-%20Logomark%20-%20Color.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/JPEG/rimelight.com%20-%20Logomark%20-%20Color.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/PNG/rimelight.com%20-%20Logomark%20-%20Color.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/WEBP/rimelight.com%20-%20Logomark%20-%20Color.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/SVG/rimelight.com%20-%20Logomark%20-%20Color.svg"
                   />
                   <RCImageSwatch
                     name="Logomark - Color | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/JPEG/idantity.me%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/PNG/idantity.me%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/WEBP/idantity.me%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logomark/Color/SVG/idantity.me%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/JPEG/rimelight.com%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/PNG/rimelight.com%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/WEBP/rimelight.com%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logomark/Color/SVG/rimelight.com%20-%20Logomark%20-%20Color%20-%20Transparent%20Background.svg"
                   />
                 </div>
               </RCSection>
@@ -169,31 +169,31 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logotype - Monochrome White"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20White.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20White.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20White.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20White.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20White.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Monochrome White | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Transparent%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Monochrome White | Inverted Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Inverted%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Monochrome White | Color Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20White/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20White%20-%20Color%20Background.svg"
                   />
                 </div>
               </RCSection>
@@ -201,24 +201,24 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logotype - Monochrome Black"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20Black.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Monochrome Black | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Transparent%20Background.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Monochrome Black | Inverted Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/idantity.me%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/JPEG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/PNG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/WEBP/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Monochrome%20Black/SVG/rimelight.com%20-%20Logotype%20-%20Monochrome%20Black%20-%20Inverted%20Background.svg"
                   />
                 </div>
               </RCSection>
@@ -226,17 +226,17 @@ useSeoMeta({
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
                   <RCImageSwatch
                     name="Logotype - Color"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/JPEG/idantity.me%20-%20Logotype%20-%20Color.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/PNG/idantity.me%20-%20Logotype%20-%20Color.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/WEBP/idantity.me%20-%20Logotype%20-%20Color.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/SVG/idantity.me%20-%20Logotype%20-%20Color.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/JPEG/rimelight.com%20-%20Logotype%20-%20Color.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/PNG/rimelight.com%20-%20Logotype%20-%20Color.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/WEBP/rimelight.com%20-%20Logotype%20-%20Color.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/SVG/rimelight.com%20-%20Logotype%20-%20Color.svg"
                   />
                   <RCImageSwatch
                     name="Logotype - Color | Transparent Background"
-                    jpg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/JPEG/idantity.me%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.jpg"
-                    png="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/PNG/idantity.me%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.png"
-                    webp="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/WEBP/idantity.me%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.webp"
-                    svg="https://cdn.idantity.me/Images/Branding/Logo/Logotype/Color/SVG/idantity.me%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.svg"
+                    jpg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/JPEG/rimelight.com%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.jpg"
+                    png="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/PNG/rimelight.com%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.png"
+                    webp="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/WEBP/rimelight.com%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.webp"
+                    svg="https://cdn.rimelight.com/Images/Branding/Logo/Logotype/Color/SVG/rimelight.com%20-%20Logotype%20-%20Color%20-%20Transparent%20Background.svg"
                   />
                 </div>
               </RCSection>

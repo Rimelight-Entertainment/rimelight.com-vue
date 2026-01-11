@@ -14,7 +14,7 @@ useHead({
           <IDAudioPlayer
             imageSrc="https://placehold.co/512x512"
             image-alt="Placeholder"
-            audioSrc="https://cdn.idantity.me/music/Bishu%20-%20ikari.mp3"
+            audioSrc="https://cdn.rimelight.com/music/Bishu%20-%20ikari.mp3"
           />
         </RCSection>
       </RCSection>

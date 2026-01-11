@@ -129,8 +129,8 @@ useHead({
     {
       rel: "alternate",
       type: "application/atom+xml",
-      title: "idantity.me Blog RSS",
-      href: "https://idantity.me/blog/rss.xml"
+      title: "rimelight.com Blog RSS",
+      href: "https://rimelight.com/blog/rss.xml"
     }
   ]
 })

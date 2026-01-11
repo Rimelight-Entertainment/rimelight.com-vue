@@ -8,7 +8,7 @@ import { fetch as tauriFetch } from '@tauri-apps/plugin-http';
 export const $api = async <T>(path: string, opts: any = {}) => {
     const config = useRuntimeConfig();
     const isTauri = config.public.isTauri as boolean;
-    const isExternal = isTauri || (import.meta.env.PROD && import.meta.client && !window.location.hostname.includes('idantity.me'));
+    const isExternal = isTauri || (import.meta.env.PROD && import.meta.client && !window.location.hostname.includes('rimelight.com'));
 
     const baseURL = isExternal ? (config.public.apiBase as string) : '';
 
@@ -30,7 +30,7 @@ export const $api = async <T>(path: string, opts: any = {}) => {
 export const useApi = <T>(path: string | (() => string), opts: UseFetchOptions<T> = {}) => {
     const config = useRuntimeConfig();
     const isTauri = config.public.isTauri as boolean;
-    const isExternal = isTauri || (import.meta.env.PROD && import.meta.client && !window.location.hostname.includes('idantity.me'));
+    const isExternal = isTauri || (import.meta.env.PROD && import.meta.client && !window.location.hostname.includes('rimelight.com'));
 
     return useFetch(path, {
         baseURL: isExternal ? (config.public.apiBase as string) : '',

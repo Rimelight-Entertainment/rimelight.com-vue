@@ -20,7 +20,7 @@ const romanianProgress = ref(25)
         <div class="flex h-fit flex-col gap-lg border-1 border-primary-500 bg-neutral-900 p-lg">
           <div class="flex flex-col items-center justify-center gap-sm">
             <NuxtImg
-              src="https://cdn.idantity.me/images/me/daniel-marchi.webp"
+              src="https://cdn.rimelight.com/images/me/daniel-marchi.webp"
               alt="Daniel Marchi"
               class="h-24 w-24 rounded-full"
             />
