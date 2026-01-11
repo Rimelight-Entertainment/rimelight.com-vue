@@ -1,0 +1,1 @@
+import{A as e,H as t,I as n,P as r,T as i,g as a}from"./CB1XNJl3.js";import{t as o}from"./D2ZMij1D.js";var s={},c={class:`py-6 mx-auto`},l={class:`flex flex-col text-center items-center gap-2 text-lg px-2`};function u(n,s){let u=o;return e(),a(`div`,c,[i(`p`,l,[s[0]||=t(` Select a Mutation to inspect `,-1),r(u)])])}var d=n(s,[[`render`,u]]);export{d as default};

@@ -1,0 +1,2 @@
+import{K as e,P as a}from"../build/WithEmoji.d.vue-BjQky10p.mjs";import{O as t,P as r,Q as s,R as o,S as l,T as u,U as d}from"./nitro.mjs";var i=t({__name:"Label",props:{for:{type:String,required:!1},asChild:{type:Boolean,required:!1},as:{type:null,required:!1,default:"label"}},setup(t){const i=t;return e(),(e,t)=>(s(),r(d(a),u(i,{onMousedown:t[0]||(t[0]=e=>{!e.defaultPrevented&&e.detail>1&&e.preventDefault()})}),{default:o(()=>[l(e.$slots,"default")]),_:3},16))}});export{i as L};
+//# sourceMappingURL=Label.mjs.map

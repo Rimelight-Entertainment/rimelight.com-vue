@@ -1,15 +1,11 @@
-import { defineConfig } from "drizzle-kit"
-import env from "./types/env"
+import "dotenv/config";
+import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  dialect: `postgresql`,
-  schema: `./server/database/schema/index.ts`,
-  casing: `snake_case`,
-  out: `server/database/drizzle`,
+  out: "./drizzle",
+  schema: "./server/db/schema",
+  dialect: "postgresql",
   dbCredentials: {
-    url:
-      env.NODE_ENV === `development`
-        ? env.NUXT_POSTGRES_DEVELOPMENT_URL
-        : env.NUXT_POSTGRES_URL
+    url: process.env.DATABASE_URL
   }
-})
+});

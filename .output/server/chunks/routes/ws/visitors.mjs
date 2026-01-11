@@ -1,0 +1,2 @@
+import{z as s,A as r}from"../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const e=s({open(s){const e=Array.from(s.peers.values()).map(s=>r(s.websocket.url));s.subscribe("visitors"),s.publish("visitors",JSON.stringify(e)),s.send(JSON.stringify(e))},close(s){s.unsubscribe("visitors"),setTimeout(()=>{const e=Array.from(s.peers.values()).map(s=>r(s.websocket.url));s.publish("visitors",JSON.stringify(e))},500)}});export{e as default};
+//# sourceMappingURL=visitors.mjs.map

@@ -1,0 +1,1 @@
+import{Ni as e,Nr as t,jn as n}from"./DzTdX39x.js";function r(r){let i=n({dir:e(`ltr`)});return t(()=>r?.value||i.dir?.value||`ltr`)}export{r as t};

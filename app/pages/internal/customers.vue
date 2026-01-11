@@ -1,77 +1,75 @@
 <script setup lang="ts">
-import type { TableColumn } from "@nuxt/ui"
 import { upperFirst } from "scule"
 import { getPaginationRowModel } from "@tanstack/table-core"
 import type { Row } from "@tanstack/table-core"
+import type { TableColumn } from "@nuxt/ui"
 import type { User } from "~/types"
 
 definePageMeta({
-  layout: `dashboard`
+  layout: "dashboard"
 })
 
-const UAvatar = resolveComponent(`UAvatar`)
-const UButton = resolveComponent(`UButton`)
-const UBadge = resolveComponent(`UBadge`)
-const UDropdownMenu = resolveComponent(`UDropdownMenu`)
-const UCheckbox = resolveComponent(`UCheckbox`)
+const UAvatar = resolveComponent("UAvatar")
+const UButton = resolveComponent("UButton")
+const UBadge = resolveComponent("UBadge")
+const UDropdownMenu = resolveComponent("UDropdownMenu")
+const UCheckbox = resolveComponent("UCheckbox")
 
 const toast = useToast()
-const table = useTemplateRef(`table`)
+const table = useTemplateRef("table")
 
 const columnFilters = ref([
   {
-    id: `email`,
-    value: ``
+    id: "email",
+    value: ""
   }
 ])
 const columnVisibility = ref()
-const rowSelection = ref({
-  1: true
-})
+const rowSelection = ref({ 1: true })
 
-const { data, status } = await useFetch<User[]>(`/api/customers`, {
+const { data, status } = await useApi<User[]>("/api/customers", {
   lazy: true
 })
 
 function getRowItems(row: Row<User>) {
   return [
     {
-      type: `label`,
-      label: `Actions`
+      type: "label",
+      label: "Actions"
     },
     {
-      label: `Copy customer ID`,
-      icon: `i-lucide-copy`,
+      label: "Copy customer ID",
+      icon: "i-lucide-copy",
       onSelect() {
         navigator.clipboard.writeText(row.original.id.toString())
         toast.add({
-          title: `Copied to clipboard`,
-          description: `Customer ID copied to clipboard`
+          title: "Copied to clipboard",
+          description: "Customer ID copied to clipboard"
         })
       }
     },
     {
-      type: `separator`
+      type: "separator"
     },
     {
-      label: `View customer details`,
-      icon: `i-lucide-list`
+      label: "View customer details",
+      icon: "i-lucide-list"
     },
     {
-      label: `View customer payments`,
-      icon: `i-lucide-wallet`
+      label: "View customer payments",
+      icon: "i-lucide-wallet"
     },
     {
-      type: `separator`
+      type: "separator"
     },
     {
-      label: `Delete customer`,
-      icon: `i-lucide-trash`,
-      color: `error`,
+      label: "Delete customer",
+      icon: "i-lucide-trash",
+      color: "error",
       onSelect() {
         toast.add({
-          title: `Customer deleted`,
-          description: `The customer has been deleted.`
+          title: "Customer deleted",
+          description: "The customer has been deleted."
         })
       }
     }
@@ -80,130 +78,106 @@ function getRowItems(row: Row<User>) {
 
 const columns: TableColumn<User>[] = [
   {
-    id: `select`,
+    id: "select",
     header: ({ table }) =>
       h(UCheckbox, {
         modelValue: table.getIsSomePageRowsSelected()
-          ? `indeterminate`
+          ? "indeterminate"
           : table.getIsAllPageRowsSelected(),
-        "onUpdate:modelValue": (value: boolean | `indeterminate`) =>
+        "onUpdate:modelValue": (value: boolean | "indeterminate") =>
           table.toggleAllPageRowsSelected(!!value),
-        ariaLabel: `Select all`
+        ariaLabel: "Select all"
       }),
     cell: ({ row }) =>
       h(UCheckbox, {
         modelValue: row.getIsSelected(),
-        "onUpdate:modelValue": (value: boolean | `indeterminate`) =>
+        "onUpdate:modelValue": (value: boolean | "indeterminate") =>
           row.toggleSelected(!!value),
-        ariaLabel: `Select row`
+        ariaLabel: "Select row"
       })
   },
   {
-    accessorKey: `id`,
-    header: `ID`
+    accessorKey: "id",
+    header: "ID"
   },
   {
-    accessorKey: `name`,
-    header: `Name`,
+    accessorKey: "name",
+    header: "Name",
     cell: ({ row }) => {
-      return h(
-        `div`,
-        {
-          class: `flex items-center gap-3`
-        },
-        [
-          h(UAvatar, {
-            ...row.original.avatar,
-            size: `lg`
-          }),
-          h(`div`, undefined, [
-            h(
-              `p`,
-              {
-                class: `font-medium text-highlighted`
-              },
-              row.original.name
-            ),
-            h(
-              `p`,
-              {
-                class: ``
-              },
-              `@${row.original.name}`
-            )
-          ])
-        ]
-      )
+      return h("div", { class: "flex items-center gap-3" }, [
+        h(UAvatar, {
+          ...row.original.avatar,
+          size: "lg"
+        }),
+        h("div", undefined, [
+          h("p", { class: "font-medium text-highlighted" }, row.original.name),
+          h("p", { class: "" }, `@${row.original.name}`)
+        ])
+      ])
     }
   },
   {
-    accessorKey: `email`,
+    accessorKey: "email",
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
       return h(UButton, {
-        color: `neutral`,
-        variant: `ghost`,
-        label: `Email`,
+        color: "neutral",
+        variant: "ghost",
+        label: "Email",
         icon: isSorted
-          ? isSorted === `asc`
-            ? `i-lucide-arrow-up-narrow-wide`
-            : `i-lucide-arrow-down-wide-narrow`
-          : `i-lucide-arrow-up-down`,
-        class: `-mx-2.5`,
-        onClick: () => column.toggleSorting(column.getIsSorted() === `asc`)
+          ? isSorted === "asc"
+            ? "i-lucide-arrow-up-narrow-wide"
+            : "i-lucide-arrow-down-wide-narrow"
+          : "i-lucide-arrow-up-down",
+        class: "-mx-2.5",
+        onClick: () => column.toggleSorting(column.getIsSorted() === "asc")
       })
     }
   },
   {
-    accessorKey: `location`,
-    header: `Location`,
+    accessorKey: "location",
+    header: "Location",
     cell: ({ row }) => row.original.location
   },
   {
-    accessorKey: `status`,
-    header: `Status`,
-    filterFn: `equals`,
+    accessorKey: "status",
+    header: "Status",
+    filterFn: "equals",
     cell: ({ row }) => {
       const color = {
-        subscribed: `success` as const,
-        unsubscribed: `error` as const,
-        bounced: `warning` as const
+        subscribed: "success" as const,
+        unsubscribed: "error" as const,
+        bounced: "warning" as const
       }[row.original.status]
 
       return h(
         UBadge,
-        {
-          class: `capitalize`,
-          variant: `subtle`,
-          color
-        },
+        { class: "capitalize", variant: "subtle", color },
         () => row.original.status
       )
     }
   },
   {
-    id: `actions`,
+    id: "actions",
     cell: ({ row }) => {
       return h(
-        `div`,
-        {
-          class: `text-right`
-        },
+        "div",
+        { class: "text-right" },
         h(
           UDropdownMenu,
           {
             content: {
-              align: `end`
+              align: "end"
             },
             items: getRowItems(row)
           },
           () =>
             h(UButton, {
-              icon: `i-lucide-ellipsis-vertical`,
-              color: `neutral`,
-              variant: `ghost`,
-              class: `ml-auto`
+              icon: "i-lucide-ellipsis-vertical",
+              color: "neutral",
+              variant: "ghost",
+              class: "ml-auto"
             })
         )
       )
@@ -211,23 +185,37 @@ const columns: TableColumn<User>[] = [
   }
 ]
 
-const statusFilter = ref(`all`)
+const statusFilter = ref("all")
 
 watch(
   () => statusFilter.value,
   (newVal) => {
     if (!table?.value?.tableApi) return
 
-    const statusColumn = table.value.tableApi.getColumn(`status`)
+    const statusColumn = table.value.tableApi.getColumn("status")
     if (!statusColumn) return
 
-    if (newVal === `all`) {
+    if (newVal === "all") {
       statusColumn.setFilterValue(undefined)
     } else {
       statusColumn.setFilterValue(newVal)
     }
   }
 )
+
+const email = computed({
+  get: (): string => {
+    return (
+      (table.value?.tableApi?.getColumn("email")?.getFilterValue() as string) ||
+      ""
+    )
+  },
+  set: (value: string) => {
+    table.value?.tableApi
+      ?.getColumn("email")
+      ?.setFilterValue(value || undefined)
+  }
+})
 
 const pagination = ref({
   pageIndex: 0,
@@ -244,7 +232,7 @@ const pagination = ref({
         </template>
 
         <template #right>
-          <RLAddModal />
+          <IDAddModal />
         </template>
       </UDashboardNavbar>
     </template>
@@ -252,21 +240,14 @@ const pagination = ref({
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
         <UInput
-          :model-value="
-            table?.tableApi?.getColumn('email')?.getFilterValue() as string
-          "
+          v-model="email"
           class="max-w-sm"
           icon="i-lucide-search"
           placeholder="Filter emails..."
-          @update:model-value="
-            table?.tableApi?.getColumn('email')?.setFilterValue($event)
-          "
         />
 
         <div class="flex flex-wrap items-center gap-1.5">
-          <RLDeleteModal
-            :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length"
-          >
+          <IDDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
             <UButton
               v-if="table?.tableApi?.getFilteredSelectedRowModel().rows.length"
               label="Delete"
@@ -282,7 +263,7 @@ const pagination = ref({
                 </UKbd>
               </template>
             </UButton>
-          </RLDeleteModal>
+          </IDDeleteModal>
 
           <USelect
             v-model="statusFilter"
@@ -303,8 +284,8 @@ const pagination = ref({
             :items="
               table?.tableApi
                 ?.getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => ({
+                .filter((column: any) => column.getCanHide())
+                .map((column: any) => ({
                   label: upperFirst(column.id),
                   type: 'checkbox' as const,
                   checked: column.getIsVisible(),
@@ -348,18 +329,16 @@ const pagination = ref({
           thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
           tbody: '[&>tr]:last:[&>td]:border-b-0',
           th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
-          td: 'border-b border-default'
+          td: 'border-b border-default',
+          separator: 'h-0'
         }"
       />
 
-      <div
-        class="mt-auto flex items-center justify-between gap-3 border-t border-default pt-4"
-      >
+      <div class="mt-auto flex items-center justify-between gap-3 border-t border-default pt-4">
         <div class="text-sm text-muted">
           {{ table?.tableApi?.getFilteredSelectedRowModel().rows.length || 0 }}
           of
-          {{ table?.tableApi?.getFilteredRowModel().rows.length || 0 }} row(s)
-          selected.
+          {{ table?.tableApi?.getFilteredRowModel().rows.length || 0 }} row(s) selected.
         </div>
 
         <div class="flex items-center gap-1.5">

@@ -1,18 +1,14 @@
-<a href="https://nuxt.com"><img width="1200" alt="Nuxt Website" src="./public/website.jpg"></a>
+# idantity.me
 
-# rimelight.com
-
-Welcome to the Nuxt website repository available on [nuxt.com](https://nuxt.com).
-
-[![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt.js&labelColor=020420)](https://ui.nuxt.com/pro)
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
 
-Make sure to enable corepack and install the dependencies:
+Make sure to install dependencies:
 
 ```bash
-corepack enable
-pnpm install
+# bun
+bun install
 ```
 
 Copy the `.env.example` file to `.env`:
@@ -21,50 +17,29 @@ Copy the `.env.example` file to `.env`:
 cp .env.example .env
 ```
 
-Clone/Fork [nuxt/nuxt](https://github.com/nuxt/nuxt) repo where you want (but not in the Nuxt.com project) and inside the root of the repo, run:
+## Development Server
+
+Start the development server on `http://127.0.0.1:3000`:
 
 ```bash
-pwd
+# bun
+bun run dev
 ```
-
-If you are on Windows, you can use the following command instead:
-
-```bash
-echo %cd%
-```
-
-Copy the output of the command above and paste it in the `NUXT_PATH` and `NUXT_V4_PATH` variables in the `.env` file.
-
-## Development
-
-Start the development server:
-
-```bash
-pnpm dev
-```
-
-### Add a Nuxt Template
-
-To list a Nuxt template, add a file in the [./content/templates](./content/templates) directory.
-
-Make sure to start the development server in order to generate the screenshot for the template and go to http://localhost:3000/templates to see the result.
-
-If you want to update the url where we take the automated screenshot, use the `screenshotUrl` property.
-
-To regenerate the image, delete the generated one in `public/assets/templates`.
 
 ## Production
-
-In order to build the application for production, you need to have a [Nuxt UI Pro](https://ui.nuxt.com/pro) license and set the `NUXT_UI_PRO_LICENSE` variable in the `.env` file.
-
-Note that this is not required to run in development and contribute to the Nuxt website or documentation.
 
 Build the application for production:
 
 ```bash
-pnpm generate
+# bun
+bun run build
 ```
 
-## License
+Locally preview production build:
 
-[MIT License](./LICENSE)
+```bash
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

@@ -1,0 +1,1 @@
+import{Mn as e,fr as t}from"./DzTdX39x.js";function n(n,r){return e(n)?!1:Array.isArray(n)?n.some(e=>t(e,r)):t(n,r)}export{n as t};

@@ -1,0 +1,60 @@
+{
+  "compatibility_date": "2024-09-23",
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "idantity-dot-me",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "no_nodejs_compat_v2"
+  ],
+  "routes": [
+    {
+      "pattern": "idantity.me",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.idantity.me",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "idantity-dot-me",
+      "database_id": "81b8a1db-0a72-4bcd-ad6e-4369bba8d057"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BLOB",
+      "bucket_name": "idantity-dot-me"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "17ac13f2045d417484ba96e9b4315b99"
+    },
+    {
+      "binding": "CACHE",
+      "id": "69130aec83e84366959872bebc058df6"
+    }
+  ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "82741a7bfa2140e09a413a2821bfa1b3"
+    }
+  ],
+  "main": "index.mjs",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "..\\public"
+  }
+}

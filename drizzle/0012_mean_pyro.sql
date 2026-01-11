@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "tag" text DEFAULT '0000' NOT NULL;

@@ -1,87 +1,22 @@
 <script setup lang="ts">
+const appConfig = useAppConfig()
+const { t } = useI18n()
+
 useHead({
-  title: "Home"
+  title: t("home_meta_title")
 })
 
-const projectsFeatures = ref([
-  {
-    title: "Game Developer",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    icon: "lucide:gamepad-2"
-  },
-  {
-    title: "Web Developer",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    icon: "lucide:code"
-  },
-  {
-    title: "Narrative Writer",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    icon: "lucide:pen-tool"
-  }
-])
-
-const projectsLinks = ref([
-  {
-    label: "View me on GitHub",
-    color: "secondary",
-    variant: "subtle",
-    trailingIcon: "mdi:github",
-    to: "https://github.com/idantitydotme"
-  }
-])
-
-const musicFeatures = ref([
-  {
-    title: "DJ",
-    description:
-      "I'm a DJ specializing in Hyperpop, Glitchcore, and Hyperflip.",
-    icon: "lucide:disc-3"
-  },
-  {
-    title: "Guitarist",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    icon: "lucide:guitar"
-  },
-  {
-    title: "Pianist",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    icon: "lucide:piano"
-  }
-])
-
-const hiringLinks = ref([
-  {
-    label: "Explore Careers",
-    to: ""
-  }
-])
+useSeoMeta({
+  title: t("home_meta_title"),
+  ogTitle: t("home_meta_title"),
+  description: appConfig.description,
+  ogDescription: appConfig.description
+})
 </script>
 
 <template>
   <UPage>
-    <UPageHero
-      title="Rimelight Entertainment"
-      description="Welcome to Rimelight Entertainment."
-      headline="Tell your story."
-      orientation="horizontal"
-      reverse
-    >
-      <NuxtImg
-        src="https://cdn.idantity.me/images/logos/logomark-white.webp"
-        alt="idantity.me"
-      />
-    </UPageHero>
-    <UPageCTA
-      title="We're hiring!"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      :links="hiringLinks"
-    />
+
   </UPage>
 </template>
 

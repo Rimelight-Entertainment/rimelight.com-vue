@@ -2,39 +2,26 @@
 import type { NavigationMenuItem } from "@nuxt/ui"
 
 definePageMeta({
-  layout: `dashboard`
+  layout: "dashboard"
 })
 
 const links = [
   [
     {
-      label: `General`,
-      icon: `i-lucide-user`,
-      to: `/internal/settings`,
+      label: "General",
+      icon: "i-lucide-user",
+      to: "/internal/settings",
       exact: true
     },
     {
-      label: `Members`,
-      icon: `i-lucide-users`,
-      to: `/internal/settings/members`
+      label: "Notifications",
+      icon: "i-lucide-bell",
+      to: "/internal/settings/notifications"
     },
     {
-      label: `Notifications`,
-      icon: `i-lucide-bell`,
-      to: `/internal/settings/notifications`
-    },
-    {
-      label: `Security`,
-      icon: `i-lucide-shield`,
-      to: `/internal/settings/security`
-    }
-  ],
-  [
-    {
-      label: `Documentation`,
-      icon: `i-lucide-book-open`,
-      to: `https://ui4.nuxt.com/docs/getting-started/installation/nuxt`,
-      target: `_blank`
+      label: "Security",
+      icon: "i-lucide-shield",
+      to: "/internal/settings/security"
     }
   ]
 ] satisfies NavigationMenuItem[][]
@@ -48,18 +35,17 @@ const links = [
           <UDashboardSidebarCollapse />
         </template>
       </UDashboardNavbar>
-
-      <UDashboardToolbar>
-        <!-- NOTE: The `-mx-1` class is used to align with the `DashboardSidebarCollapse` button here. -->
-        <UNavigationMenu :items="links" highlight class="-mx-1 flex-1" />
-      </UDashboardToolbar>
     </template>
 
     <template #body>
-      <div
-        class="mx-auto flex w-full flex-col gap-4 sm:gap-6 lg:max-w-2xl lg:gap-12"
-      >
-        <NuxtPage />
+      <div class="flex flex-col lg:grid lg:grid-cols-10 lg:gap-8">
+        <aside class="lg:col-span-2">
+          <UNavigationMenu orientation="vertical" highlight :items="links" />
+        </aside>
+
+        <div class="mt-8 lg:col-span-8 lg:mt-0">
+          <NuxtPage />
+        </div>
       </div>
     </template>
   </UDashboardPanel>

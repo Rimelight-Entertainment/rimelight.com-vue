@@ -1,0 +1,2 @@
+import{$ as e,a as o,v as r}from"./WithEmoji.d.vue-BjQky10p.mjs";import"../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";var t={};var s=t.setup;t.setup=(e,o)=>{const t=r.useSSRContext();return(t.modules||(t.modules=new Set)).add("pages/internal/health/workout.vue"),s?s(e,o):void 0};var i=e(t,[["ssrRender",function(e,r,t,s){r(`<div${o(s)}></div>`)}]]);export{i as default};
+//# sourceMappingURL=workout-DcJa_DvP.mjs.map

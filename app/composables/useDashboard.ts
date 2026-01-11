@@ -1,29 +1,22 @@
-import { createSharedComposable } from "@vueuse/core"
+import { watch } from "vue";
+import { useRoute, useState } from "#imports";
 
-const _useDashboard = () => {
-  const route = useRoute()
-  const router = useRouter()
-  const isNotificationsSlideoverOpen = ref(false)
+export const useDashboard = () => {
+  const route = useRoute();
 
-  defineShortcuts({
-    "g-h": () => router.push(`/internal`),
-    "g-i": () => router.push(`/internal/inbox`),
-    "g-c": () => router.push(`/internal/customers`),
-    "g-s": () => router.push(`/internal/settings`),
-    n: () =>
-      (isNotificationsSlideoverOpen.value = !isNotificationsSlideoverOpen.value)
-  })
+  const isNotificationsSlideoverOpen = useState<boolean>(
+    "dashboard:notificationsSlideover",
+    () => false
+  );
 
   watch(
     () => route.fullPath,
     () => {
-      isNotificationsSlideoverOpen.value = false
+      isNotificationsSlideoverOpen.value = false;
     }
-  )
+  );
 
   return {
     isNotificationsSlideoverOpen
-  }
-}
-
-export const useDashboard = createSharedComposable(_useDashboard)
+  };
+};

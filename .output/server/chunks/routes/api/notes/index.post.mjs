@@ -1,0 +1,2 @@
+import{d as s,g as a,c as e,r,o as t,f as o,k as n,s as i}from"../../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const d=t({name:i().min(1)}),m=s(async s=>{var t;const i=await a(s),m=null==(t=null==i?void 0:i.user)?void 0:t.id;if(!m)throw e({statusCode:401,statusMessage:"Unauthorized"});const u=await r(s),{name:p}=d.parse(u),[l]=await o.insert(n).values({userId:m,name:p}).returning();return l});export{m as default};
+//# sourceMappingURL=index.post.mjs.map

@@ -1,88 +1,70 @@
+import { fileURLToPath } from "node:url";
+
+const isTauri = process.env.NUXT_APP_TARGET === "tauri";
+
 export default defineNuxtConfig({
-  modules: [
-    "@nuxt/ui",
-    "@nuxtjs/i18n",
-    "nuxt-zod-i18n",
-    "@nuxt/content",
-    "@nuxt/image",
-    "nuxt-og-image",
-    "@vueuse/nuxt",
-    "@nuxthub/core",
-    "@nuxt/scripts",
-    "@nuxtjs/turnstile",
-    "nuxt-auth-utils",
-    "@nuxtjs/sitemap",
-    "@nuxtjs/robots",
-    "@pinia/nuxt",
-    "magic-regexp/nuxt",
-    "@nuxtjs/device",
-    "nuxt-echarts",
-    "@nuxtjs/html-validator",
-    "nuxt-security"
-  ],
-  htmlValidator: {
-    usePrettier: true
-  },
-  components: [
-    {
-      path: "~/components/article",
-      pathPrefix: false,
-      prefix: "RL"
+  $env: {
+    development: {
+      devtools: { enabled: true },
+      devServer: { host: "127.0.0.1", port: 3000 },
+      typescript: { typeCheck: true },
+      site: { indexable: false }
     },
-    {
-      path: "~/components/content",
-      pathPrefix: false,
-      prefix: "RL"
+    testing: {
+      devtools: { enabled: false }
     },
-    {
-      path: "~/components/dashboard",
-      pathPrefix: false,
-      prefix: "RL"
+    staging: {
+      devtools: { enabled: true },
+      site: { url: "https://staging.idantity.me", indexable: false },
+      nitro: {
+        sourceMap: true
+      }
     },
-    {
-      path: "~/components/feedback",
-      pathPrefix: false,
-      prefix: "RL"
-    },
-    {
-      path: "~/components/headings",
-      pathPrefix: false,
-      prefix: "RL"
-    },
-    {
-      path: "~/components/navigation",
-      pathPrefix: false,
-      prefix: "RL"
-    },
-    {
-      path: "~/components/temp",
-      pathPrefix: false,
-      prefix: "RL"
-    },
-    {
-      path: "~/components",
-      prefix: "RL"
+    production: {
+      devtools: { enabled: false },
+      typescript: { typeCheck: false },
+      nitro: {
+        compressPublicAssets: true,
+        minify: true
+      },
+      // Switch to true on release
+      site: { url: "https://idantity.me", indexable: false },
+      robots: {
+        blockAiBots: true,
+        blockNonSeoBots: true,
+        disallow: ["/internal"]
+      }
     }
-  ],
-  devtools: {
-    enabled: true
+  },
+  ssr: !isTauri,
+  router: {
+    options: {
+      hashMode: isTauri
+    }
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://idantity.me',
+      isTauri
+    }
   },
   app: {
+    baseURL: isTauri ? "" : "/",
     head: {
-      title: "Rimelight Entertainment",
-      titleTemplate: "%s | Rimelight Entertainment",
+      title: "idantity.me",
+      titleTemplate: "%s | idantity.me",
       meta: [
         {
           name: "description",
-          content: "Tell your story."
+          content: ""
         },
         {
           name: "author",
-          content: "Rimelight Entertainment"
+          content: "Daniel Marchi"
         },
         {
           name: "creator",
-          content: "Rimelight Entertainment"
+          content: "Daniel Marchi"
         }
       ],
       link: [
@@ -93,79 +75,96 @@ export default defineNuxtConfig({
         }
       ]
     },
-    pageTransition: {
-      name: "page",
-      mode: "out-in"
-    },
-    layoutTransition: {
-      name: "layout",
-      mode: "out-in"
+    viewTransition: true
+  },
+  modules: [
+    "rimelight-components",
+    "@nuxt/ui",
+    "@nuxtjs/device",
+    "@nuxtjs/i18n",
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@pinia/colada-nuxt",
+    ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : [])
+  ],
+  compatibilityDate: "2025-01-01",
+  alias: {
+    "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
+    "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url))
+  },
+  vite: {
+    clearScreen: false,
+    envPrefix: ["VITE_", "TAURI_"],
+    server: {
+      strictPort: true,
+      hmr: {
+        protocol: "ws",
+        host: "127.0.0.1",
+        port: 3000
+      },
+      watch: {
+        ignored: ["**/src-tauri/**"]
+      }
     }
   },
-  css: ["./app/assets/css/main.css"],
-  site: {
-    url: "https://rimelight.com",
-    name: "Rimelight Entertainment",
-    // Should be changed to true upon release to the public.
-    indexable: false
+  ignore: ["**/src-tauri/**"],
+  nitro: {
+    preset: isTauri ? "node" : "cloudflare_module",
+    ...(!isTauri
+      ? {
+          cloudflare: {
+            deployConfig: true,
+            nodeCompat: true,
+          }
+        }
+      : {}),
+    experimental: {
+      websocket: true
+    },
+    prerender: {
+     //crawlLinks: true
+    },
+    routeRules: {
+      //"/": { prerender: true },
+      "/documents/**": { isr: 3600 },
+      "/blog/**": { isr: 3600 },
+      "/internal/**": { ssr: false }
+    }
   },
-  content: {
-    build: {
-      markdown: {
-        toc: {
-          depth: 3
+  ...(!isTauri
+    ? {
+        site: {
+          url: "https://idantity.me",
+          name: "idantity.me",
+          indexable: false
+        },
+        robots: {
+          blockAiBots: false,
+          blockNonSeoBots: false,
+          disallow: ["/internal"]
         }
       }
-    }
-  },
-  ui: {
-    prefix: "U",
-    theme: {
-      colors: [
-        "primary",
-        "secondary",
-        "tertiary",
-        "info",
-        "success",
-        "warning",
-        "error",
-        "commentary",
-        "ideation",
-        "creator",
-        "neutral"
-      ]
-    }
-  },
-  runtimeConfig: {
-    session: {
-      name: "user-session",
-      password: "",
-      cookie: {
-        maxAge: 60 * 60 * 24 * 30
-      }
+    : {}),
+  css: ["~/assets/css/main.css"],
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+      prefix: "ID"
     },
-    public: {
-      constructionPassword: process.env.SITE_PASSWORD || "secret"
-    },
-    turnstile: {
-      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY
+    {
+      path: '~/pages',
+      pattern: '**/components/**',
+      pathPrefix: false,
+      prefix: "ID"
     }
+  ],
+  pages: {
+    pattern: ['**/*.vue', '!**/components/**']
   },
-  routeRules: {
-    "/api/**": {
-      cors: true
-    }
-  },
-  compatibilityDate: "2025-07-15",
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: ["/"]
-    }
-  },
-  hub: {
-    blob: true,
-    database: true
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark'
   },
   fonts: {
     defaults: {
@@ -197,47 +196,6 @@ export default defineNuxtConfig({
       }
     ]
   },
-  i18n: {
-    defaultLocale: "en",
-    locales: [
-      {
-        code: "ar",
-        name: "العربية"
-      },
-      {
-        code: "en",
-        name: "English"
-      },
-      {
-        code: "es",
-        name: "Español"
-      },
-      {
-        code: "fr",
-        name: "Français"
-      },
-      {
-        code: "ja",
-        name: "日本語"
-      },
-      {
-        code: "ko",
-        name: "한국어"
-      },
-      {
-        code: "pt",
-        name: "Português"
-      },
-      {
-        code: "ro",
-        name: "Română"
-      },
-      {
-        code: "zh_cn",
-        name: "简体中文"
-      }
-    ]
-  },
   icon: {
     provider: "server",
     class: "icon",
@@ -256,12 +214,87 @@ export default defineNuxtConfig({
       }
     ]
   },
-  robots: {
-    blockAiBots: false,
-    blockNonSeoBots: false,
-    disallow: ["/internal"]
+  image: {
+    format: ["webp"],
+    provider: "cloudflare",
+    cloudflare: {
+      baseURL: "https://cdn.idantity.me"
+    }
   },
-  turnstile: {
-    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY
+  i18n: {
+    strategy: "prefix_except_default",
+    defaultLocale: "en",
+    locales: [
+      //{
+      //  code: "ar",
+      //  name: "العربية",
+      //  file: "ar.json"
+      //},
+      {
+        code: "en",
+        name: "English",
+        file: "en.json"
+      }
+      //{
+      //  code: "es",
+      //  name: "Español",
+      //  file: "es.json"
+      //},
+      //{
+      //  code: "fr",
+      //  name: "Français",
+      //  file: "fr.json"
+      //},
+      //{
+      //  code: "ja",
+      //  name: "日本語",
+      //  file: "ja.json"
+      //},
+      //{
+      //  code: "ko",
+      //  name: "한국어",
+      //  file: "ko.json"
+      //},
+      //{
+      //  code: "pt",
+      //  name: "Português",
+      //  file: "pt.json"
+      //}
+      //{
+      //  code: "ro",
+      //  name: "Română",
+      //  file: "ro.json"
+      //},
+      //{
+      //  code: "zh_cn",
+      //  name: "简体中文",
+      //  file: "zh_cn.json"
+      //}
+    ]
+  },
+  ui: {
+    prefix: "U",
+    theme: {
+      colors: [
+        "neutral",
+        "primary",
+        "secondary",
+        "info",
+        "success",
+        "warning",
+        "error",
+        "commentary",
+        "ideation",
+        "source"
+      ]
+    }
+  },
+  future: {
+    compatibilityVersion: 5
+  },
+  experimental: {
+    viteEnvironmentApi: true,
+    typescriptPlugin: true,
+    //typedPages: true
   }
-})
+});

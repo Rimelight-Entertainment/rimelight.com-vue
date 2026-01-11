@@ -1,108 +1,185 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui"
 
-const route = useRoute()
-
 const open = ref(false)
 
-const links = [
+const { user } = useAuth()
+const links = computed<NavigationMenuItem[][]>(() => [
   [
     {
-      label: `Home`,
-      icon: `i-lucide-house`,
-      to: `/internal`,
+      label: "Home",
+      icon: "lucide:home",
+      to: "/internal",
       onSelect: () => {
         open.value = false
       }
     },
     {
-      label: `Inbox`,
-      icon: `i-lucide-inbox`,
-      to: `/internal/inbox`,
-      badge: `4`,
+      label: "Inbox",
+      icon: "lucide:inbox",
+      to: "/internal/inbox",
+      badge: "4",
       onSelect: () => {
         open.value = false
       }
     },
     {
-      label: `Customers`,
-      icon: `i-lucide-users`,
-      to: `/internal/customers`,
+      label: "Customers",
+      icon: "i-lucide-users",
+      to: "/internal/customers",
       onSelect: () => {
         open.value = false
       }
     },
     {
-      label: `Settings`,
-      to: `internal//settings`,
-      icon: `i-lucide-settings`,
+      label: "Notes",
+      icon: "lucide:notebook",
+      to: "/internal/notes",
+      onSelect: () => {
+        open.value = false
+      }
+    },
+    {
+      label: "Habits",
+      icon: "lucide:calendar-check-2",
+      to: "/internal/habits",
+      onSelect: () => {
+        open.value = false
+      }
+    },
+    {
+      label: "Housing",
+      icon: "lucide:building-2",
+      to: "/internal/housing",
       defaultOpen: true,
-      type: `trigger`,
+      type: "trigger",
       children: [
         {
-          label: `General`,
-          to: `/internal/settings`,
+          label: "Groceries",
+          icon: "lucide:shopping-cart",
+          to: "/internal/housing/groceries",
           exact: true,
           onSelect: () => {
             open.value = false
           }
         },
         {
-          label: `Members`,
-          to: `/internal/settings/members`,
-          onSelect: () => {
-            open.value = false
-          }
-        },
-        {
-          label: `Notifications`,
-          to: `/internal/settings/notifications`,
-          onSelect: () => {
-            open.value = false
-          }
-        },
-        {
-          label: `Security`,
-          to: `/internal/settings/security`,
+          label: "Pets",
+          icon: "lucide:paw-print",
+          to: "/internal/housing/pets",
+          exact: true,
           onSelect: () => {
             open.value = false
           }
         }
       ]
+    },
+    {
+      label: "Health",
+      to: "/internal/health",
+      icon: "lucide:heart-pulse",
+      defaultOpen: true,
+      children: [
+        {
+          label: "Workout",
+          icon: "lucide:biceps-flexed",
+          to: "/internal/health/workout",
+          exact: true,
+          onSelect: () => {
+            open.value = false
+          }
+        }
+      ]
+    },
+    {
+      label: "Music",
+      icon: "lucide:music",
+      to: "/internal/housing",
+      defaultOpen: true,
+      type: "trigger",
+      children: [
+        {
+          label: "DJ",
+          icon: "lucide:disc-3",
+          to: "/internal/music/dj",
+          exact: true,
+          onSelect: () => {
+            open.value = false
+          }
+        },
+        {
+          label: "Guitar",
+          icon: "lucide:guitar",
+          to: "/internal/music/guitar",
+          exact: true,
+          onSelect: () => {
+            open.value = false
+          }
+        },
+        {
+          label: "Piano",
+          icon: "lucide:piano",
+          to: "/internal/music/piano",
+          exact: true,
+          onSelect: () => {
+            open.value = false
+          }
+        }
+      ]
+    },
+    {
+      label: "Watchlist",
+      icon: "lucide:play-circle",
+      to: "/internal/watchlist",
+      onSelect: () => {
+        open.value = false
+      }
     }
   ],
   [
+    ...(user.value?.role === "admin" || "owner"
+      ? [
+          {
+            label: "Admin",
+            icon: "lucide:shield-check",
+            to: "/internal/admin",
+            onSelect: () => {
+              open.value = false
+            }
+          }
+        ]
+      : []),
+
     {
-      label: `Feedback`,
-      icon: `i-lucide-message-circle`,
-      to: `https://github.com/nuxt-ui-templates/dashboard`,
-      target: `_blank`
+      icon: "i-lucide-message-circle",
+      label: "Feedback"
     },
     {
-      label: `Help & Support`,
-      icon: `i-lucide-info`,
-      to: `https://github.com/nuxt-ui-templates/dashboard`,
-      target: `_blank`
+      icon: "i-lucide-info",
+      label: "Help & Support"
+    },
+    {
+      icon: "lucide:bug",
+      label: "Report Issue",
+      to: "/report-issue"
     }
   ]
-] satisfies NavigationMenuItem[][]
+])
 
 const groups = computed(() => [
   {
-    id: `links`,
-    label: `Go to`,
-    items: links.flat()
+    id: "links",
+    label: "Go to",
+    items: links.value.flat()
   },
   {
-    id: `code`,
-    label: `Code`,
+    id: "code",
+    label: "Code",
     items: [
       {
-        id: `source`,
-        label: `View page source`,
-        icon: `i-simple-icons-github`,
-        to: `https://github.com/nuxt-ui-templates/dashboard/blob/main/app/pages${route.path === `/` ? `/index` : route.path}.vue`,
-        target: `_blank`
+        id: "source",
+        label: "View page source",
+        icon: "i-simple-icons-github"
       }
     ]
   }
@@ -110,11 +187,12 @@ const groups = computed(() => [
 </script>
 
 <template>
-  <UMain>
-    <UDashboardGroup>
-      <UDashboardSidebar id="default" v-model:open="open">
+  <div class="flex h-svh w-full flex-col overflow-hidden">
+    <IDAppHeader />
+    <UDashboardGroup class="bg-dimmed">
+      <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <RLTeamsMenu :collapsed="collapsed" />
+          <IDTeamsMenu :collapsed="collapsed" />
         </template>
 
         <template #default="{ collapsed }">
@@ -126,25 +204,22 @@ const groups = computed(() => [
             tooltip
             popover
           />
+        </template>
 
+        <template #footer="{ collapsed }">
           <UNavigationMenu
             :collapsed="collapsed"
             :items="links[1]"
             orientation="vertical"
             tooltip
-            class="mt-auto"
+            class="mt-auto w-full"
           />
-        </template>
-
-        <template #footer="{ collapsed }">
-          <RLUserMenu :collapsed="collapsed" />
         </template>
       </UDashboardSidebar>
       <UDashboardSearch :groups="groups" />
       <slot />
-      <RLNotificationsSlideover />
     </UDashboardGroup>
-  </UMain>
+  </div>
 </template>
 
 <style scoped></style>
