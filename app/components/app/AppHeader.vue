@@ -224,7 +224,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
         <ClientOnly>
         <template v-if="session">
           <div class="flex flex-row items-center gap-md">
-            <UButton color="neutral" variant="link" label="Internal" to="/dashboard" />
+            <UButton color="neutral" variant="link" label="Dashboard" to="/dashboard" />
             <UTooltip text="Notifications">
               <UButton
                 color="neutral"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { breakpointsTailwind } from '@vueuse/core'
-import type { Mail } from '~/types'
+import type { Mail } from '#types'
 
 definePageMeta({
   layout: "dashboard"
@@ -70,7 +70,7 @@ watch(filteredMails, () => {
 
   <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
   <div v-else class="hidden flex-1 items-center justify-center lg:flex">
-    <UIcon name="i-lucide-inbox" class="size-32 text-dimmed" />
+    <UIcon name="lucide:inbox" class="size-32 text-dimmed" />
   </div>
 
   <ClientOnly>
@@ -81,4 +81,3 @@ watch(filteredMails, () => {
     </USlideover>
   </ClientOnly>
 </template>
-

@@ -9,7 +9,7 @@ const links = [
   [
     {
       label: "Notes",
-      icon: "i-lucide-sticky-note",
+      icon: "lucide:sticky-note",
       to: "/dashboard/notes",
       exact: true
     }
@@ -17,12 +17,12 @@ const links = [
   [
     {
       label: "Archive",
-      icon: "i-lucide-archive",
+      icon: "lucide:archive",
       to: "/dashboard/notes/archive"
     },
     {
       label: "Trash",
-      icon: "i-lucide-trash-2",
+      icon: "lucide:trash-2",
       to: "/dashboard/notes/trash"
     }
   ]
