@@ -1,3 +1,3 @@
 User-agent: *
 Disallow: /internal
-Sitemap: https://idantity.me/sitemap.xml
+Sitemap: https://rimelight.com/sitemap.xml

@@ -1,1 +1,0 @@
-import{C as e,Lr as t,oi as n}from"./DzTdX39x.js";var r={};function i(e,r){return n(),t(`div`)}var a=e(r,[[`render`,i]]);export{a as default};

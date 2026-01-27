@@ -10,7 +10,7 @@ const links = computed<NavigationMenuItem[][]>(() => ([
       {
         label: 'Overview',
         icon: 'lucide:home',
-        to: '/internal/health',
+        to: '/dashboard/health',
         exact: true
       },
       {

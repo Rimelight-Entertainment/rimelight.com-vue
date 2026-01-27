@@ -14,32 +14,35 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 interface _GlobalComponents {
-  'IDAudioPlayer': typeof import("../../app/components/AudioPlayer.vue").default
-  'IDFix': typeof import("../../app/components/Fix.vue").default
-  'IDAppFooter': typeof import("../../app/components/app/AppFooter.vue").default
-  'IDAppHeader': typeof import("../../app/components/app/AppHeader.vue").default
-  'IDNotificationsSlideover': typeof import("../../app/components/dashboard/NotificationsSlideover.vue").default
-  'IDTeamsMenu': typeof import("../../app/components/dashboard/TeamsMenu.vue").default
-  'IDAddModal': typeof import("../../app/components/dashboard/customers/AddModal.vue").default
-  'IDDeleteModal': typeof import("../../app/components/dashboard/customers/DeleteModal.vue").default
-  'IDH1': typeof import("../../app/components/headings/H1.vue").default
-  'IDH2': typeof import("../../app/components/headings/H2.vue").default
-  'IDH3': typeof import("../../app/components/headings/H3.vue").default
-  'IDH4': typeof import("../../app/components/headings/H4.vue").default
-  'IDH5': typeof import("../../app/components/headings/H5.vue").default
-  'IDH6': typeof import("../../app/components/headings/H6.vue").default
-  'IDDjMixes': typeof import("../../app/components/internal/music/DjMixes.vue").default
-  'IDExerciseList': typeof import("../../app/components/internal/music/ExerciseList.vue").default
-  'IDPomodoroTimer': typeof import("../../app/components/internal/music/PomodoroTimer.vue").default
-  'IDPracticeRoutine': typeof import("../../app/components/internal/music/PracticeRoutine.vue").default
-  'IDRepertoireList': typeof import("../../app/components/internal/music/RepertoireList.vue").default
-  'IDConfirmModal': typeof import("../../app/components/modals/ConfirmModal.vue").default
-  'IDNoteCard': typeof import("../../app/components/notes/NoteCard.vue").default
-  'IDNoteModal': typeof import("../../app/components/notes/NoteModal.vue").default
-  'IDStretchesList': typeof import("../../app/pages/internal/health/components/StretchesList.vue").default
-  'IDWorkoutList': typeof import("../../app/pages/internal/health/components/WorkoutList.vue").default
-  'IDInboxList': typeof import("../../app/pages/internal/inbox/components/InboxList.vue").default
-  'IDInboxMail': typeof import("../../app/pages/internal/inbox/components/InboxMail.vue").default
+  'RLAudioPlayer': typeof import("../../app/components/AudioPlayer.vue").default
+  'RLFix': typeof import("../../app/components/Fix.vue").default
+  'RLPageVersionSelector': typeof import("../../app/components/PageVersionSelector.vue").default
+  'RLAppFooter': typeof import("../../app/components/app/AppFooter.vue").default
+  'RLAppHeader': typeof import("../../app/components/app/AppHeader.vue").default
+  'RLNotificationsSlideover': typeof import("../../app/components/dashboard/NotificationsSlideover.vue").default
+  'RLTeamsMenu': typeof import("../../app/components/dashboard/TeamsMenu.vue").default
+  'RLFocusTimerTool': typeof import("../../app/components/dashboard/floating-tools/FocusTimerTool.vue").default
+  'RLMetronomeTool': typeof import("../../app/components/dashboard/floating-tools/MetronomeTool.vue").default
+  'RLStretchesTool': typeof import("../../app/components/dashboard/floating-tools/StretchesTool.vue").default
+  'RLH1': typeof import("../../app/components/headings/H1.vue").default
+  'RLH2': typeof import("../../app/components/headings/H2.vue").default
+  'RLH3': typeof import("../../app/components/headings/H3.vue").default
+  'RLH4': typeof import("../../app/components/headings/H4.vue").default
+  'RLH5': typeof import("../../app/components/headings/H5.vue").default
+  'RLH6': typeof import("../../app/components/headings/H6.vue").default
+  'RLNoteModal': typeof import("../../app/components/internal/NoteModal.vue").default
+  'RLQuickActions': typeof import("../../app/components/internal/QuickActions.vue").default
+  'RLDjMixes': typeof import("../../app/components/internal/music/DjMixes.vue").default
+  'RLExerciseList': typeof import("../../app/components/internal/music/ExerciseList.vue").default
+  'RLPomodoroTimer': typeof import("../../app/components/internal/music/PomodoroTimer.vue").default
+  'RLPracticeRoutine': typeof import("../../app/components/internal/music/PracticeRoutine.vue").default
+  'RLRepertoireList': typeof import("../../app/components/internal/music/RepertoireList.vue").default
+  'RLConfirmModal': typeof import("../../app/components/modals/ConfirmModal.vue").default
+  'RLNoteCard': typeof import("../../app/components/notes/NoteCard.vue").default
+  'RLStretchesList': typeof import("../../app/pages/internal/health/components/StretchesList.vue").default
+  'RLWorkoutList': typeof import("../../app/pages/internal/health/components/WorkoutList.vue").default
+  'RLInboxList': typeof import("../../app/pages/internal/inbox/components/InboxList.vue").default
+  'RLInboxMail': typeof import("../../app/pages/internal/inbox/components/InboxMail.vue").default
   'RCFooterDVue': typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Footer.d.vue").default
   'RCFooter': typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Footer.vue").default
   'RCHeaderDVue': typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Header.d.vue").default
@@ -377,32 +380,35 @@ interface _GlobalComponents {
   'Html': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Html
   'Body': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Body
   'NuxtIsland': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island").default
-  'LazyIDAudioPlayer': LazyComponent<typeof import("../../app/components/AudioPlayer.vue").default>
-  'LazyIDFix': LazyComponent<typeof import("../../app/components/Fix.vue").default>
-  'LazyIDAppFooter': LazyComponent<typeof import("../../app/components/app/AppFooter.vue").default>
-  'LazyIDAppHeader': LazyComponent<typeof import("../../app/components/app/AppHeader.vue").default>
-  'LazyIDNotificationsSlideover': LazyComponent<typeof import("../../app/components/dashboard/NotificationsSlideover.vue").default>
-  'LazyIDTeamsMenu': LazyComponent<typeof import("../../app/components/dashboard/TeamsMenu.vue").default>
-  'LazyIDAddModal': LazyComponent<typeof import("../../app/components/dashboard/customers/AddModal.vue").default>
-  'LazyIDDeleteModal': LazyComponent<typeof import("../../app/components/dashboard/customers/DeleteModal.vue").default>
-  'LazyIDH1': LazyComponent<typeof import("../../app/components/headings/H1.vue").default>
-  'LazyIDH2': LazyComponent<typeof import("../../app/components/headings/H2.vue").default>
-  'LazyIDH3': LazyComponent<typeof import("../../app/components/headings/H3.vue").default>
-  'LazyIDH4': LazyComponent<typeof import("../../app/components/headings/H4.vue").default>
-  'LazyIDH5': LazyComponent<typeof import("../../app/components/headings/H5.vue").default>
-  'LazyIDH6': LazyComponent<typeof import("../../app/components/headings/H6.vue").default>
-  'LazyIDDjMixes': LazyComponent<typeof import("../../app/components/internal/music/DjMixes.vue").default>
-  'LazyIDExerciseList': LazyComponent<typeof import("../../app/components/internal/music/ExerciseList.vue").default>
-  'LazyIDPomodoroTimer': LazyComponent<typeof import("../../app/components/internal/music/PomodoroTimer.vue").default>
-  'LazyIDPracticeRoutine': LazyComponent<typeof import("../../app/components/internal/music/PracticeRoutine.vue").default>
-  'LazyIDRepertoireList': LazyComponent<typeof import("../../app/components/internal/music/RepertoireList.vue").default>
-  'LazyIDConfirmModal': LazyComponent<typeof import("../../app/components/modals/ConfirmModal.vue").default>
-  'LazyIDNoteCard': LazyComponent<typeof import("../../app/components/notes/NoteCard.vue").default>
-  'LazyIDNoteModal': LazyComponent<typeof import("../../app/components/notes/NoteModal.vue").default>
-  'LazyIDStretchesList': LazyComponent<typeof import("../../app/pages/internal/health/components/StretchesList.vue").default>
-  'LazyIDWorkoutList': LazyComponent<typeof import("../../app/pages/internal/health/components/WorkoutList.vue").default>
-  'LazyIDInboxList': LazyComponent<typeof import("../../app/pages/internal/inbox/components/InboxList.vue").default>
-  'LazyIDInboxMail': LazyComponent<typeof import("../../app/pages/internal/inbox/components/InboxMail.vue").default>
+  'LazyRLAudioPlayer': LazyComponent<typeof import("../../app/components/AudioPlayer.vue").default>
+  'LazyRLFix': LazyComponent<typeof import("../../app/components/Fix.vue").default>
+  'LazyRLPageVersionSelector': LazyComponent<typeof import("../../app/components/PageVersionSelector.vue").default>
+  'LazyRLAppFooter': LazyComponent<typeof import("../../app/components/app/AppFooter.vue").default>
+  'LazyRLAppHeader': LazyComponent<typeof import("../../app/components/app/AppHeader.vue").default>
+  'LazyRLNotificationsSlideover': LazyComponent<typeof import("../../app/components/dashboard/NotificationsSlideover.vue").default>
+  'LazyRLTeamsMenu': LazyComponent<typeof import("../../app/components/dashboard/TeamsMenu.vue").default>
+  'LazyRLFocusTimerTool': LazyComponent<typeof import("../../app/components/dashboard/floating-tools/FocusTimerTool.vue").default>
+  'LazyRLMetronomeTool': LazyComponent<typeof import("../../app/components/dashboard/floating-tools/MetronomeTool.vue").default>
+  'LazyRLStretchesTool': LazyComponent<typeof import("../../app/components/dashboard/floating-tools/StretchesTool.vue").default>
+  'LazyRLH1': LazyComponent<typeof import("../../app/components/headings/H1.vue").default>
+  'LazyRLH2': LazyComponent<typeof import("../../app/components/headings/H2.vue").default>
+  'LazyRLH3': LazyComponent<typeof import("../../app/components/headings/H3.vue").default>
+  'LazyRLH4': LazyComponent<typeof import("../../app/components/headings/H4.vue").default>
+  'LazyRLH5': LazyComponent<typeof import("../../app/components/headings/H5.vue").default>
+  'LazyRLH6': LazyComponent<typeof import("../../app/components/headings/H6.vue").default>
+  'LazyRLNoteModal': LazyComponent<typeof import("../../app/components/internal/NoteModal.vue").default>
+  'LazyRLQuickActions': LazyComponent<typeof import("../../app/components/internal/QuickActions.vue").default>
+  'LazyRLDjMixes': LazyComponent<typeof import("../../app/components/internal/music/DjMixes.vue").default>
+  'LazyRLExerciseList': LazyComponent<typeof import("../../app/components/internal/music/ExerciseList.vue").default>
+  'LazyRLPomodoroTimer': LazyComponent<typeof import("../../app/components/internal/music/PomodoroTimer.vue").default>
+  'LazyRLPracticeRoutine': LazyComponent<typeof import("../../app/components/internal/music/PracticeRoutine.vue").default>
+  'LazyRLRepertoireList': LazyComponent<typeof import("../../app/components/internal/music/RepertoireList.vue").default>
+  'LazyRLConfirmModal': LazyComponent<typeof import("../../app/components/modals/ConfirmModal.vue").default>
+  'LazyRLNoteCard': LazyComponent<typeof import("../../app/components/notes/NoteCard.vue").default>
+  'LazyRLStretchesList': LazyComponent<typeof import("../../app/pages/internal/health/components/StretchesList.vue").default>
+  'LazyRLWorkoutList': LazyComponent<typeof import("../../app/pages/internal/health/components/WorkoutList.vue").default>
+  'LazyRLInboxList': LazyComponent<typeof import("../../app/pages/internal/inbox/components/InboxList.vue").default>
+  'LazyRLInboxMail': LazyComponent<typeof import("../../app/pages/internal/inbox/components/InboxMail.vue").default>
   'LazyRCFooterDVue': LazyComponent<typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Footer.d.vue").default>
   'LazyRCFooter': LazyComponent<typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Footer.vue").default>
   'LazyRCHeaderDVue': LazyComponent<typeof import("../../node_modules/rimelight-components/dist/runtime/components/app/Header.d.vue").default>

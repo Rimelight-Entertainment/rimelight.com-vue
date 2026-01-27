@@ -65,10 +65,10 @@ watch(filteredMails, () => {
         <UTabs v-model="selectedTab" :items="tabItems" :content="false" size="xs" />
       </template>
     </UDashboardNavbar>
-    <IDInboxList v-model="selectedMail" :mails="filteredMails!" />
+    <RLInboxList v-model="selectedMail" :mails="filteredMails!" />
   </UDashboardPanel>
 
-  <IDInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
+  <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
   <div v-else class="hidden flex-1 items-center justify-center lg:flex">
     <UIcon name="i-lucide-inbox" class="size-32 text-dimmed" />
   </div>
@@ -76,8 +76,9 @@ watch(filteredMails, () => {
   <ClientOnly>
     <USlideover v-if="isMobile" v-model:open="isMailPanelOpen">
       <template #content>
-        <IDInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
+        <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
       </template>
     </USlideover>
   </ClientOnly>
 </template>
+

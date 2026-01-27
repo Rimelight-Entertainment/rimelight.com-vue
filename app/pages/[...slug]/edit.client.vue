@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { type Block, type Page } from "rimelight-components/types"
 import { getLocalizedContent } from "rimelight-components/utils"
 import { PAGE_MAP as pageDefinitions } from "~/types"
 import { useQuery, useQueryCache } from "@pinia/colada"
 import { pageBySlugQuery } from "~/queries"
+import type { PageVersion } from "~/components/PageVersionSelector.vue"
 
 const router = useRouter()
 const appConfig = useAppConfig()
@@ -28,9 +29,13 @@ const slug = computed(() => {
 
 const editorBlocks = ref<Block[]>([])
 const isSaving = ref(false)
+const currentVersionId = ref<string | null>(null)
+const isViewingVersion = ref(false)
+const displayedPage = ref<Page | null>(null)
 
 const {
   state: pageState,
+  refetch: refetchPage
 } = useQuery(pageBySlugQuery(slug))
 
 const resolvePage = async (id: string) => {
@@ -51,18 +56,81 @@ const handleSave = async (updatedPage: Page): Promise<void> => {
 
   try {
     // UPDATED: Changed $fetch to $api
-    await $api(`/api/pages/id/${updatedPage.id}`, {
+    const result = await $api<{ message?: string }>(`/api/pages/id/${updatedPage.id}`, {
       method: "PUT",
       body: updatedPage
     })
 
-    toast.add({ color: "success", title: t("toast_save-post_success_title") })
-  } catch (e) {
-    toast.add({ color: "error", title: t("toast_save-post_error_title") })
+    toast.add({ 
+      color: "success", 
+      title: "Version created",
+      description: result?.message || "Your changes have been saved as a new version pending approval"
+    })
+    
+    // Refresh the page data
+    await refetchPage()
+  } catch (e: any) {
+    toast.add({ 
+      color: "error", 
+      title: t("toast_save-post_error_title"),
+      description: e.message || "Failed to save version"
+    })
   } finally {
     isSaving.value = false
   }
 }
+
+const handleVersionSelected = async (version: PageVersion) => {
+  isViewingVersion.value = true
+  currentVersionId.value = version.id
+  
+  // Convert version to Page format
+  displayedPage.value = {
+    ...version,
+    id: version.pageId, // Use the page ID, not version ID
+    type: version.type as any,
+    blocks: version.blocks || version.content.blocks,
+    properties: version.properties || version.content.properties,
+    authorsIds: version.authorIds
+  } as Page
+}
+
+const handleVersionApproved = async () => {
+  // Refresh the page data after approval
+  await refetchPage()
+  
+  // If we were viewing a version, switch back to live
+  if (isViewingVersion.value) {
+    currentVersionId.value = null
+    isViewingVersion.value = false
+    displayedPage.value = null
+  }
+}
+
+const handleVersionReverted = async () => {
+  // Refresh the page data after revert
+  await refetchPage()
+  
+  // Always switch back to live after revert
+  currentVersionId.value = null
+  isViewingVersion.value = false
+  displayedPage.value = null
+}
+
+// Watch for page state changes and reset version view if needed
+watch(() => pageState.value.data, (newPage) => {
+  if (newPage && !isViewingVersion.value) {
+    displayedPage.value = null
+  }
+}, { immediate: true })
+
+// Computed page to display (version or live)
+const pageToDisplay = computed(() => {
+  if (isViewingVersion.value && displayedPage.value) {
+    return displayedPage.value
+  }
+  return pageState.value.data || null
+})
 
 /**
  * Handler for creating a new page
@@ -206,15 +274,48 @@ useSeoMeta({
     />
   </template>
   <template v-else>
-    <RCPageEditor
-        v-model="pageState.data"
-        :is-saving="isSaving"
-        :page-definitions="pageDefinitions"
-        :resolve-page="resolvePage"
-        :on-create-page="handleCreate"
-        :on-delete-page="handleDelete"
-        @save="handleSave"
-    />
+    <div class="relative">
+      <!-- Version Selector - positioned in header area -->
+      <div class="fixed top-20 right-4 z-50">
+        <PageVersionSelector
+          v-if="pageState.data?.id"
+          :page-id="pageState.data.id"
+          v-model:current-version-id="currentVersionId"
+          @version-selected="handleVersionSelected"
+          @version-approved="handleVersionApproved"
+          @version-reverted="handleVersionReverted"
+        />
+      </div>
+      
+      <!-- Version indicator banner -->
+      <div
+        v-if="isViewingVersion"
+        class="fixed top-0 left-0 right-0 z-40 bg-warning-500 text-white px-4 py-2 text-sm text-center"
+      >
+        <div class="flex items-center justify-center gap-2">
+          <UIcon name="lucide:eye" />
+          <span>Viewing a previous version. Changes made here will create a new version.</span>
+          <UButton
+            icon="lucide:x"
+            color="neutral"
+            variant="ghost"
+            size="xs"
+            @click="currentVersionId = null; isViewingVersion = false; displayedPage = null"
+          />
+        </div>
+      </div>
+      
+      <RCPageEditor
+          v-if="pageToDisplay"
+          v-model="pageToDisplay"
+          :is-saving="isSaving"
+          :page-definitions="pageDefinitions"
+          :resolve-page="resolvePage"
+          :on-create-page="handleCreate"
+          :on-delete-page="handleDelete"
+          @save="handleSave"
+      />
+    </div>
   </template>
 </template>
 

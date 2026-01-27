@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm"
-import { db, pages } from "../../../db"
+import { db, pages, pageVersions } from "../../../db"
 import { getUserSession } from "~~/server/utils/session"
 
 export default defineEventHandler(async (event) => {
@@ -15,38 +15,64 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 403, statusMessage: "Unauthorized" })
     }
 
-    const updateData = {
+    if (!session?.user?.id) {
+        throw createError({ statusCode: 401, statusMessage: "User not authenticated" })
+    }
+
+    // 2. Verify page exists
+    const [existingPage] = await db
+        .select()
+        .from(pages)
+        .where(eq(pages.id, id))
+        .limit(1)
+
+    if (!existingPage) {
+        throw createError({ statusCode: 404, statusMessage: "Page not found" })
+    }
+
+    // 3. Create a new version instead of directly updating
+    const versionData = {
+        pageId: id,
+        status: "pending" as const,
         slug: body.slug,
+        type: existingPage.type, // Keep the original type
         title: body.title,
         description: body.description,
-        image: body.image,
-        tags: body.tags,
-        authorIds: body.authorIds,
-        posted_at: body.posted_at ? new Date(body.posted_at) : null,
-        updatedAt: new Date(),
+        tags: body.tags || [],
+        authorIds: body.authorIds || [],
         content: {
             properties: body.properties || {},
             blocks: body.blocks || []
-        }
+        },
+        posted_at: body.posted_at ? new Date(body.posted_at) : null,
+        createdBy: session.user.id
     }
 
     try {
-        const [updatedPage] = await db.update(pages).set(updateData).where(eq(pages.id, id)).returning()
+        const [newVersion] = await db
+            .insert(pageVersions)
+            .values(versionData)
+            .returning()
 
-        if (!updatedPage) {
-            throw createError({ statusCode: 404, statusMessage: "Page not found" })
+        if (!newVersion) {
+            throw createError({
+                statusCode: 500,
+                statusMessage: "Failed to create page version"
+            })
         }
 
+        // Return the version with a message indicating it's pending approval
         return {
-            ...updatedPage,
-            blocks: updatedPage.content.blocks,
-            properties: updatedPage.content.properties
+            ...newVersion,
+            blocks: newVersion.content.blocks,
+            properties: newVersion.content.properties,
+            message: "Page changes saved as a new version pending approval"
         }
     } catch (error: any) {
-        console.error("Update Error:", error)
+        console.error("Version Creation Error:", error)
         throw createError({
             statusCode: 500,
-            statusMessage: error.message || "Failed to update page"
+            statusMessage: error.message || "Failed to create page version"
         })
     }
 })

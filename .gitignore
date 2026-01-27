@@ -18,7 +18,7 @@ logs
 .fleet
 .idea
 
-# Local env files
+# Local env Files
 .env
 .env.*
 !.env.example
@@ -28,5 +28,10 @@ logs
 /server/db/drizzle/_journal.json
 /server/db/drizzle/*_draft.sql
 
-# Cloudflare files
+# Cloudflare Files
 .wrangler
+
+# Tauri Files
+*.keystore
+*.jks
+/src-tauri/gen/android/keystore.properties

@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
   // User is not authenticated
   if (!session.value) {
-    if (to.path === "/internal") {
+    if (to.path === "/dashboard") {
       return navigateTo("/auth/sign-in");
     }
     if (to.path === "/blog/drafts") {

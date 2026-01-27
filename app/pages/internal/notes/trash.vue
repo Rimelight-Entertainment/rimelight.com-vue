@@ -94,7 +94,7 @@ const confirmBatchDelete = async () => {
     />
 
     <div v-else class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <IDNoteCard
+      <RLNoteCard
         v-for="note in notes"
         :key="note.id"
         :note="note"
@@ -104,7 +104,8 @@ const confirmBatchDelete = async () => {
         @archive="handleRestore(note.id)"
         @delete="handleDeleteForever(note.id)"
       >
-      </IDNoteCard>
+      </RLNoteCard>
     </div>
   </div>
 </template>
+

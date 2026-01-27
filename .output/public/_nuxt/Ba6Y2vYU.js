@@ -1,1 +1,0 @@
-import{Hr as e,Lr as t,_r as n,oi as r}from"./DzTdX39x.js";var i=e({__name:`about`,setup(e){return n({title:`me.about`}),(e,n)=>(r(),t(`div`))}});export{i as default};

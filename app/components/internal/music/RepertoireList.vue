@@ -142,7 +142,6 @@ async function handlePdfUpload(file: File | File[] | null | undefined, item: Rep
     const files = Array.isArray(file) ? file : [file];
     if (files.length === 0) return;
 
-    // We only upload NEW files (those that don't have our internal _id)
     const newFiles = files.filter(f => !(f as any)._id);
     
     for (const f of newFiles) {

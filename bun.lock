@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "idantity-me",
+      "name": "rimelight.com",
       "dependencies": {
         "@neondatabase/serverless": "^1.0.2",
         "@nuxt/image": "^2.0.0",
@@ -33,7 +33,7 @@
         "nuxt": "npm:nuxt-nightly@latest",
         "nuxt-og-image": "^5.1.13",
         "pinia": "^3.0.4",
-        "rimelight-components": "^2.1.27",
+        "rimelight-components": "^2.1.31",
         "uuid": "^13.0.0",
         "vue": "^3.5.26",
         "vue-router": "^4.6.4",
@@ -2490,7 +2490,7 @@
 
     "rfdc": ["rfdc@1.4.1", "", {}, "sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA=="],
 
-    "rimelight-components": ["rimelight-components@2.1.27", "", { "dependencies": { "@nuxt/kit": "^4.2.2", "@vueuse/core": "^14.1.0", "date-fns": "^4.1.0", "defu": "^6.1.4", "drizzle-orm": "^0.45.1", "nuxt": "^4.2.2", "tailwind-variants": "^3.2.2", "uuid": "^13.0.0", "vue": "^3.5.26", "zod": "^4.2.1" }, "peerDependencies": { "@nuxt/image": "^2.0.0", "@nuxt/ui": "^4.2.0", "@nuxtjs/i18n": "^10.2.1", "@vueuse/nuxt": "^14.1.0" } }, "sha512-YVLoOi/E96eMOdDd76CwYfiIBAm072pMWfnFQk6R6SHXeOtv67hq4hzmIJFckhbqq4hAPJd43PVuFxezzq2p7g=="],
+    "rimelight-components": ["rimelight-components@2.1.31", "", { "dependencies": { "@nuxt/kit": "^4.2.2", "@vueuse/core": "^14.1.0", "date-fns": "^4.1.0", "defu": "^6.1.4", "drizzle-orm": "^0.45.1", "nuxt": "^4.2.2", "tailwind-variants": "^3.2.2", "uuid": "^13.0.0", "vue": "^3.5.26", "zod": "^4.2.1" }, "peerDependencies": { "@nuxt/image": "^2.0.0", "@nuxt/ui": "^4.2.0", "@nuxtjs/i18n": "^10.2.1", "@vueuse/nuxt": "^14.1.0" } }, "sha512-PObKjPtK1OClfJ1LNcFYoo/4hHIyBRDbpqPHj697rhrRWw0DF/imc2In/Z2xxGYFx6xHhCz2mk4dIYiQn3HWgQ=="],
 
     "rimraf": ["rimraf@2.7.1", "", { "dependencies": { "glob": "^7.1.3" }, "bin": { "rimraf": "./bin.js" } }, "sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w=="],
 

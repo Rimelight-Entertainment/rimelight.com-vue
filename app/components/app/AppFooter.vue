@@ -48,12 +48,12 @@ const columns: FooterColumn[] = [
 </script>
 
 <template>
-  <RCFooter class="bg-black z-50">
+  <RCFooter :contain="false" class="bg-black z-50">
     <template #left>
       <RCNewsletterSignup class="max-w-64" />
       <div class="flex flex-col items-center gap-xs lg:items-start">
         <RCLogo variant="type" class="h-6 w-auto" />
-        <p class="text-sm text-white">Accessing me.</p>
+        <p class="text-sm text-white">Tell your story.</p>
         <span class="text-sm text-white">
           © {{ new Date().getFullYear() }} {{ appConfig.title }}
         </span>
@@ -104,7 +104,7 @@ const columns: FooterColumn[] = [
             variant="ghost"
             color="neutral"
             icon="mdi:github"
-            to="https://www.github.com/idantitydotme"
+            to="https://www.github.com/rimelight"
             class="text-white hover:text-primary-100"
           />
           <UButton
@@ -112,7 +112,7 @@ const columns: FooterColumn[] = [
             variant="ghost"
             color="neutral"
             icon="mdi:linkedin"
-            to="https://www.linkedin.com/daniel-marchi"
+            to="https://www.linkedin.com/company/rimelight"
             class="text-white hover:text-primary-100"
           />
         </div>

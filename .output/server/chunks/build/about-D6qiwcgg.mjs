@@ -1,2 +1,0 @@
-import{v as e,u as o,a as t}from"./WithEmoji.d.vue-BjQky10p.mjs";import"../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";var r=e.defineComponent({__name:"about",__ssrInlineRender:!0,setup:e=>(o({title:"me.about"}),(e,o,r,s)=>{o(`<div${t(s)}></div>`)})}),s=r.setup;r.setup=(o,t)=>{const r=e.useSSRContext();return(r.modules||(r.modules=new Set)).add("pages/about.vue"),s?s(o,t):void 0};var i=r;export{i as default};
-//# sourceMappingURL=about-D6qiwcgg.mjs.map

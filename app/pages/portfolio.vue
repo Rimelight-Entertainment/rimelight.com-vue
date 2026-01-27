@@ -2,10 +2,8 @@
 import { differenceInYears } from "date-fns"
 
 useHead({
-  title: `me.portfolio`
+  title: `portfolio`
 })
-
-const age = differenceInYears(new Date(1997, 3, 30), new Date())
 
 const englishProgress = ref(100)
 const portugueseProgress = ref(100)
@@ -20,11 +18,11 @@ const romanianProgress = ref(25)
         <div class="flex h-fit flex-col gap-lg border-1 border-primary-500 bg-neutral-900 p-lg">
           <div class="flex flex-col items-center justify-center gap-sm">
             <NuxtImg
-              src="https://cdn.rimelight.com/images/me/daniel-marchi.webp"
-              alt="Daniel Marchi"
+              src="https://cdn.rimelight.com/images/meta/logo.webp"
+              alt="Rimelight Entertainment"
               class="h-24 w-24 rounded-full"
             />
-            <h1 class="text-white">Daniel Marchi</h1>
+            <h1 class="text-white">Rimelight Entertainment</h1>
             <UButton
               variant="ghost"
               color="neutral"
@@ -52,13 +50,13 @@ const romanianProgress = ref(25)
               <UButton
                 variant="ghost"
                 icon="mdi:linkedin"
-                to="https://www.linkedin.com/daniel-marchi"
+                to="https://www.linkedin.com/company/rimelight"
                 :ui="{ leadingIcon: 'text-white' }"
               />
               <UButton
                 variant="ghost"
                 icon="mdi:github"
-                to="https://www.github.com/idantitydotme"
+                to="https://www.github.com/rimelight"
                 :ui="{ leadingIcon: 'text-white' }"
               />
             </UFieldGroup>
@@ -70,24 +68,15 @@ const romanianProgress = ref(25)
           <div class="flex flex-col gap-sm">
             <div class="flex flex-row items-center gap-md">
               <UIcon name="lucide:article-person" size="xs" />
-              <h5 class="text-white">About Me</h5>
+              <h5 class="text-white">About Us</h5>
             </div>
             <USeparator />
             <ul class="text-white">
               <li>
-                <span class="text-sm text-white"><strong>Name:</strong> Daniel Marchi</span>
+                <span class="text-sm text-white"><strong>Name:</strong> Rimelight Entertainment</span>
               </li>
               <li>
-                <span class="text-sm text-white"><strong>Gender:</strong> Male</span>
-              </li>
-              <li>
-                <span class="text-sm text-white"><strong>Pronouns:</strong> He / Him</span>
-              </li>
-              <li>
-                <span class="text-sm text-white"><strong>Nationality:</strong> Brazilian</span>
-              </li>
-              <li>
-                <span class="text-sm text-white"><strong>Age:</strong> {{ age }}</span>
+                <span class="text-sm text-white"><strong>Location:</strong> Curitiba, Brazil</span>
               </li>
             </ul>
           </div>
@@ -456,31 +445,7 @@ const romanianProgress = ref(25)
             </div>
             <USeparator />
           </div>
-          <UCard variant="subtle">
-            <div class="flex flex-col gap-xs">
-              <h3 class="text-white">Technologist of Digital Games</h3>
-              <span class="text-sm text-neutral-300"
-                >PUCPR - Pontifícia Universidade Católica do Paraná</span
-              >
-              <span class="text-xs text-neutral-400">2020 - 2022</span>
-            </div>
-          </UCard>
-          <UCard variant="subtle">
-            <div class="flex flex-col gap-xs">
-              <h3 class="text-white">Bachelor of Music</h3>
-              <span class="text-sm text-neutral-300">UFPR - Universidade Federal do Paraná</span>
-              <span class="text-xs text-neutral-400">2018 - 2022</span>
-            </div>
-          </UCard>
-        </section>
-        <section class="flex flex-col gap-lg border-1 border-primary-500 bg-neutral-900 p-lg">
-          <div class="flex flex-col gap-md">
-            <div class="flex flex-row items-center gap-md">
-              <UIcon name="lucide:workspace-premium" />
-              <h2 class="text-white">Certifications</h2>
-            </div>
-            <USeparator />
-          </div>
+          <RCPlaceholder class="h-12" />
         </section>
         <section class="flex flex-col gap-lg border-1 border-primary-500 bg-neutral-900 p-lg">
           <div class="flex flex-col gap-md">
@@ -490,65 +455,7 @@ const romanianProgress = ref(25)
             </div>
             <USeparator />
           </div>
-          <UCard variant="subtle">
-            <div class="flex flex-col gap-xs">
-              <h3 class="text-white">Junior Game Programmer</h3>
-              <span class="text-sm text-neutral-300"
-                ><a href="https://compass.uol">Compass.UOL</a></span
-              >
-              <span class="text-xs text-neutral-400">Nov 2022 - Mar 2023</span>
-              <ul class="list-inside list-disc text-white">
-                <li>
-                  <span class="text-white"
-                    >Development of real-time 3D virtual experiences related to E-Commerce in Unreal
-                    Engine.</span
-                  >
-                </li>
-                <li>
-                  <span class="text-white">Elaboration of high-fidelity interface mockups.</span>
-                </li>
-                <li>
-                  <span class="text-white"
-                    >Project documentation and comparative analytical breakdowns for
-                    stakeholders.</span
-                  >
-                </li>
-              </ul>
-            </div>
-          </UCard>
-          <UCard variant="subtle">
-            <div class="flex flex-col gap-xs">
-              <h3 class="text-white">Trainee Game Programmer</h3>
-              <span class="text-sm text-neutral-300"
-                ><a href="https://compass.uol">Compass.UOL</a></span
-              >
-              <span class="text-xs text-neutral-400">Jul 2021 - Oct 2021</span>
-              <ul class="list-inside list-disc text-white">
-                <li>
-                  <span class="text-white"
-                    >Development of real-time 3D virtual experiences related to E-Commerce in Unreal
-                    Engine.</span
-                  >
-                </li>
-              </ul>
-            </div>
-          </UCard>
-          <UCard variant="subtle">
-            <div class="flex flex-col gap-xs">
-              <h3 class="text-white">Intern Game Programmer</h3>
-              <span class="text-sm text-neutral-300"
-                ><a href="https://compass.uol">Compass.UOL</a></span
-              >
-              <span class="text-xs text-neutral-400">Feb 2021 - Jun 2021</span>
-              <ul class="list-inside list-disc text-white">
-                <li>
-                  <span class="text-white"
-                    >Training exercises and problem solving activities in Unreal Engine.</span
-                  >
-                </li>
-              </ul>
-            </div>
-          </UCard>
+          <RCPlaceholder class="h-12" />
         </section>
       </div>
     </UPage>

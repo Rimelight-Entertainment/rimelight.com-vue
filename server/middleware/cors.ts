@@ -3,7 +3,7 @@ export default defineEventHandler((event) => {
 
     // Define allowed origins (Add your production URL and Tauri defaults)
     const allowedOrigins = [
-        'https://idantity.me',
+        'https://rimelight.com',
         'tauri://localhost',
         'http://localhost:1420', // Default Tauri dev port
     ];

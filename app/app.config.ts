@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  title: "rimelight.com",
+  title: "Rimelight Entertainment",
   description: "Tell your story.",
   cdn: "https://cdn.rimelight.com",
   logomark: "first-party:logomark-white",

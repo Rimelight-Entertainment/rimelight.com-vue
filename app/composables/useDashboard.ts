@@ -1,22 +1,22 @@
-import { watch } from "vue";
-import { useRoute, useState } from "#imports";
+import { watch } from "vue"
+import { useRoute, useState } from "#imports"
 
 export const useDashboard = () => {
-  const route = useRoute();
+  const route = useRoute()
 
   const isNotificationsSlideoverOpen = useState<boolean>(
     "dashboard:notificationsSlideover",
     () => false
-  );
+  )
 
   watch(
     () => route.fullPath,
     () => {
-      isNotificationsSlideoverOpen.value = false;
+      isNotificationsSlideoverOpen.value = false
     }
-  );
+  )
 
   return {
     isNotificationsSlideoverOpen
-  };
-};
+  }
+}

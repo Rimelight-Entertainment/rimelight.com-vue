@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import PracticeRoutine from "~/components/internal/music/PracticeRoutine.vue";
-import ExerciseList from "~/components/internal/music/ExerciseList.vue";
-import DjMixes from "~/components/internal/music/DjMixes.vue";
-import PomodoroTimer from "~/components/internal/music/PomodoroTimer.vue";
+import PracticeRoutine from "~/components/dashboard/music/PracticeRoutine.vue";
+import ExerciseList from "~/components/dashboard/music/ExerciseList.vue";
+import DjMixes from "~/components/dashboard/music/DjMixes.vue";
+import PomodoroTimer from "~/components/dashboard/music/PomodoroTimer.vue";
 import type { MusicData } from "~~/server/db/schema/music/music";
 
 definePageMeta({

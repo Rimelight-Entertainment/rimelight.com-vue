@@ -1,148 +1,108 @@
 <script setup lang="ts">
+import { useHeaderStack } from "rimelight-components/composables"
 import type { NavigationMenuItem } from "@nuxt/ui"
+import FocusTimerTool from "~/components/dashboard/floating-tools/FocusTimerTool.vue"
+
+const { totalOffset } = useHeaderStack()
+
+const { registerTool, openTool } = useFloatingTools()
+const { registerAction } = useQuickActions()
+
+const focusTimer = useFocusTimer()
+const metronome = useMetronome()
+const stretches = useStretches()
+
+registerTool({
+  id: 'focusTimer',
+  title: 'Focus Timer',
+  icon: 'lucide:timer',
+  component: markRaw(FocusTimerTool),
+  tooltip: () => useFocusTimer().formattedTime.value,
+  onClose: () => useFocusTimer().resetTimer()
+})
+
+watch([focusTimer.isRunning], ([timer]) => {
+  if (timer) openTool('focusTimer')
+})
+
+registerAction({
+  id: 'focus-timer-action',
+  label: 'New Focus Timer',
+  icon: 'lucide:timer',
+  group: 0,
+  onSelect: () => openTool('focusTimer')
+})
+
+const isNoteModalOpen = ref(false)
+const { triggerRefresh } = useNotes()
+
+registerAction({
+  id: 'action-new-note',
+  label: 'New Note',
+  icon: 'lucide:sticky-note',
+  group: 1,
+  onSelect: () => {
+    isNoteModalOpen.value = true
+  }
+})
 
 const open = ref(false)
 
 const { user } = useAuth()
+
 const links = computed<NavigationMenuItem[][]>(() => [
   [
-    {
-      label: "Home",
-      icon: "lucide:home",
-      to: "/internal",
-      onSelect: () => {
-        open.value = false
-      }
-    },
-    {
-      label: "Inbox",
-      icon: "lucide:inbox",
-      to: "/internal/inbox",
-      badge: "4",
-      onSelect: () => {
-        open.value = false
-      }
-    },
-    {
-      label: "Customers",
-      icon: "i-lucide-users",
-      to: "/internal/customers",
-      onSelect: () => {
-        open.value = false
-      }
-    },
-    {
-      label: "Notes",
-      icon: "lucide:notebook",
-      to: "/internal/notes",
-      onSelect: () => {
-        open.value = false
-      }
-    },
-    {
-      label: "Habits",
-      icon: "lucide:calendar-check-2",
-      to: "/internal/habits",
-      onSelect: () => {
-        open.value = false
-      }
-    },
-    {
-      label: "Housing",
-      icon: "lucide:building-2",
-      to: "/internal/housing",
-      defaultOpen: true,
-      type: "trigger",
-      children: [
-        {
-          label: "Groceries",
-          icon: "lucide:shopping-cart",
-          to: "/internal/housing/groceries",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
-        },
-        {
-          label: "Pets",
-          icon: "lucide:paw-print",
-          to: "/internal/housing/pets",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
+    [
+      {
+        label: "Home",
+        icon: "lucide:home",
+        to: "/dashboard",
+        defaultOpen: false,
+        onSelect: () => {
+          open.value = false
         }
-      ]
-    },
-    {
-      label: "Health",
-      to: "/internal/health",
-      icon: "lucide:heart-pulse",
-      defaultOpen: true,
-      children: [
-        {
-          label: "Workout",
-          icon: "lucide:biceps-flexed",
-          to: "/internal/health/workout",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
-        }
-      ]
-    },
-    {
-      label: "Music",
-      icon: "lucide:music",
-      to: "/internal/housing",
-      defaultOpen: true,
-      type: "trigger",
-      children: [
-        {
-          label: "DJ",
-          icon: "lucide:disc-3",
-          to: "/internal/music/dj",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
+      },
+      {
+        label: "Inbox",
+        icon: "lucide:inbox",
+        to: "/dashboard/inbox",
+        badge: "4",
+        defaultOpen: false,
+        onSelect: () => {
+          open.value = false
         },
-        {
-          label: "Guitar",
-          icon: "lucide:guitar",
-          to: "/internal/music/guitar",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
-        },
-        {
-          label: "Piano",
-          icon: "lucide:piano",
-          to: "/internal/music/piano",
-          exact: true,
-          onSelect: () => {
-            open.value = false
-          }
+      },
+      {
+        label: "Notes",
+        icon: "lucide:notebook",
+        to: "/dashboard/notes",
+        defaultOpen: false,
+        onSelect: () => {
+          open.value = false
         }
-      ]
-    },
-    {
-      label: "Watchlist",
-      icon: "lucide:play-circle",
-      to: "/internal/watchlist",
-      onSelect: () => {
-        open.value = false
+      },
+      {
+        label: "Projects",
+        icon: "lucide:square-kanban",
+        to: "/dashboard/projects",
+        defaultOpen: false,
+        onSelect: () => {
+          open.value = false
+        }
       }
-    }
+    ],
+    [
+
+    ]
   ],
   [
-    ...(user.value?.role === "admin" || "owner"
+    ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
       ? [
           {
             label: "Admin",
             icon: "lucide:shield-check",
-            to: "/internal/admin",
+            to: "/dashboard/admin",
+            defaultOpen: false,
             onSelect: () => {
               open.value = false
             }
@@ -151,11 +111,20 @@ const links = computed<NavigationMenuItem[][]>(() => [
       : []),
 
     {
-      icon: "i-lucide-message-circle",
+      label: "Users",
+      icon: "lucide-users",
+      to: "/dashboard/users",
+      defaultOpen: false,
+      onSelect: () => {
+        open.value = false
+      }
+    },
+    {
+      icon: "lucide:message-circle",
       label: "Feedback"
     },
     {
-      icon: "i-lucide-info",
+      icon: "lucide:info",
       label: "Help & Support"
     },
     {
@@ -179,7 +148,7 @@ const groups = computed(() => [
       {
         id: "source",
         label: "View page source",
-        icon: "i-simple-icons-github"
+        icon: "simple-icons:github"
       }
     ]
   }
@@ -188,11 +157,16 @@ const groups = computed(() => [
 
 <template>
   <div class="flex h-svh w-full flex-col overflow-hidden">
-    <IDAppHeader />
+    <div :style="{ '--total-header-offset': `${totalOffset}px` }">
+      <RCHeaderLayer id="global-header" :order="2">
+        <RLAppHeader />
+      </RCHeaderLayer>
+    </div>
+
     <UDashboardGroup class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <IDTeamsMenu :collapsed="collapsed" />
+          <RLTeamsMenu :collapsed="collapsed" />
         </template>
 
         <template #default="{ collapsed }">
@@ -219,7 +193,13 @@ const groups = computed(() => [
       <UDashboardSearch :groups="groups" />
       <slot />
     </UDashboardGroup>
+    <RLQuickActions />
+    <RLNoteModal
+      v-model:open="isNoteModalOpen"
+      @saved="triggerRefresh"
+    />
   </div>
 </template>
 
 <style scoped></style>
+

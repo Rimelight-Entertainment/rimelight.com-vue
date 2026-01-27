@@ -66,7 +66,7 @@ async function updateEmail() {
   isUpdatingEmail.value = true
   const { error } = await authClient.changeEmail({
     newEmail: emailState.newEmail,
-    callbackURL: "/internal"
+    callbackURL: "/dashboard"
   })
 
   if (error) {

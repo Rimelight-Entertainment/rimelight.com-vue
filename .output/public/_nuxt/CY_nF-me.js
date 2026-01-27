@@ -1,1 +1,0 @@
-import{Nr as e,On as t,mn as n}from"./DzTdX39x.js";function r(r){return e(()=>t(r)?!!n(r)?.closest(`form`):!0)}export{r as t};

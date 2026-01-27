@@ -1,2 +1,0 @@
-import{d as e,g as r,c as o,f as s,w as t,i as a,k as n}from"../../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const i=e(async e=>{var i;const d=await r(e),u=null==(i=null==d?void 0:d.user)?void 0:i.id;if(!u)throw o({statusCode:401,statusMessage:"Unauthorized"});return s.query.noteLabel.findMany({where:a(n.userId,u),orderBy:[t(n.name)]})});export{i as default};
-//# sourceMappingURL=index.get.mjs.map

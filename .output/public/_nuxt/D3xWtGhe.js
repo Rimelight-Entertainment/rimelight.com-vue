@@ -1,1 +1,0 @@
-import{Di as e,In as t,Lr as n,Vi as r,hi as i,oi as a,w as o,wi as s}from"./DzTdX39x.js";var c={__name:`RCTextNode`,props:{content:{type:String,required:!0},rc:{type:Object,required:!1}},emits:[],setup(c,{emit:l}){i();let{rc:u}=t(`TextNode`,c.rc),{root:d}=o({slots:{root:``}})();return(t,i)=>(a(),n(`span`,{class:s(r(d)({class:r(u).root}))},e(c.content),3))}};export{c as t};

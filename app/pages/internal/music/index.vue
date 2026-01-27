@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import PracticeRoutine from "~/components/internal/music/PracticeRoutine.vue";
-import ExerciseList from "~/components/internal/music/ExerciseList.vue";
-import RepertoireList from "~/components/internal/music/RepertoireList.vue";
-import DjMixes from "~/components/internal/music/DjMixes.vue";
+import PracticeRoutine from "~/components/dashboard/music/PracticeRoutine.vue";
+import ExerciseList from "~/components/dashboard/music/ExerciseList.vue";
+import RepertoireList from "~/components/dashboard/music/RepertoireList.vue";
+import DjMixes from "~/components/dashboard/music/DjMixes.vue";
 import type { MusicData, RoutineCategory, Exercise, RepertoireItem, DjMix } from "~~/server/db/schema/music/music";
 
 definePageMeta({

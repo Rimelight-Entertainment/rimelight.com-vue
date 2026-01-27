@@ -22,7 +22,7 @@ const { data: notifications } =
       <NuxtLink
         v-for="notification in notifications"
         :key="notification.id"
-        :to="`/internal/inbox?id=${notification.id}`"
+        :to="`/dashboard/inbox?id=${notification.id}`"
         class="relative -mx-3 flex items-center gap-3 rounded-md px-3 py-2.5 first:-mt-3 last:-mb-3 hover:bg-elevated/50"
       >
         <UChip color="error" :show="!!notification.unread" inset>

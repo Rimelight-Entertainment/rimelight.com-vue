@@ -11,7 +11,7 @@ useHead({
     <UPage class="py-12">
       <RCSection :level="1" :title="t('page_music_title')">
         <RCSection :level="2" :title="t('page_music_section_mixes_title')">
-          <IDAudioPlayer
+          <RLAudioPlayer
             imageSrc="https://placehold.co/512x512"
             image-alt="Placeholder"
             audioSrc="https://cdn.rimelight.com/music/Bishu%20-%20ikari.mp3"
@@ -65,3 +65,4 @@ useHead({
 </template>
 
 <style scoped></style>
+

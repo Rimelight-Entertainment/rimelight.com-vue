@@ -87,7 +87,7 @@ watch(
 async function addYear(yearStr: string) {
     const year = parseInt(yearStr);
     if (!year || isNaN(year)) return;
-    
+
     try {
         await $api("/api/habits", {
             method: "POST",
@@ -107,15 +107,15 @@ async function addYear(yearStr: string) {
 
 async function addCategory(name: string) {
     if (!currentYear.value || !name) return;
-    
+
     const yearNum = currentYear.value.year;
     try {
         await $api("/api/habits", {
             method: "POST",
-            body: { 
-                action: "addCategory", 
+            body: {
+                action: "addCategory",
                 year: yearNum,
-                name 
+                name
             }
         });
         await refresh();
@@ -171,16 +171,16 @@ async function saveAllCategories() {
 
 async function addHabit(catId: string, name: string) {
     if (!currentYear.value || !name) return;
-    
+
     const yearNum = currentYear.value.year;
     try {
         await $api("/api/habits", {
             method: "POST",
-            body: { 
-                action: "addHabit", 
+            body: {
+                action: "addHabit",
                 year: yearNum,
                 catId,
-                name 
+                name
             }
         });
         await refresh();
@@ -215,7 +215,7 @@ async function deleteHabit(catId: string, habitId: string) {
 async function toggleDate(catId: string, habitId: string, date: Date) {
     if (!tracker.value || !currentYear.value) return;
     const dateStr = format(date, "yyyy-MM-dd");
-    
+
     // Optimistic update - update localCategories which is what the UI renders
     const cat = localCategories.value.find(c => c.id === catId);
     if (cat) {
@@ -297,7 +297,6 @@ function getCategoryMenuItems(catId: string) {
         }]
     ];
 }
-
 </script>
 
 <template>
@@ -312,124 +311,199 @@ function getCategoryMenuItems(catId: string) {
 
     <template #body>
       <div class="flex flex-col gap-6">
-          <!-- Top Bar: Years + Add Year -->
-          <div class="flex items-center gap-4 border-b border-gray-200 dark:border-gray-800 pb-2 justify-between">
-              <div class="flex-1 overflow-x-auto">
-                <UTabs
-                    v-if="yearItems.length"
-                    :key="`years-${yearItems.length}`"
-                    v-model="selectedYearIndex"
-                    :default-value="selectedYearIndex"
-                    :items="yearItems"
-                />
-                 <div v-else class="text-sm text-gray-500 py-2">No years tracked yet. Add one to start.</div>
-              </div>
-              
-              <div class="flex items-center gap-2">
-                  <UInput v-model="newYearInput" placeholder="Year (e.g. 2026)" type="number" class="w-32" @keyup.enter="handleAddYear" />
-                  <UButton icon="i-lucide-plus" color="neutral" variant="ghost" @click="handleAddYear" />
-              </div>
+        <!-- Top Bar: Years + Add Year -->
+        <div
+          class="flex items-center gap-4 border-b border-gray-200 dark:border-gray-800 pb-2 justify-between"
+        >
+          <div class="flex-1 overflow-x-auto">
+            <UTabs
+              v-if="yearItems.length"
+              :key="`years-${yearItems.length}`"
+              v-model="selectedYearIndex"
+              :default-value="selectedYearIndex"
+              :items="yearItems"
+            />
+            <div v-else class="text-sm text-gray-500 py-2">
+              No years tracked yet. Add one to start.
+            </div>
           </div>
 
-          <div v-if="currentYear" class="animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <!-- Month Tabs -->
-              <div class="mb-6">
-                <UTabs
-                    v-model="selectedMonthIndex"
-                    :items="months"
-                    :key="`months-${currentYear.year}`"
-                />
-              </div>
-
-              <!-- Habits Tracker -->
-              <div class="space-y-8">
-                   <!-- Header Row with Days -->
-                   <div class="flex items-center sticky top-0 bg-white dark:bg-gray-900 z-10 py-2 border-b border-gray-100 dark:border-gray-800">
-                       <div class="w-48 shrink-0 font-semibold text-xs uppercase tracking-wider text-gray-500">Habit</div>
-                       <div class="flex flex-1 gap-1 overflow-x-auto pb-2 scrollbar-thin">
-                           <div v-for="day in daysInMonth" :key="day.toString()" class="w-6 shrink-0 text-center text-[10px] text-gray-500 flex flex-col items-center">
-                               <span>{{ format(day, "d") }}</span>
-                               <span class="text-[8px] opacity-70 uppercase">{{ format(day, "eee")[0] }}</span>
-                           </div>
-                       </div>
-                   </div>
-
-                   <!-- Categories Loop -->
-                   <draggable
-                       v-model="localCategories"
-                       item-key="id"
-                       handle=".category-drag-handle"
-                       :animation="200"
-                       @end="saveAllCategories"
-                       class="space-y-8"
-                   >
-                     <template #item="{ element: category }">
-                       <div class="space-y-4">
-                         <!-- Category Header -->
-                         <div class="flex items-center group/cat pr-4">
-                           <div class="category-drag-handle cursor-move opacity-0 group-hover/cat:opacity-50 hover:opacity-100! -ml-1 pr-1">
-                             <UIcon name="i-lucide-grip-vertical" class="w-4 h-4 text-gray-400" />
-                           </div>
-                           <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest flex-1">{{ category.name }}</h3>
-                           
-                            <UDropdownMenu :items="getCategoryMenuItems(category.id)">
-                              <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" size="xs" class="opacity-0 group-hover/cat:opacity-100 transition-opacity" />
-                            </UDropdownMenu>
-                         </div>
-
-                         <!-- Habit Rows -->
-                         <draggable
-                             v-model="category.habits"
-                             item-key="id"
-                             handle=".habit-drag-handle"
-                             :animation="200"
-                             group="habits"
-                             @end="saveAllCategories"
-                             class="min-h-2 space-y-0"
-                         >
-                           <template #item="{ element: habit }">
-                             <div class="flex items-center border-b border-gray-100 dark:border-gray-800 pb-2 last:border-0 hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors group pt-2 first:pt-0">
-                               <div class="w-48 shrink-0 truncate pr-4 text-sm font-medium flex items-center justify-between gap-2">
-                                 <div class="habit-drag-handle cursor-move opacity-0 group-hover:opacity-50 hover:opacity-100! -ml-1 pr-1">
-                                   <UIcon name="i-lucide-grip-vertical" class="w-4 h-4 text-gray-400" />
-                                 </div>
-
-                                 <span :title="habit.name" class="truncate flex-1">{{ habit.name }}</span>
-
-                                 <UDropdownMenu :items="getHabitMenuItems(category.id, habit.id)">
-                                   <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" size="xs" class="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                 </UDropdownMenu>
-                               </div>
-
-                               <div class="flex flex-1 gap-1 overflow-x-auto scrollbar-thin">
-                                 <div v-for="day in daysInMonth" :key="day.toString()" class="w-6 shrink-0 flex justify-center h-6 items-center">
-                                   <UCheckbox
-                                       :model-value="habit.completedDates.includes(format(day, 'yyyy-MM-dd'))"
-                                       @update:model-value="toggleDate(category.id, habit.id, day)"
-                                   />
-                                 </div>
-                               </div>
-                             </div>
-                           </template>
-                         </draggable>
-
-                         <!-- Add Habit to Category -->
-                         <div class="flex items-center gap-2 max-w-sm ml-6 opacity-50 focus-within:opacity-100 transition-opacity">
-                             <UInput v-model="newHabitInputs[category.id]" :placeholder="`Add habit to ${category.name}...`" size="xs" class="flex-1" @keyup.enter="handleAddHabit(category.id)" />
-                             <UButton label="Add" icon="i-lucide-plus" color="neutral" size="xs" variant="ghost" @click="handleAddHabit(category.id)" />
-                         </div>
-                       </div>
-                     </template>
-                   </draggable>
-
-                   <!-- Add Category -->
-                   <div class="flex items-center gap-2 mt-8 border-t border-gray-100 dark:border-gray-800 pt-6">
-                       <UInput v-model="newCategoryInput" placeholder="New Category (e.g. Fitness, Work)..." class="w-64" @keyup.enter="handleAddCategory" />
-                       <UButton label="Add Category" icon="i-lucide-plus" color="neutral" variant="soft" @click="handleAddCategory" />
-                   </div>
-              </div>
+          <div class="flex items-center gap-2">
+            <UInput
+              v-model="newYearInput"
+              placeholder="Year (e.g. 2026)"
+              type="number"
+              class="w-32"
+              @keyup.enter="handleAddYear"
+            />
+            <UButton icon="i-lucide-plus" color="neutral" variant="ghost" @click="handleAddYear" />
           </div>
-          
+        </div>
+
+        <div v-if="currentYear" class="animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <!-- Month Tabs -->
+          <div class="mb-6">
+            <UTabs
+              v-model="selectedMonthIndex"
+              :items="months"
+              :key="`months-${currentYear.year}`"
+            />
+          </div>
+
+          <!-- Habits Tracker -->
+          <div class="space-y-8">
+            <!-- Header Row with Days -->
+            <div
+              class="flex items-center sticky top-0 bg-white dark:bg-gray-900 z-10 py-2 border-b border-gray-100 dark:border-gray-800"
+            >
+              <div
+                class="w-48 shrink-0 font-semibold text-xs uppercase tracking-wider text-gray-500"
+              >
+                Habit
+              </div>
+              <div class="flex flex-1 gap-1 overflow-x-auto pb-2 scrollbar-thin">
+                <div
+                  v-for="day in daysInMonth"
+                  :key="day.toString()"
+                  class="w-6 shrink-0 text-center text-[10px] text-gray-500 flex flex-col items-center"
+                >
+                  <span>{{ format(day, "d") }}</span>
+                  <span class="text-[8px] opacity-70 uppercase">{{ format(day, "eee")[0] }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categories Loop -->
+            <draggable
+              v-model="localCategories"
+              item-key="id"
+              handle=".category-drag-handle"
+              :animation="200"
+              @end="saveAllCategories"
+              class="space-y-8"
+            >
+              <template #item="{ element: category }">
+                <div class="space-y-4">
+                  <!-- Category Header -->
+                  <div class="flex items-center group/cat pr-4">
+                    <div
+                      class="category-drag-handle cursor-move opacity-0 group-hover/cat:opacity-50 hover:opacity-100! -ml-1 pr-1"
+                    >
+                      <UIcon name="i-lucide-grip-vertical" class="w-4 h-4 text-gray-400" />
+                    </div>
+                    <h3
+                      class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest flex-1"
+                    >
+                      {{ category.name }}
+                    </h3>
+
+                    <UDropdownMenu :items="getCategoryMenuItems(category.id)">
+                      <UButton
+                        icon="i-lucide-ellipsis-vertical"
+                        color="neutral"
+                        variant="ghost"
+                        size="xs"
+                        class="opacity-0 group-hover/cat:opacity-100 transition-opacity"
+                      />
+                    </UDropdownMenu>
+                  </div>
+
+                  <!-- Habit Rows -->
+                  <draggable
+                    v-model="category.habits"
+                    item-key="id"
+                    handle=".habit-drag-handle"
+                    :animation="200"
+                    group="habits"
+                    @end="saveAllCategories"
+                    class="min-h-2 space-y-0"
+                  >
+                    <template #item="{ element: habit }">
+                      <div
+                        class="flex items-center border-b border-gray-100 dark:border-gray-800 pb-2 last:border-0 hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors group pt-2 first:pt-0"
+                      >
+                        <div
+                          class="w-48 shrink-0 truncate pr-4 text-sm font-medium flex items-center justify-between gap-2"
+                        >
+                          <div
+                            class="habit-drag-handle cursor-move opacity-0 group-hover:opacity-50 hover:opacity-100! -ml-1 pr-1"
+                          >
+                            <UIcon name="i-lucide-grip-vertical" class="w-4 h-4 text-gray-400" />
+                          </div>
+
+                          <span :title="habit.name" class="truncate flex-1">{{ habit.name }}</span>
+
+                          <UDropdownMenu :items="getHabitMenuItems(category.id, habit.id)">
+                            <UButton
+                              icon="i-lucide-ellipsis-vertical"
+                              color="neutral"
+                              variant="ghost"
+                              size="xs"
+                              class="opacity-0 group-hover:opacity-100 transition-opacity"
+                            />
+                          </UDropdownMenu>
+                        </div>
+
+                        <div class="flex flex-1 gap-1 overflow-x-auto scrollbar-thin">
+                          <div
+                            v-for="day in daysInMonth"
+                            :key="day.toString()"
+                            class="w-6 shrink-0 flex justify-center h-6 items-center"
+                          >
+                            <UCheckbox
+                              :model-value="habit.completedDates.includes(format(day, 'yyyy-MM-dd'))"
+                              @update:model-value="toggleDate(category.id, habit.id, day)"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </draggable>
+
+                  <!-- Add Habit to Category -->
+                  <div
+                    class="flex items-center gap-2 max-w-sm ml-6 opacity-50 focus-within:opacity-100 transition-opacity"
+                  >
+                    <UInput
+                      v-model="newHabitInputs[category.id]"
+                      :placeholder="`Add habit to ${category.name}...`"
+                      size="xs"
+                      class="flex-1"
+                      @keyup.enter="handleAddHabit(category.id)"
+                    />
+                    <UButton
+                      label="Add"
+                      icon="i-lucide-plus"
+                      color="neutral"
+                      size="xs"
+                      variant="ghost"
+                      @click="handleAddHabit(category.id)"
+                    />
+                  </div>
+                </div>
+              </template>
+            </draggable>
+
+            <!-- Add Category -->
+            <div
+              class="flex items-center gap-2 mt-8 border-t border-gray-100 dark:border-gray-800 pt-6"
+            >
+              <UInput
+                v-model="newCategoryInput"
+                placeholder="New Category (e.g. Fitness, Work)..."
+                class="w-64"
+                @keyup.enter="handleAddCategory"
+              />
+              <UButton
+                label="Add Category"
+                icon="i-lucide-plus"
+                color="neutral"
+                variant="soft"
+                @click="handleAddCategory"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </template>
   </UDashboardPanel>

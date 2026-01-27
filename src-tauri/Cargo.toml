@@ -9,10 +9,10 @@ panic = "abort"
 strip = true
 
 [package]
-name = "idantity-dot-me"
+name = "rimelight-com"
 version = "0.1.0"
-description = "Accessing me."
-authors = ["Daniel Marchi"]
+description = "Tell your story."
+authors = ["Rimelight Entertainment"]
 license = ""
 repository = ""
 edition = "2021"

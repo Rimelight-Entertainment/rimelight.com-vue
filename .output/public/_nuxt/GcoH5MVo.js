@@ -1,1 +1,0 @@
-import{A as e,I as t,g as n}from"./CB1XNJl3.js";var r={};function i(t,r){return e(),n(`h1`,null,`Settings`)}var a=t(r,[[`render`,i]]);export{a as default};

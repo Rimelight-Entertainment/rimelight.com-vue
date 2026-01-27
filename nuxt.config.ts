@@ -56,15 +56,15 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "description",
-          content: ""
+          content: "Tell your story."
         },
         {
           name: "author",
-          content: "Daniel Marchi"
+          content: "Rimelight Entertainment"
         },
         {
           name: "creator",
-          content: "Daniel Marchi"
+          content: "Rimelight Entertainment"
         }
       ],
       link: [
@@ -135,7 +135,7 @@ export default defineNuxtConfig({
     ? {
         site: {
           url: "https://rimelight.com",
-          name: "idantity.me",
+          name: "Rimelight Entertainment",
           indexable: false
         },
         robots: {

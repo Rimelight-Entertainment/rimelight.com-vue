@@ -105,11 +105,26 @@ export const pathToI18nConfig = {
   "/internal/housing": {
     "en": "/internal/housing"
   },
+  "/internal/projects/:id()": {
+    "en": "/internal/projects/:id()"
+  },
+  "/internal/finances": {
+    "en": "/internal/finances"
+  },
+  "/internal/health/dieting": {
+    "en": "/internal/health/dieting"
+  },
   "/internal/health/workout": {
     "en": "/internal/health/workout"
   },
+  "/internal/projects": {
+    "en": "/internal/projects"
+  },
   "/internal/housing/groceries": {
     "en": "/internal/housing/groceries"
+  },
+  "/internal/health/measurements": {
+    "en": "/internal/health/measurements"
   },
   "/documents/policies/cookie-policy": {
     "en": "/documents/policies/cookie-policy"
@@ -157,8 +172,13 @@ export const i18nPathToPath = {
   "/internal/housing/pets": "/internal/housing/pets",
   "/internal/music/guitar": "/internal/music/guitar",
   "/internal/housing": "/internal/housing",
+  "/internal/projects/:id()": "/internal/projects/:id()",
+  "/internal/finances": "/internal/finances",
+  "/internal/health/dieting": "/internal/health/dieting",
   "/internal/health/workout": "/internal/health/workout",
+  "/internal/projects": "/internal/projects",
   "/internal/housing/groceries": "/internal/housing/groceries",
+  "/internal/health/measurements": "/internal/health/measurements",
   "/documents/policies/cookie-policy": "/documents/policies/cookie-policy",
   "/documents/policies/privacy-policy": "/documents/policies/privacy-policy",
   "/ndefined": "/ndefined"

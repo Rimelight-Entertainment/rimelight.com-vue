@@ -1,2 +1,0 @@
-import{$ as e,v as o}from"./WithEmoji.d.vue-BjQky10p.mjs";import"../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";var r={};var t=r.setup;r.setup=(e,r)=>{const s=o.useSSRContext();return(s.modules||(s.modules=new Set)).add("pages/documents/[slug].vue"),t?t(e,r):void 0};var s=e(r,[["ssrRender",function(e,o,r,t){}]]);export{s as default};
-//# sourceMappingURL=_slug_-Cp0feqsw.mjs.map

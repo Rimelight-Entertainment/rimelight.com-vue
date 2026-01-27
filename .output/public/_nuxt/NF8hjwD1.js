@@ -1,4 +1,0 @@
-import{Fi as e,Gr as t,Sr as n,Ur as r,dr as i,ii as a,si as o,sr as s}from"./DzTdX39x.js";async function c(e){let t=await e();return u(t.default||t)}var l=new WeakMap;function u(c){if(l.has(c))return l.get(c);let u={...c};return u.render?u.render=(e,n,r,i,a,o)=>i.mounted$??e.mounted$?t(c.render?.bind(e)(e,n,r,i,a,o)):t(`div`):u.template&&=`
-      <template v-if="mounted$">${c.template}</template>
-      <template v-else><div></div></template>
-    `,u.setup=(l,u)=>{let d=n(),f=e(d.isHydrating===!1);o(s,!0);let p=r();p&&(p._nuxtClientOnly=!0),a(()=>{f.value=!0});let m=c.setup?.(l,u)||{};return i(m)?Promise.resolve(m).then(e=>typeof e==`function`?(...n)=>f.value||!d.isHydrating?t(e(...n)):t(`div`):(e||={},e.mounted$=f,e)):typeof m==`function`?(...e)=>f.value||!d.isHydrating?t(m(...e)):t(`div`):Object.assign(m,{mounted$:f})},l.set(c,u),u}export{c as createClientPage};

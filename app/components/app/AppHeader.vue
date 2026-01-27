@@ -14,27 +14,27 @@ type menuItem = NavigationMenuItem & DropdownMenuItem
 
 const items = computed<NavigationMenuItem[]>(() => [
   {
-    label: "me.projects",
+    label: "projects",
     //to: "/projects",
     //active: route.path.startsWith("/projects")
   },
   {
-    label: "me.music",
+    label: "music",
     to: "/music",
     active: route.path.startsWith("/music")
   },
   {
-    label: "me.blog",
+    label: "blog",
     to: "/blog",
     active: route.path.startsWith("/blog")
   },
   {
-    label: "me.about",
+    label: "about",
     to: "/about",
     active: route.path.startsWith("/about")
   },
   {
-    label: "me.contact",
+    label: "contact",
     to: "/contact",
     active: route.path.startsWith("/contact")
   }
@@ -49,7 +49,7 @@ const accountMenuItems = computed<menuItem[][]>(() => {
       {
         label: "Dashboard",
         icon: "lucide:layout-dashboard",
-        to: "/internal"
+        to: "/dashboard"
       },
       {
         label: "Available",
@@ -135,7 +135,7 @@ const accountMenuItems = computed<menuItem[][]>(() => {
       {
         label: "Settings",
         icon: "lucide:cog",
-        to: "/internal/settings",
+        to: "/dashboard/settings",
         kbds: [","]
       }
     ]
@@ -199,7 +199,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
 </script>
 
 <template>
-  <RCHeader class="bg-black">
+  <RCHeader :contain="false" class="bg-black">
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <ClientOnly>
@@ -224,7 +224,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
         <ClientOnly>
         <template v-if="session">
           <div class="flex flex-row items-center gap-md">
-            <UButton color="neutral" variant="link" label="Internal" to="/internal" />
+            <UButton color="neutral" variant="link" label="Internal" to="/dashboard" />
             <UTooltip text="Notifications">
               <UButton
                 color="neutral"
@@ -299,7 +299,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       color="neutral"
                       leading-icon="lucide:cog"
                       :label="t('account_settings')"
-                      to="/internal/settings"
+                      to="/dashboard/settings"
                     />
                     <UButton
                       variant="ghost"

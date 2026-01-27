@@ -1,2 +1,0 @@
-import{$ as e,a as r,v as o}from"./WithEmoji.d.vue-BjQky10p.mjs";import"../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";var t={};var s=t.setup;t.setup=(e,r)=>{const t=o.useSSRContext();return(t.modules||(t.modules=new Set)).add("pages/internal/music/guitar.vue"),s?s(e,r):void 0};var i=e(t,[["ssrRender",function(e,o,t,s){o(`<div${r(s)}></div>`)}]]);export{i as default};
-//# sourceMappingURL=guitar-BnI-MeZS.mjs.map

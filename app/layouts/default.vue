@@ -15,7 +15,7 @@ const { totalOffset } = useHeaderStack()
     </RCHeaderLayer>
 
     <RCHeaderLayer id="global-header" :order="2">
-      <IDAppHeader />
+      <RLAppHeader />
     </RCHeaderLayer>
 
     <UMain class="bg-primary-900"
@@ -23,7 +23,7 @@ const { totalOffset } = useHeaderStack()
       <slot />
     </UMain>
 
-    <LazyIDAppFooter hydrate-on-visible />
+    <LazyRLAppFooter hydrate-on-visible />
   </div>
 </template>
 

@@ -178,7 +178,7 @@ const handleNoteSaved = () => {
       <div v-if="pinnedNotes.length > 0" class="flex w-full flex-col gap-2">
         <h3 class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Pinned</h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <IDNoteCard
+          <RLNoteCard
             v-for="note in pinnedNotes"
             :key="note.id"
             :note="note"
@@ -200,7 +200,7 @@ const handleNoteSaved = () => {
           Others
         </h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <IDNoteCard
+          <RLNoteCard
             v-for="note in otherNotes"
             :key="note.id"
             :note="note"
@@ -214,7 +214,7 @@ const handleNoteSaved = () => {
         </div>
       </div>
 
-      <IDNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved" />
+      <RLNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved" />
 
       <div class="fixed right-8 bottom-8 z-50">
         <UButton
@@ -229,3 +229,4 @@ const handleNoteSaved = () => {
 </template>
 
 <style scoped></style>
+

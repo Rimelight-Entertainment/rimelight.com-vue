@@ -1,24 +1,32 @@
-import { computed } from "vue";
-import { authClient } from "~~/auth/auth-client";
-import { useToast, useState, useAsyncData, useFetch, navigateTo, clearNuxtData, useNuxtApp } from "#imports";
+import { computed } from "vue"
+import { authClient } from "~~/auth/auth-client"
+import {
+  useToast,
+  useState,
+  useAsyncData,
+  useFetch,
+  navigateTo,
+  clearNuxtData,
+  useNuxtApp
+} from "#imports"
 
 //TODO Hackaround due to nuxt auto import issues
 interface NuxtAppWithI18n {
   $i18n: {
-    t: (key: string, named?: Record<string, any>) => string;
-  };
+    t: (key: string, named?: Record<string, any>) => string
+  }
 }
 
-type SignUpInput = Parameters<typeof authClient.signUp.email>[0];
-type SignInInput = Parameters<typeof authClient.signIn.email>[0];
+type SignUpInput = Parameters<typeof authClient.signUp.email>[0]
+type SignInInput = Parameters<typeof authClient.signIn.email>[0]
 
-type CheckRoleArgs = Parameters<typeof authClient.organization.checkRolePermission>[0];
-type PermissionsInput = CheckRoleArgs["permissions"];
+type CheckRoleArgs = Parameters<typeof authClient.organization.checkRolePermission>[0]
+type PermissionsInput = CheckRoleArgs["permissions"]
 
 export const useAuth = () => {
-  const toast = useToast();
-  const getT = () => (useNuxtApp() as unknown as NuxtAppWithI18n).$i18n.t;
-  const isLoading = useState("auth-loading", () => false);
+  const toast = useToast()
+  const getT = () => (useNuxtApp() as unknown as NuxtAppWithI18n).$i18n.t
+  const isLoading = useState("auth-loading", () => false)
 
   //region Data
   // Data - Session
@@ -27,13 +35,31 @@ export const useAuth = () => {
     status,
     refresh,
     error
-  } = useAsyncData("auth-session", async () => {
-    const { data } = await authClient.useSession(useFetch);
-    return data.value || null;
-  });
+  } = useAsyncData(
+    "auth-session",
+    async () => {
+      // We use getSession() instead of useSession() here because useSession is a reactive hook
+      // and shouldn't be called inside useAsyncData. getSession returns a Promise.
+      const timeoutPromise = new Promise<null>((_, reject) =>
+        setTimeout(() => reject(new Error("Client auth timeout")), 8000)
+      )
+
+      try {
+        const response = await Promise.race([authClient.getSession(), timeoutPromise])
+        return response?.data?.user ? response.data : null
+      } catch (e) {
+        console.error("Client auth session fetch failed:", e)
+        return null
+      }
+    },
+    {
+      server: false,
+      immediate: true
+    }
+  )
 
   // Data - User
-  const user = computed(() => session.value?.user);
+  const user = computed(() => session.value?.user)
 
   const permissions = {
     blog: {
@@ -52,65 +78,66 @@ export const useAuth = () => {
       canUpdate: computed(() => checkPermission({ organization: ["update"] })),
       canDelete: computed(() => checkPermission({ organization: ["delete"] }))
     }
-  };
+  }
   //endregion
 
   //region Actions
   //region Sign Up
   const signUp = async (input: SignUpInput) => {
-    const t = getT();
-    isLoading.value = true;
+    const t = getT()
+    isLoading.value = true
     try {
-      const { error } = await authClient.signUp.email(input);
+      const { error } = await authClient.signUp.email(input)
 
       if (error) {
-        console.error("Signup error:", error);
+        console.error("Signup error:", error)
         toast.add({
           color: "error",
           title: t("auth_sign_up_failed_title"),
           description: error.message
-        });
-        return;
+        })
+        return
       }
 
       toast.add({
         color: "success",
         title: t("auth_account_creation_success_title"),
         description: t("auth_account_creation_success_description")
-      });
+      })
 
-      await refresh();
-      await navigateTo("/");
+      await refresh()
+      const redirect = useRoute().query.redirect as string
+      await navigateTo(redirect || "/")
     } catch (err) {
-      console.error("Network error during signup:", err);
+      console.error("Network error during signup:", err)
       toast.add({
         color: "error",
         title: t("auth_connection_error_title"),
         description: t("auth_connection_error_description")
-      });
+      })
     } finally {
-      isLoading.value = false;
+      isLoading.value = false
     }
-  };
+  }
   //endregion
 
   //region Sign In
   const signIn = async (credentials: SignInInput) => {
-    const t = getT();
-    isLoading.value = true;
+    const t = getT()
+    isLoading.value = true
 
     try {
-      const { data, error } = await authClient.signIn.email(credentials);
+      const { data, error } = await authClient.signIn.email(credentials)
 
       // Failure
       if (error) {
-        console.error("[Sign In Error]:", error);
+        console.error("[Sign In Error]:", error)
         toast.add({
           color: "error",
           title: t("auth_sign_in_failed_title"),
           description: error.message
-        });
-        return;
+        })
+        return
       }
 
       // Success
@@ -118,39 +145,40 @@ export const useAuth = () => {
         color: "success",
         title: t("auth_sign_in_success_title"),
         description: t("auth_sign_in_success_description", { name: data.user.name })
-      });
+      })
 
-      await refresh();
-      await navigateTo("/");
+      await refresh()
+      const redirect = useRoute().query.redirect as string
+      await navigateTo(redirect || "/")
     } catch (error) {
       toast.add({
         color: "error",
         title: t("auth_connection_error_title"),
         description: t("auth_connection_error_description")
-      });
+      })
     } finally {
-      isLoading.value = false;
+      isLoading.value = false
     }
-  };
+  }
   //endregion
 
   //region Sign Out
   const signOut = async () => {
-    const t = getT();
-    isLoading.value = true;
+    const t = getT()
+    isLoading.value = true
 
     try {
-      const { error } = await authClient.signOut();
+      const { error } = await authClient.signOut()
 
       // Failure
       if (error) {
-        console.error("[Sign Out API Error]:", error);
+        console.error("[Sign Out API Error]:", error)
         toast.add({
           color: "error",
           title: t("auth_sign-out_error"),
           description: "The server rejected the sign-out request."
-        });
-        return;
+        })
+        return
       }
 
       // Success
@@ -158,36 +186,36 @@ export const useAuth = () => {
         color: "success",
         title: "Sign Out Successful",
         description: "You have been signed out."
-      });
+      })
 
-      clearNuxtData("auth-session");
-      await navigateTo("/");
+      clearNuxtData("auth-session")
+      await navigateTo("/")
     } catch (err) {
-      console.error("Sign Out Error:", err);
+      console.error("Sign Out Error:", err)
       toast.add({
         color: "error",
         title: "Network Error",
         description: "A connection issue occurred while signing out."
-      });
+      })
     } finally {
-      isLoading.value = false;
+      isLoading.value = false
     }
-  };
+  }
   //endregion
 
   //region Check Permissions
   const checkPermission = (permissions: PermissionsInput) => {
-    const userRole = session.value?.user?.role;
+    const userRole = session.value?.user?.role
 
-    if (!userRole) return false;
+    if (!userRole) return false
 
     const args = {
       permissions,
       role: userRole
-    } as CheckRoleArgs;
+    } as CheckRoleArgs
 
-    return authClient.organization.checkRolePermission(args);
-  };
+    return authClient.organization.checkRolePermission(args)
+  }
   //endregion
   //endregion
 
@@ -208,5 +236,5 @@ export const useAuth = () => {
     signOut,
     refresh,
     checkPermission
-  };
-};
+  }
+}

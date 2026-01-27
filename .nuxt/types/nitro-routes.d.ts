@@ -17,6 +17,15 @@ declare module "nitropack/types" {
       'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/habits/index.get').default>>>>
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/habits/index.post').default>>>>
     }
+    '/api/health/fasting': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/fasting.get').default>>>>
+      'patch': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/fasting.patch').default>>>>
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/fasting.post').default>>>>
+    }
+    '/api/health/measurements': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/measurements.get').default>>>>
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/measurements.post').default>>>>
+    }
     '/api/health/workout': {
       'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/workout.get').default>>>>
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/health/workout.post').default>>>>
@@ -71,9 +80,54 @@ declare module "nitropack/types" {
       'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/id/[id].delete').default>>>>
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/id/[id]').default>>>>
     }
+    '/api/pages/id/:id/versions': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/id/[id]/versions.get').default>>>>
+    }
     '/api/pages': {
       'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/index.get').default>>>>
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/index.post').default>>>>
+    }
+    '/api/pages/versions/:versionId': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/versions/[versionId].get').default>>>>
+    }
+    '/api/pages/versions/:versionId/approve': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/versions/[versionId]/approve.post').default>>>>
+    }
+    '/api/pages/versions/:versionId/revert': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pages/versions/[versionId]/revert.post').default>>>>
+    }
+    '/api/pets': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pets/index.get').default>>>>
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/pets/index.post').default>>>>
+    }
+    '/api/projects/boards/:id': {
+      'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/boards/[id].delete').default>>>>
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/boards/[id].get').default>>>>
+      'put': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/boards/[id].put').default>>>>
+    }
+    '/api/projects/boards': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/boards/index.get').default>>>>
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/boards/index.post').default>>>>
+    }
+    '/api/projects/cards/:id': {
+      'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/cards/[id].delete').default>>>>
+      'put': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/cards/[id].put').default>>>>
+    }
+    '/api/projects/cards': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/cards/index.post').default>>>>
+    }
+    '/api/projects/fields/:id': {
+      'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/fields/[id].delete').default>>>>
+    }
+    '/api/projects/fields': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/fields/index.post').default>>>>
+    }
+    '/api/projects/lists/:id': {
+      'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/lists/[id].delete').default>>>>
+      'put': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/lists/[id].put').default>>>>
+    }
+    '/api/projects/lists': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/projects/lists/index.post').default>>>>
     }
     '/api/watchlist': {
       'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/watchlist/index.get').default>>>>

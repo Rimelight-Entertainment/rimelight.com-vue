@@ -1,2 +1,0 @@
-import{$ as e,a as o,v as r}from"./WithEmoji.d.vue-BjQky10p.mjs";import"../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";var s={};var t=s.setup;s.setup=(e,o)=>{const s=r.useSSRContext();return(s.modules||(s.modules=new Set)).add("pages/report-issue.vue"),t?t(e,o):void 0};var i=e(s,[["ssrRender",function(e,r,s,t){r(`<div${o(t)}></div>`)}]]);export{i as default};
-//# sourceMappingURL=report-issue-Fyvp42lg.mjs.map

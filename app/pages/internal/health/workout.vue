@@ -63,12 +63,12 @@ function save() {
     <template #body>
       <div v-if="workoutData" class="w-full p-sm flex flex-col gap-xl">
         <!-- Global Timer -->
-        <IDPomodoroTimer />
+        <RLPomodoroTimer />
         
         <USeparator />
 
         <!-- Stretches Section -->
-        <IDStretchesList
+        <RLStretchesList
             v-model="localData.stretches"
             @change="save"
         />
@@ -76,7 +76,7 @@ function save() {
         <USeparator />
 
         <!-- Exercises Section -->
-        <IDWorkoutList
+        <RLWorkoutList
             v-model="localData.exercises"
             @change="save"
         />
@@ -89,3 +89,4 @@ function save() {
     </template>
   </UDashboardPanel>
 </template>
+

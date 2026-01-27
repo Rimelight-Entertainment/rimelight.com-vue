@@ -1,1 +1,0 @@
-import{Fr as e,Hr as t,Zn as n,_r as r,oi as i,qn as a,vr as o}from"./DzTdX39x.js";import{t as s}from"./CXpj9dKk.js";var c=t({__name:`index`,setup(t){let c=n(),{t:l}=a();return r({title:l(`home_meta_title`)}),o({title:l(`home_meta_title`),ogTitle:l(`home_meta_title`),description:c.description,ogDescription:c.description}),(t,n)=>{let r=s;return i(),e(r)}}});export{c as default};

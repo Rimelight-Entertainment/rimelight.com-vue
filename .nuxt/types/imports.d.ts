@@ -263,7 +263,9 @@ declare global {
   const useFileDialog: typeof import('@vueuse/core').useFileDialog
   const useFileSystemAccess: typeof import('@vueuse/core').useFileSystemAccess
   const useFileUpload: typeof import('../../node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload').useFileUpload
+  const useFloatingTools: typeof import('../../app/composables/useFloatingTools').useFloatingTools
   const useFocus: typeof import('@vueuse/core').useFocus
+  const useFocusTimer: typeof import('../../app/composables/useFocusTimer').useFocusTimer
   const useFocusWithin: typeof import('@vueuse/core').useFocusWithin
   const useFormField: typeof import('../../node_modules/@nuxt/ui/dist/runtime/composables/useFormField').useFormField
   const useFps: typeof import('@vueuse/core').useFps
@@ -300,6 +302,7 @@ declare global {
   const useMediaQuery: typeof import('@vueuse/core').useMediaQuery
   const useMemoize: typeof import('@vueuse/core').useMemoize
   const useMemory: typeof import('@vueuse/core').useMemory
+  const useMetronome: typeof import('../../app/composables/useMetronome').useMetronome
   const useModel: typeof import('vue').useModel
   const useMounted: typeof import('@vueuse/core').useMounted
   const useMouse: typeof import('@vueuse/core').useMouse
@@ -338,6 +341,7 @@ declare global {
   const usePrevious: typeof import('@vueuse/core').usePrevious
   const useQuery: typeof import('@pinia/colada').useQuery
   const useQueryCache: typeof import('@pinia/colada').useQueryCache
+  const useQuickActions: typeof import('../../app/composables/useQuickActions').useQuickActions
   const useRafFn: typeof import('@vueuse/core').useRafFn
   const useRefHistory: typeof import('@vueuse/core').useRefHistory
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').useRequestEvent
@@ -408,6 +412,7 @@ declare global {
   const useState: typeof import('../../node_modules/nuxt/dist/app/composables/state').useState
   const useStepper: typeof import('@vueuse/core').useStepper
   const useStorageAsync: typeof import('@vueuse/core').useStorageAsync
+  const useStretches: typeof import('../../app/composables/useStretches').useStretches
   const useStyleTag: typeof import('@vueuse/core').useStyleTag
   const useSupported: typeof import('@vueuse/core').useSupported
   const useSwipe: typeof import('@vueuse/core').useSwipe
@@ -480,6 +485,18 @@ declare global {
   // @ts-ignore
   export type { ConfirmOptions } from '../../app/composables/useConfirm'
   import('../../app/composables/useConfirm')
+  // @ts-ignore
+  export type { FloatingToolDefinition } from '../../app/composables/useFloatingTools'
+  import('../../app/composables/useFloatingTools')
+  // @ts-ignore
+  export type { BeatState, Division } from '../../app/composables/useMetronome'
+  import('../../app/composables/useMetronome')
+  // @ts-ignore
+  export type { QuickAction } from '../../app/composables/useQuickActions'
+  import('../../app/composables/useQuickActions')
+  // @ts-ignore
+  export type { WorkoutStretchItem, WorkoutStretchCategory } from '../../app/composables/useStretches'
+  import('../../app/composables/useStretches')
   // @ts-ignore
   export type { User, NewUser, UserForm, PublicUser } from '../../shared/types/db'
   import('../../shared/types/db')
@@ -750,7 +767,9 @@ declare module 'vue' {
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
     readonly useFileUpload: UnwrapRef<typeof import('../../node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload')['useFileUpload']>
+    readonly useFloatingTools: UnwrapRef<typeof import('../../app/composables/useFloatingTools')['useFloatingTools']>
     readonly useFocus: UnwrapRef<typeof import('@vueuse/core')['useFocus']>
+    readonly useFocusTimer: UnwrapRef<typeof import('../../app/composables/useFocusTimer')['useFocusTimer']>
     readonly useFocusWithin: UnwrapRef<typeof import('@vueuse/core')['useFocusWithin']>
     readonly useFormField: UnwrapRef<typeof import('../../node_modules/@nuxt/ui/dist/runtime/composables/useFormField')['useFormField']>
     readonly useFps: UnwrapRef<typeof import('@vueuse/core')['useFps']>
@@ -787,6 +806,7 @@ declare module 'vue' {
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMetronome: UnwrapRef<typeof import('../../app/composables/useMetronome')['useMetronome']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>
@@ -825,6 +845,7 @@ declare module 'vue' {
     readonly usePrevious: UnwrapRef<typeof import('@vueuse/core')['usePrevious']>
     readonly useQuery: UnwrapRef<typeof import('@pinia/colada')['useQuery']>
     readonly useQueryCache: UnwrapRef<typeof import('@pinia/colada')['useQueryCache']>
+    readonly useQuickActions: UnwrapRef<typeof import('../../app/composables/useQuickActions')['useQuickActions']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>
@@ -895,6 +916,7 @@ declare module 'vue' {
     readonly useState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']>
     readonly useStepper: UnwrapRef<typeof import('@vueuse/core')['useStepper']>
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
+    readonly useStretches: UnwrapRef<typeof import('../../app/composables/useStretches')['useStretches']>
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>

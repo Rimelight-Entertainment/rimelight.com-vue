@@ -10,7 +10,7 @@ const links = [
     {
       label: "Notes",
       icon: "i-lucide-sticky-note",
-      to: "/internal/notes",
+      to: "/dashboard/notes",
       exact: true
     }
   ],
@@ -18,12 +18,12 @@ const links = [
     {
       label: "Archive",
       icon: "i-lucide-archive",
-      to: "/internal/notes/archive"
+      to: "/dashboard/notes/archive"
     },
     {
       label: "Trash",
       icon: "i-lucide-trash-2",
-      to: "/internal/notes/trash"
+      to: "/dashboard/notes/trash"
     }
   ]
 ] satisfies NavigationMenuItem[][]

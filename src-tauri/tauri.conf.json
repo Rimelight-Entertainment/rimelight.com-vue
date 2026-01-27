@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "idantity.me",
+  "productName": "Rimelight",
   "version": "0.1.0",
-  "identifier": "me.idantity.tapp",
+  "identifier": "com.rimelight.tapp",
   "build": {
     "beforeDevCommand": "bun dev",
     "beforeBuildCommand": "bun build:tauri",
@@ -13,7 +13,7 @@
   "app": {
     "windows": [
       {
-        "title": "idantity-me",
+        "title": "Rimelight",
         "resizable": true,
         "fullscreen": false,
         "maximized": true
@@ -25,8 +25,9 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["msi"],
-
+    "targets": [
+      "msi"
+    ],
     "icon": [
       "icons/32x32.png",
       "icons/64x64.png",

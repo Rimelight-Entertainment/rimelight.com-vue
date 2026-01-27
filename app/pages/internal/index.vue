@@ -10,57 +10,64 @@ const modules = [
     title: 'Inbox',
     description: 'Incoming tasks and messages',
     icon: 'i-lucide-inbox',
-    to: '/internal/inbox',
+    to: '/dashboard/inbox',
     color: 'text-purple-500'
   },
   {
     title: 'Habits',
     description: 'Track daily habits and routines',
     icon: 'i-lucide-check-circle-2',
-    to: '/internal/habits',
+    to: '/dashboard/habits',
     color: 'text-green-500'
   },
   {
     title: 'Notes',
     description: 'Personal knowledge base',
     icon: 'i-lucide-file-text',
-    to: '/internal/notes',
+    to: '/dashboard/notes',
     color: 'text-blue-500'
   },
   {
     title: 'Customers',
     description: 'Manage client relationships',
     icon: 'i-lucide-users',
-    to: '/internal/customers',
+    to: '/dashboard/customers',
     color: 'text-orange-500'
   },
   {
     title: 'Housing',
     description: 'Property and utility management',
     icon: 'i-lucide-home',
-    to: '/internal/housing',
+    to: '/dashboard/housing',
     color: 'text-red-500'
   },
   {
     title: 'Health',
     description: 'Health metrics and tracking',
     icon: 'i-lucide-heart-pulse',
-    to: '/internal/health',
+    to: '/dashboard/health',
     color: 'text-rose-500'
   },
   {
     title: 'Music',
     description: 'Library and playlists',
     icon: 'i-lucide-music',
-    to: '/internal/music',
+    to: '/dashboard/music',
     color: 'text-pink-500'
   },
   {
     title: 'Watchlist',
     description: 'Movies, series, and books tracker',
     icon: 'i-lucide-play-circle',
-    to: '/internal/watchlist',
+    to: '/dashboard/watchlist',
     color: 'text-cyan-500'
+  },
+  {
+    title: 'Projects',
+    description: 'Workspaces and task boards',
+    icon: 'i-lucide-layout-grid',
+    to: '/dashboard/projects',
+    color: 'text-indigo-500'
   },
 ]
 </script>
