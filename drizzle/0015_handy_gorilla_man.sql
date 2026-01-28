@@ -1,1 +1,0 @@
-ALTER TABLE "user" ADD COLUMN "availability" text DEFAULT 'available' NOT NULL;

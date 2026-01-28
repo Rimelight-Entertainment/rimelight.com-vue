@@ -1,0 +1,155 @@
+{
+  "id": "01995481-d0c1-72fa-bb6f-6b3f4abc62d2",
+  "slug": "franchises/grand-tale/lore/characters/goldy",
+  "blocks": [
+    {
+      "id": "01995481-d0c2-76ed-b720-d941a4a546ed",
+      "type": "paragraph",
+      "attrs": {
+        "text": [
+          {
+            "text": "",
+            "type": "text"
+          },
+          {
+            "text": "https://tvtropes.org/pmwiki/pmwiki.php/Main/CowardlyLion<",
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "url": "https://tvtropes.org/pmwiki/pmwiki.php/Main/CowardlyLion<"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "slots": {}
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-dc3278c9629d",
+      "type": "section",
+      "attrs": {
+        "title": "Appearance"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-e1695d0bf6cc",
+      "type": "section",
+      "attrs": {
+        "title": "Personality"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-e6d995e4feec",
+      "type": "section",
+      "attrs": {
+        "title": "Abilities"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-e89fb6a96660",
+      "type": "section",
+      "attrs": {
+        "title": "Biography"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-ee28cb52389d",
+      "type": "section",
+      "attrs": {
+        "title": "Relationships"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d0c2-76ed-b720-f12f39652a30",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:19.105Z",
+  "updated_at": "2025-09-16T21:50:19.105Z",
+  "title": "Goldy",
+  "type": "Character",
+  "properties": {
+    "sex": [
+      {
+        "text": "Male",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "name": [
+      {
+        "text": "Goldy",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "pets": [],
+    "title": [
+      {
+        "text": "Best Pet",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "height": [
+      {
+        "text": "50",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "mounts": [],
+    "weight": 0,
+    "aliases": [],
+    "species": [
+      {
+        "text": "Octallion",
+        "type": "text",
+        "marks": [
+          {
+            "type": "mention",
+            "attrs": {
+              "pageId": "8e119829-8e7c-408e-99f1-19bb139e2d3b",
+              "pageSlug": "franchises/grand-tale/lore/species/fauna/octallion",
+              "pageTitle": "Octallion"
+            }
+          }
+        ]
+      }
+    ],
+    "pronouns": [
+      {
+        "text": "He / Him",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "equipment": [],
+    "dateOfBirth": "",
+    "dateOfDeath": "",
+    "flavourText": [
+      {
+        "text": "Might die if left without attention for too long.",
+        "type": "text",
+        "marks": []
+      }
+    ],
+    "placeOfBirth": "",
+    "placeOfDeath": "",
+    "favouriteFood": "",
+    "formerAffiliations": [],
+    "currentAffiliations": []
+  }
+}

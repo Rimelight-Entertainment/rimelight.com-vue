@@ -1,0 +1,109 @@
+{
+  "id": "01995481-bd6f-733e-9f04-9a31dcc729ea",
+  "slug": "franchises/grand-tale/ideas",
+  "blocks": [
+    {
+      "id": "01995481-bd6f-733e-9f04-9ded0903e423",
+      "type": "section",
+      "attrs": {
+        "title": "Narrative"
+      },
+      "slots": {
+        "default": []
+      }
+    },
+    {
+      "id": "01995481-bd6f-733e-9f04-a2f6a9cc3ba7",
+      "type": "section",
+      "attrs": {
+        "title": "Merchandise"
+      },
+      "slots": {
+        "default": [
+          {
+            "id": "01JXZEAHMDJNWVNGYV9ZKARK5G",
+            "type": "section",
+            "attrs": {
+              "title": "Rimelight Entertainment"
+            },
+            "slots": {
+              "default": []
+            }
+          },
+          {
+            "id": "01JXZEA8EVBMPE5D7YMCTTPXEV",
+            "type": "section",
+            "attrs": {
+              "title": "Grand Tale"
+            },
+            "slots": {
+              "default": [
+                {
+                  "id": "01JXZEBJS21ERJ5SBD6X6QPCDT",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Game Box",
+                        "type": "text",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  "slots": {}
+                },
+                {
+                  "id": "01JXZEBR3CF45XJ0ZBTFDA6JH6",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Planet Globe",
+                        "type": "text",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  "slots": {}
+                },
+                {
+                  "id": "01JXZE3RCBNG38H1NMXGCGQRFZ",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Chess Set",
+                        "type": "text",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  "slots": {}
+                },
+                {
+                  "id": "01JXZE9S5X6N9MJSGN0GS0P79D",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Aleph Horns Neckpillow",
+                        "type": "text",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  "slots": {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "created_at": "2025-09-16T21:50:14.158Z",
+  "updated_at": "2025-09-16T21:50:14.158Z",
+  "title": "Ideas",
+  "type": "Default",
+  "properties": {}
+}

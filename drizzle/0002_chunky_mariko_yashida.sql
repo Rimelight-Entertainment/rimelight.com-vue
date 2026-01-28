@@ -1,1 +1,0 @@
-ALTER TABLE "blog_post_type" RENAME COLUMN "locazlization_key" TO "localization_key";

@@ -1,1 +1,0 @@
-ALTER TABLE "project" ADD COLUMN "posted_at" timestamp;

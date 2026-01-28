@@ -1,0 +1,79 @@
+{
+  "id": "01995481-d26b-7512-9490-8cdf1777e507",
+  "slug": "franchises/grand-tale/lore/characters/eden",
+  "blocks": [
+    {
+      "id": "01995481-d26b-7512-9490-9105c1a769b1",
+      "type": "section",
+      "attrs": {
+        "title": "Appearance"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d26b-7512-9490-951bebdc4e21",
+      "type": "section",
+      "attrs": {
+        "title": "Personality"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d26b-7512-9490-986fca9a3884",
+      "type": "section",
+      "attrs": {
+        "title": "Abilities"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d26b-7512-9490-9fc7488fa1d5",
+      "type": "section",
+      "attrs": {
+        "title": "Biography"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d26b-7512-9490-a1fae4a868ec",
+      "type": "section",
+      "attrs": {
+        "title": "Relationships"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d26b-7512-9490-a4e3c697a6d6",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:19.530Z",
+  "updated_at": "2025-09-16T21:50:19.530Z",
+  "title": "Eden",
+  "type": "Character",
+  "properties": {
+    "sex": "",
+    "name": "",
+    "pets": [],
+    "title": "",
+    "height": "",
+    "mounts": [],
+    "weight": 0,
+    "aliases": [],
+    "species": "",
+    "pronouns": "",
+    "equipment": [],
+    "dateOfBirth": "",
+    "dateOfDeath": "",
+    "flavourText": "",
+    "placeOfBirth": "",
+    "placeOfDeath": "",
+    "favouriteFood": "",
+    "formerAffiliations": [],
+    "currentAffiliations": []
+  }
+}

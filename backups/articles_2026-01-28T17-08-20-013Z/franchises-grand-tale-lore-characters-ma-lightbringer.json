@@ -1,0 +1,79 @@
+{
+  "id": "01995481-ce40-73e8-b1bc-bced1c5899a8",
+  "slug": "franchises/grand-tale/lore/characters/ma-lightbringer",
+  "blocks": [
+    {
+      "id": "01995481-ce40-73e8-b1bc-c28b05454ef6",
+      "type": "section",
+      "attrs": {
+        "title": "Appearance"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-ce40-73e8-b1bc-c62276fc73ce",
+      "type": "section",
+      "attrs": {
+        "title": "Personality"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-ce40-73e8-b1bc-c9ce20c64d71",
+      "type": "section",
+      "attrs": {
+        "title": "Abilities"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-ce40-73e8-b1bc-cc8d00602087",
+      "type": "section",
+      "attrs": {
+        "title": "Biography"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-ce41-7358-a20f-7e1086b95fe8",
+      "type": "section",
+      "attrs": {
+        "title": "Relationships"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-ce41-7358-a20f-83524db47b3b",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:18.464Z",
+  "updated_at": "2025-09-16T21:50:18.464Z",
+  "title": "Ma Lightbringer",
+  "type": "Character",
+  "properties": {
+    "sex": "",
+    "name": "",
+    "pets": [],
+    "title": "",
+    "height": "",
+    "mounts": [],
+    "weight": 0,
+    "aliases": [],
+    "species": "",
+    "pronouns": "",
+    "equipment": [],
+    "dateOfBirth": "",
+    "dateOfDeath": "",
+    "flavourText": "",
+    "placeOfBirth": "",
+    "placeOfDeath": "",
+    "favouriteFood": "",
+    "formerAffiliations": [],
+    "currentAffiliations": []
+  }
+}

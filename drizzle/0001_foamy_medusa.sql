@@ -1,1 +1,0 @@
-ALTER TABLE "blog-post" DROP COLUMN "test_field";
