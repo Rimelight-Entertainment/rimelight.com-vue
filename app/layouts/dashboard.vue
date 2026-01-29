@@ -3,7 +3,7 @@ import { useHeaderStack } from "rimelight-components/composables"
 import type { NavigationMenuItem } from "@nuxt/ui"
 import FocusTimerTool from "~/components/dashboard/floating-tools/FocusTimerTool.vue"
 
-const { totalOffset } = useHeaderStack()
+const { totalHeight } = useHeaderStack()
 
 const { registerTool, openTool } = useFloatingTools()
 const { registerAction } = useQuickActions()
@@ -157,7 +157,7 @@ const groups = computed(() => [
 
 <template>
   <div class="flex h-svh w-full flex-col overflow-hidden">
-    <div :style="{ '--total-header-offset': `${totalOffset}px` }">
+    <div :style="{ '--total-header-offset': `${totalHeight}px` }">
       <RCHeaderLayer id="global-header" :order="2">
         <RLAppHeader />
       </RCHeaderLayer>

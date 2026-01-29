@@ -1,42 +1,57 @@
 <script setup lang="ts">
 import type { NavigationMenuItem, DropdownMenuItem, ChipProps } from "@nuxt/ui"
-
-const { isNotificationsSlideoverOpen } = useDashboard()
+import { useHeaderStack } from "rimelight-components/composables";
 
 const { session, signOut } = useAuth()
 const route = useRoute()
 const { t } = useI18n()
 
-const leftSlideoverOpen = ref(false)
-const rightSlideoverOpen = ref(false)
+const layerId = inject<string>('header_layer_id', 'default')
+
+const { bottomOffsets } = useHeaderStack()
+
+const currentBottom = computed(() => `${bottomOffsets.value[layerId] || 0}px`)
+
+const slideoverState = reactive({
+  left: false,
+  right: false,
+  notifications: useDashboard().isNotificationsSlideoverOpen
+})
 
 type menuItem = NavigationMenuItem & DropdownMenuItem
 
 const items = computed<NavigationMenuItem[]>(() => [
   {
-    label: "projects",
-    //to: "/projects",
-    //active: route.path.startsWith("/projects")
+    label: "Grand Tale",
+    active: route.path.startsWith("/grand-tale"),
+    slot: 'grand-tale' as const
   },
   {
-    label: "music",
-    to: "/music",
-    active: route.path.startsWith("/music")
+    label: "Community",
+    to: "/community",
+    active: route.path.startsWith("/community"),
+    children: [
+      {
+        label: "Forums",
+        to: "/forums",
+        active: route.path.startsWith("/forums")
+      },
+      {
+        label: "Events",
+        to: "/events",
+        active: route.path.startsWith("/events")
+      },
+    ]
   },
   {
-    label: "blog",
-    to: "/blog",
-    active: route.path.startsWith("/blog")
+    label: "Company",
+    to: "/company",
+    active: route.path.startsWith("/company")
   },
   {
-    label: "about",
-    to: "/about",
-    active: route.path.startsWith("/about")
-  },
-  {
-    label: "contact",
-    to: "/contact",
-    active: route.path.startsWith("/contact")
+    label: "Store",
+    to: "/store",
+    active: route.path.startsWith("/store")
   }
 ])
 
@@ -210,12 +225,16 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
           variant="link"
           :ui="{
             viewportWrapper:
-              'top-0 flex fixed w-screen mt-[var(--ui-header-height)]',
+              'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)]',
             viewport: 'rounded-none',
             label: 'text-white',
             link: 'hover:text-primary-200 active:text-500'
           }"
-        />
+        >
+          <template #grand-tale-content="{ item }">
+
+          </template>
+        </UNavigationMenu>
       </div>
     </template>
     <template #center> </template>
@@ -230,7 +249,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 color="neutral"
                 variant="ghost"
                 square
-                @click="isNotificationsSlideoverOpen = true"
+                @click="slideoverState.notifications = true"
               >
                 <UChip color="error" inset>
                   <UIcon name="i-lucide-bell" class="size-5 shrink-0" />
@@ -325,7 +344,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
       <div class="flex justify-start">
         <ClientOnly>
           <USlideover
-          v-model:open="leftSlideoverOpen"
+          v-model:open="slideoverState.left"
           side="left"
           :handle="false"
           :ui="{
@@ -337,7 +356,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             color="neutral"
             variant="ghost"
             icon="lucide:menu"
-            @click="leftSlideoverOpen = true"
+            @click="slideoverState.left = true"
           />
           <template #header>
             <RCLogo variant="mark" class="h-6 w-auto" />
@@ -345,7 +364,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               color="neutral"
               variant="ghost"
               icon="lucide:x"
-              @click="leftSlideoverOpen = false"
+              @click="slideoverState.left = false"
             />
           </template>
           <template #body>
@@ -370,7 +389,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             color="neutral"
             variant="ghost"
             square
-            @click="isNotificationsSlideoverOpen = true"
+            @click="slideoverState.notifications = true"
           >
             <UChip color="error" inset>
               <UIcon name="i-lucide-bell" class="size-5 shrink-0" />
@@ -378,7 +397,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
           </UButton>
         </UTooltip>
         <USlideover
-          v-model:open="rightSlideoverOpen"
+          v-model:open="slideoverState.right"
           side="right"
           :handle="false"
           :ui="{
@@ -390,7 +409,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             color="neutral"
             variant="ghost"
             icon="lucide:user"
-            @click="rightSlideoverOpen = true"
+            @click="slideoverState.right = true"
           />
           <template #header>
             <UUser
@@ -415,7 +434,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               color="neutral"
               variant="ghost"
               icon="lucide:x"
-              @click="rightSlideoverOpen = false"
+              @click="slideoverState.right = false"
             />
           </template>
           <template #body>
@@ -428,14 +447,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   variant="outline"
                   :label="t('auth_sign-up')"
                   to="/auth/sign-up"
-                  @click="rightSlideoverOpen = false"
+                  @click="slideoverState.right = false"
                   block
                 />
                 <UButton
                   variant="solid"
                   :label="t('auth_sign-in')"
                   to="/auth/sign-in"
-                  @click="rightSlideoverOpen = false"
+                  @click="slideoverState.right = false"
                   block
                 />
               </template>

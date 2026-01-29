@@ -54,7 +54,7 @@
     "nuxt": "npm:nuxt-nightly@latest",
     "nuxt-og-image": "^5.1.13",
     "pinia": "^3.0.4",
-    "rimelight-components": "^2.1.31",
+    "rimelight-components": "^2.1.35",
     "uuid": "^13.0.0",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4",

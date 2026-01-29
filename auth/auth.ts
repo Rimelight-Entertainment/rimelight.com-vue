@@ -4,6 +4,8 @@ import { db } from "../server/db";
 import { v7 as uuidv7 } from "uuid";
 import { admin } from "better-auth/plugins";
 import { generateUniqueTag } from "./utils";
+import { APIError } from "better-auth/api";
+import { RESTRICTED_SET } from "#shared/constants/restricted-usernames"
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg" }),
@@ -106,16 +108,27 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user, _ctx) => {
-          const role = user.email.endsWith("@test.com") ? "member" : "user";
+          // 1. Normalize the incoming username (strip dots, dashes, underscores)
+          const normalizedInput = user.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+          // 2. Strict check against the restricted set
+          // This prevents "admin" but allows "admin_fan"
+          if (RESTRICTED_SET.has(normalizedInput)) {
+            throw new APIError("BAD_REQUEST", {
+              message: "This username is reserved for official use."
+            });
+          }
+
+          const role = user.email.endsWith("@rimelight.com") ? "admin" : "user";
           const uniqueTag = await generateUniqueTag(user.name);
 
           return {
             data: {
               ...user,
-              role: role,
+              role,
               tag: uniqueTag
             }
-          };
+          }
         }
       }
     }

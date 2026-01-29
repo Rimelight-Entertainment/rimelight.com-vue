@@ -19,15 +19,11 @@ const columns: FooterColumn[] = [
     children: [
       {
         label: "Branding",
-        to: "/branding/"
+        to: "/branding"
       },
       {
         label: "Visitor Count",
         to: "/visitors"
-      },
-      {
-        label: "Test Page",
-        to: "/test-character/edit"
       }
     ]
   },
@@ -36,11 +32,19 @@ const columns: FooterColumn[] = [
     children: [
       {
         label: "Privacy Policy",
-        to: "/documents/policies/privacy-policy/"
+        to: "/documents/policies/privacy-policy"
       },
       {
         label: "Cookie Policy",
-        to: "/documents/policies/cookie-policy/"
+        to: "/documents/policies/cookie-policy"
+      },
+      {
+        label: "Terms of Service",
+        to: "/documents/policies/term-of-service"
+      },
+      {
+        label: "Other Documents",
+        to: "/documents/other"
       }
     ]
   }

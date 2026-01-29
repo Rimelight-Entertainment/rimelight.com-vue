@@ -2,6 +2,7 @@
 import { z } from "zod"
 import type { FormSubmitEvent } from "@nuxt/ui"
 import type { StepperItem } from "@nuxt/ui"
+import { RESTRICTED_SET, normalizeUsername } from "~~/shared/constants/restricted-usernames"
 
 const { signUp, isLoading } = useAuth()
 const toast = useToast()
@@ -19,6 +20,18 @@ const step1Schema = z.object({
     .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
       message:
         t("auth_username_format_error")
+    })
+    .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
+      message: t("auth_username_format_error")
+    })
+    .refine((val) => {
+      // 1. Normalize the incoming attempt
+      const normalizedInput = normalizeUsername(val);
+
+      // 2. Check if the normalized version hits a restricted keyword
+      return !RESTRICTED_SET.has(normalizedInput);
+    }, {
+      message: t("auth_username_restricted_error")
     }),
   firstName: z
     .string()

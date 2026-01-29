@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useHeaderStack } from "rimelight-components/composables"
 
-const { totalOffset } = useHeaderStack()
+const { totalHeight } = useHeaderStack()
 </script>
 
 <template>
-  <div :style="{ '--total-header-offset': `${totalOffset}px` }">
+  <div :style="{ '--total-header-offset': `${totalHeight}px` }">
     <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
       <UBanner
         icon="lucide:construction"
