@@ -9,7 +9,7 @@ export const useEncryption = () => {
 
   const getOpenPGP = async () => {
     if (import.meta.server) return null
-    return await import("openpgp/lightweight")
+    return await import("openpgp")
   }
 
   // KDF: Derive encryption key from password using PBKDF2
