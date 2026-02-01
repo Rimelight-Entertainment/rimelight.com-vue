@@ -1,6 +1,6 @@
 import {MASTER_PUBLIC_KEY} from "#shared/constants/encryption"
 
-export const useEncryption = () => {
+export const useEncryptionClient = () => {
   // Using useState for SPA navigation persistence, but clears on page reload (non-persistent)
   const isUnlocked = useState<boolean>("encryption-is-unlocked", () => false)
   const privateKey = useState<string | null>("encryption-private-key", () => null)
@@ -10,7 +10,7 @@ export const useEncryption = () => {
   // Lazy load openpgp only on client
   const getOpenPGP = async () => {
     if (import.meta.server) {
-      throw new Error("OpenPGP can only be used on the client side")
+      return null
     }
     return await import("openpgp")
   }
