@@ -170,7 +170,7 @@ useSeoMeta({
     <ClientOnly>
       <RCScrollToTop />
     </ClientOnly>
-    <PiniaColadaDevtools/>
+    <PiniaColadaDevtools />
   </UApp>
 </template>
 

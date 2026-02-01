@@ -85,22 +85,22 @@ const handleNoteSaved = () => {
 <template>
   <div class="sticky top-0 z-30 flex w-full flex-col">
     <UDashboardToolbar
-        v-if="selectedIds.length > 0"
-        class="flex flex-row items-center justify-between"
+      v-if="selectedIds.length > 0"
+      class="flex flex-row items-center justify-between"
     >
       <span class="text-sm font-medium">{{ selectedIds.length }} selected</span>
       <div class="flex flex-row gap-sm">
         <UButton
-            icon="lucide:archive"
-            variant="ghost"
-            color="neutral"
-            @click="executeBatchAction('archive')"
+          icon="lucide:archive"
+          variant="ghost"
+          color="neutral"
+          @click="executeBatchAction('archive')"
         />
         <UButton
-            icon="lucide:trash-2"
-            variant="ghost"
-            color="error"
-            @click="executeBatchAction('delete')"
+          icon="lucide:trash-2"
+          variant="ghost"
+          color="error"
+          @click="executeBatchAction('delete')"
         />
         <UButton icon="lucide:x" variant="ghost" color="neutral" @click="clearSelection" />
       </div>
@@ -108,67 +108,67 @@ const handleNoteSaved = () => {
 
     <UDashboardToolbar class="flex w-full flex-row overflow-x-auto bg-dimmed lg:hidden">
       <USelectMenu
-          v-model="selectedLabelId"
-          :items="filterOptions"
-          value-key="id"
-          label-key="name"
-          icon="lucide:list-filter"
-          placeholder="Filter by Label"
+        v-model="selectedLabelId"
+        :items="filterOptions"
+        value-key="id"
+        label-key="name"
+        icon="lucide:list-filter"
+        placeholder="Filter by Label"
       />
     </UDashboardToolbar>
   </div>
 
   <div class="flex w-full flex-col gap-xl p-sm lg:flex-row">
     <div
-        v-if="labels?.length"
-        class="sticky hidden h-fit max-h-[calc(100vh-4rem)] w-40 flex-col gap-xs overflow-y-auto lg:flex"
+      v-if="labels?.length"
+      class="sticky hidden h-fit max-h-[calc(100vh-4rem)] w-40 flex-col gap-xs overflow-y-auto lg:flex"
     >
       <span class="text-sm text-dimmed">Filter:</span>
 
       <UButton
-          label="All Notes"
-          icon="lucide:list-filter"
-          :variant="selectedLabelId === undefined ? 'soft' : 'ghost'"
-          :color="selectedLabelId === undefined ? 'primary' : 'neutral'"
-          size="xs"
-          @click="selectedLabelId = undefined"
+        label="All Notes"
+        icon="lucide:list-filter"
+        :variant="selectedLabelId === undefined ? 'soft' : 'ghost'"
+        :color="selectedLabelId === undefined ? 'primary' : 'neutral'"
+        size="xs"
+        @click="selectedLabelId = undefined"
       />
 
       <UButton
-          v-for="label in labels"
-          :key="label.id"
-          :label="label.name"
-          icon="lucide:tag"
-          :variant="selectedLabelId === label.id ? 'soft' : 'ghost'"
-          :color="selectedLabelId === label.id ? 'primary' : 'neutral'"
-          size="xs"
-          @click="selectedLabelId = label.id"
+        v-for="label in labels"
+        :key="label.id"
+        :label="label.name"
+        icon="lucide:tag"
+        :variant="selectedLabelId === label.id ? 'soft' : 'ghost'"
+        :color="selectedLabelId === label.id ? 'primary' : 'neutral'"
+        size="xs"
+        @click="selectedLabelId = label.id"
       />
     </div>
     <div class="flex w-full flex-col gap-xl">
       <UEmpty
-          v-if="!notes?.length"
-          variant="naked"
-          icon="lucide:sticky-note"
-          title="Notes are empty."
-          description="There are currently no notes."
+        v-if="!notes?.length"
+        variant="naked"
+        icon="lucide:sticky-note"
+        title="Notes are empty."
+        description="There are currently no notes."
       />
 
       <div
-          v-if="
+        v-if="
           selectedLabelId &&
           pinnedNotes.length === 0 &&
           otherNotes.length === 0 &&
           notes?.length
         "
-          class="flex flex-col items-center justify-center py-12 text-gray-500"
+        class="flex flex-col items-center justify-center py-12 text-gray-500"
       >
         <UEmpty
-            variant="naked"
-            icon="lucide:tag"
-            title="Filter is empty."
-            description="No notes found for this label."
-            :actions="[
+          variant="naked"
+          icon="lucide:tag"
+          title="Filter is empty."
+          description="No notes found for this label."
+          :actions="[
             {
               icon: 'lucide:filter-x',
               label: 'Clear Filter',
@@ -184,37 +184,37 @@ const handleNoteSaved = () => {
         <h3 class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Pinned</h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <RLNoteCard
-              v-for="note in pinnedNotes"
-              :key="note.id"
-              :note="note"
-              :selected="selectedIds.includes(note.id)"
-              @update:selected="toggleSelection(note.id)"
-              @click="openEditModal(note)"
-              @toggle-pin="executeSingleAction(note.id, 'togglePin')"
-              @archive="executeSingleAction(note.id, 'archive')"
-              @delete="executeSingleAction(note.id, 'delete')"
+            v-for="note in pinnedNotes"
+            :key="note.id"
+            :note="note"
+            :selected="selectedIds.includes(note.id)"
+            @update:selected="toggleSelection(note.id)"
+            @click="openEditModal(note)"
+            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
+            @archive="executeSingleAction(note.id, 'archive')"
+            @delete="executeSingleAction(note.id, 'delete')"
           />
         </div>
       </div>
 
       <div v-if="otherNotes.length > 0" class="flex w-full flex-col gap-2">
         <h3
-            v-if="pinnedNotes.length > 0"
-            class="text-xs font-semibold tracking-wider text-gray-500 uppercase"
+          v-if="pinnedNotes.length > 0"
+          class="text-xs font-semibold tracking-wider text-gray-500 uppercase"
         >
           Others
         </h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <RLNoteCard
-              v-for="note in otherNotes"
-              :key="note.id"
-              :note="note"
-              :selected="selectedIds.includes(note.id)"
-              @update:selected="toggleSelection(note.id)"
-              @click="openEditModal(note)"
-              @toggle-pin="executeSingleAction(note.id, 'togglePin')"
-              @archive="executeSingleAction(note.id, 'archive')"
-              @delete="executeSingleAction(note.id, 'delete')"
+            v-for="note in otherNotes"
+            :key="note.id"
+            :note="note"
+            :selected="selectedIds.includes(note.id)"
+            @update:selected="toggleSelection(note.id)"
+            @click="openEditModal(note)"
+            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
+            @archive="executeSingleAction(note.id, 'archive')"
+            @delete="executeSingleAction(note.id, 'delete')"
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
-import {definePlugin} from "oxlint"
-import {noTopLevelRef} from "./rules/noTopLevelRef.js"
-import {componentPropsStandard} from "./rules/componentPropsStandard.js"
-import {preferValidatedGetters} from "./rules/preferValidatedGetters.js"
+import { definePlugin } from "oxlint"
+import { noTopLevelRef } from "./rules/noTopLevelRef.js"
+import { componentPropsStandard } from "./rules/componentPropsStandard.js"
+import { preferValidatedGetters } from "./rules/preferValidatedGetters.js"
 
 export default definePlugin({
   meta: {

@@ -194,12 +194,8 @@ const groups = computed(() => [
       <slot />
     </UDashboardGroup>
     <RLQuickActions />
-    <RLNoteModal
-      v-model:open="isNoteModalOpen"
-      @saved="triggerRefresh"
-    />
+    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
   </div>
 </template>
 
 <style scoped></style>
-

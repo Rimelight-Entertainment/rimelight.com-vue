@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDebounceFn } from "@vueuse/core"
-import type { Note } from "~~/server/db/schema"
-import type { Label } from "~~/server/db/schema"
+import type { Note, Label } from "~~/server/db/schema"
 import type { SelectMenuItem } from "@nuxt/ui"
+import { reactive, ref, computed, watch } from "vue"
 
 const open = defineModel<boolean>("open", { default: false })
 
@@ -19,7 +19,6 @@ export interface NoteModalEmits {
 
 const emit = defineEmits<NoteModalEmits>()
 
-
 const state = reactive<{
   id: string | undefined
   title: string
@@ -33,10 +32,10 @@ const state = reactive<{
   content: note?.content ?? "",
   isPinned: note?.isPinned || false,
   isArchived: note?.isArchived || false,
-  labels: note?.labels?.map((l) => l.label.id) || []
+  labels: note?.labels?.map((l: any) => l.label.id) || []
 })
 
-const { data: fetchedLabels, status } = useFetch<Label[]>("/api/notes/labels", {
+const { data: fetchedLabels } = useFetch<Label[]>("/api/notes/labels", {
   lazy: true,
   default: () => []
 })
@@ -44,7 +43,7 @@ const { data: fetchedLabels, status } = useFetch<Label[]>("/api/notes/labels", {
 const allLabels = ref<Label[]>([])
 
 watch(
-  fetchedLabels,
+  () => fetchedLabels.value,
   (newLabels) => {
     if (newLabels) {
       allLabels.value = [...newLabels]
@@ -59,18 +58,13 @@ const labelMap = computed(() => {
   return map
 })
 
-// 2. Transform labels for USelectMenu
 const labelItems = computed<SelectMenuItem[]>(() =>
   allLabels.value.map((l) => ({
     label: l.name,
-    id: l.id // specific ID for tracking
+    id: l.id
   }))
 )
 
-/**
- * Centralized function to reset or populate state based on the incoming prop.
- * We call this when the prop changes OR when the modal opens.
- */
 const syncState = () => {
   if (note) {
     state.id = note.id
@@ -78,7 +72,7 @@ const syncState = () => {
     state.content = note.content ?? ""
     state.isPinned = note.isPinned
     state.isArchived = note.isArchived
-    state.labels = note.labels?.map((l) => l.label.id) || []
+    state.labels = note.labels?.map((l: any) => l.label.id) || []
   } else {
     state.id = undefined
     state.title = ""
@@ -89,7 +83,6 @@ const syncState = () => {
   }
 }
 
-// Watch for prop changes (e.g. switching between notes without closing modal)
 watch(() => note, syncState)
 
 const saveNote = async () => {
@@ -139,10 +132,6 @@ const saveNote = async () => {
   }
 }
 
-/**
- * Handles the creation of a new label from the USelectMenu.
- * @param newLabelName The name of the label to create.
- */
 const createLabel = async (newLabelName: string) => {
   try {
     const createdLabel = await $fetch<Label>("/api/notes/labels", {
@@ -150,19 +139,13 @@ const createLabel = async (newLabelName: string) => {
       body: { name: newLabelName }
     })
 
-    // 1. Add the newly created label to the local list.
     allLabels.value.push(createdLabel)
 
-    // 2. Select the new label for the current note.
-    // The USelectMenu's v-model is an array of IDs, so we push the new label's ID.
     if (!state.labels.includes(createdLabel.id)) {
       state.labels.push(createdLabel.id)
     }
-
-    // The watch on state.labels will trigger a debounced save.
   } catch (e) {
     console.error("Failed to create new label", e)
-    // Handle error, maybe show a toast notification
   }
 }
 
@@ -176,7 +159,7 @@ watch(
     state.isArchived,
     state.labels
   ],
-  (newVal, oldVal) => {
+  () => {
     debouncedSave()
   }
 )

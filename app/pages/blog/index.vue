@@ -159,77 +159,77 @@ useSeoMeta({
       </UPageHeader>
       <UPageBody>
         <div
-            v-if="
+          v-if="
             session &&
             session.user?.role === 'employee' &&
             initialDraftsStatus === 'pending'
           "
-            class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
           <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
         </div>
         <RCSection
-            v-else-if="session && session.user?.role === 'employee'"
-            :level="2"
-            title="Drafts"
-            description="These posts have currently not been published."
+          v-else-if="session && session.user?.role === 'employee'"
+          :level="2"
+          title="Drafts"
+          description="These posts have currently not been published."
         >
           <UBlogPosts v-if="allDrafts.length" class="md:grid-cols-2 lg:grid-cols-3">
             <UBlogPost
-                v-for="(post, index) in allDrafts"
-                :key="post.slug"
-                :to="`/blog/${post.slug}`"
-                :image="{
+              v-for="(post, index) in allDrafts"
+              :key="post.slug"
+              :to="`/blog/${post.slug}`"
+              :image="{
                 src: post.banner?.src,
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246
               }"
-                :badge="{
+              :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0'
               }"
-                :date="post.posted_at ? formatDate(post.posted_at) : ''"
-                :title="getLocalizedContent(post.title, locale)"
-                :description="getLocalizedContent(post.description, locale)"
-                :authors="[]
+              :date="post.posted_at ? formatDate(post.posted_at) : ''"
+              :title="getLocalizedContent(post.title, locale)"
+              :description="getLocalizedContent(post.description, locale)"
+              :authors="[]
               "
-                :orientation="index === 0 ? 'horizontal' : 'vertical'"
-                :class="[index === 0 && 'col-span-full']"
-                variant="subtle"
-                :ui="{ image: 'object-center object-contain' }"
+              :orientation="index === 0 ? 'horizontal' : 'vertical'"
+              :class="[index === 0 && 'col-span-full']"
+              variant="subtle"
+              :ui="{ image: 'object-center object-contain' }"
             />
           </UBlogPosts>
           <div
-              v-if="hasMoreDrafts && allDrafts.length > 0"
-              class="col-span-full flex justify-center py-8"
+            v-if="hasMoreDrafts && allDrafts.length > 0"
+            class="col-span-full flex justify-center py-8"
           >
             <UButton
-                label="Load More Drafts"
-                icon="lucide:arrow-down"
-                size="lg"
-                color="primary"
-                variant="solid"
-                :loading="isFetchingMoreDrafts"
-                :disabled="isFetchingMoreDrafts"
-                @click="loadNextDraftsPage"
+              label="Load More Drafts"
+              icon="lucide:arrow-down"
+              size="lg"
+              color="primary"
+              variant="solid"
+              :loading="isFetchingMoreDrafts"
+              :disabled="isFetchingMoreDrafts"
+              @click="loadNextDraftsPage"
             />
           </div>
           <USeparator
-              v-else-if="
+            v-else-if="
               allDrafts.length > 0 && !hasMoreDrafts && hasLoadedNextDraftsPage
             "
-              label="You've reached the end of the drafts."
-              :ui="{ label: 'text-muted' }"
-              class="py-12"
+            label="You've reached the end of the drafts."
+            :ui="{ label: 'text-muted' }"
+            class="py-12"
           />
         </RCSection>
         <div
-            v-if="initialPostsStatus === 'pending'"
-            class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          v-if="initialPostsStatus === 'pending'"
+          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
           <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
@@ -237,54 +237,54 @@ useSeoMeta({
         <RCSection v-else :level="2" title="Posts">
           <UBlogPosts v-if="allPosts.length" class="md:grid-cols-2 lg:grid-cols-3">
             <UBlogPost
-                v-for="(post, index) in allPosts"
-                :key="post.slug"
-                :to="`/blog/${post.slug}`"
-                :image="{
+              v-for="(post, index) in allPosts"
+              :key="post.slug"
+              :to="`/blog/${post.slug}`"
+              :image="{
                 src: post.banner?.src,
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246
               }"
-                :badge="{
+              :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0'
               }"
-                :date="post.posted_at ? formatDate(post.posted_at) : ''"
-                :title="getLocalizedContent(post.title, locale)"
-                :description="getLocalizedContent(post.description, locale)"
-                :authors="[]
+              :date="post.posted_at ? formatDate(post.posted_at) : ''"
+              :title="getLocalizedContent(post.title, locale)"
+              :description="getLocalizedContent(post.description, locale)"
+              :authors="[]
               "
-                :orientation="index === 0 ? 'horizontal' : 'vertical'"
-                :class="[index === 0 && 'col-span-full']"
-                variant="subtle"
-                :ui="{ image: 'object-center object-contain' }"
+              :orientation="index === 0 ? 'horizontal' : 'vertical'"
+              :class="[index === 0 && 'col-span-full']"
+              variant="subtle"
+              :ui="{ image: 'object-center object-contain' }"
             />
           </UBlogPosts>
           <div
-              v-if="hasMorePosts && allPosts.length > 0"
-              class="col-span-full flex justify-center py-8"
+            v-if="hasMorePosts && allPosts.length > 0"
+            class="col-span-full flex justify-center py-8"
           >
             <UButton
-                label="Load More Posts"
-                icon="lucide:arrow-down"
-                size="lg"
-                color="primary"
-                variant="solid"
-                :loading="isFetchingMorePosts"
-                :disabled="isFetchingMorePosts"
-                @click="loadNextPostsPage"
+              label="Load More Posts"
+              icon="lucide:arrow-down"
+              size="lg"
+              color="primary"
+              variant="solid"
+              :loading="isFetchingMorePosts"
+              :disabled="isFetchingMorePosts"
+              @click="loadNextPostsPage"
             />
           </div>
           <USeparator
-              v-else-if="
+            v-else-if="
               allPosts.length > 0 && !hasMorePosts && hasLoadedNextPostsPage
             "
-              label="You've reached the end of the posts."
-              :ui="{ label: 'text-muted' }"
-              class="py-12"
+            label="You've reached the end of the posts."
+            :ui="{ label: 'text-muted' }"
+            class="py-12"
           />
         </RCSection>
       </UPageBody>
@@ -292,6 +292,4 @@ useSeoMeta({
   </UContainer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

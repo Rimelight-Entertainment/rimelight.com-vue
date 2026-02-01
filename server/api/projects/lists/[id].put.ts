@@ -29,16 +29,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = updateListSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, updateListSchema.parse)
 
   // Verify list belongs to a board owned by user
   // This requires a join or two queries.
@@ -63,7 +54,7 @@ export default defineEventHandler(async (event) => {
     const updatedList = await db
       .update(list)
       .set({
-        ...validation.data
+        ...data
       })
       .where(eq(list.id, listId))
       .returning()

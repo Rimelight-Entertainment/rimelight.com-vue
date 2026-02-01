@@ -1,4 +1,4 @@
-import type { User } from "~/types";
+import type { User } from "~/types"
 
 const customers: User[] = [
   {
@@ -201,8 +201,8 @@ const customers: User[] = [
     status: "subscribed",
     location: "London, UK"
   }
-];
+]
 
 export default defineEventHandler(async () => {
-  return customers;
-});
+  return customers
+})

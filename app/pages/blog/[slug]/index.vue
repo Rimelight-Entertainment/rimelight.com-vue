@@ -53,13 +53,13 @@ useSeoMeta({
 
   <template v-else-if="postError || !post">
     <LazyUError
-        :error="{
+      :error="{
         statusCode: 404,
         statusMessage: 'Post not found',
         message: 'The blog post you are looking for does not exist or has been removed.'
       }"
-        redirect="/blog"
-        :clear="{ label: 'Back to Blog' }"
+      redirect="/blog"
+      :clear="{ label: 'Back to Blog' }"
     />
   </template>
 
@@ -68,6 +68,4 @@ useSeoMeta({
   </template>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

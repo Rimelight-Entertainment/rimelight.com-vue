@@ -1,13 +1,13 @@
-import { eq, desc, and, isNotNull } from "drizzle-orm";
+import { eq, desc, and, isNotNull } from "drizzle-orm"
 import { db, note } from "../../db"
-import { getUserSession } from "~~/server/utils/session";
+import { getUserSession } from "~~/server/utils/session"
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event);
-  const userId = session?.user?.id;
+  const session = await getUserSession(event)
+  const userId = session?.user?.id
 
   if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
   }
 
   const trashNotes = await db.query.note.findMany({
@@ -20,10 +20,10 @@ export default defineEventHandler(async (event) => {
         }
       }
     }
-  });
+  })
 
   return trashNotes.map((n) => ({
     ...n,
     labels: n.noteLabels.map((nl) => nl.label)
-  }));
-});
+  }))
+})

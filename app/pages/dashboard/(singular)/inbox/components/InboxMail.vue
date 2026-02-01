@@ -1,10 +1,13 @@
-<script setup lang="ts">
-import { format } from "date-fns"
-import type { Mail } from "#types"
+<script lang="ts" setup>
+import {format} from "date-fns"
+import type {Mail} from "#types"
+import {ref} from "vue"
 
-defineProps<{
+export interface InboxMailProps {
   mail: Mail
-}>()
+}
+
+const {mail} = defineProps<InboxMailProps>()
 
 const emits = defineEmits(["close"])
 
@@ -59,25 +62,25 @@ function onSubmit() {
     <UDashboardNavbar :title="mail.subject" :toggle="false">
       <template #leading>
         <UButton
-          icon="i-lucide-x"
-          color="neutral"
-          variant="ghost"
           class="-ms-1.5"
+          color="neutral"
+          icon="i-lucide-x"
+          variant="ghost"
           @click="emits('close')"
         />
       </template>
 
       <template #right>
         <UTooltip text="Archive">
-          <UButton icon="i-lucide-inbox" color="neutral" variant="ghost" />
+          <UButton color="neutral" icon="i-lucide-inbox" variant="ghost" />
         </UTooltip>
 
         <UTooltip text="Reply">
-          <UButton icon="i-lucide-reply" color="neutral" variant="ghost" />
+          <UButton color="neutral" icon="i-lucide-reply" variant="ghost" />
         </UTooltip>
 
         <UDropdownMenu :items="dropdownItems">
-          <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" />
+          <UButton color="neutral" icon="i-lucide-ellipsis-vertical" variant="ghost" />
         </UDropdownMenu>
       </template>
     </UDashboardNavbar>
@@ -86,7 +89,7 @@ function onSubmit() {
       class="flex flex-col justify-between gap-1 border-b border-default p-4 sm:flex-row sm:px-6"
     >
       <div class="flex items-start gap-4 sm:my-1.5">
-        <UAvatar v-bind="mail.from.avatar" :alt="mail.from.name" size="3xl" />
+        <UAvatar :alt="mail.from.name" size="3xl" v-bind="mail.from.avatar" />
 
         <div class="min-w-0">
           <p class="font-semibold text-highlighted">
@@ -111,12 +114,12 @@ function onSubmit() {
 
     <div class="shrink-0 px-4 pb-4 sm:px-6">
       <UCard
-        variant="subtle"
-        class="mt-auto"
         :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
+        class="mt-auto"
+        variant="subtle"
       >
         <template #header>
-          <UIcon name="i-lucide-reply" class="size-5" />
+          <UIcon class="size-5" name="i-lucide-reply" />
 
           <span class="truncate text-sm">
             Reply to {{ mail.from.name }} ({{ mail.from.email }})
@@ -126,30 +129,30 @@ function onSubmit() {
         <form @submit.prevent="onSubmit">
           <UTextarea
             v-model="reply"
-            color="neutral"
-            variant="none"
-            required
-            autoresize
-            placeholder="Write your reply..."
-            :rows="4"
             :disabled="loading"
-            class="w-full"
+            :rows="4"
             :ui="{ base: 'p-0 resize-none' }"
+            autoresize
+            class="w-full"
+            color="neutral"
+            placeholder="Write your reply..."
+            required
+            variant="none"
           />
 
           <div class="flex items-center justify-between">
             <UTooltip text="Attach file">
-              <UButton color="neutral" variant="ghost" icon="i-lucide-paperclip" />
+              <UButton color="neutral" icon="i-lucide-paperclip" variant="ghost" />
             </UTooltip>
 
             <div class="flex items-center justify-end gap-2">
-              <UButton color="neutral" variant="ghost" label="Save draft" />
+              <UButton color="neutral" label="Save draft" variant="ghost" />
               <UButton
-                type="submit"
-                color="neutral"
                 :loading="loading"
-                label="Send"
+                color="neutral"
                 icon="i-lucide-send"
+                label="Send"
+                type="submit"
               />
             </div>
           </div>

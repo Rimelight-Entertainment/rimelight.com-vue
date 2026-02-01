@@ -1,5 +1,5 @@
 import { useState } from "#app"
-import type { Component } from 'vue'
+import type { Component } from "vue"
 
 export interface FloatingToolDefinition {
   id: string
@@ -11,7 +11,10 @@ export interface FloatingToolDefinition {
 }
 
 export const useFloatingTools = () => {
-  const registeredTools = useState<Map<string, FloatingToolDefinition>>("floating-tools-registry", () => new Map())
+  const registeredTools = useState<Map<string, FloatingToolDefinition>>(
+    "floating-tools-registry",
+    () => new Map()
+  )
   const activeToolIds = useState<string[]>("active-floating-tool-ids", () => [])
   const expandedTools = useState<Record<string, boolean>>("floating-tools-expanded-map", () => ({}))
   const isVisible = useState("floating-tool-visible-global", () => false)

@@ -1,4 +1,4 @@
-import { sub } from "date-fns";
+import { sub } from "date-fns"
 
 const index = [
   {
@@ -705,8 +705,8 @@ Downtown Auto Care
 Emergency: (555) 987-6544`,
     date: sub(new Date(), { months: 2 }).toISOString()
   }
-];
+]
 
 export default defineEventHandler(async () => {
-  return index;
-});
+  return index
+})

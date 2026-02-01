@@ -15,9 +15,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UPage>
-
-  </UPage>
+  <UPage> </UPage>
 </template>
 
 <style scoped></style>

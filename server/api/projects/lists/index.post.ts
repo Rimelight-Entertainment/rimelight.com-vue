@@ -20,20 +20,11 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = createListSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, createListSchema.parse)
 
   // Verify board belongs to user
   const boardExists = await db.query.board.findFirst({
-    where: and(eq(board.id, validation.data.boardId), eq(board.userId, userId))
+    where: and(eq(board.id, data.boardId), eq(board.userId, userId))
   })
 
   if (!boardExists) {
@@ -48,8 +39,8 @@ export default defineEventHandler(async (event) => {
     const newList = await db
       .insert(list)
       .values({
-        boardId: validation.data.boardId,
-        title: validation.data.title,
+        boardId: data.boardId,
+        title: data.title,
         order: 1000 // Default to end, can be adjusted or better calculation logic added later
       })
       .returning()

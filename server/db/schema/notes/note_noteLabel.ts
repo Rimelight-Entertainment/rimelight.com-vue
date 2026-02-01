@@ -1,7 +1,7 @@
-import { pgTable, primaryKey, uuid } from "drizzle-orm/pg-core";
+import { pgTable, primaryKey, uuid } from "drizzle-orm/pg-core"
 import { note } from "./note"
 import { noteLabel } from "./noteLabel"
-import { relations } from "drizzle-orm";
+import { relations } from "drizzle-orm"
 
 export const note_noteLabel = pgTable(
   "note_noteLabel",
@@ -16,7 +16,7 @@ export const note_noteLabel = pgTable(
   (t) => ({
     pk: primaryKey({ columns: [t.noteId, t.labelId] })
   })
-);
+)
 
 export const note_noteLabelRelations = relations(note_noteLabel, ({ one }) => ({
   note: one(note, {

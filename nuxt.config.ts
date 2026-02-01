@@ -1,6 +1,6 @@
-import { fileURLToPath } from "node:url";
+import { fileURLToPath } from "node:url"
 
-const isTauri = process.env.NUXT_APP_TARGET === "tauri";
+const isTauri = process.env.NUXT_APP_TARGET === "tauri"
 
 export default defineNuxtConfig({
   $env: {
@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://rimelight.com',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
       isTauri
     }
   },
@@ -114,7 +114,7 @@ export default defineNuxtConfig({
       ? {
           cloudflare: {
             deployConfig: true,
-            nodeCompat: true,
+            nodeCompat: true
           }
         }
       : {}),
@@ -122,7 +122,7 @@ export default defineNuxtConfig({
       websocket: true
     },
     prerender: {
-     //crawlLinks: true
+      //crawlLinks: true
     },
     routeRules: {
       //"/": { prerender: true },
@@ -153,18 +153,18 @@ export default defineNuxtConfig({
       prefix: "RL"
     },
     {
-      path: '~/pages',
-      pattern: '**/components/**',
+      path: "~/pages",
+      pattern: "**/components/**",
       pathPrefix: false,
       prefix: "RL"
     }
   ],
   pages: {
-    pattern: ['**/*.vue', '!**/components/**']
+    pattern: ["**/*.vue", "!**/components/**"]
   },
   colorMode: {
-    preference: 'dark',
-    fallback: 'dark'
+    preference: "dark",
+    fallback: "dark"
   },
   fonts: {
     defaults: {
@@ -294,7 +294,7 @@ export default defineNuxtConfig({
   },
   experimental: {
     viteEnvironmentApi: true,
-    typescriptPlugin: true,
+    typescriptPlugin: true
     //typedPages: true
   }
-});
+})

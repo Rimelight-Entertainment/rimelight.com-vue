@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type {DropdownMenuItem} from "@nuxt/ui"
 
-const {collapsed} = defineProps<{
+export interface TeamsMenuProps {
   collapsed?: boolean
-}>()
+}
+
+const { collapsed } = defineProps<TeamsMenuProps>()
 
 const teams = ref([
   {
@@ -54,27 +56,27 @@ const items = computed<DropdownMenuItem[][]>(() => {
 
 <template>
   <UDropdownMenu
-      :content="{ align: 'center', collisionPadding: 12 }"
-      :items="items"
-      :ui="{
+    :content="{ align: 'center', collisionPadding: 12 }"
+    :items="items"
+    :ui="{
       content: collapsed ? 'w-40' : 'w-(--reka-dropdown-menu-trigger-width)'
     }"
   >
     <UButton
-        :class="[!collapsed && 'py-2']"
-        :square="collapsed"
-        :ui="{
+      :class="[!collapsed && 'py-2']"
+      :square="collapsed"
+      :ui="{
         trailingIcon: 'text-dimmed'
       }"
-        block
-        class="data-[state=open]:bg-elevated"
-        color="neutral"
-        v-bind="{
+      block
+      class="data-[state=open]:bg-elevated"
+      color="neutral"
+      v-bind="{
         ...selectedTeam,
         label: collapsed ? undefined : selectedTeam?.label,
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down'
       }"
-        variant="ghost"
+      variant="ghost"
     />
   </UDropdownMenu>
 </template>

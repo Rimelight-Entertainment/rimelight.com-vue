@@ -1,7 +1,7 @@
 export const useNotes = () => {
-  const noteRefreshTrigger = useState('notes-refresh-trigger', () => 0)
+  const noteRefreshTrigger = useState("notes-refresh-trigger", () => 0)
 
-  const selectedIds = useState<string[]>('notes-selected-ids', () => [])
+  const selectedIds = useState<string[]>("notes-selected-ids", () => [])
 
   const triggerRefresh = () => {
     noteRefreshTrigger.value++

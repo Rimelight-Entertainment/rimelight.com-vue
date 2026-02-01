@@ -42,26 +42,24 @@ useSeoMeta({
 
 <template>
   <div v-if="pageStatus === 'pending'" class="flex items-center justify-center p-12">
-    <UIcon class="animate-spin" name="i-heroicons-arrow-path"/>
+    <UIcon class="animate-spin" name="i-heroicons-arrow-path" />
   </div>
 
   <template v-else-if="pageError || !page">
     <LazyUError
-        :clear="{ label: 'Return Home' }"
-        :error="{
+      :clear="{ label: 'Return Home' }"
+      :error="{
         statusCode: 404,
         statusMessage: 'Page Not Found',
         message: 'The requested page could not be located.'
       }"
-        redirect="/"
+      redirect="/"
     />
   </template>
 
   <main v-else>
-    <RCPageRenderer v-model="page" :resolve-page="resolvePage"/>
+    <RCPageRenderer v-model="page" :resolve-page="resolvePage" />
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

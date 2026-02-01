@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Note } from "~~/server/db/schema"
+import { ref } from "vue"
 
 const selected = defineModel<boolean>("selected", { default: false })
 const isHovered = ref(false)

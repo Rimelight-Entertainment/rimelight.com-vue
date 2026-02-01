@@ -1,4 +1,4 @@
-import { db, card, list, } from "../../../db"
+import { db, card, list } from "../../../db"
 import { getUserSession } from "~~/server/utils/session"
 import { z } from "zod"
 import { eq } from "drizzle-orm"
@@ -21,20 +21,11 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = createCardSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, createCardSchema.parse)
 
   // Verify list belongs to board owned by user
   const listExists = await db.query.list.findFirst({
-    where: eq(list.id, validation.data.listId),
+    where: eq(list.id, data.listId),
     with: {
       board: true
     }
@@ -52,9 +43,9 @@ export default defineEventHandler(async (event) => {
     const newCard = await db
       .insert(card)
       .values({
-        listId: validation.data.listId,
-        title: validation.data.title,
-        description: validation.data.description,
+        listId: data.listId,
+        title: data.title,
+        description: data.description,
         order: 1000 // Default to end
       })
       .returning()

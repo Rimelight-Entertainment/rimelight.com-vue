@@ -19,24 +19,22 @@ const stretches = useStretches()
 
     <div class="flex items-center gap-sm">
       <UButton
-          :icon="stretches.isPaused.value ? 'lucide:play' : 'lucide:pause'"
-          :label="stretches.isPaused.value ? 'Resume' : 'Pause'"
-          :color="stretches.isPaused.value ? 'success' : 'warning'"
-          block
-          size="sm"
-          @click="stretches.isPaused.value ? stretches.resumeRoutine() : stretches.pauseRoutine()"
+        :icon="stretches.isPaused.value ? 'lucide:play' : 'lucide:pause'"
+        :label="stretches.isPaused.value ? 'Resume' : 'Pause'"
+        :color="stretches.isPaused.value ? 'success' : 'warning'"
+        block
+        size="sm"
+        @click="stretches.isPaused.value ? stretches.resumeRoutine() : stretches.pauseRoutine()"
       />
       <UButton
-          icon="lucide:square"
-          color="error"
-          variant="ghost"
-          size="sm"
-          @click="stretches.stopRoutine()"
+        icon="lucide:square"
+        color="error"
+        variant="ghost"
+        size="sm"
+        @click="stretches.stopRoutine()"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -34,27 +34,27 @@ const activeTab = computed({
   <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
     <div class="absolute inset-0">
       <NuxtImg
-          src="/images/auth_background_mobile.jpg"
-          alt="Background"
-          class="h-full w-full object-cover md:hidden"
+        src="/images/auth_background_mobile.jpg"
+        alt="Background"
+        class="h-full w-full object-cover md:hidden"
       />
       <NuxtImg
-          src="/images/auth_background_desktop.jpg"
-          alt="Background"
-          class="hidden h-full w-full object-cover md:block"
+        src="/images/auth_background_desktop.jpg"
+        alt="Background"
+        class="hidden h-full w-full object-cover md:block"
       />
       <div class="absolute inset-0 bg-black/15" />
     </div>
     <UContainer class="flex z-10 min-h-screen items-center justify-center">
       <UCard variant="solid" class="bg-white" :ui="{ body: 'flex flex-col gap-md' }">
         <UTabs
-            v-model="activeTab"
-            color="primary"
-            variant="link"
-            :items="tabs"
-            :content="false"
-            class="w-full"
-            :ui="{ trigger: 'grow' }"
+          v-model="activeTab"
+          color="primary"
+          variant="link"
+          :items="tabs"
+          :content="false"
+          class="w-full"
+          :ui="{ trigger: 'grow' }"
         />
         <NuxtPage />
       </UCard>

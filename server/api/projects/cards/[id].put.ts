@@ -33,16 +33,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = updateCardSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, updateCardSchema.parse)
 
   // Verify card ownership
   const cardExists = await db.query.card.findFirst({
@@ -64,7 +55,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const updateData: any = { ...validation.data }
+  const updateData: any = { ...data }
   if (updateData.dueDate) {
     updateData.dueDate = new Date(updateData.dueDate)
   }

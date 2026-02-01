@@ -62,8 +62,8 @@ onMounted(() => {
 <template>
   <UPage>
     <UPageSection
-        title="Current Visitors"
-        :description="`${locations.length} ${locations.length === 1 ? 'person' : 'people'} connected.`"
+      title="Current Visitors"
+      :description="`${locations.length} ${locations.length === 1 ? 'person' : 'people'} connected.`"
     >
       <div class="flex flex-col items-center">
         <canvas ref="globe" class="h-lg w-lg align-middle" />

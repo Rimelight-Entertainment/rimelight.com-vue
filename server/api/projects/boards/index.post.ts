@@ -19,24 +19,15 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = createBoardSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, createBoardSchema.parse)
 
   try {
     const newBoard = await db
       .insert(board)
       .values({
         userId,
-        title: validation.data.title,
-        description: validation.data.description
+        title: data.title,
+        description: data.description
       })
       .returning()
 

@@ -1,6 +1,6 @@
-import {computed} from "vue"
-import {authClient} from "~~/auth/auth-client"
-import {clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast} from "#imports"
+import { computed } from "vue"
+import { authClient } from "~~/auth/auth-client"
+import { clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast } from "#imports"
 
 //TODO Hackaround due to nuxt auto import issues
 interface NuxtAppWithI18n {

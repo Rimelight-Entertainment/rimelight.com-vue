@@ -14,21 +14,19 @@ const metronome = useMetronome()
       </div>
       <div class="flex gap-xs">
         <div
-            v-for="i in 4"
-            :key="i"
-            class="w-2 h-2 rounded-full transition-all duration-100"
-            :class="[metronome.currentBeat.value % 4 === i-1 ? 'bg-primary-500 scale-125 shadow-[0_0_8px_rgba(var(--color-primary-500),0.5)]' : 'bg-primary-800']"
+          v-for="i in 4"
+          :key="i"
+          class="w-2 h-2 rounded-full transition-all duration-100"
+          :class="[metronome.currentBeat.value % 4 === i-1 ? 'bg-primary-500 scale-125 shadow-[0_0_8px_rgba(var(--color-primary-500),0.5)]' : 'bg-primary-800']"
         />
       </div>
     </div>
     <UButton
-        :label="metronome.isPlaying.value ? 'Stop' : 'Start'"
-        block
-        @click="metronome.isPlaying.value ? metronome.stopMetronome() : metronome.startMetronome()"
+      :label="metronome.isPlaying.value ? 'Stop' : 'Start'"
+      block
+      @click="metronome.isPlaying.value ? metronome.stopMetronome() : metronome.startMetronome()"
     />
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

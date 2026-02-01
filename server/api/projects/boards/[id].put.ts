@@ -30,16 +30,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = updateBoardSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, updateBoardSchema.parse)
 
   // Verify ownership
   const boardExists = await db.query.board.findFirst({
@@ -57,7 +48,7 @@ export default defineEventHandler(async (event) => {
   try {
     const updatedBoard = await db
       .update(board)
-      .set({ ...validation.data })
+      .set({ ...data })
       .where(eq(board.id, boardId))
       .returning()
 

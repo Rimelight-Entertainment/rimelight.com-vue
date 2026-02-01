@@ -1,5 +1,5 @@
-import { db, user } from "../server/db";
-import { eq, count, and } from "drizzle-orm";
+import { db, user } from "../server/db"
+import { eq, count, and } from "drizzle-orm"
 
 /**
  * Generate a random number between 0000 (inclusive) and 9999 (inclusive)
@@ -7,8 +7,8 @@ import { eq, count, and } from "drizzle-orm";
 const generateRandomTag = (): string => {
   return Math.floor(Math.random() * 10000)
     .toString()
-    .padStart(4, "0");
-};
+    .padStart(4, "0")
+}
 
 /**
  * Generates a unique user tag by querying the database to ensure
@@ -17,23 +17,23 @@ const generateRandomTag = (): string => {
  * @returns A unique four-digit string tag for this name.
  */
 export const generateUniqueTag = async (userName: string): Promise<string> => {
-  const MAX_RETRIES = 50;
+  const MAX_RETRIES = 50
   for (let i = 0; i < MAX_RETRIES; i++) {
-    const newTag = generateRandomTag();
+    const newTag = generateRandomTag()
 
     const result = await db
       .select({ count: count() })
       .from(user)
-      .where(and(eq(user.name, userName), eq(user.tag, newTag)));
+      .where(and(eq(user.name, userName), eq(user.tag, newTag)))
 
-    const tagCount = result[0]?.count ?? 0;
+    const tagCount = result[0]?.count ?? 0
 
     if (tagCount === 0) {
-      return newTag;
+      return newTag
     }
   }
 
   throw new Error(
     `Failed to generate a unique tag for user "${userName}" after ${MAX_RETRIES} attempts. Please retry the operation.`
-  );
-};
+  )
+}

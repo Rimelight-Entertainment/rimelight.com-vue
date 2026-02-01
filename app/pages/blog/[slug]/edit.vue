@@ -159,7 +159,7 @@ useSeoMeta({
 <template>
   <template v-if="postError || (!post && postStatus === 'success')">
     <LazyUError
-        :error="{
+      :error="{
         statusCode: 404,
 
         statusMessage: 'Post not found',
@@ -167,19 +167,19 @@ useSeoMeta({
         message:
           'The blog post you are looking for does not exist or has been removed.'
       }"
-        redirect="/blog"
-        :clear="{ label: 'Back to Blog' }"
+      redirect="/blog"
+      :clear="{ label: 'Back to Blog' }"
     />
   </template>
   <template v-else-if="post">
     <RCPageEditor
-        v-model="post"
-        :is-saving="isSaving"
-        :page-definitions="pageDefinitions"
-        :resolve-page="resolvePage"
-        :on-create-page="handleCreate"
-        :on-delete-page="handleDelete"
-        @save="handleSave"
+      v-model="post"
+      :is-saving="isSaving"
+      :page-definitions="pageDefinitions"
+      :resolve-page="resolvePage"
+      :on-create-page="handleCreate"
+      :on-delete-page="handleDelete"
+      @save="handleSave"
     />
   </template>
   <template v-else>
@@ -189,6 +189,4 @@ useSeoMeta({
   </template>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

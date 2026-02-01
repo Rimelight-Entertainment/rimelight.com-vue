@@ -1,7 +1,7 @@
-import {computed} from "vue"
-import {Time} from "@internationalized/date"
+import { computed } from "vue"
+import { Time } from "@internationalized/date"
 
-const timer = useState("timer", () => null)
+const timer = useState<any>("timer", () => null)
 
 export const useFocusTimer = () => {
   const initialTime = useState("focusTimer-initial-time", () => ({

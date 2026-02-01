@@ -12,7 +12,6 @@ export interface QuickAction {
  * A simple registry for any action in the app
  */
 export const useQuickActions = () => {
-
   const registeredActions = useState<QuickAction[]>("global-quick-actions-list", () => [])
 
   function registerAction(action: QuickAction) {

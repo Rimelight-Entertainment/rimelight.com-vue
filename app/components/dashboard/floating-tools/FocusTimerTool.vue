@@ -17,24 +17,22 @@ const focusTimer = useFocusTimer()
 
     <div class="flex items-center gap-sm">
       <UButton
-          :icon="focusTimer.isRunning.value ? 'lucide:pause' : 'lucide:play'"
-          :label="focusTimer.isRunning.value ? 'Pause' : 'Start'"
-          :color="focusTimer.isRunning.value ? 'warning' : 'primary'"
-          block
-          size="sm"
-          @click="focusTimer.isRunning.value ? focusTimer.pauseTimer() : focusTimer.startTimer()"
+        :icon="focusTimer.isRunning.value ? 'lucide:pause' : 'lucide:play'"
+        :label="focusTimer.isRunning.value ? 'Pause' : 'Start'"
+        :color="focusTimer.isRunning.value ? 'warning' : 'primary'"
+        block
+        size="sm"
+        @click="focusTimer.isRunning.value ? focusTimer.pauseTimer() : focusTimer.startTimer()"
       />
       <UButton
-          icon="lucide:rotate-ccw"
-          color="neutral"
-          variant="ghost"
-          size="sm"
-          @click="focusTimer.resetTimer()"
+        icon="lucide:rotate-ccw"
+        color="neutral"
+        variant="ghost"
+        size="sm"
+        @click="focusTimer.resetTimer()"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

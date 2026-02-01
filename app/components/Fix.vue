@@ -1,9 +1,8 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <span
-  >This component exists due to an issue with tailwind. I currently do not have the time to figure
+    >This component exists due to an issue with tailwind. I currently do not have the time to figure
     out the issue, therefore this workaround exists to force classes to be loaded.</span
   >
   <!-- prettier-ignore -->

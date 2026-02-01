@@ -30,20 +30,11 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await readBody(event)
-  const validation = createFieldSchema.safeParse(body)
-
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: validation.error.message
-    })
-  }
+  const data = await readValidatedBody(event, createFieldSchema.parse)
 
   // Verify board ownership
   const boardExists = await db.query.board.findFirst({
-    where: eq(board.id, validation.data.boardId)
+    where: eq(board.id, data.boardId)
   })
 
   if (!boardExists || boardExists.userId !== userId) {
@@ -58,10 +49,10 @@ export default defineEventHandler(async (event) => {
     const newField = await db
       .insert(customFieldDefinition)
       .values({
-        boardId: validation.data.boardId,
-        name: validation.data.name,
-        type: validation.data.type,
-        options: validation.data.options || []
+        boardId: data.boardId,
+        name: data.name,
+        type: data.type,
+        options: data.options || []
       })
       .returning()
 

@@ -1,8 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [
-    "drizzle/"
-  ],
+  "ignorePatterns": ["drizzle/", "src-tauri/", "backups/"],
   "allowTrailingCommas": false,
   "semi": false,
   "trailingComma": "none",

@@ -1,8 +1,8 @@
-import { eq } from "drizzle-orm";
+import { eq } from "drizzle-orm"
 import { db, note, note_noteLabel } from "../../db"
-import { readBody } from "h3";
-import { z } from "zod";
-import { getUserSession } from "~~/server/utils/session";
+import { readValidatedBody } from "h3"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
 
 const createNoteSchema = z.object({
   title: z.string().optional(),
@@ -10,19 +10,18 @@ const createNoteSchema = z.object({
   isPinned: z.boolean().optional(),
   isArchived: z.boolean().optional(),
   labels: z.array(z.string()).optional()
-});
+})
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event);
-  const userId = session?.user?.id;
+  const session = await getUserSession(event)
+  const userId = session?.user?.id
 
   if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
   }
 
-  const body = await readBody(event);
-  const validatedBody = createNoteSchema.parse(body);
-  const { labels, ...noteData } = validatedBody;
+  const validatedBody = await readValidatedBody(event, createNoteSchema.parse)
+  const { labels, ...noteData } = validatedBody
 
   const [newNote] = await db
     .insert(note)
@@ -30,13 +29,13 @@ export default defineEventHandler(async (event) => {
       userId,
       ...noteData
     })
-    .returning();
+    .returning()
 
   if (!newNote) {
     throw createError({
       statusCode: 500,
       statusMessage: "Failed to create note record."
-    });
+    })
   }
 
   if (labels && labels.length > 0) {
@@ -46,15 +45,15 @@ export default defineEventHandler(async (event) => {
           noteId: newNote.id,
           labelId
         }))
-      );
+      )
     } catch (error) {
-      await db.delete(note).where(eq(note.id, newNote.id));
+      await db.delete(note).where(eq(note.id, newNote.id))
 
       throw createError({
         statusCode: 500,
         statusMessage: "Failed to assign labels. Note creation rolled back.",
         cause: error
-      });
+      })
     }
   }
 
@@ -67,17 +66,17 @@ export default defineEventHandler(async (event) => {
         }
       }
     }
-  });
+  })
 
   if (!noteWithLabels) {
     throw createError({
       statusCode: 500,
       statusMessage: "Failed to retrieve created note."
-    });
+    })
   }
 
   return {
     ...noteWithLabels,
     labels: noteWithLabels.noteLabels.map((nl) => nl.label) || []
-  };
-});
+  }
+})
