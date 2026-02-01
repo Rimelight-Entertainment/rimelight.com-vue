@@ -55,13 +55,13 @@ import { eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const userId = getRouterParam(event, 'id')
-  
+
   const user = await db
     .select()
     .from(users)
     .where(eq(users.id, userId))
     .limit(1)
-  
+
   return user[0]
 })
 ```

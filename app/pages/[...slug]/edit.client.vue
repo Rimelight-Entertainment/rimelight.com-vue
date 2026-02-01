@@ -256,13 +256,13 @@ useSeoMeta({
 <template>
   <template v-if="pageState.status === 'pending'">
     <div class="flex h-64 items-center justify-center">
-      <USkeleton/>
+      <USkeleton />
     </div>
   </template>
   <template v-else-if="pageState.status === 'error'">
     <LazyUError
-        :clear="{ label: 'Back to Blog' }"
-        :error="{
+      :clear="{ label: 'Back to Blog' }"
+      :error="{
         statusCode: 404,
 
         statusMessage: 'Post not found',
@@ -270,7 +270,7 @@ useSeoMeta({
         message:
           'The blog post you are looking for does not exist or has been removed.'
       }"
-        redirect="/blog"
+      redirect="/blog"
     />
   </template>
   <template v-else>
@@ -278,42 +278,42 @@ useSeoMeta({
       <!-- Version Selector - positioned in header area -->
       <div class="fixed top-20 right-4 z-50">
         <RLPageVersionSelector
-            v-if="pageState.data?.id"
-            v-model:current-version-id="currentVersionId"
-            :page-id="pageState.data.id"
-            @version-selected="handleVersionSelected"
-            @version-approved="handleVersionApproved"
-            @version-reverted="handleVersionReverted"
+          v-if="pageState.data?.id"
+          v-model:current-version-id="currentVersionId"
+          :page-id="pageState.data.id"
+          @version-selected="handleVersionSelected"
+          @version-approved="handleVersionApproved"
+          @version-reverted="handleVersionReverted"
         />
       </div>
 
       <!-- Version indicator banner -->
       <div
-          v-if="isViewingVersion"
-          class="fixed top-0 left-0 right-0 z-40 bg-warning-500 text-white px-4 py-2 text-sm text-center"
+        v-if="isViewingVersion"
+        class="fixed top-0 left-0 right-0 z-40 bg-warning-500 text-white px-4 py-2 text-sm text-center"
       >
         <div class="flex items-center justify-center gap-2">
-          <UIcon name="lucide:eye"/>
+          <UIcon name="lucide:eye" />
           <span>Viewing a previous version. Changes made here will create a new version.</span>
           <UButton
-              color="neutral"
-              icon="lucide:x"
-              size="xs"
-              variant="ghost"
-              @click="currentVersionId = null; isViewingVersion = false; displayedPage = null"
+            color="neutral"
+            icon="lucide:x"
+            size="xs"
+            variant="ghost"
+            @click="currentVersionId = null; isViewingVersion = false; displayedPage = null"
           />
         </div>
       </div>
 
       <RCPageEditor
-          v-if="pageToDisplay"
-          v-model="pageToDisplay"
-          :is-saving="isSaving"
-          :on-create-page="handleCreate"
-          :on-delete-page="handleDelete"
-          :page-definitions="pageDefinitions"
-          :resolve-page="resolvePage"
-          @save="handleSave"
+        v-if="pageToDisplay"
+        v-model="pageToDisplay"
+        :is-saving="isSaving"
+        :on-create-page="handleCreate"
+        :on-delete-page="handleDelete"
+        :page-definitions="pageDefinitions"
+        :resolve-page="resolvePage"
+        @save="handleSave"
       />
     </div>
   </template>

@@ -91,9 +91,20 @@ const saveNote = async () => {
   try {
     let savedNote: Note
 
+    const { encrypt, hasKeys } = useEncryption();
+
+    // Encrypt content if we have keys (E2EE)
+    let finalTitle = state.title.trim() || "";
+    let finalContent = state.content.trim() || "";
+
+    if (hasKeys.value) {
+        finalTitle = await encrypt(finalTitle);
+        finalContent = await encrypt(finalContent);
+    }
+
     const payload = {
-      title: state.title.trim() || "",
-      content: state.content.trim() || "",
+      title: finalTitle,
+      content: finalContent,
       isPinned: state.isPinned,
       isArchived: state.isArchived,
       labels: state.labels

@@ -16,6 +16,7 @@
 Use project-specific CSS variables from `main.css`:
 
 ### Colors
+
 - `text-highlighted` - Emphasized text
 - `text-muted` - Secondary text
 - `text-dimmed` - Tertiary/disabled text
@@ -23,6 +24,7 @@ Use project-specific CSS variables from `main.css`:
 - `bg-elevated` - Elevated surface background
 
 ### Spacing
+
 - `gap-md` - Medium gap
 - `padding-lg` - Large padding
 - (Use project-defined spacing variables)
@@ -73,7 +75,7 @@ Use project-specific CSS variables from `main.css`:
 <template>
   <!-- Correct -->
   <UIcon name="lucide:user" />
-  
+
   <!-- Incorrect -->
   <UIcon name="i-lucide-user" />
 </template>

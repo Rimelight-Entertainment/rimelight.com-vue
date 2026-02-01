@@ -1,15 +1,33 @@
-<script setup lang="ts">
-import type { Note } from "~~/server/db/schema"
+<script lang="ts" setup>
+import FlexSearch from 'flexsearch'
+import type {Note} from "~~/server/db/schema"
 
-const { data: notes, refresh: refreshNotes } =
+const {data: rawNotes, refresh: refreshNotes} =
     await useApi<Note[]>("/api/notes")
-const { data: labels } = await useApi<any[]>("/api/notes/labels")
+const {data: labels} = await useApi<any[]>("/api/notes/labels")
+const {decrypt, isUnlocked} = useEncryption();
 
-const selectedLabelId = ref<string | undefined>(undefined)
+const notes = ref<Note[]>([]);
 
-watch(selectedLabelId, (newId) => {
-  console.log("Selected Label ID changed to:", newId)
-})
+watch([rawNotes, isUnlocked], async () => {
+  if (!rawNotes.value) {
+    notes.value = [];
+    return;
+  }
+  if (isUnlocked.value) {
+    // Decrypt all notes
+    notes.value = await Promise.all(rawNotes.value.map(async n => {
+      return {
+        ...n,
+        title: await decrypt(n.title ?? ''),
+        content: await decrypt(n.content ?? '')
+      }
+    }));
+  } else {
+    // Show encrypted/raw or empty
+    notes.value = rawNotes.value; // Or generic placeholder
+  }
+}, {immediate: true});
 
 const filterOptions = computed(() => {
   const allNotesOption = {
@@ -28,11 +46,57 @@ const filterOptions = computed(() => {
   return [allNotesOption, ...labelOptions]
 })
 
+const selectedLabelId = ref<string | undefined>(undefined)
+const searchQuery = ref('');
+
+// Initialize FlexSearch Index
+let index: any;
+
+const initIndex = () => {
+  index = new FlexSearch.Document({
+    document: {
+      id: "id",
+      index: ["title", "content"],
+      store: true
+    },
+    tokenize: "forward", // Good for partial matches
+  });
+};
+
+const updateIndex = (notesToIndex: Note[]) => {
+  if (!index) initIndex();
+  initIndex();
+  notesToIndex.forEach(note => index.add(note));
+};
+
+watch(notes, (newNotes) => {
+  updateIndex(newNotes);
+}, {deep: true});
+
+const searchResults = computed(() => {
+  if (!searchQuery.value.trim()) return notes.value;
+  if (!index) return [];
+
+  const result = index.search(searchQuery.value, {limit: 100});
+
+  const ids = new Set<string>();
+  // FlexSearch result can be array of IDs or array of field results depending on configuration.
+  // Document<Note, true> means store=true
+  (result as any[]).forEach((fieldResult: any) => {
+    // Safe check for structure
+    if (fieldResult && fieldResult.result) {
+      fieldResult.result.forEach((id: string) => ids.add(id));
+    } else if (typeof fieldResult === 'string') {
+      ids.add(fieldResult);
+    }
+  });
+
+  return notes.value.filter(n => ids.has(n.id));
+});
+
 const isNoteMatch = (note: Note) => {
   if (!selectedLabelId.value) return true
-
   if (!note.labels?.length) return false
-
   return note.labels.some(
       (joinEntry) => joinEntry.labelId === selectedLabelId.value
   )
@@ -40,13 +104,13 @@ const isNoteMatch = (note: Note) => {
 
 const pinnedNotes = computed(
     () =>
-        notes.value?.filter((n) => n.isPinned && !n.isArchived && isNoteMatch(n)) ||
+        searchResults.value?.filter((n) => n.isPinned && !n.isArchived && isNoteMatch(n)) ||
         []
 )
 
 const otherNotes = computed(
     () =>
-        notes.value?.filter(
+        searchResults.value?.filter(
             (n) => !n.isPinned && !n.isArchived && isNoteMatch(n)
         ) || []
 )
@@ -91,18 +155,18 @@ const handleNoteSaved = () => {
       <span class="text-sm font-medium">{{ selectedIds.length }} selected</span>
       <div class="flex flex-row gap-sm">
         <UButton
+          color="neutral"
           icon="lucide:archive"
           variant="ghost"
-          color="neutral"
           @click="executeBatchAction('archive')"
         />
         <UButton
+          color="error"
           icon="lucide:trash-2"
           variant="ghost"
-          color="error"
           @click="executeBatchAction('delete')"
         />
-        <UButton icon="lucide:x" variant="ghost" color="neutral" @click="clearSelection" />
+        <UButton color="neutral" icon="lucide:x" variant="ghost" @click="clearSelection" />
       </div>
     </UDashboardToolbar>
 
@@ -110,11 +174,20 @@ const handleNoteSaved = () => {
       <USelectMenu
         v-model="selectedLabelId"
         :items="filterOptions"
-        value-key="id"
-        label-key="name"
         icon="lucide:list-filter"
+        label-key="name"
         placeholder="Filter by Label"
+        value-key="id"
       />
+
+      <div class="ml-auto w-full max-w-xs">
+        <UInput
+          v-model="searchQuery"
+          icon="lucide:search"
+          placeholder="Search encrypted notes..."
+          variant="none"
+        />
+      </div>
     </UDashboardToolbar>
   </div>
 
@@ -126,10 +199,10 @@ const handleNoteSaved = () => {
       <span class="text-sm text-dimmed">Filter:</span>
 
       <UButton
-        label="All Notes"
-        icon="lucide:list-filter"
-        :variant="selectedLabelId === undefined ? 'soft' : 'ghost'"
         :color="selectedLabelId === undefined ? 'primary' : 'neutral'"
+        :variant="selectedLabelId === undefined ? 'soft' : 'ghost'"
+        icon="lucide:list-filter"
+        label="All Notes"
         size="xs"
         @click="selectedLabelId = undefined"
       />
@@ -137,10 +210,10 @@ const handleNoteSaved = () => {
       <UButton
         v-for="label in labels"
         :key="label.id"
-        :label="label.name"
-        icon="lucide:tag"
-        :variant="selectedLabelId === label.id ? 'soft' : 'ghost'"
         :color="selectedLabelId === label.id ? 'primary' : 'neutral'"
+        :label="label.name"
+        :variant="selectedLabelId === label.id ? 'soft' : 'ghost'"
+        icon="lucide:tag"
         size="xs"
         @click="selectedLabelId = label.id"
       />
@@ -148,10 +221,10 @@ const handleNoteSaved = () => {
     <div class="flex w-full flex-col gap-xl">
       <UEmpty
         v-if="!notes?.length"
-        variant="naked"
+        description="There are currently no notes."
         icon="lucide:sticky-note"
         title="Notes are empty."
-        description="There are currently no notes."
+        variant="naked"
       />
 
       <div
@@ -164,10 +237,6 @@ const handleNoteSaved = () => {
         class="flex flex-col items-center justify-center py-12 text-gray-500"
       >
         <UEmpty
-          variant="naked"
-          icon="lucide:tag"
-          title="Filter is empty."
-          description="No notes found for this label."
           :actions="[
             {
               icon: 'lucide:filter-x',
@@ -177,6 +246,10 @@ const handleNoteSaved = () => {
               }
             }
           ]"
+          description="No notes found for this label."
+          icon="lucide:tag"
+          title="Filter is empty."
+          variant="naked"
         />
       </div>
 
@@ -188,11 +261,11 @@ const handleNoteSaved = () => {
             :key="note.id"
             :note="note"
             :selected="selectedIds.includes(note.id)"
-            @update:selected="toggleSelection(note.id)"
-            @click="openEditModal(note)"
-            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
             @archive="executeSingleAction(note.id, 'archive')"
+            @click="openEditModal(note)"
             @delete="executeSingleAction(note.id, 'delete')"
+            @update:selected="toggleSelection(note.id)"
+            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
           />
         </div>
       </div>
@@ -210,11 +283,11 @@ const handleNoteSaved = () => {
             :key="note.id"
             :note="note"
             :selected="selectedIds.includes(note.id)"
-            @update:selected="toggleSelection(note.id)"
-            @click="openEditModal(note)"
-            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
             @archive="executeSingleAction(note.id, 'archive')"
+            @click="openEditModal(note)"
             @delete="executeSingleAction(note.id, 'delete')"
+            @update:selected="toggleSelection(note.id)"
+            @toggle-pin="executeSingleAction(note.id, 'togglePin')"
           />
         </div>
       </div>

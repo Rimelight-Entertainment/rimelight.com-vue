@@ -90,6 +90,21 @@ export const auth = betterAuth({
         type: "string",
         required: false,
         default: ""
+      },
+      publicKey: {
+        type: "string",
+        required: false,
+        input: true
+      },
+      encryptedPrivateKey: {
+        type: "string",
+        required: false,
+        input: true
+      },
+      derivationSalt: {
+        type: "string",
+        required: false,
+        input: true
       }
     }
   },

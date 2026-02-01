@@ -32,7 +32,9 @@ export const user = pgTable(
     role: text("role"),
     banned: boolean("banned").default(false),
     banReason: text("ban_reason"),
-    banExpires: timestamp("ban_expires")
+    banExpires: timestamp("ban_expires"),
+    publicKey: text("public_key"),
+    encryptedPrivateKey: text("encrypted_private_key")
   },
   (table) => {
     return {

@@ -8,6 +8,13 @@
       "when": 1769620307203,
       "tag": "0000_overjoyed_true_believers",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769959255580,
+      "tag": "0001_abandoned_black_knight",
+      "breakpoints": true
     }
   ]
 }

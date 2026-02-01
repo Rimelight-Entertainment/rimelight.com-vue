@@ -32,6 +32,7 @@ bun run check
 ```
 
 This verifies:
+
 - TypeScript types
 - Linting (oxlint)
 - Formatting (oxfmt)
