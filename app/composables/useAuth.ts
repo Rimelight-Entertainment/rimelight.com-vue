@@ -79,13 +79,7 @@ export const useAuth = () => {
     const t = getT()
     isLoading.value = true
     try {
-      const { provisionKeys } = useEncryption()
-      const keys = await provisionKeys(input.password, input.email, input.name)
-
-      const { error } = await authClient.signUp.email({
-        ...input,
-        ...keys
-      })
+      const { error } = await authClient.signUp.email(input)
 
       if (error) {
         console.error("Signup error:", error)
@@ -144,38 +138,6 @@ export const useAuth = () => {
         title: t("auth_sign_in_success_title"),
         description: t("auth_sign_in_success_description", { name: data.user.name })
       })
-
-      // Attempt to unlock encryption keys using credentials
-      const { recoverKeys } = useEncryption()
-      const userWithKeys = data.user as unknown as {
-        encryptedPrivateKey: string | null
-        publicKey: string | null
-        derivationSalt: string | null
-        role: string
-      }
-
-      if (
-        userWithKeys.encryptedPrivateKey &&
-        userWithKeys.publicKey &&
-        userWithKeys.derivationSalt
-      ) {
-        try {
-          await recoverKeys(
-            credentials.password,
-            userWithKeys.derivationSalt,
-            userWithKeys.encryptedPrivateKey,
-            userWithKeys.publicKey,
-            userWithKeys.role
-          )
-        } catch (e) {
-          console.error("Failed to auto-unlock encryption:", e)
-          toast.add({
-            color: "warning",
-            title: "Encryption Locked",
-            description: "Could not automatically unlock your notes. Please check your password."
-          })
-        }
-      }
 
       await refresh()
       const redirect = useRoute().query.redirect as string
@@ -265,7 +227,6 @@ export const useAuth = () => {
     signIn,
     signOut,
     refresh,
-    checkPermission,
-    authClient
+    checkPermission
   }
 }

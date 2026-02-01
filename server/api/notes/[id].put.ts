@@ -1,7 +1,7 @@
-import { and, eq, inArray } from "drizzle-orm"
-import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note, note_noteLabel, noteLabel } from "../../db"
+import {and, eq, inArray} from "drizzle-orm"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, note, note_noteLabel, noteLabel} from "../../db"
 
 const updateNoteSchema = z.object({
   title: z.string().optional(),
@@ -27,22 +27,12 @@ export default defineEventHandler(async (event) => {
   const validatedBody = await readValidatedBody(event, updateNoteSchema.parse)
   const { labels, ...noteData } = validatedBody
 
-  // 1. Update note details
-  // Content/Title expected to be encrypted by client
-  let updatedNote
-
-  if (Object.keys(noteData).length > 0) {
-    const [u] = await db
-      .update(note)
-      .set(noteData)
-      .where(and(eq(note.id, id), eq(note.userId, userId)))
-      .returning()
-    updatedNote = u
-  } else {
-    updatedNote = await db.query.note.findFirst({
-      where: and(eq(note.id, id), eq(note.userId, userId))
-    })
-  }
+  // 1. Update note details (Standard update)
+  const [updatedNote] = await db
+    .update(note)
+    .set(noteData)
+    .where(and(eq(note.id, id), eq(note.userId, userId)))
+    .returning()
 
   if (!updatedNote) {
     throw createError({ statusCode: 404, statusMessage: "Note not found" })

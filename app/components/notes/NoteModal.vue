@@ -1,19 +1,20 @@
-<script setup lang="ts">
-import { useDebounceFn } from "@vueuse/core"
-import type { Note, Label } from "~~/server/db/schema"
-import type { SelectMenuItem } from "@nuxt/ui"
-import { reactive, ref, computed, watch } from "vue"
+<script lang="ts" setup>
+import type {SelectMenuItem} from "@nuxt/ui"
+import {useDebounceFn} from "@vueuse/core"
+import {computed, reactive, ref, watch} from "vue"
+import type {Label, Note} from "~~/server/db/schema"
 
-const open = defineModel<boolean>("open", { default: false })
+const open = defineModel<boolean>("open", {default: false})
 
 export interface NoteModalProps {
   note?: Note | null
 }
 
-const { note } = defineProps<NoteModalProps>()
+const {note} = defineProps<NoteModalProps>()
 
 export interface NoteModalEmits {
   (e: "saved", note: Note): void
+
   (e: "close"): void
 }
 
@@ -35,7 +36,7 @@ const state = reactive<{
   labels: note?.labels?.map((l: any) => l.label.id) || []
 })
 
-const { data: fetchedLabels } = useFetch<Label[]>("/api/notes/labels", {
+const {data: fetchedLabels} = useFetch<Label[]>("/api/notes/labels", {
   lazy: true,
   default: () => []
 })
@@ -43,13 +44,13 @@ const { data: fetchedLabels } = useFetch<Label[]>("/api/notes/labels", {
 const allLabels = ref<Label[]>([])
 
 watch(
-  () => fetchedLabels.value,
-  (newLabels) => {
-    if (newLabels) {
-      allLabels.value = [...newLabels]
-    }
-  },
-  { immediate: true }
+    () => fetchedLabels.value,
+    (newLabels) => {
+      if (newLabels) {
+        allLabels.value = [...newLabels]
+      }
+    },
+    {immediate: true}
 )
 
 const labelMap = computed(() => {
@@ -59,10 +60,10 @@ const labelMap = computed(() => {
 })
 
 const labelItems = computed<SelectMenuItem[]>(() =>
-  allLabels.value.map((l) => ({
-    label: l.name,
-    id: l.id
-  }))
+    allLabels.value.map((l) => ({
+      label: l.name,
+      id: l.id
+    }))
 )
 
 const syncState = () => {
@@ -91,20 +92,9 @@ const saveNote = async () => {
   try {
     let savedNote: Note
 
-    const { encrypt, hasKeys } = useEncryption();
-
-    // Encrypt content if we have keys (E2EE)
-    let finalTitle = state.title.trim() || "";
-    let finalContent = state.content.trim() || "";
-
-    if (hasKeys.value) {
-        finalTitle = await encrypt(finalTitle);
-        finalContent = await encrypt(finalContent);
-    }
-
     const payload = {
-      title: finalTitle,
-      content: finalContent,
+      title: state.title.trim() || "",
+      content: state.content.trim() || "",
       isPinned: state.isPinned,
       isArchived: state.isArchived,
       labels: state.labels
@@ -133,7 +123,7 @@ const saveNote = async () => {
       if (state.labels.length > 0) {
         savedNote = await $fetch<Note>(`/api/notes/${state.id}`, {
           method: "PUT",
-          body: { labels: state.labels }
+          body: {labels: state.labels}
         })
       }
     }
@@ -147,7 +137,7 @@ const createLabel = async (newLabelName: string) => {
   try {
     const createdLabel = await $fetch<Label>("/api/notes/labels", {
       method: "POST",
-      body: { name: newLabelName }
+      body: {name: newLabelName}
     })
 
     allLabels.value.push(createdLabel)
@@ -163,16 +153,16 @@ const createLabel = async (newLabelName: string) => {
 const debouncedSave = useDebounceFn(saveNote, 1000)
 
 watch(
-  () => [
-    state.title,
-    state.content,
-    state.isPinned,
-    state.isArchived,
-    state.labels
-  ],
-  () => {
-    debouncedSave()
-  }
+    () => [
+      state.title,
+      state.content,
+      state.isPinned,
+      state.isArchived,
+      state.labels
+    ],
+    () => {
+      debouncedSave()
+    }
 )
 
 watch(open, (isOpen) => {
@@ -187,75 +177,75 @@ watch(open, (isOpen) => {
 
 <template>
   <UModal v-model:open="open" :ui="{ content: 'p-md flex flex-col' }">
-    <slot />
+    <slot/>
     <template #content>
       <div class="flex flex-row justify-between gap-sm">
         <div class="flex w-full flex-col">
           <UInput
-            v-model="state.title"
-            type="text"
-            size="xl"
-            variant="none"
-            placeholder="Title"
-            class="flex-1 font-bold"
+              v-model="state.title"
+              class="flex-1 font-bold"
+              placeholder="Title"
+              size="xl"
+              type="text"
+              variant="none"
           />
 
           <div v-if="state.labels.length > 0" class="flex flex-wrap gap-sm px-sm">
             <UBadge
-              v-for="labelId in state.labels"
-              :key="labelId"
-              color="neutral"
-              variant="soft"
-              size="md"
+                v-for="labelId in state.labels"
+                :key="labelId"
+                color="neutral"
+                size="md"
+                variant="soft"
             >
               {{ labelMap.get(labelId) || "Unknown" }}
             </UBadge>
           </div>
           <UTextarea
-            v-model="state.content"
-            size="lg"
-            variant="none"
-            placeholder="Take a note..."
-            :rows="2"
-            :maxrows="16"
-            autoresize
-            class="w-full"
+              v-model="state.content"
+              :maxrows="16"
+              :rows="2"
+              autoresize
+              class="w-full"
+              placeholder="Take a note..."
+              size="lg"
+              variant="none"
           />
         </div>
         <div class="flex flex-col gap-xs">
           <UButton
-            :icon="state.isPinned ? 'lucide:pin-off' : 'lucide:pin'"
-            variant="ghost"
-            color="neutral"
-            @click="state.isPinned = !state.isPinned"
+              :icon="state.isPinned ? 'lucide:pin-off' : 'lucide:pin'"
+              color="neutral"
+              variant="ghost"
+              @click="state.isPinned = !state.isPinned"
           />
           <UButton
-            :icon="
+              :color="state.isArchived ? 'primary' : 'neutral'"
+              :icon="
               state.isArchived ? 'lucide:archive-x' : 'lucide:archive-restore'
             "
-            variant="ghost"
-            size="sm"
-            :color="state.isArchived ? 'primary' : 'neutral'"
-            @click="state.isArchived = !state.isArchived"
+              size="sm"
+              variant="ghost"
+              @click="state.isArchived = !state.isArchived"
           />
-          <UButton icon="lucide:trash-2" variant="ghost" color="error" size="sm" @click="" />
+          <UButton color="error" icon="lucide:trash-2" size="sm" variant="ghost" @click=""/>
         </div>
       </div>
       <div class="flex items-center justify-between">
         <div class="flex flex-row gap-xs">
           <USelectMenu
-            v-model="state.labels"
-            :items="labelItems"
-            :multiple="true"
-            :arrow="true"
-            icon="lucide-tag"
-            trailing-icon=""
-            variant="ghost"
-            value-key="id"
-            label-key="label"
-            size="sm"
-            create-item="always"
-            @create="createLabel"
+              v-model="state.labels"
+              :arrow="true"
+              :items="labelItems"
+              :multiple="true"
+              create-item="always"
+              icon="lucide-tag"
+              label-key="label"
+              size="sm"
+              trailing-icon=""
+              value-key="id"
+              variant="ghost"
+              @create="createLabel"
           >
             <template #default>
               <span class="text-dimmed">Edit Labels</span>

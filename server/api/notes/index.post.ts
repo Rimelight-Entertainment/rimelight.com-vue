@@ -1,8 +1,8 @@
-import { eq } from "drizzle-orm"
-import { readValidatedBody } from "h3"
-import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note, note_noteLabel } from "../../db"
+import {eq} from "drizzle-orm"
+import {readValidatedBody} from "h3"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, note, note_noteLabel} from "../../db"
 
 const createNoteSchema = z.object({
   title: z.string().optional(),
@@ -22,9 +22,6 @@ export default defineEventHandler(async (event) => {
 
   const validatedBody = await readValidatedBody(event, createNoteSchema.parse)
   const { labels, ...noteData } = validatedBody
-
-  /* Server-Side Encryption Removed - transitioning to Client-Side E2EE */
-  // The content/title in noteData is expected to be already encrypted by the client if enabled.
 
   const [newNote] = await db
     .insert(note)
