@@ -1,5 +1,11 @@
 {
+  "jsPlugins": [
+    "./.oxlint-plugins/rimelight.js"
+  ],
   "rules": {
-    "no-empty-pattern": "off"
+    "no-empty-pattern": "off",
+    "rimelight/prefer-validated-getters": "warn",
+    "rimelight/no-top-level-ref": "error",
+    "rimelight/component-props-standard": "warn"
   }
 }

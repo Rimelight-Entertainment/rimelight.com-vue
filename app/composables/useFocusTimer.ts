@@ -1,10 +1,14 @@
-import { ref, computed } from "vue"
-import { Time } from "@internationalized/date"
+import {computed} from "vue"
+import {Time} from "@internationalized/date"
 
-const timer = ref<any>(null)
+const timer = useState("timer", () => null)
 
 export const useFocusTimer = () => {
-  const initialTime = useState("focusTimer-initial-time", () => ({ hour: 0, minute: 25, second: 0 }))
+  const initialTime = useState("focusTimer-initial-time", () => ({
+    hour: 0,
+    minute: 25,
+    second: 0
+  }))
   const timeLeft = useState("focusTimer-time-left", () => 25 * 60)
   const isRunning = useState("focusTimer-is-running", () => false)
   const sessionsCompleted = useState("focusTimer-sessions-completed", () => 0)

@@ -1,12 +1,12 @@
-<script setup lang="ts">
-import { useRoute } from "vue-router"
-import { type Page } from "rimelight-components/types"
-import { getLocalizedContent } from "rimelight-components/utils"
-import { useI18n } from "vue-i18n"
+<script lang="ts" setup>
+import {useRoute} from "vue-router"
+import {type Page} from "rimelight-components/types"
+import {getLocalizedContent} from "rimelight-components/utils"
+import {useI18n} from "vue-i18n"
 
 const appConfig = useAppConfig()
 const route = useRoute()
-const { locale } = useI18n()
+const {locale} = useI18n()
 
 const slug = Array.isArray(route.params.slug)
     ? route.params.slug.join('/')
@@ -22,13 +22,9 @@ const {
 })
 
 const resolvePage = async (id: string) => {
-  try {
-    return await $fetch<Page>(`/api/pages/id/${id}`, {
-      query: { select: 'title,icon,slug' }
-    })
-  } catch (e) {
-    throw e
-  }
+  return await $fetch<Page>(`/api/pages/id/${id}`, {
+    query: {select: 'title,icon,slug'}
+  })
 }
 
 useHead({
@@ -46,23 +42,23 @@ useSeoMeta({
 
 <template>
   <div v-if="pageStatus === 'pending'" class="flex items-center justify-center p-12">
-    <UIcon name="i-heroicons-arrow-path" class="animate-spin" />
+    <UIcon class="animate-spin" name="i-heroicons-arrow-path"/>
   </div>
 
   <template v-else-if="pageError || !page">
     <LazyUError
+        :clear="{ label: 'Return Home' }"
         :error="{
         statusCode: 404,
         statusMessage: 'Page Not Found',
         message: 'The requested page could not be located.'
       }"
         redirect="/"
-        :clear="{ label: 'Return Home' }"
     />
   </template>
 
   <main v-else>
-    <RCPageRenderer v-model="page" :resolve-page="resolvePage" />
+    <RCPageRenderer v-model="page" :resolve-page="resolvePage"/>
   </main>
 </template>
 

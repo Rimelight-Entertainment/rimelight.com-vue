@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["drizzle/"],
+  "ignorePatterns": [
+    "drizzle/"
+  ],
   "allowTrailingCommas": false,
   "semi": false,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "bracketSpacing": true
 }

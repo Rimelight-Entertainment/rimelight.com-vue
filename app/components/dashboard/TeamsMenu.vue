@@ -1,7 +1,7 @@
-<script setup lang="ts">
-import type { DropdownMenuItem } from "@nuxt/ui"
+<script lang="ts" setup>
+import type {DropdownMenuItem} from "@nuxt/ui"
 
-const {} = defineProps<{
+const {collapsed} = defineProps<{
   collapsed?: boolean
 }>()
 
@@ -54,27 +54,27 @@ const items = computed<DropdownMenuItem[][]>(() => {
 
 <template>
   <UDropdownMenu
-    :items="items"
-    :content="{ align: 'center', collisionPadding: 12 }"
-    :ui="{
+      :content="{ align: 'center', collisionPadding: 12 }"
+      :items="items"
+      :ui="{
       content: collapsed ? 'w-40' : 'w-(--reka-dropdown-menu-trigger-width)'
     }"
   >
     <UButton
-      v-bind="{
+        :class="[!collapsed && 'py-2']"
+        :square="collapsed"
+        :ui="{
+        trailingIcon: 'text-dimmed'
+      }"
+        block
+        class="data-[state=open]:bg-elevated"
+        color="neutral"
+        v-bind="{
         ...selectedTeam,
         label: collapsed ? undefined : selectedTeam?.label,
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down'
       }"
-      color="neutral"
-      variant="ghost"
-      block
-      :square="collapsed"
-      class="data-[state=open]:bg-elevated"
-      :class="[!collapsed && 'py-2']"
-      :ui="{
-        trailingIcon: 'text-dimmed'
-      }"
+        variant="ghost"
     />
   </UDropdownMenu>
 </template>

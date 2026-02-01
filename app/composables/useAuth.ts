@@ -1,14 +1,6 @@
-import { computed } from "vue"
-import { authClient } from "~~/auth/auth-client"
-import {
-  useToast,
-  useState,
-  useAsyncData,
-  useFetch,
-  navigateTo,
-  clearNuxtData,
-  useNuxtApp
-} from "#imports"
+import {computed} from "vue"
+import {authClient} from "~~/auth/auth-client"
+import {clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast} from "#imports"
 
 //TODO Hackaround due to nuxt auto import issues
 interface NuxtAppWithI18n {
@@ -150,7 +142,7 @@ export const useAuth = () => {
       await refresh()
       const redirect = useRoute().query.redirect as string
       await navigateTo(redirect || "/")
-    } catch (error) {
+    } catch {
       toast.add({
         color: "error",
         title: t("auth_connection_error_title"),
