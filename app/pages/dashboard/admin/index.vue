@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-const {authClient} = useAuth()
+import {authClient} from "~~/auth"
+
 
 const stats = ref([
   {label: 'Total Users', value: '0', icon: 'lucide:users'},
@@ -17,13 +18,10 @@ if (usersData) {
     stats.value[0].value = usersData.total.toString()
   }
 }
-
-// Better Auth doesn't have a direct listOrganizations for admin yet in the same way as users,
-// but we might be able to count them if needed. For now, let's keep it simple.
 </script>
 
 <template>
-  <UDashboardPanel grow>
+  <UDashboardPanel id="admin" :ui="{ body: 'lg:py-12' }">
     <template #body>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <UCard v-for="stat in stats" :key="stat.label">

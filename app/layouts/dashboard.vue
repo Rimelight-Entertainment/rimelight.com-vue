@@ -1,12 +1,12 @@
-<script setup lang="ts">
-import { useHeaderStack } from "rimelight-components/composables"
-import type { NavigationMenuItem } from "@nuxt/ui"
+<script lang="ts" setup>
+import type {NavigationMenuItem} from "@nuxt/ui"
+import {useHeaderStack} from "rimelight-components/composables"
 import FocusTimerTool from "~/components/dashboard/floating-tools/FocusTimerTool.vue"
 
-const { totalHeight } = useHeaderStack()
+const {totalHeight} = useHeaderStack()
 
-const { registerTool, openTool } = useFloatingTools()
-const { registerAction } = useQuickActions()
+const {registerTool, openTool} = useFloatingTools()
+const {registerAction} = useQuickActions()
 
 const focusTimer = useFocusTimer()
 const metronome = useMetronome()
@@ -34,7 +34,7 @@ registerAction({
 })
 
 const isNoteModalOpen = ref(false)
-const { triggerRefresh } = useNotes()
+const {triggerRefresh} = useNotes()
 
 registerAction({
   id: 'action-new-note',
@@ -48,7 +48,7 @@ registerAction({
 
 const open = ref(false)
 
-const { user } = useAuth()
+const {user} = useAuth()
 
 const links = computed<NavigationMenuItem[][]>(() => [
   [
@@ -91,13 +91,11 @@ const links = computed<NavigationMenuItem[][]>(() => [
         }
       }
     ],
-    [
-
-    ]
+    []
   ],
   [
     ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
-      ? [
+        ? [
           {
             label: "Admin",
             icon: "lucide:shield-check",
@@ -108,7 +106,7 @@ const links = computed<NavigationMenuItem[][]>(() => [
             }
           }
         ]
-      : []),
+        : []),
 
     {
       label: "Users",
@@ -158,43 +156,45 @@ const groups = computed(() => [
 <template>
   <div class="flex h-svh w-full flex-col overflow-hidden">
     <div :style="{ '--total-header-offset': `${totalHeight}px` }">
-      <RCHeaderLayer id="global-header" :order="2">
-        <RLAppHeader />
-      </RCHeaderLayer>
+      <ClientOnly>
+        <RCHeaderLayer id="global-header" :order="2">
+          <RLAppHeader/>
+        </RCHeaderLayer>
+      </ClientOnly>
     </div>
 
     <UDashboardGroup class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <RLTeamsMenu :collapsed="collapsed" />
+          <RLTeamsMenu :collapsed="collapsed"/>
         </template>
 
         <template #default="{ collapsed }">
-          <UDashboardSearchButton :collapsed="collapsed" class="w-full" />
+          <UDashboardSearchButton :collapsed="collapsed" class="w-full"/>
           <UNavigationMenu
-            :collapsed="collapsed"
-            :items="links[0]"
-            orientation="vertical"
-            tooltip
-            popover
+              :collapsed="collapsed"
+              :items="links[0]"
+              orientation="vertical"
+              popover
+              tooltip
           />
         </template>
 
         <template #footer="{ collapsed }">
           <UNavigationMenu
-            :collapsed="collapsed"
-            :items="links[1]"
-            orientation="vertical"
-            tooltip
-            class="mt-auto w-full"
+              :collapsed="collapsed"
+              :items="links[1]"
+              class="mt-auto w-full"
+              orientation="vertical"
+              tooltip
           />
         </template>
       </UDashboardSidebar>
-      <UDashboardSearch :groups="groups" />
-      <slot />
+      <UDashboardSearch :groups="groups"/>
+      <slot/>
     </UDashboardGroup>
-    <RLQuickActions />
-    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
+    <RLQuickActions/>
+    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
   </div>
 </template>
 

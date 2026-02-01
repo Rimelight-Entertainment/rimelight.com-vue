@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const {authClient} = useAuth()
+import {authClient} from "~~/auth"
 
 const columns = [
   {accessorKey: 'name', header: 'Name'},
@@ -115,7 +115,7 @@ const items = (row: any) => [
 </script>
 
 <template>
-  <UDashboardPanel grow>
+  <UDashboardPanel id="users" :ui="{ body: 'lg:py-12' }">
     <template #body>
       <UDashboardToolbar>
         <template #left>

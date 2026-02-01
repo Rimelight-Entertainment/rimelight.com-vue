@@ -25,7 +25,7 @@ const formatDate = (date: string) => {
 </script>
 
 <template>
-  <UDashboardPanel grow>
+  <UDashboardPanel id="organizations" :ui="{ body: 'lg:py-12' }">
     <template #body>
       <UTable :columns="columns" :loading="pending" :rows="(orgs || []) as any[]">
         <template #name-cell="{ row }">
