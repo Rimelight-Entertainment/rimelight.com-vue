@@ -6,6 +6,8 @@
     "no-empty-pattern": "off",
     "rimelight/prefer-validated-getters": "warn",
     "rimelight/component-props-standard": "warn",
-    "rimelight/iconify-standard-format": "warn"
+    "rimelight/iconify-standard-format": "warn",
+    "rimelight/ensure-scoped-style-block": "warn",
+    "rimelight/vue-sfc-structure": "warn"
   }
 }
