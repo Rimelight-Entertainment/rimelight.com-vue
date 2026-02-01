@@ -1,22 +1,17 @@
 import {MASTER_PUBLIC_KEY} from "#shared/constants/encryption"
 
-export const useEncryptionClient = () => {
+const openpgp = import.meta.client ? await import("openpgp") : null
+
+export const useEncryption = () => {
   // Using useState for SPA navigation persistence, but clears on page reload (non-persistent)
   const isUnlocked = useState<boolean>("encryption-is-unlocked", () => false)
   const privateKey = useState<string | null>("encryption-private-key", () => null)
   const publicKey = useState<string | null>("encryption-public-key", () => null)
   const userRole = useState<string | null>("encryption-user-role", () => null)
 
-  // Lazy load openpgp only on client
-  const getOpenPGP = async () => {
-    if (import.meta.server) {
-      return null
-    }
-    return await import("openpgp")
-  }
-
   // KDF: Derive encryption key from password using PBKDF2
   const deriveKey = async (password: string, salt: string): Promise<string> => {
+    if (!import.meta.client) return ""
     const enc = new TextEncoder()
     const keyMaterial = await window.crypto.subtle.importKey(
       "raw",
@@ -47,8 +42,7 @@ export const useEncryptionClient = () => {
 
   // Called during Sign Up: Generate PGP keys with RANDOM salt
   const provisionKeys = async (password: string, email: string, name: string) => {
-    const openpgp = await getOpenPGP()
-
+    if (!import.meta.client || !openpgp) throw new Error("Client-only operation")
     // 1. Generate Random 16-byte Salt (CRITICAL SECURITY FIX)
     const saltBytes = new Uint8Array(16)
     window.crypto.getRandomValues(saltBytes)
@@ -82,8 +76,7 @@ export const useEncryptionClient = () => {
     pubKey: string,
     role: string
   ) => {
-    const openpgp = await getOpenPGP()
-
+    if (!import.meta.client || !openpgp) return
     if (!salt) {
       throw new Error("Missing derivation salt - cannot unlock encryption keys")
     }
@@ -112,8 +105,7 @@ export const useEncryptionClient = () => {
 
   // Encrypt with Key Escrow for employees
   const encrypt = async (text: string) => {
-    const openpgp = await getOpenPGP()
-
+    if (!import.meta.client || !openpgp) return text
     if (!text) return text
     if (!publicKey.value) throw new Error("Public Key missing")
 
@@ -136,8 +128,7 @@ export const useEncryptionClient = () => {
   }
 
   const decrypt = async (encryptedText: string) => {
-    const openpgp = await getOpenPGP()
-
+    if (!import.meta.client || !openpgp) return encryptedText
     if (!encryptedText) return encryptedText
     if (!encryptedText.includes("BEGIN PGP MESSAGE")) return encryptedText
     if (!passphraseSession) throw new Error("Encryption locked - please sign in again")
