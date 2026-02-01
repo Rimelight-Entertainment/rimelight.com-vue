@@ -95,12 +95,6 @@ export default defineNuxtConfig({
   vite: {
     clearScreen: false,
     envPrefix: ["VITE_", "TAURI_"],
-    optimizeDeps: {
-      include: ["openpgp"]
-    },
-    ssr: {
-      noExternal: ["openpgp"]
-    },
     server: {
       strictPort: true,
       hmr: {
@@ -126,15 +120,6 @@ export default defineNuxtConfig({
       : {}),
     experimental: {
       websocket: true
-    },
-    alias: {
-      worker_threads: "unenv/runtime/node/empty",
-      "node:worker_threads": "unenv/runtime/node/empty",
-      // If openpgp still causes issues on the server build, we mock it
-      openpgp: "unenv/runtime/node/empty"
-    },
-    rollupConfig: {
-      external: ["worker_threads", "node:worker_threads"]
     },
     prerender: {
       //crawlLinks: true
