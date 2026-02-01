@@ -95,6 +95,12 @@ export default defineNuxtConfig({
   vite: {
     clearScreen: false,
     envPrefix: ["VITE_", "TAURI_"],
+    optimizeDeps: {
+      include: ["openpgp"]
+    },
+    ssr: {
+      noExternal: ["openpgp"]
+    },
     server: {
       strictPort: true,
       hmr: {
@@ -112,14 +118,17 @@ export default defineNuxtConfig({
     preset: isTauri ? "node" : "cloudflare_module",
     ...(!isTauri
       ? {
-          cloudflare: {
-            deployConfig: true,
-            nodeCompat: true
-          }
+        cloudflare: {
+          deployConfig: true,
+          nodeCompat: true
         }
+      }
       : {}),
     experimental: {
       websocket: true
+    },
+    rollupConfig: {
+      external: ["openpgp", "worker_threads"]
     },
     prerender: {
       //crawlLinks: true
@@ -133,17 +142,17 @@ export default defineNuxtConfig({
   },
   ...(!isTauri
     ? {
-        site: {
-          url: "https://rimelight.com",
-          name: "Rimelight Entertainment",
-          indexable: false
-        },
-        robots: {
-          blockAiBots: false,
-          blockNonSeoBots: false,
-          disallow: ["/internal"]
-        }
+      site: {
+        url: "https://rimelight.com",
+        name: "Rimelight Entertainment",
+        indexable: false
+      },
+      robots: {
+        blockAiBots: false,
+        blockNonSeoBots: false,
+        disallow: ["/internal"]
       }
+    }
     : {}),
   css: ["~/assets/css/main.css"],
   components: [

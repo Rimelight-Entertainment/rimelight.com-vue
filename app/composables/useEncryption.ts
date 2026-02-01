@@ -1,5 +1,4 @@
-import { MASTER_PUBLIC_KEY } from "#shared/constants/encryption"
-import * as openpgp from "openpgp"
+import {MASTER_PUBLIC_KEY} from "#shared/constants/encryption"
 
 export const useEncryption = () => {
   // Using useState for SPA navigation persistence, but clears on page reload (non-persistent)
@@ -7,6 +6,14 @@ export const useEncryption = () => {
   const privateKey = useState<string | null>("encryption-private-key", () => null)
   const publicKey = useState<string | null>("encryption-public-key", () => null)
   const userRole = useState<string | null>("encryption-user-role", () => null)
+
+  // Lazy load openpgp only on client
+  const getOpenPGP = async () => {
+    if (import.meta.server) {
+      throw new Error("OpenPGP can only be used on the client side")
+    }
+    return await import("openpgp")
+  }
 
   // KDF: Derive encryption key from password using PBKDF2
   const deriveKey = async (password: string, salt: string): Promise<string> => {
@@ -40,6 +47,8 @@ export const useEncryption = () => {
 
   // Called during Sign Up: Generate PGP keys with RANDOM salt
   const provisionKeys = async (password: string, email: string, name: string) => {
+    const openpgp = await getOpenPGP()
+
     // 1. Generate Random 16-byte Salt (CRITICAL SECURITY FIX)
     const saltBytes = new Uint8Array(16)
     window.crypto.getRandomValues(saltBytes)
@@ -73,6 +82,8 @@ export const useEncryption = () => {
     pubKey: string,
     role: string
   ) => {
+    const openpgp = await getOpenPGP()
+
     if (!salt) {
       throw new Error("Missing derivation salt - cannot unlock encryption keys")
     }
@@ -101,6 +112,8 @@ export const useEncryption = () => {
 
   // Encrypt with Key Escrow for employees
   const encrypt = async (text: string) => {
+    const openpgp = await getOpenPGP()
+
     if (!text) return text
     if (!publicKey.value) throw new Error("Public Key missing")
 
@@ -123,6 +136,8 @@ export const useEncryption = () => {
   }
 
   const decrypt = async (encryptedText: string) => {
+    const openpgp = await getOpenPGP()
+
     if (!encryptedText) return encryptedText
     if (!encryptedText.includes("BEGIN PGP MESSAGE")) return encryptedText
     if (!passphraseSession) throw new Error("Encryption locked - please sign in again")
