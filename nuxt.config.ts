@@ -89,21 +89,10 @@ export default defineNuxtConfig({
   ],
   compatibilityDate: "2025-01-01",
   alias: {
-    openpgp: "openpgp/dist/openpgp.min.mjs",
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url))
   },
   vite: {
-    resolve: {
-      alias: {
-        openpgp: "openpgp/dist/openpgp.min.mjs"
-      }
-    },
-    build: {
-      commonjsOptions: {
-        transformMixedEsModules: true
-      }
-    },
     clearScreen: false,
     envPrefix: ["VITE_", "TAURI_"],
     server: {
@@ -121,13 +110,6 @@ export default defineNuxtConfig({
   ignore: ["**/src-tauri/**"],
   nitro: {
     preset: isTauri ? "node" : "cloudflare_module",
-    alias: {
-      worker_threads: "unenv/runtime/mock/empty",
-      "node:worker_threads": "unenv/runtime/mock/empty"
-    },
-    externals: {
-      external: ["openpgp"]
-    },
     ...(!isTauri
       ? {
           cloudflare: {

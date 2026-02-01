@@ -1,4 +1,5 @@
 import {MASTER_PUBLIC_KEY} from "#shared/constants/encryption"
+import * as openpgp from "openpgp"
 
 export const useEncryption = () => {
   // Using useState for SPA navigation persistence, but clears on page reload (non-persistent)
@@ -7,16 +8,11 @@ export const useEncryption = () => {
   const publicKey = useState<string | null>("encryption-public-key", () => null)
   const userRole = useState<string | null>("encryption-user-role", () => null)
 
-  const getOpenPGP = async () => {
-    if (import.meta.server) return null
-    return await import("openpgp")
-  }
-
   // KDF: Derive encryption key from password using PBKDF2
   const deriveKey = async (password: string, salt: string): Promise<string> => {
-    if (import.meta.server) return ""
     const enc = new TextEncoder()
-    const keyMaterial = await window.crypto.subtle.importKey(
+    const crypto = typeof window !== "undefined" ? window.crypto : (globalThis as any).crypto
+    const keyMaterial = await crypto.subtle.importKey(
       "raw",
       enc.encode(password),
       { name: "PBKDF2" },
@@ -24,7 +20,7 @@ export const useEncryption = () => {
       ["deriveBits", "deriveKey"]
     )
 
-    const key = await window.crypto.subtle.deriveKey(
+    const key = await crypto.subtle.deriveKey(
       {
         name: "PBKDF2",
         salt: enc.encode(salt),
@@ -37,7 +33,7 @@ export const useEncryption = () => {
       ["encrypt", "decrypt"]
     )
 
-    const exported = await window.crypto.subtle.exportKey("raw", key)
+    const exported = await crypto.subtle.exportKey("raw", key)
     return Array.from(new Uint8Array(exported))
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("")
@@ -45,13 +41,10 @@ export const useEncryption = () => {
 
   // Called during Sign Up: Generate PGP keys with RANDOM salt
   const provisionKeys = async (password: string, email: string, name: string) => {
-    if (import.meta.server) return { publicKey: "", encryptedPrivateKey: "", derivationSalt: "" }
-    const openpgp = await getOpenPGP()
-    if (!openpgp) return { publicKey: "", encryptedPrivateKey: "", derivationSalt: "" }
-
     // 1. Generate Random 16-byte Salt (CRITICAL SECURITY FIX)
     const saltBytes = new Uint8Array(16)
-    window.crypto.getRandomValues(saltBytes)
+    const crypto = typeof window !== "undefined" ? window.crypto : (globalThis as any).crypto
+    crypto.getRandomValues(saltBytes)
     const salt = Array.from(saltBytes)
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("")
@@ -63,7 +56,8 @@ export const useEncryption = () => {
     const { privateKey: priv, publicKey: pub } = await openpgp.generateKey({
       type: "ecc",
       userIDs: [{ name, email }],
-      passphrase: derivedPassphrase
+      passphrase: derivedPassphrase,
+      format: "armored"
     })
 
     // Return keys + salt to be stored in database
@@ -82,10 +76,6 @@ export const useEncryption = () => {
     pubKey: string,
     role: string
   ) => {
-    if (import.meta.server) return
-    const openpgp = await getOpenPGP()
-    if (!openpgp) return
-
     if (!salt) {
       throw new Error("Missing derivation salt - cannot unlock encryption keys")
     }
@@ -114,10 +104,7 @@ export const useEncryption = () => {
 
   // Encrypt with Key Escrow for employees
   const encrypt = async (text: string) => {
-    if (import.meta.server || !text) return text
-    const openpgp = await getOpenPGP()
-    if (!openpgp) return text
-
+    if (!text) return text
     if (!publicKey.value) throw new Error("Public Key missing")
 
     const pubKeys = [await openpgp.readKey({ armoredKey: publicKey.value })]
@@ -134,15 +121,13 @@ export const useEncryption = () => {
 
     return (await openpgp.encrypt({
       message: await openpgp.createMessage({ text }),
-      encryptionKeys: pubKeys
+      encryptionKeys: pubKeys,
+      format: "armored"
     })) as string
   }
 
   const decrypt = async (encryptedText: string) => {
-    if (import.meta.server || !encryptedText) return encryptedText
-    const openpgp = await getOpenPGP()
-    if (!openpgp) return encryptedText
-
+    if (!encryptedText) return encryptedText
     if (!encryptedText.includes("BEGIN PGP MESSAGE")) return encryptedText
     if (!passphraseSession) throw new Error("Encryption locked - please sign in again")
 
@@ -155,7 +140,8 @@ export const useEncryption = () => {
     const message = await openpgp.readMessage({ armoredMessage: encryptedText })
     const { data: decrypted } = await openpgp.decrypt({
       message,
-      decryptionKeys: decryptedKey
+      decryptionKeys: decryptedKey,
+      format: "utf8"
     })
     return decrypted as string
   }
