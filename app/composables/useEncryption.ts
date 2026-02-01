@@ -1,13 +1,6 @@
 import {MASTER_PUBLIC_KEY} from "#shared/constants/encryption"
 import * as openpgp from "openpgp"
 
-/**
- * Configure OpenPGP for the Edge.
- * Using the 'openpgp/web' import already prioritizes Web Crypto,
- * but we set these flags to ensure maximum performance and compatibility.
- */
-openpgp.config.allowUnauthenticatedStream = true
-
 export const useEncryption = () => {
   // Using useState for SPA navigation persistence, but clears on page reload (non-persistent)
   const isUnlocked = useState<boolean>("encryption-is-unlocked", () => false)

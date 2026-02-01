@@ -1,6 +1,6 @@
-import { computed } from "vue"
-import { authClient } from "~~/auth/auth-client"
-import { clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast } from "#imports"
+import {clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast} from "#imports"
+import {computed} from "vue"
+import {authClient} from "~~/auth/auth-client"
 
 //TODO Hackaround due to nuxt auto import issues
 interface NuxtAppWithI18n {
@@ -265,6 +265,7 @@ export const useAuth = () => {
     signIn,
     signOut,
     refresh,
-    checkPermission
+    checkPermission,
+    authClient
   }
 }

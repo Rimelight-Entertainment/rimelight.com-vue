@@ -1,15 +1,6 @@
-import {
-  pgTable,
-  text,
-  bigint,
-  timestamp,
-  boolean,
-  integer,
-  uniqueIndex,
-  index
-} from "drizzle-orm/pg-core"
-import { type UserAvailability } from "rimelight-components/types"
-import { relations } from "drizzle-orm"
+import {relations} from "drizzle-orm"
+import {bigint, boolean, index, integer, pgTable, text, timestamp, uniqueIndex} from "drizzle-orm/pg-core"
+import {type UserAvailability} from "rimelight-components/types"
 
 export const user = pgTable(
   "user",
@@ -152,6 +143,20 @@ export const invitation = pgTable(
     index("invitation_organizationId_idx").on(table.organizationId),
     index("invitation_email_idx").on(table.email)
   ]
+)
+
+export const team = pgTable(
+  "team",
+  {
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organization.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").notNull(),
+    metadata: text("metadata")
+  },
+  (table) => [index("team_organizationId_idx").on(table.organizationId)]
 )
 
 export const rateLimit = pgTable("rate_limit", {

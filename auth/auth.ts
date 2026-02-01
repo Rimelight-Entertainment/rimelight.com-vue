@@ -1,11 +1,12 @@
-import { betterAuth } from "better-auth"
-import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { db } from "../server/db"
-import { v7 as uuidv7 } from "uuid"
-import { admin } from "better-auth/plugins"
-import { generateUniqueTag } from "./utils"
-import { APIError } from "better-auth/api"
-import { RESTRICTED_SET } from "#shared/constants/restricted-usernames"
+import {RESTRICTED_SET} from "#shared/constants/restricted-usernames"
+import {betterAuth} from "better-auth"
+import {drizzleAdapter} from "better-auth/adapters/drizzle"
+import {APIError} from "better-auth/api"
+import {admin, organization} from "better-auth/plugins"
+import {v7 as uuidv7} from "uuid"
+import {db} from "../server/db"
+import {ac, admin as adminRole, member, owner, user as userRole} from "./permissions"
+import {generateUniqueTag} from "./utils"
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg" }),
@@ -118,7 +119,21 @@ export const auth = betterAuth({
       maxAge: 60 * 5
     }
   },
-  plugins: [admin()],
+  plugins: [
+    admin(),
+    organization({
+      ac,
+      roles: {
+        owner,
+        admin: adminRole,
+        member,
+        user: userRole
+      },
+      teams: {
+        enabled: true
+      }
+    })
+  ],
   databaseHooks: {
     user: {
       create: {
