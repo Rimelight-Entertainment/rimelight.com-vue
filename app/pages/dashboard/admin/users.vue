@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import {authClient} from "~~/auth"
 
+definePageMeta({
+  layout: "dashboard"
+})
+
 const columns = [
   {accessorKey: 'name', header: 'Name'},
   {accessorKey: 'email', header: 'Email'},
@@ -115,69 +119,5 @@ const items = (row: any) => [
 </script>
 
 <template>
-  <UDashboardPanel id="users" :ui="{ body: 'lg:py-12' }">
-    <template #body>
-      <UDashboardToolbar>
-        <template #left>
-          <UInput v-model="search" icon="lucide:search" placeholder="Search users..."/>
-        </template>
-      </UDashboardToolbar>
 
-      <UTable :columns="columns" :loading="pending" :rows="users as any[]">
-        <template #name-cell="{ row }">
-          <div class="flex items-center gap-3">
-            <UAvatar :alt="(row.original as any).name" :src="(row.original as any).image" size="sm"/>
-            <span class="font-medium text-gray-900 dark:text-white">{{ (row.original as any).name }}</span>
-          </div>
-        </template>
-
-        <template #role-cell="{ row }">
-          <UBadge
-              :color="(row.original as any).role === 'admin' || (row.original as any).role === 'owner' ? 'primary' : 'neutral'"
-              variant="soft">
-            {{ (row.original as any).role }}
-          </UBadge>
-        </template>
-
-        <template #status-cell="{ row }">
-          <UBadge v-if="(row.original as any).banned" color="error" variant="soft">Banned</UBadge>
-          <UBadge v-else color="success" variant="soft">Active</UBadge>
-        </template>
-
-        <template #actions-cell="{ row }">
-          <UDropdownMenu :items="items(row.original)">
-            <UButton color="neutral" icon="lucide:ellipsis" variant="ghost"/>
-          </UDropdownMenu>
-        </template>
-      </UTable>
-
-      <div v-if="total > limit" class="flex justify-center mt-4">
-        <UPagination v-model="page" :page-count="limit" :total="total"/>
-      </div>
-
-      <UModal v-model="isBanModalOpen">
-        <UCard :ui="{ body: 'p-4', header: 'p-4', footer: 'p-4' }">
-          <template #header>
-            <div class="flex items-center justify-between">
-              <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-                Ban User: {{ selectedUser?.name }}
-              </h3>
-              <UButton class="-my-1" color="neutral" icon="lucide:x" variant="ghost" @click="isBanModalOpen = false"/>
-            </div>
-          </template>
-
-          <UFormField label="Reason" name="reason">
-            <UInput v-model="banReason" placeholder="Spamming, inappropriate behavior, etc."/>
-          </UFormField>
-
-          <template #footer>
-            <div class="flex justify-end gap-3">
-              <UButton color="neutral" label="Cancel" variant="ghost" @click="isBanModalOpen = false"/>
-              <UButton color="error" label="Ban User" @click="banUser"/>
-            </div>
-          </template>
-        </UCard>
-      </UModal>
-    </template>
-  </UDashboardPanel>
 </template>

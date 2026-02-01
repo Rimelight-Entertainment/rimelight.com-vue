@@ -15,6 +15,20 @@
       "when": 1769959255580,
       "tag": "0001_abandoned_black_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1769978488307,
+      "tag": "0002_hot_the_professor",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1769981589689,
+      "tag": "0003_old_scrambler",
+      "breakpoints": true
     }
   ]
 }

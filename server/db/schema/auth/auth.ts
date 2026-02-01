@@ -1,5 +1,6 @@
 import {relations} from "drizzle-orm"
 import {bigint, boolean, index, integer, pgTable, text, timestamp, uniqueIndex} from "drizzle-orm/pg-core"
+import {timestamps} from "rimelight-components/db"
 import {type UserAvailability} from "rimelight-components/types"
 
 export const user = pgTable(
@@ -158,6 +159,14 @@ export const team = pgTable(
   },
   (table) => [index("team_organizationId_idx").on(table.organizationId)]
 )
+
+export const teamMember = pgTable("team_member", {
+  id: text("id").primaryKey(),
+  teamId: text("team_id").notNull(),
+  userId: text("user_id").notNull(),
+  role: text("role").notNull(),
+  ...timestamps
+})
 
 export const rateLimit = pgTable("rate_limit", {
   id: text("id").primaryKey(),
