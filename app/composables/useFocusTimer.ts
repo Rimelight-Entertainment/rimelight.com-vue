@@ -1,9 +1,18 @@
-import { computed } from "vue"
-import { Time } from "@internationalized/date"
-
-const timer = useState<any>("timer", () => null)
+import {useNuxtApp, useState, useToast} from "#imports"
+import {Time} from "@internationalized/date"
+import {computed} from "vue"
 
 export const useFocusTimer = () => {
+  const nuxtApp = useNuxtApp()
+
+  // State scoped to the app instance to avoid cross-user pollution
+  if (!nuxtApp._focusTimerState) {
+    nuxtApp._focusTimerState = {
+      timer: null
+    }
+  }
+  const appState = nuxtApp._focusTimerState as { timer: any }
+
   const initialTime = useState("focusTimer-initial-time", () => ({
     hour: 0,
     minute: 25,
@@ -80,8 +89,8 @@ export const useFocusTimer = () => {
   }
 
   function runInterval() {
-    if (timer.value) clearInterval(timer.value)
-    timer.value = setInterval(() => {
+    if (appState.timer) clearInterval(appState.timer)
+    appState.timer = setInterval(() => {
       if (timeLeft.value > 0) {
         timeLeft.value--
       } else {
@@ -92,9 +101,9 @@ export const useFocusTimer = () => {
 
   function pauseTimer() {
     isRunning.value = false
-    if (timer.value) {
-      clearInterval(timer.value)
-      timer.value = null
+    if (appState.timer) {
+      clearInterval(appState.timer)
+      appState.timer = null
     }
   }
 
@@ -140,7 +149,7 @@ export const useFocusTimer = () => {
     }
   }
 
-  if (isRunning.value && !timer.value && import.meta.client) {
+  if (isRunning.value && !appState.timer && import.meta.client) {
     runInterval()
   }
 
