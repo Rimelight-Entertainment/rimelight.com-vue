@@ -1,6 +1,7 @@
-import type { UseFetchOptions } from "#app"
-import { hash } from "ohash"
-import { fetch as tauriFetch } from "@tauri-apps/plugin-http"
+import type {UseFetchOptions} from "#app"
+import {useFetch, useRuntimeConfig} from "#imports"
+import {fetch as tauriFetch} from "@tauri-apps/plugin-http"
+import {hash} from "ohash"
 
 /**
  * $api: For imperative calls (buttons, save actions, Pinia Colada)
@@ -10,9 +11,7 @@ export const $api = async <T>(path: string, opts: any = {}) => {
   const isTauri = config.public.isTauri as boolean
   const isExternal =
     isTauri ||
-    (import.meta.env.PROD &&
-      import.meta.client &&
-      !window.location.hostname.includes("rimelight.com"))
+    (!import.meta.dev && import.meta.client && !window.location.hostname.includes("idantity.me"))
 
   const baseURL = isExternal ? (config.public.apiBase as string) : ""
 
@@ -36,9 +35,7 @@ export const useApi = <T>(path: string | (() => string), opts: UseFetchOptions<T
   const isTauri = config.public.isTauri as boolean
   const isExternal =
     isTauri ||
-    (import.meta.env.PROD &&
-      import.meta.client &&
-      !window.location.hostname.includes("rimelight.com"))
+    (!import.meta.dev && import.meta.client && !window.location.hostname.includes("idantity.me"))
 
   return useFetch(path, {
     baseURL: isExternal ? (config.public.apiBase as string) : "",

@@ -1,3 +1,5 @@
+import {useState} from "#imports"
+
 export const useNotes = () => {
   const noteRefreshTrigger = useState("notes-refresh-trigger", () => 0)
 
@@ -9,7 +11,7 @@ export const useNotes = () => {
 
   const toggleSelection = (id: string) => {
     if (selectedIds.value.includes(id)) {
-      selectedIds.value = selectedIds.value.filter((i) => i !== id)
+      selectedIds.value = selectedIds.value.filter((i: string) => i !== id)
     } else {
       selectedIds.value.push(id)
     }

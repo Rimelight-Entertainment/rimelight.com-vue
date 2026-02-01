@@ -54,6 +54,9 @@ export const useAuth = () => {
   const user = computed(() => session.value?.user)
 
   const permissions = {
+    admin: {
+      canAccess: computed(() => checkPermission({ admin: ["access"] }))
+    },
     blog: {
       canCreate: computed(() => checkPermission({ blogPost: ["create"] })),
       canEdit: computed(() => checkPermission({ blogPost: ["edit"] })),

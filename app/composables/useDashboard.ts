@@ -1,5 +1,5 @@
-import { watch } from "vue"
-import { useRoute, useState } from "#imports"
+import {useRoute, useState} from "#imports"
+import {watch} from "vue"
 
 export const useDashboard = () => {
   const route = useRoute()
