@@ -56,12 +56,12 @@ async function deleteBoard(id: string) {
 const items = (row: any) => [
   [{
     label: 'Open',
-    icon: 'i-heroicons-arrow-top-right-on-square-20-solid',
+    icon: 'heroicons:arrow-top-right-on-square-20-solid',
     click: () => navigateTo(`/dashboard/projects/${row.id}`)
   }],
   [{
     label: 'Delete',
-    icon: 'i-heroicons-trash-20-solid',
+    icon: 'heroicons:trash-20-solid',
     click: () => deleteBoard(row.id)
   }]
 ]

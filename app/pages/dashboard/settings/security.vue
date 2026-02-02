@@ -116,14 +116,14 @@ async function updatePassword() {
       title: "Password Update Failed",
       description: error.message,
       color: "error",
-      icon: "i-heroicons-exclamation-circle"
+      icon: "heroicons:exclamation-circle"
     })
   } else {
     toast.add({
       title: "Password Updated",
       description: "Your password has been changed successfully.",
       color: "success",
-      icon: "i-heroicons-lock-closed"
+      icon: "heroicons:lock-closed"
     })
     passwordState.current = undefined
     passwordState.new = undefined
@@ -156,14 +156,14 @@ async function deleteAccount() {
         title: "Security Check Required",
         description: "Please log out and log back in to delete your account.",
         color: "warning",
-        icon: "i-heroicons-shield-check"
+        icon: "heroicons:shield-check"
       })
     } else {
       toast.add({
         title: "Deletion Failed",
         description: error.message || "An unexpected error occurred.",
         color: "error",
-        icon: "i-heroicons-exclamation-circle"
+        icon: "heroicons:exclamation-circle"
       })
     }
     isDeleting.value = false

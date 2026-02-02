@@ -15,21 +15,21 @@ const dropdownItems = [
   [
     {
       label: "Mark as unread",
-      icon: "i-lucide-check-circle"
+      icon: "lucide:check-circle"
     },
     {
       label: "Mark as important",
-      icon: "i-lucide-triangle-alert"
+      icon: "lucide:triangle-alert"
     }
   ],
   [
     {
       label: "Star thread",
-      icon: "i-lucide-star"
+      icon: "lucide:star"
     },
     {
       label: "Mute thread",
-      icon: "i-lucide-circle-pause"
+      icon: "lucide:circle-pause"
     }
   ]
 ]
@@ -48,7 +48,7 @@ function onSubmit() {
     toast.add({
       title: "Email sent",
       description: "Your email has been sent successfully",
-      icon: "i-lucide-check-circle",
+      icon: "lucide:check-circle",
       color: "success"
     })
 

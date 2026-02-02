@@ -26,7 +26,7 @@ async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
   toast.add({
     title: "Success",
     description: "Your settings have been updated.",
-    icon: "i-lucide-check",
+    icon: "lucide:check",
     color: "success"
   })
   console.log(event.data)
