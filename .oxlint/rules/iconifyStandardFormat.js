@@ -1,4 +1,4 @@
-import {defineRule} from "oxlint"
+import { defineRule } from "oxlint"
 
 /**
  * Rule: iconify-standard-format
