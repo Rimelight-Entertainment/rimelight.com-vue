@@ -1,7 +1,7 @@
-import type {UseFetchOptions} from "#app"
-import {useFetch, useRuntimeConfig} from "#imports"
-import {fetch as tauriFetch} from "@tauri-apps/plugin-http"
-import {hash} from "ohash"
+import type { UseFetchOptions } from "#app"
+import { useFetch, useRuntimeConfig } from "#imports"
+import { fetch as tauriFetch } from "@tauri-apps/plugin-http"
+import { hash } from "ohash"
 
 /**
  * $api: For imperative calls (buttons, save actions, Pinia Colada)

@@ -177,75 +177,75 @@ watch(open, (isOpen) => {
 
 <template>
   <UModal v-model:open="open" :ui="{ content: 'p-md flex flex-col' }">
-    <slot/>
+    <slot />
     <template #content>
       <div class="flex flex-row justify-between gap-sm">
         <div class="flex w-full flex-col">
           <UInput
-              v-model="state.title"
-              class="flex-1 font-bold"
-              placeholder="Title"
-              size="xl"
-              type="text"
-              variant="none"
+            v-model="state.title"
+            class="flex-1 font-bold"
+            placeholder="Title"
+            size="xl"
+            type="text"
+            variant="none"
           />
 
           <div v-if="state.labels.length > 0" class="flex flex-wrap gap-sm px-sm">
             <UBadge
-                v-for="labelId in state.labels"
-                :key="labelId"
-                color="neutral"
-                size="md"
-                variant="soft"
+              v-for="labelId in state.labels"
+              :key="labelId"
+              color="neutral"
+              size="md"
+              variant="soft"
             >
               {{ labelMap.get(labelId) || "Unknown" }}
             </UBadge>
           </div>
           <UTextarea
-              v-model="state.content"
-              :maxrows="16"
-              :rows="2"
-              autoresize
-              class="w-full"
-              placeholder="Take a note..."
-              size="lg"
-              variant="none"
+            v-model="state.content"
+            :maxrows="16"
+            :rows="2"
+            autoresize
+            class="w-full"
+            placeholder="Take a note..."
+            size="lg"
+            variant="none"
           />
         </div>
         <div class="flex flex-col gap-xs">
           <UButton
-              :icon="state.isPinned ? 'lucide:pin-off' : 'lucide:pin'"
-              color="neutral"
-              variant="ghost"
-              @click="state.isPinned = !state.isPinned"
+            :icon="state.isPinned ? 'lucide:pin-off' : 'lucide:pin'"
+            color="neutral"
+            variant="ghost"
+            @click="state.isPinned = !state.isPinned"
           />
           <UButton
-              :color="state.isArchived ? 'primary' : 'neutral'"
-              :icon="
+            :color="state.isArchived ? 'primary' : 'neutral'"
+            :icon="
               state.isArchived ? 'lucide:archive-x' : 'lucide:archive-restore'
             "
-              size="sm"
-              variant="ghost"
-              @click="state.isArchived = !state.isArchived"
+            size="sm"
+            variant="ghost"
+            @click="state.isArchived = !state.isArchived"
           />
-          <UButton color="error" icon="lucide:trash-2" size="sm" variant="ghost" @click=""/>
+          <UButton color="error" icon="lucide:trash-2" size="sm" variant="ghost" @click="" />
         </div>
       </div>
       <div class="flex items-center justify-between">
         <div class="flex flex-row gap-xs">
           <USelectMenu
-              v-model="state.labels"
-              :arrow="true"
-              :items="labelItems"
-              :multiple="true"
-              create-item="always"
-              icon="lucide-tag"
-              label-key="label"
-              size="sm"
-              trailing-icon=""
-              value-key="id"
-              variant="ghost"
-              @create="createLabel"
+            v-model="state.labels"
+            :arrow="true"
+            :items="labelItems"
+            :multiple="true"
+            create-item="always"
+            icon="lucide-tag"
+            label-key="label"
+            size="sm"
+            trailing-icon=""
+            value-key="id"
+            variant="ghost"
+            @create="createLabel"
           >
             <template #default>
               <span class="text-dimmed">Edit Labels</span>

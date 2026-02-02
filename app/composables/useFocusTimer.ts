@@ -1,6 +1,6 @@
-import {useNuxtApp, useState, useToast} from "#imports"
-import {Time} from "@internationalized/date"
-import {computed} from "vue"
+import { useNuxtApp, useState, useToast } from "#imports"
+import { Time } from "@internationalized/date"
+import { computed } from "vue"
 
 export const useFocusTimer = () => {
   const nuxtApp = useNuxtApp()

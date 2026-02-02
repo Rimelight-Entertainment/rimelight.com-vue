@@ -1,4 +1,4 @@
-import {fileURLToPath} from "node:url"
+import { fileURLToPath } from "node:url"
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri"
 

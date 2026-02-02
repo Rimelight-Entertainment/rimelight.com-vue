@@ -61,7 +61,7 @@ const stats = computed(() => [
   <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
     <UCard v-for="stat in stats" :key="stat.label">
       <div class="flex items-center gap-md">
-        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
+        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500" />
 
         <div>
           <p class="text-sm text-dimmed">{{ stat.label }}</p>

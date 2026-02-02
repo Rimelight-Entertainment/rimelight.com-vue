@@ -14,9 +14,7 @@
       "path": "./.nuxt/tsconfig.node.json"
     }
   ],
-  "exclude": [
-    ".agent"
-  ],
+  "exclude": [".agent"],
   "compilerOptions": {
     "skipLibCheck": true
   }

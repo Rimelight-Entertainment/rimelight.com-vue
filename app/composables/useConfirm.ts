@@ -1,5 +1,5 @@
-import {useState} from "#imports"
-import {watch} from "vue"
+import { useState } from "#imports"
+import { watch } from "vue"
 
 export interface ConfirmOptions {
   title: string

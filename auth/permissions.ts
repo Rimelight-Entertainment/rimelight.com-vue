@@ -1,5 +1,5 @@
-import {createAccessControl} from "better-auth/plugins/access"
-import {adminAc, defaultStatements, ownerAc} from "better-auth/plugins/organization/access"
+import { createAccessControl } from "better-auth/plugins/access"
+import { adminAc, defaultStatements, ownerAc } from "better-auth/plugins/organization/access"
 
 const customStatements = {
   admin: ["access"],

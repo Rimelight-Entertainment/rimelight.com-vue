@@ -154,59 +154,62 @@ const groups = computed(() => [
 </script>
 
 <template>
-  <div :style="{ '--total-header-offset': `${totalOffset}px` }" class="flex h-svh w-full flex-col overflow-hidden">
+  <div
+    :style="{ '--total-header-offset': `${totalOffset}px` }"
+    class="flex h-svh w-full flex-col overflow-hidden"
+  >
     <ClientOnly>
       <RCHeaderLayer id="global-header" :order="2">
-        <RLAppHeader/>
+        <RLAppHeader />
       </RCHeaderLayer>
     </ClientOnly>
     <UDashboardGroup :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <RLTeamsMenu :collapsed="collapsed"/>
+          <RLTeamsMenu :collapsed="collapsed" />
         </template>
 
         <template #default="{ collapsed }">
-          <UDashboardSearchButton :collapsed="collapsed" class="w-full"/>
+          <UDashboardSearchButton :collapsed="collapsed" class="w-full" />
           <UNavigationMenu
-              :collapsed="collapsed"
-              :items="links[0]"
-              orientation="vertical"
-              popover
-              tooltip
+            :collapsed="collapsed"
+            :items="links[0]"
+            orientation="vertical"
+            popover
+            tooltip
           />
         </template>
 
         <template #footer="{ collapsed }">
           <div class="flex flex-col gap-sm w-full">
             <UNavigationMenu
-                :collapsed="collapsed"
-                :items="links[1]"
-                block
-                class="w-full"
-                orientation="vertical"
-                tooltip
+              :collapsed="collapsed"
+              :items="links[1]"
+              block
+              class="w-full"
+              orientation="vertical"
+              tooltip
             />
 
-            <USeparator/>
+            <USeparator />
 
             <div class="flex flex-row gap-xs justify-between">
               <div class="flex flex-row gap-xs">
-                <UButton color="neutral" icon="lucide:cog" size="sm" variant="soft"/>
+                <UButton color="neutral" icon="lucide:cog" size="sm" variant="soft" />
               </div>
 
               <div class="flex flex-row gap-xs">
-                <UButton color="neutral" icon="lucide:bug" size="sm" variant="soft"/>
+                <UButton color="neutral" icon="lucide:bug" size="sm" variant="soft" />
               </div>
             </div>
           </div>
         </template>
       </UDashboardSidebar>
-      <UDashboardSearch :groups="groups"/>
-      <slot/>
+      <UDashboardSearch :groups="groups" />
+      <slot />
     </UDashboardGroup>
-    <RLQuickActions/>
-    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
+    <RLQuickActions />
+    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
   </div>
 </template>
 

@@ -118,6 +118,4 @@ const items = (row: any) => [
 ]
 </script>
 
-<template>
-
-</template>
+<template></template>

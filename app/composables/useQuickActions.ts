@@ -1,5 +1,5 @@
-import {useNuxtApp} from "#app"
-import {type Ref, shallowRef} from "vue"
+import { useNuxtApp } from "#app"
+import { type Ref, shallowRef } from "vue"
 
 export interface QuickAction {
   id: string

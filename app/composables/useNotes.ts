@@ -1,4 +1,4 @@
-import {useState} from "#imports"
+import { useState } from "#imports"
 
 export const useNotes = () => {
   const noteRefreshTrigger = useState("notes-refresh-trigger", () => 0)

@@ -1,5 +1,5 @@
-import {useNuxtApp, useState} from "#app"
-import {type Component, type Ref, shallowRef} from "vue"
+import { useNuxtApp, useState } from "#app"
+import { type Component, type Ref, shallowRef } from "vue"
 
 export interface FloatingToolDefinition {
   id: string
