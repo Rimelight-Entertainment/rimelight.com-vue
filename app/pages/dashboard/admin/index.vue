@@ -1,19 +1,6 @@
 <script lang="ts" setup>
 import {type NavigationMenuItem} from '@nuxt/ui'
 
-definePageMeta({
-  layout: "dashboard"
-})
-
-const {permissions} = useAuth()
-
-if (!permissions.admin.canAccess) {
-  throw showError({
-    statusCode: 403,
-    statusMessage: "Forbidden: You do not have permission to access the admin panel."
-  });
-}
-
 const links = computed<NavigationMenuItem[][]>(() => ([
   [
     {
@@ -46,8 +33,6 @@ const {data: teamsCount} = await useApi('/api/admin/teams/count')
 const {data: usersCount} = await useApi('/api/admin/users/count')
 const {data: sessionsCount} = await useApi('/api/admin/sessions/count')
 
-console.log(organizationsCount)
-
 const stats = computed(() => [
   {
     label: 'Total Organizations',
@@ -73,35 +58,22 @@ const stats = computed(() => [
 </script>
 
 <template>
-  <UDashboardPanel id="admin" :ui="{ body: 'lg:py-12' }">
-    <template #header>
-      <UDashboardNavbar icon="lucide:building-2" title="Admin"/>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+    <UCard v-for="stat in stats" :key="stat.label">
+      <div class="flex items-center gap-md">
+        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
 
-      <UDashboardToolbar>
-        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>
-      </UDashboardToolbar>
-    </template>
-
-    <template #body>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
-        <UCard v-for="stat in stats" :key="stat.label">
-          <div class="flex items-center gap-md">
-            <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
-
-            <div>
-              <p class="text-sm text-dimmed">{{ stat.label }}</p>
-              <p class="text-2xl font-bold">{{ stat.value }}</p>
-            </div>
-          </div>
-        </UCard>
+        <div>
+          <p class="text-sm text-dimmed">{{ stat.label }}</p>
+          <p class="text-2xl font-bold">{{ stat.value }}</p>
+        </div>
       </div>
+    </UCard>
+  </div>
 
-      <UCard>
-        <template #header>
-          <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Admin Quick Links</h3>
-        </template>
-
-      </UCard>
+  <UCard>
+    <template #header>
+      <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Admin Quick Links</h3>
     </template>
-  </UDashboardPanel>
+  </UCard>
 </template>

@@ -10,7 +10,7 @@ const links = computed<NavigationMenuItem[][]>(() => [
     {
       label: "Overview",
       icon: "lucide:layout-dashboard",
-      to: "/dashboard/inbox",
+      to: "/dashboard/projects",
       exact: true
     }
   ]
@@ -18,9 +18,9 @@ const links = computed<NavigationMenuItem[][]>(() => [
 </script>
 
 <template>
-  <UDashboardPanel id="inbox" :ui="{ body: 'lg:py-12' }">
+  <UDashboardPanel id="notes" :ui="{ body: 'lg:py-12' }">
     <template #header>
-      <UDashboardNavbar icon="lucide:layout-dashboard" title="Inbox"/>
+      <UDashboardNavbar icon="lucide:layout-dashboard" title="Projects"/>
 
       <UDashboardToolbar>
         <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>

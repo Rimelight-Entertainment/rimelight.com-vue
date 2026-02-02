@@ -1,11 +1,11 @@
-<script setup lang="ts">
-import { type NavigationMenuItem } from "@nuxt/ui"
+<script lang="ts" setup>
+import {type NavigationMenuItem} from '@nuxt/ui'
 
 definePageMeta({
   layout: "dashboard"
 })
 
-const links = [
+const links = computed<NavigationMenuItem[][]>(() => [
   [
     {
       label: "Notes",
@@ -26,25 +26,25 @@ const links = [
       to: "/dashboard/notes/trash"
     }
   ]
-] satisfies NavigationMenuItem[][]
+])
 </script>
 
 <template>
-  <UDashboardPanel id="notes" :ui="{ body: 'p-0' }">
+  <UDashboardPanel id="notes" :ui="{ body: 'lg:py-12' }">
     <template #header>
-      <UDashboardNavbar title="Notes">
-        <template #leading>
-          <UDashboardSidebarCollapse />
-        </template>
-      </UDashboardNavbar>
+      <UDashboardNavbar icon="lucide:building-2" title="Notes"/>
 
       <UDashboardToolbar>
-        <UNavigationMenu :items="links" highlight class="-mx-1 flex-1" />
+        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>
       </UDashboardToolbar>
     </template>
 
     <template #body>
-      <NuxtPage />
+      <NuxtPage/>
     </template>
   </UDashboardPanel>
 </template>
+
+<style scoped>
+
+</style>

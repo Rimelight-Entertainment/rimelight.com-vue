@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import {ULink} from "#components"
 import * as locales from "@nuxt/ui/locale"
-import { ULink } from "#components"
-import { useFavicon } from "@vueuse/core"
-import { PiniaColadaDevtools } from '@pinia/colada-devtools'
+import {PiniaColadaDevtools} from '@pinia/colada-devtools'
+import {useFavicon} from "@vueuse/core"
 
-const { locale } = useI18n()
+const {locale} = useI18n()
 
 const lang = computed(() => locales[locale.value].code)
 const dir = computed(() => locales[locale.value].dir)
@@ -18,7 +18,7 @@ const color = computed(() => {
 const icon = useFavicon()
 
 const router = useRouter()
-const { isNotificationsSlideoverOpen } = useDashboard()
+const {isNotificationsSlideoverOpen} = useDashboard()
 
 function alertMode() {
   icon.value = '/favicon-alert.svg'
@@ -54,24 +54,24 @@ const toast = useToast()
 const descriptionComponent = h("div", [
   "This website uses ",
   h(
-    ULink,
-    {
-      href: "https://en.wikipedia.org/wiki/HTTP_cookie",
-      class: "text-primary",
-      target: "_blank"
-    },
-    "cookies"
+      ULink,
+      {
+        href: "https://en.wikipedia.org/wiki/HTTP_cookie",
+        class: "text-primary",
+        target: "_blank"
+      },
+      "cookies"
   ),
   " to ensure to enhance your browsing experience. ",
   h("br"),
   "By continuing to use our site, you agree to our ",
   h(
-    ULink,
-    {
-      href: "/documents/policies/cookie-policy/",
-      class: "text-primary"
-    },
-    "Cookie Policy"
+      ULink,
+      {
+        href: "/documents/policies/cookie-policy/",
+        class: "text-primary"
+      },
+      "Cookie Policy"
   ),
   "."
 ])
@@ -160,17 +160,18 @@ useSeoMeta({
 
 <template>
   <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 0 }">
-    <NuxtRouteAnnouncer />
-    <NuxtLoadingIndicator color="#0064d7" />
+    <NuxtRouteAnnouncer/>
+    <NuxtLoadingIndicator color="#0064d7"/>
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage/>
     </NuxtLayout>
-    <RLConfirmModal />
-    <RLNotificationsSlideover />
+    <RLConfirmModal/>
+    <RLNotificationsSlideover/>
     <ClientOnly>
-      <RCScrollToTop />
+      <RCScrollToTop/>
     </ClientOnly>
-    <PiniaColadaDevtools />
+    <RLFloatingToolsOverlay/>
+    <PiniaColadaDevtools/>
   </UApp>
 </template>
 

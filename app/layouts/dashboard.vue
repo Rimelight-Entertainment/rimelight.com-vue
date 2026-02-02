@@ -154,16 +154,13 @@ const groups = computed(() => [
 </script>
 
 <template>
-  <div class="flex h-svh w-full flex-col overflow-hidden">
-    <div :style="{ '--total-header-offset': `${totalHeight}px` }">
-      <ClientOnly>
-        <RCHeaderLayer id="global-header" :order="2">
-          <RLAppHeader/>
-        </RCHeaderLayer>
-      </ClientOnly>
-    </div>
-
-    <UDashboardGroup class="bg-dimmed">
+  <div :style="{ '--total-header-offset': `${totalOffset}px` }" class="flex h-svh w-full flex-col overflow-hidden">
+    <ClientOnly>
+      <RCHeaderLayer id="global-header" :order="2">
+        <RLAppHeader/>
+      </RCHeaderLayer>
+    </ClientOnly>
+    <UDashboardGroup :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
           <RLTeamsMenu :collapsed="collapsed"/>
@@ -181,13 +178,28 @@ const groups = computed(() => [
         </template>
 
         <template #footer="{ collapsed }">
-          <UNavigationMenu
-              :collapsed="collapsed"
-              :items="links[1]"
-              class="mt-auto w-full"
-              orientation="vertical"
-              tooltip
-          />
+          <div class="flex flex-col gap-sm w-full">
+            <UNavigationMenu
+                :collapsed="collapsed"
+                :items="links[1]"
+                block
+                class="w-full"
+                orientation="vertical"
+                tooltip
+            />
+
+            <USeparator/>
+
+            <div class="flex flex-row gap-xs justify-between">
+              <div class="flex flex-row gap-xs">
+                <UButton color="neutral" icon="lucide:cog" size="sm" variant="soft"/>
+              </div>
+
+              <div class="flex flex-row gap-xs">
+                <UButton color="neutral" icon="lucide:bug" size="sm" variant="soft"/>
+              </div>
+            </div>
+          </div>
         </template>
       </UDashboardSidebar>
       <UDashboardSearch :groups="groups"/>

@@ -1,41 +1,8 @@
 <script lang="ts" setup>
-import type {NavigationMenuItem} from "@nuxt/ui";
 import {z} from 'zod'
 import {authClient} from "~~/auth/auth-client"
 
-definePageMeta({
-  layout: "dashboard"
-})
-
 const toast = useToast()
-
-
-const links = computed<NavigationMenuItem[][]>(() => ([
-  [
-    {
-      label: "Overview",
-      icon: "lucide:layout-dashboard",
-      to: "/dashboard/admin",
-      exact: true
-    },
-    {
-      label: "Organizations",
-      icon: "lucide:building-2",
-      to: "/dashboard/admin/organizations"
-    },
-    {
-      label: "Teams",
-      icon: "lucide:users-round",
-      to: "/dashboard/admin/organizations"
-    },
-    {
-      label: "Users",
-      icon: "lucide:user",
-      to: "/dashboard/admin/users"
-    },
-  ],
-  []
-]))
 
 const columns = [
   {accessorKey: 'name', header: 'Organization'},
@@ -110,63 +77,52 @@ async function onSubmit() {
 </script>
 
 <template>
-  <UDashboardPanel id="organizations" :ui="{ body: 'lg:py-12' }">
-    <template #header>
-      <UDashboardNavbar icon="lucide:building-2" title="Admin"/>
+  <div class="flex justify-end">
+    <UModal v-model:open="isCreateModalOpen" description="Set up a new workspace for your teams."
+            title="Create Organization">
+      <UButton color="primary" icon="lucide:plus" label="Create Organization"/>
 
-      <UDashboardToolbar>
-        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>
-      </UDashboardToolbar>
-    </template>
-    <template #body>
-      <div class="flex justify-end">
-        <UModal v-model:open="isCreateModalOpen" description="Set up a new workspace for your teams."
-                title="Create Organization">
-          <UButton color="primary" icon="lucide:plus" label="Create Organization"/>
+      <template #body>
+        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+          <UFormField label="Organization Name" name="name">
+            <UInput v-model="state.name" class="w-full" placeholder="Acme Corp"/>
+          </UFormField>
 
-          <template #body>
-            <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-              <UFormField label="Organization Name" name="name">
-                <UInput v-model="state.name" class="w-full" placeholder="Acme Corp"/>
-              </UFormField>
+          <UFormField label="Slug" name="slug">
+            <UInput v-model="state.slug" class="w-full" placeholder="acme-corp"/>
+          </UFormField>
 
-              <UFormField label="Slug" name="slug">
-                <UInput v-model="state.slug" class="w-full" placeholder="acme-corp"/>
-              </UFormField>
+          <div class="flex justify-end gap-3 pt-4">
+            <UButton color="neutral" label="Cancel" variant="ghost" @click="isCreateModalOpen = false"/>
+            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit"/>
+          </div>
+        </UForm>
+      </template>
+    </UModal>
+  </div>
 
-              <div class="flex justify-end gap-3 pt-4">
-                <UButton color="neutral" label="Cancel" variant="ghost" @click="isCreateModalOpen = false"/>
-                <UButton :loading="isSubmitting" color="primary" label="Create" type="submit"/>
-              </div>
-            </UForm>
-          </template>
-        </UModal>
+  <UTable :columns="columns" :loading="pending" :rows="(orgs || []) as any[]">
+    <template #name-cell="{ row }">
+      <div class="flex items-center gap-3">
+        <UAvatar :alt="(row.original as any).name" :src="(row.original as any).logo" size="sm"/>
       </div>
-
-      <UTable :columns="columns" :loading="pending" :rows="(orgs || []) as any[]">
-        <template #name-cell="{ row }">
-          <div class="flex items-center gap-3">
-            <UAvatar :alt="(row.original as any).name" :src="(row.original as any).logo" size="sm"/>
-          </div>
-        </template>
-
-        <template #teams-cell="{ row }">
-          <div class="flex flex-wrap gap-1">
-            <UBadge v-for="team in (row.original as any).teams" :key="team.id" color="neutral" size="xs" variant="soft">
-              {{ team.name }}
-            </UBadge>
-            <span v-if="!(row.original as any).teams?.length" class="text-xs text-gray-400 italic">No teams</span>
-          </div>
-        </template>
-
-        <template #createdAt-cell="{ row }">
-
-        </template>
-
-        <template #actions-cell="{ row }">
-          <UButton color="error" icon="lucide:trash" variant="ghost"/>
-        </template>
-      </UTable>
     </template>
-  </UDashboardPanel>
+
+    <template #teams-cell="{ row }">
+      <div class="flex flex-wrap gap-1">
+        <UBadge v-for="team in (row.original as any).teams" :key="team.id" color="neutral" size="xs" variant="soft">
+          {{ team.name }}
+        </UBadge>
+        <span v-if="!(row.original as any).teams?.length" class="text-xs text-gray-400 italic">No teams</span>
+      </div>
+    </template>
+
+    <template #createdAt-cell="{ row }">
+
+    </template>
+
+    <template #actions-cell="{ row }">
+      <UButton color="error" icon="lucide:trash" variant="ghost"/>
+    </template>
+  </UTable>
 </template>

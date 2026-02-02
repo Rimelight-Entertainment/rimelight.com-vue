@@ -1,52 +1,48 @@
-<script setup lang="ts">
-import type { NavigationMenuItem } from "@nuxt/ui"
+<script lang="ts" setup>
+import {type NavigationMenuItem} from '@nuxt/ui'
 
 definePageMeta({
   layout: "dashboard"
 })
 
-const links = [
+const links = computed<NavigationMenuItem[][]>(() => ([
   [
     {
       label: "General",
-      icon: "i-lucide-user",
-      to: "/dashboard/settings",
-      exact: true
+      icon: "lucide:cog",
+      to: "/dashboard/settings"
     },
     {
       label: "Notifications",
-      icon: "i-lucide-bell",
+      icon: "lucide:bell",
       to: "/dashboard/settings/notifications"
     },
     {
       label: "Security",
-      icon: "i-lucide-shield",
+      icon: "lucide:shield",
       to: "/dashboard/settings/security"
-    }
-  ]
-] satisfies NavigationMenuItem[][]
+    },
+  ],
+  []
+]))
 </script>
 
 <template>
   <UDashboardPanel id="settings" :ui="{ body: 'lg:py-12' }">
     <template #header>
-      <UDashboardNavbar title="Settings">
-        <template #leading>
-          <UDashboardSidebarCollapse />
-        </template>
-      </UDashboardNavbar>
+      <UDashboardNavbar icon="lucide:cog" title="Settings"/>
+
+      <UDashboardToolbar>
+        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>
+      </UDashboardToolbar>
     </template>
 
     <template #body>
-      <div class="flex flex-col lg:grid lg:grid-cols-10 lg:gap-8">
-        <aside class="lg:col-span-2">
-          <UNavigationMenu orientation="vertical" highlight :items="links" />
-        </aside>
-
-        <div class="mt-8 lg:col-span-8 lg:mt-0">
-          <NuxtPage />
-        </div>
-      </div>
+      <NuxtPage/>
     </template>
   </UDashboardPanel>
 </template>
+
+<style scoped>
+
+</style>
