@@ -1,7 +1,7 @@
-import {and, eq, inArray} from "drizzle-orm"
-import {z} from "zod"
-import {getUserSession} from "~~/server/utils/session"
-import {db, note, note_noteLabel, noteLabel} from "../../db"
+import { and, eq, inArray } from "drizzle-orm"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
+import { db, note, note_noteLabel, noteLabel } from "../../db"
 
 const updateNoteSchema = z.object({
   title: z.string().optional(),

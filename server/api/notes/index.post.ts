@@ -1,8 +1,8 @@
-import {eq} from "drizzle-orm"
-import {readValidatedBody} from "h3"
-import {z} from "zod"
-import {getUserSession} from "~~/server/utils/session"
-import {db, note, note_noteLabel} from "../../db"
+import { eq } from "drizzle-orm"
+import { readValidatedBody } from "h3"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
+import { db, note, note_noteLabel } from "../../db"
 
 const createNoteSchema = z.object({
   title: z.string().optional(),
