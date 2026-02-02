@@ -1,4 +1,4 @@
-import {auth} from "../../auth/auth"
+import { auth } from "../../auth/auth"
 
 export default defineEventHandler(async (event) => {
   const session = await auth.api.getSession({

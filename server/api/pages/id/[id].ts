@@ -1,8 +1,8 @@
-import {eq} from "drizzle-orm"
+import { eq } from "drizzle-orm"
 
-import {z} from "zod"
-import {getUserSession} from "~~/server/utils/session"
-import {db, pages, pageVersions} from "../../../db"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
+import { db, pages, pageVersions } from "../../../db"
 
 const updatePageVersionSchema = z.object({
   slug: z.string().optional(),

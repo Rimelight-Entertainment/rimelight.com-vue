@@ -1,8 +1,8 @@
-import {and, eq, inArray} from "drizzle-orm"
-import {createError} from "h3"
-import {z} from "zod"
-import {getUserSession} from "~~/server/utils/session"
-import {db, note} from "../../db"
+import { and, eq, inArray } from "drizzle-orm"
+import { createError } from "h3"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
+import { db, note } from "../../db"
 
 const batchActionSchema = z.object({
   ids: z.array(z.string()).min(1),

@@ -76,16 +76,16 @@ const columns: TableColumn<Organization>[] = [
     cell: ({row}) => h(UDropdownMenu, {
       content: {align: 'end'},
       items: [
-        {label: 'Edit Details', icon: 'i-lucide-pencil'},
+        {label: 'Edit Details', icon: 'lucide:pencil'},
         {
           label: 'Delete Organization',
-          icon: 'i-lucide-trash',
+          icon: 'lucide:trash',
           color: 'error',
           onSelect: () => deleteOrg(row.original.id)
         }
       ]
     }, () => h(UButton, {
-      icon: 'i-lucide-ellipsis-vertical',
+      icon: 'lucide:ellipsis-vertical',
       variant: 'ghost',
       color: 'neutral'
     }))
@@ -160,30 +160,30 @@ async function onSubmit() {
 <template>
   <div class="flex justify-end">
     <UModal
-        v-model:open="isCreateModalOpen"
-        description="Set up a new workspace for your teams."
-        title="Create Organization"
+      v-model:open="isCreateModalOpen"
+      description="Set up a new workspace for your teams."
+      title="Create Organization"
     >
-      <UButton color="primary" icon="lucide:plus" label="Create Organization"/>
+      <UButton color="primary" icon="lucide:plus" label="Create Organization" />
 
       <template #body>
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
           <UFormField label="Organization Name" name="name">
-            <UInput v-model="state.name" class="w-full" placeholder="Acme Corp"/>
+            <UInput v-model="state.name" class="w-full" placeholder="Acme Corp" />
           </UFormField>
 
           <UFormField label="Slug" name="slug">
-            <UInput v-model="state.slug" class="w-full" placeholder="acme-corp"/>
+            <UInput v-model="state.slug" class="w-full" placeholder="acme-corp" />
           </UFormField>
 
           <div class="flex justify-end gap-3 pt-4">
             <UButton
-                color="neutral"
-                label="Cancel"
-                variant="ghost"
-                @click="isCreateModalOpen = false"
+              color="neutral"
+              label="Cancel"
+              variant="ghost"
+              @click="isCreateModalOpen = false"
             />
-            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit"/>
+            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit" />
           </div>
         </UForm>
       </template>
@@ -191,9 +191,9 @@ async function onSubmit() {
   </div>
 
   <UTable
-      :columns="columns"
-      :data="orgs || []"
-      :loading="pending"
-      class="border rounded-lg border-gray-200 dark:border-gray-800"
+    :columns="columns"
+    :data="orgs || []"
+    :loading="pending"
+    class="border rounded-lg border-gray-200 dark:border-gray-800"
   />
 </template>

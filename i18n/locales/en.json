@@ -59,7 +59,7 @@
   "auth_validation_error_title": "Validation Error",
   "auth_validation_error_description": "Please correct the errors before proceeding.",
   "auth_account_creation_success_title": "Account creation successful.",
-  "auth_account_creation_success_description": "Welcome to rimelight.com!",
+  "auth_account_creation_success_description": "Welcome to Rimelight Entertainment!",
   "auth_sign_up_failed_title": "Failed to sign up.",
   "auth_sign_up_failed_description": "Please check your details and try again.",
   "auth_have_account": "Already have an account?",

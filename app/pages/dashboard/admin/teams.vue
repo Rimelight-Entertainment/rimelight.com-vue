@@ -19,10 +19,35 @@ interface Team {
   logo?: string
   memberCount: number
   createdAt: string
-  teams: { id: string, name: string }[]
+  parentId: string | null
+  subteams?: Team[]
 }
 
 const columns: TableColumn<Team>[] = [
+  {
+    id: 'expand',
+    cell: ({row}) => {
+      // Only show expand button if there are subteams
+      if (!row.original.subteams?.length) return null
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        icon: 'i-lucide-chevron-right',
+        square: true,
+        ui: {
+          leadingIcon: [
+            'transition-transform duration-200',
+            row.getIsExpanded() ? 'rotate-90' : ''
+          ]
+        },
+        onClick: (e) => {
+          e.stopPropagation()
+          row.toggleExpanded()
+        }
+      })
+    }
+  },
   {
     accessorKey: 'name',
     header: 'Team',
@@ -37,23 +62,13 @@ const columns: TableColumn<Team>[] = [
   },
   {
     accessorKey: 'memberCount',
-    header: 'Members'
-  },
-  {
-    accessorKey: 'teams',
-    header: 'Teams',
+    header: 'Members',
+    // Example: 47 (36) where 47 is total including subteams, 36 is direct
     cell: ({row}) => {
-      const teams = row.original.teams || []
-      if (!teams.length) return h('span', {class: 'text-xs text-gray-400 italic'}, 'No teams')
-
-      return h('div', {class: 'flex flex-wrap gap-1'},
-          teams.map(team => h(UBadge, {
-            key: team.id,
-            color: 'neutral',
-            variant: 'soft',
-            size: 'xs'
-          }, () => team.name))
-      )
+      const direct = row.original.memberCount || 0
+      // This logic assumes subteams are mapped. In production, calculate this on server for performance.
+      const total = direct + (row.original.subteams?.reduce((acc, st) => acc + st.memberCount, 0) || 0)
+      return `${total} (${direct})`
     }
   },
   {
@@ -69,24 +84,29 @@ const columns: TableColumn<Team>[] = [
       content: {align: 'end'},
       items: [
         {
+          label: 'Add Subteam',
+          icon: 'lucide:plus-circle',
+          onSelect: () => openCreateSubteamModal(row.original)
+        },
+        {
           label: 'Manage Members',
-          icon: 'i-lucide-users',
+          icon: 'lucide:users',
           onSelect: () => openMembersModal(row.original)
         },
         {
           label: 'Edit Details',
-          icon: 'i-lucide-pencil',
+          icon: 'lucide:pencil',
           onSelect: () => openUpdateModal(row.original)
         },
         {
           label: 'Delete Team',
-          icon: 'i-lucide-trash',
+          icon: 'lucide:trash',
           color: 'error',
           onSelect: () => deleteTeam(row.original.id)
         }
       ]
     }, () => h(UButton, {
-      icon: 'i-lucide-ellipsis-vertical',
+      icon: 'lucide:ellipsis-vertical',
       variant: 'ghost',
       color: 'neutral'
     }))
@@ -100,16 +120,33 @@ const {data: teams, pending, refresh} = await useLazyFetch<Team[]>('/api/admin/t
 const isCreateModalOpen = ref(false)
 const isSubmitting = ref(false)
 
+function openCreateSubteamModal(parent: Team) {
+  state.parentId = parent.id
+  state.parentName = parent.name
+  isCreateModalOpen.value = true
+}
+
 const state = reactive({
-  name: ''
+  name: '',
+  parentId: null as string | null,
+  parentName: '' // For UI context in modal
 })
+
+function getMemberCounts(team: Team) {
+  const direct = team.memberCount || 0
+  // Note: For a truly precise 'unique' count, the API should provide this.
+  // Assuming 'memberCount' is direct, we'll display direct and a placeholder for sub-totals if needed.
+  // If your API provides subteamMemberCount, use:
+  // return `${direct + team.subteamMemberCount} (${direct})`
+  return `${direct}`
+}
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters')
 })
 
 type Schema = z.output<typeof schema>
-
+const expanded = ref({})
 const isUpdateModalOpen = ref(false)
 const isMembersModalOpen = ref(false)
 const selectedTeam = ref<Team | null>(null)
@@ -139,42 +176,23 @@ const updateSchema = z.object({
 })
 
 async function createTeam() {
-  isSubmitting.value = true;
-
+  isSubmitting.value = true
   try {
-    const {data, error} = await authClient.organization.createTeam({
-      name: state.name
-    });
-
-    if (error) {
-      toast.add({
-        title: 'Error',
-        description: error.message || 'Failed to create team',
-        color: 'error'
-      });
-      return;
-    }
-
-    toast.add({
-      title: 'Success',
-      description: `Team ${data?.name} created successfully.`,
-      color: 'success'
-    });
-
-    // Reset state and UI
-    isCreateModalOpen.value = false;
-    Object.assign(state, {name: ''});
-
-    // Refresh the table data
-    await refresh();
-  } catch (err) {
-    toast.add({
-      title: 'Unexpected Error',
-      description: 'An unknown error occurred during submission.',
-      color: 'error'
-    });
+    await $api('/api/admin/teams', {
+      method: 'POST',
+      body: {
+        name: state.name,
+        parentId: state.parentId
+      }
+    })
+    toast.add({title: 'Success', description: `Team created.`, color: 'success'})
+    isCreateModalOpen.value = false
+    Object.assign(state, {name: '', parentId: null, parentName: ''})
+    await refresh()
+  } catch (err: any) {
+    toast.add({title: 'Error', description: err.message, color: 'error'})
   } finally {
-    isSubmitting.value = false;
+    isSubmitting.value = false
   }
 }
 
@@ -183,15 +201,10 @@ async function updateTeam() {
 
   isSubmitting.value = true
   try {
-    const {error} = await authClient.organization.updateTeam({
-      teamId: updateState.id,
-      data: {
-        name: updateState.name,
-        organizationId: activeOrganization.value.data.id
-      }
+    await $api(`/api/admin/teams/${updateState.id}`, {
+      method: 'PATCH',
+      body: {name: updateState.name}
     })
-
-    if (error) throw error
 
     toast.add({title: 'Success', description: 'Team updated.', color: 'success'})
     isUpdateModalOpen.value = false
@@ -227,14 +240,24 @@ async function addMemberToTeam(userId: string) {
   if (!selectedTeam.value) return
 
   try {
+    // 1. Add to the specific subteam
     const {error} = await authClient.organization.addTeamMember({
       teamId: selectedTeam.value.id,
       userId: userId
     })
-
     if (error) throw error
 
-    toast.add({title: 'Success', description: 'Member added.', color: 'success'})
+    // 2. If it has a parent, add to parent as well
+    if (selectedTeam.value.parentId) {
+      await authClient.organization.addTeamMember({
+        teamId: selectedTeam.value.parentId,
+        userId: userId
+      }).catch(() => {
+        // Ignore if they are already in the parent team
+      })
+    }
+
+    toast.add({title: 'Success', description: 'Member added to team hierarchy.', color: 'success'})
     await fetchTeamMembers(selectedTeam.value.id)
   } catch (err: any) {
     toast.add({title: 'Error', description: err.message, color: 'error'})
@@ -272,20 +295,7 @@ async function deleteTeam(id: string) {
   }
 
   try {
-    const {error} = await authClient.organization.removeTeam({
-      teamId: id,
-      organizationId: orgId,
-    })
-
-    if (error) {
-      toast.add({
-        title: 'Error',
-        description: error.message || 'Failed to remove team',
-        color: 'error'
-      })
-      return
-    }
-
+    await $api(`/api/admin/teams/${id}`, {method: 'DELETE'})
     toast.add({
       title: 'Success',
       description: 'Team removed successfully.',
@@ -307,15 +317,24 @@ async function deleteTeam(id: string) {
   <div class="flex justify-end">
     <UModal
         v-model:open="isCreateModalOpen"
-        description="Set up a new workspace for your teams."
-        title="Create Team"
+        :description="state.parentId ? `Creating subteam for ${state.parentName}` : 'Set up a new workspace for your teams.'"
+        :title="state.parentId ? 'Add Subteam' : 'Create Team'"
     >
-      <UButton color="primary" icon="lucide:plus" label="Create Team"/>
+      <UButton
+          color="primary"
+          icon="lucide:plus"
+          label="Create Team"
+          @click="() => { state.parentId = null; isCreateModalOpen = true; }"
+      />
 
       <template #body>
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="createTeam">
+          <UFormField v-if="state.parentId" label="Parent Team">
+            <UInput :placeholder="state.parentName" disabled variant="soft"/>
+          </UFormField>
+
           <UFormField label="Team Name" name="name">
-            <UInput v-model="state.name" class="w-full" placeholder="Team Acme"/>
+            <UInput v-model="state.name" class="w-full" placeholder="e.g. Recruitment"/>
           </UFormField>
 
           <div class="flex justify-end gap-3 pt-4">
@@ -325,7 +344,8 @@ async function deleteTeam(id: string) {
                 variant="ghost"
                 @click="isCreateModalOpen = false"
             />
-            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit"/>
+            <UButton :label="state.parentId ? 'Add Subteam' : 'Create'" :loading="isSubmitting" color="primary"
+                     type="submit"/>
           </div>
         </UForm>
       </template>
@@ -336,12 +356,7 @@ async function deleteTeam(id: string) {
         title="Edit Team"
     >
       <template #body>
-        <UForm
-            :schema="updateSchema"
-            :state="updateState"
-            class="space-y-4"
-            @submit="updateTeam"
-        >
+        <UForm :schema="updateSchema" :state="updateState" class="space-y-4" @submit="updateTeam">
           <UFormField label="Team Name" name="name">
             <UInput v-model="updateState.name" class="w-full"/>
           </UFormField>
@@ -353,12 +368,7 @@ async function deleteTeam(id: string) {
                 variant="ghost"
                 @click="isUpdateModalOpen = false"
             />
-            <UButton
-                :loading="isSubmitting"
-                color="primary"
-                label="Save Changes"
-                type="submit"
-            />
+            <UButton :loading="isSubmitting" color="primary" label="Save Changes" type="submit"/>
           </div>
         </UForm>
       </template>
@@ -372,20 +382,10 @@ async function deleteTeam(id: string) {
       <template #body>
         <div class="space-y-6">
           <div class="flex gap-2">
-            <UInput
-                class="flex-1"
-                placeholder="Enter User ID to add..."
-                @keyup.enter="(e) => addMemberToTeam((e.target as HTMLInputElement).value)"
-            />
-            <UButton
-                icon="i-lucide-user-plus"
-                label="Add"
-                variant="subtle"
-                @click="() => {/* logic to grab input value */}"
-            />
+
           </div>
 
-          <UDivider/>
+          <USeparator/>
 
           <UTable
               :columns="[
@@ -398,7 +398,7 @@ async function deleteTeam(id: string) {
               color: 'error',
               variant: 'ghost',
               size: 'sm',
-              onClick: () => removeMemberFromTeam(row.original.userId)
+              onClick: () => removeMemberFromTeam(row.original.id)
             })
           }
         ]"
@@ -416,20 +416,33 @@ async function deleteTeam(id: string) {
       </template>
 
       <template #footer>
-        <UButton
-            class="w-full"
-            color="neutral"
-            label="Close"
-            @click="isMembersModalOpen = false"
-        />
+        <UButton class="w-full" color="neutral" label="Close" @click="isMembersModalOpen = false"/>
       </template>
     </UModal>
   </div>
 
   <UTable
+      v-model:expanded="expanded"
       :columns="columns"
       :data="teams || []"
       :loading="pending"
-      class="border rounded-lg border-gray-200 dark:border-gray-800"
-  />
+      :ui="{
+        tr: 'data-[expanded=true]:bg-gray-50 dark:data-[expanded=true]:bg-gray-800/50',
+      }"
+      class="border rounded-lg"
+  >
+    <template #expanded="{ row }">
+      <div class="pl-12 pr-4 py-2 border-l-2 border-primary-500/20 bg-gray-50/30 dark:bg-gray-900/10">
+        <div class="mb-2 text-[10px] uppercase font-bold text-gray-400 tracking-widest">
+          Subteams of {{ row.original.name }}
+        </div>
+        <UTable
+            :columns="columns"
+            :data="row.original.subteams || []"
+            :ui="{ thead: 'hidden' }"
+            class="border rounded-md bg-white dark:bg-gray-900 shadow-sm"
+        />
+      </div>
+    </template>
+  </UTable>
 </template>

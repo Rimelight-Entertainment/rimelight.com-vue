@@ -1,8 +1,8 @@
 import "dotenv/config"
-import { defineConfig } from "drizzle-kit"
+import {defineConfig} from "drizzle-kit"
 
 export default defineConfig({
-  out: "./drizzle",
+  out: "./.drizzle/migrations",
   schema: "./server/db/schema",
   dialect: "postgresql",
   dbCredentials: {

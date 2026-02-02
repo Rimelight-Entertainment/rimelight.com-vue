@@ -26,7 +26,7 @@ export const pageVersions = pgTable("page_versions", {
     .notNull(),
   postedAt: timestamp("posted_at", { withTimezone: true }),
   createdBy: text("created_by").notNull(),
-  approvedBy: text("approved_by"),
+  approvedBy: uuid("approved_by"),
   approvedAt: timestamp("approved_at", { withTimezone: true }),
   ...timestamps
 })

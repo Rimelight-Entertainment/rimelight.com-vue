@@ -1,12 +1,23 @@
 import {relations} from "drizzle-orm"
-import {bigint, boolean, index, integer, pgTable, text, timestamp, uniqueIndex} from "drizzle-orm/pg-core"
-import {timestamps} from "rimelight-components/db"
+import {
+    type AnyPgColumn,
+    bigint,
+    boolean,
+    index,
+    integer,
+    pgTable,
+    text,
+    timestamp,
+    uniqueIndex,
+    uuid
+} from "drizzle-orm/pg-core"
+import {id, timestamps} from "rimelight-components/db"
 import {type UserAvailability} from "rimelight-components/types"
 
 export const user = pgTable(
   "user",
   {
-    id: text("id").primaryKey(),
+    id: id.primaryKey(),
     name: text("name").notNull(),
     tag: text("tag").notNull().default("0000"),
     email: text("email").notNull().unique(),
@@ -34,18 +45,18 @@ export const user = pgTable(
 export const session = pgTable(
   "session",
   {
-    id: text("id").primaryKey(),
+    id: id.primaryKey(),
     expiresAt: timestamp("expires_at").notNull(),
     token: text("token").notNull().unique(),
     ...timestamps,
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
-    userId: text("user_id")
+    userId: uuid("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     impersonatedBy: text("impersonated_by"),
-    activeOrganizationId: text("active_organization_id"),
-    activeTeamId: text("active_team_id")
+    activeOrganizationId: uuid("active_organization_id"),
+    activeTeamId: uuid("active_team_id")
   },
   (table) => [index("session_userId_idx").on(table.userId)]
 )
@@ -53,10 +64,10 @@ export const session = pgTable(
 export const account = pgTable(
   "account",
   {
-    id: text("id").primaryKey(),
+    id: id.primaryKey(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
-    userId: text("user_id")
+    userId: uuid("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     accessToken: text("access_token"),
@@ -74,7 +85,7 @@ export const account = pgTable(
 export const verification = pgTable(
   "verification",
   {
-    id: text("id").primaryKey(),
+    id: id.primaryKey(),
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
     expiresAt: timestamp("expires_at").notNull(),
@@ -84,7 +95,7 @@ export const verification = pgTable(
 )
 
 export const organization = pgTable("organization", {
-  id: text("id").primaryKey(),
+  id: id.primaryKey(),
   name: text("name").notNull(),
   slug: text("slug").notNull().unique(),
   logo: text("logo"),
@@ -95,11 +106,11 @@ export const organization = pgTable("organization", {
 export const member = pgTable(
   "member",
   {
-    id: text("id").primaryKey(),
-    organizationId: text("organization_id")
+    id: id.primaryKey(),
+    organizationId: uuid("organization_id")
       .notNull()
       .references(() => organization.id, { onDelete: "cascade" }),
-    userId: text("user_id")
+    userId: uuid("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     role: text("role").default("member").notNull(),
@@ -114,8 +125,8 @@ export const member = pgTable(
 export const invitation = pgTable(
   "invitation",
   {
-    id: text("id").primaryKey(),
-    organizationId: text("organization_id")
+    id: id.primaryKey(),
+    organizationId: uuid("organization_id")
       .notNull()
       .references(() => organization.id, { onDelete: "cascade" }),
     email: text("email").notNull(),
@@ -123,7 +134,7 @@ export const invitation = pgTable(
     status: text("status").default("pending").notNull(),
     expiresAt: timestamp("expires_at").notNull(),
     ...timestamps,
-    inviterId: text("inviter_id")
+    inviterId: uuid("inviter_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" })
   },
@@ -136,11 +147,14 @@ export const invitation = pgTable(
 export const team = pgTable(
   "team",
   {
-    id: text("id").primaryKey(),
+    id: id.primaryKey(),
     name: text("name").notNull(),
-    organizationId: text("organization_id")
+    organizationId: uuid("organization_id")
       .notNull()
       .references(() => organization.id, { onDelete: "cascade" }),
+    parentId: uuid("parent_id").references((): AnyPgColumn => team.id, {
+      onDelete: "cascade"
+    }),
     ...timestamps,
     metadata: text("metadata")
   },
@@ -148,15 +162,15 @@ export const team = pgTable(
 )
 
 export const teamMember = pgTable("team_member", {
-  id: text("id").primaryKey(),
-  teamId: text("team_id").notNull(),
-  userId: text("user_id").notNull(),
+  id: id.primaryKey(),
+  teamId: uuid("team_id").notNull(),
+  userId: uuid("user_id").notNull(),
   role: text("role").notNull(),
   ...timestamps
 })
 
 export const rateLimit = pgTable("rate_limit", {
-  id: text("id").primaryKey(),
+  id: id.primaryKey(),
   key: text("key"),
   count: integer("count"),
   lastRequest: bigint("last_request", { mode: "number" })
@@ -208,4 +222,18 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
     fields: [invitation.inviterId],
     references: [user.id]
   })
+}))
+
+export const teamRelations = relations(team, ({ one, many }) => ({
+  organization: one(organization, {
+    fields: [team.organizationId],
+    references: [organization.id]
+  }),
+  parentTeam: one(team, {
+    fields: [team.parentId],
+    references: [team.id],
+    relationName: "subteams"
+  }),
+  subteams: many(team, { relationName: "subteams" }),
+  members: many(teamMember)
 }))

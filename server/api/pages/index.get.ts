@@ -1,9 +1,9 @@
-import {and, desc, eq, isNotNull, isNull} from "drizzle-orm"
-import {getValidatedQuery} from "h3"
-import type {PageType} from "rimelight-components/types"
-import {z} from "zod"
-import {getUserSession} from "~~/server/utils/session"
-import {db, pages} from "../../db"
+import { and, desc, eq, isNotNull, isNull } from "drizzle-orm"
+import { getValidatedQuery } from "h3"
+import type { PageType } from "rimelight-components/types"
+import { z } from "zod"
+import { getUserSession } from "~~/server/utils/session"
+import { db, pages } from "../../db"
 
 export default defineEventHandler(async (event) => {
   const queryData = await getValidatedQuery(

@@ -1,13 +1,13 @@
-import { pgTable, text, boolean } from "drizzle-orm/pg-core"
-import { user } from "../auth/auth"
-import { noteLabel } from "./noteLabel"
-import { note_noteLabel } from "./note_noteLabel"
-import { relations } from "drizzle-orm"
-import { id, timestamps } from "rimelight-components/db"
+import {relations} from "drizzle-orm"
+import {boolean, pgTable, text, uuid} from "drizzle-orm/pg-core"
+import {id, timestamps} from "rimelight-components/db"
+import {user} from "../auth/auth"
+import {note_noteLabel} from "./note_noteLabel"
+import {noteLabel} from "./noteLabel"
 
 export const note = pgTable("note", {
   id: id.primaryKey(),
-  userId: text("user_id")
+  userId: uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   title: text("title"),

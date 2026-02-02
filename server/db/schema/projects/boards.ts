@@ -1,13 +1,13 @@
-import { pgTable, text, boolean } from "drizzle-orm/pg-core"
-import { user } from "../auth/auth"
-import { id, timestamps } from "rimelight-components/db"
-import { relations } from "drizzle-orm"
-import { list } from "./lists"
-import { customFieldDefinition } from "./custom_fields"
+import {relations} from "drizzle-orm"
+import {boolean, pgTable, text, uuid} from "drizzle-orm/pg-core"
+import {id, timestamps} from "rimelight-components/db"
+import {user} from "../auth/auth"
+import {customFieldDefinition} from "./custom_fields"
+import {list} from "./lists"
 
 export const board = pgTable("kanban_board", {
   id: id.primaryKey(),
-  userId: text("user_id")
+  userId: uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   title: text("title").notNull(),

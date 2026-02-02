@@ -1,6 +1,11 @@
-import {jsonb, pgTable, text, timestamp} from "drizzle-orm/pg-core"
-import {id, timestamps} from "rimelight-components/db"
-import {type Block, type Localized, type PageType, type RegisterPageTypes} from "rimelight-components/types"
+import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { id, timestamps } from "rimelight-components/db"
+import {
+  type Block,
+  type Localized,
+  type PageType,
+  type RegisterPageTypes
+} from "rimelight-components/types"
 
 export const pages = pgTable("pages", {
   id: id.primaryKey(),
