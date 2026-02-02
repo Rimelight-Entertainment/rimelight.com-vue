@@ -150,7 +150,23 @@ const expanded = ref({})
 const isUpdateModalOpen = ref(false)
 const isMembersModalOpen = ref(false)
 const selectedTeam = ref<Team | null>(null)
-const teamMembers = ref<User[]>([])
+
+interface TeamMemberResponse {
+  id: string
+  teamId: string
+  userId: string
+  createdAt: Date
+  user: {
+    id: string
+    name: string
+    email: string
+    image?: string | null
+    // Add other user fields if you need to reference them in the table
+  }
+}
+
+// Update the ref to use the new interface
+const teamMembers = ref<TeamMemberResponse[]>([])
 const isLoadingMembers = ref(false)
 
 function openUpdateModal(team: Team) {
@@ -389,19 +405,19 @@ async function deleteTeam(id: string) {
 
           <UTable
               :columns="[
-          { accessorKey: 'user.name', header: 'Name' },
-          { accessorKey: 'user.email', header: 'Email' },
-          {
-            id: 'actions',
-            cell: ({ row }) => h(UButton, {
-              icon: 'i-lucide-user-minus',
-              color: 'error',
-              variant: 'ghost',
-              size: 'sm',
-              onClick: () => removeMemberFromTeam(row.original.id)
-            })
-          }
-        ]"
+    { accessorKey: 'user.name', header: 'Name' },
+    { accessorKey: 'user.email', header: 'Email' },
+    {
+      id: 'actions',
+      cell: ({ row }) => h(UButton, {
+        icon: 'lucide:user-minus',
+        color: 'error',
+        variant: 'ghost',
+        size: 'sm',
+        onClick: () => removeMemberFromTeam(row.original.userId) // Use userId for removal
+      })
+    }
+  ]"
               :data="teamMembers"
               :loading="isLoadingMembers"
               class="border rounded-md max-h-96 overflow-y-auto"
@@ -424,25 +440,16 @@ async function deleteTeam(id: string) {
   <UTable
       v-model:expanded="expanded"
       :columns="columns"
-      :data="teams || []"
+      :data="teams"
       :loading="pending"
-      :ui="{
-        tr: 'data-[expanded=true]:bg-gray-50 dark:data-[expanded=true]:bg-gray-800/50',
-      }"
-      class="border rounded-lg"
   >
     <template #expanded="{ row }">
-      <div class="pl-12 pr-4 py-2 border-l-2 border-primary-500/20 bg-gray-50/30 dark:bg-gray-900/10">
-        <div class="mb-2 text-[10px] uppercase font-bold text-gray-400 tracking-widest">
-          Subteams of {{ row.original.name }}
-        </div>
-        <UTable
-            :columns="columns"
-            :data="row.original.subteams || []"
-            :ui="{ thead: 'hidden' }"
-            class="border rounded-md bg-white dark:bg-gray-900 shadow-sm"
-        />
-      </div>
+      <UTable
+          :columns="columns"
+          :data="row.original.subteams"
+          :ui="{ thead: 'hidden' }"
+          class="-m-4"
+      />
     </template>
   </UTable>
 </template>

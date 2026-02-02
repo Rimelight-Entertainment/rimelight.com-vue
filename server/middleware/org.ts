@@ -1,4 +1,4 @@
-import { auth } from "../../auth/auth"
+import {auth} from "~~/auth"
 
 export default defineEventHandler(async (event) => {
   const session = await auth.api.getSession({
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     await auth.api.setActiveOrganization({
       headers: event.headers,
       body: {
-        organizationId: "019c1b1d-d078-715e-bf1b-17376daab0ae"
+        organizationId: "019c1f72-edbc-74dc-8e8d-2d13984e4f9b"
       }
     })
   }
