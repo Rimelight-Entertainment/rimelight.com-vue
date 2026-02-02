@@ -1,6 +1,6 @@
-import { eq, and, gt } from "drizzle-orm"
-import { db, pages, pageVersions } from "../../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {and, eq, gt} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {db, pages, pageVersions} from "../../../../db"
 
 export default defineEventHandler(async (event) => {
   const versionId = getRouterParam(event, "versionId")
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
       description: version.description,
       tags: version.tags,
       authorIds: version.authorIds,
-      posted_at: version.posted_at,
+      postedAt: version.postedAt,
       updatedAt: new Date(),
       content: version.content
     }
@@ -75,17 +75,14 @@ export default defineEventHandler(async (event) => {
       .where(eq(pageVersions.id, versionId))
 
     // Mark all versions created AFTER this version as rejected
-    // (versions with created_at greater than this version's created_at)
+    // (versions with createdAt greater than this version's createdAt)
     await db
       .update(pageVersions)
       .set({
         status: "rejected"
       })
       .where(
-        and(
-          eq(pageVersions.pageId, version.pageId),
-          gt(pageVersions.created_at, version.created_at)
-        )
+        and(eq(pageVersions.pageId, version.pageId), gt(pageVersions.createdAt, version.createdAt))
       )
 
     return {

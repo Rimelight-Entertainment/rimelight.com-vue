@@ -1,33 +1,4 @@
 <script lang="ts" setup>
-import {type NavigationMenuItem} from '@nuxt/ui'
-
-const links = computed<NavigationMenuItem[][]>(() => ([
-  [
-    {
-      label: "Overview",
-      icon: "lucide:layout-dashboard",
-      to: "/dashboard/admin",
-      exact: true
-    },
-    {
-      label: "Organizations",
-      icon: "lucide:building-2",
-      to: "/dashboard/admin/organizations"
-    },
-    {
-      label: "Teams",
-      icon: "lucide:users-round",
-      to: "/dashboard/admin/organizations"
-    },
-    {
-      label: "Users",
-      icon: "lucide:user",
-      to: "/dashboard/admin/users"
-    },
-  ],
-  []
-]))
-
 const {data: organizationsCount} = await useApi('/api/admin/organizations/count')
 const {data: teamsCount} = await useApi('/api/admin/teams/count')
 const {data: usersCount} = await useApi('/api/admin/users/count')
@@ -61,7 +32,7 @@ const stats = computed(() => [
   <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
     <UCard v-for="stat in stats" :key="stat.label">
       <div class="flex items-center gap-md">
-        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500" />
+        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
 
         <div>
           <p class="text-sm text-dimmed">{{ stat.label }}</p>

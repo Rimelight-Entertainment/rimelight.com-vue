@@ -1,6 +1,6 @@
-import { and, eq, asc, isNull } from "drizzle-orm"
-import { db, board, list, card, customFieldDefinition } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {and, asc, eq, isNull} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {board, card, customFieldDefinition, db, list} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -25,20 +25,20 @@ export default defineEventHandler(async (event) => {
 
   try {
     const result = await db.query.board.findFirst({
-      where: and(eq(board.id, boardId), eq(board.userId, userId), isNull(board.deleted_at)),
+      where: and(eq(board.id, boardId), eq(board.userId, userId), isNull(board.deletedAt)),
       with: {
         lists: {
-          where: isNull(list.deleted_at),
+          where: isNull(list.deletedAt),
           orderBy: [asc(list.order)],
           with: {
             cards: {
-              where: isNull(card.deleted_at),
+              where: isNull(card.deletedAt),
               orderBy: [asc(card.order)]
             }
           }
         },
         customFields: {
-          where: isNull(customFieldDefinition.deleted_at)
+          where: isNull(customFieldDefinition.deletedAt)
         }
       }
     })

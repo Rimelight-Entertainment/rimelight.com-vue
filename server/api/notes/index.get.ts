@@ -1,8 +1,8 @@
-import { and, desc, eq, isNull, isNotNull } from "drizzle-orm"
-import { db, note } from "../../db"
-import { getUserSession } from "~~/server/utils/session"
-import { z } from "zod"
-import { getValidatedQuery } from "h3"
+import {and, desc, eq, isNotNull, isNull} from "drizzle-orm"
+import {getValidatedQuery} from "h3"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, note} from "../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -32,16 +32,16 @@ export default defineEventHandler(async (event) => {
     const filters = [eq(note.userId, userId)]
 
     if (isTrashView) {
-      // TRASH: Must have a deleted_at date
-      filters.push(isNotNull(note.deleted_at))
+      // TRASH: Must have a deletedAt date
+      filters.push(isNotNull(note.deletedAt))
     } else if (isArchivedView) {
       // ARCHIVE: Must be archived AND NOT deleted
       filters.push(eq(note.isArchived, true))
-      filters.push(isNull(note.deleted_at))
+      filters.push(isNull(note.deletedAt))
     } else {
       // DEFAULT (Index): Must NOT be archived AND NOT deleted
       filters.push(eq(note.isArchived, false))
-      filters.push(isNull(note.deleted_at))
+      filters.push(isNull(note.deletedAt))
     }
 
     // 4. Execute Query
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
           }
         }
       },
-      orderBy: [desc(note.created_at)]
+      orderBy: [desc(note.createdAt)]
     })
 
     return notes.map((n) => ({

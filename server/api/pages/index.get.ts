@@ -1,9 +1,9 @@
-import { and, desc, eq, isNotNull, isNull } from "drizzle-orm"
-import { db, pages } from "../../db"
-import type { PageType } from "rimelight-components/types"
-import { getUserSession } from "~~/server/utils/session"
-import { z } from "zod"
-import { getValidatedQuery } from "h3"
+import {and, desc, eq, isNotNull, isNull} from "drizzle-orm"
+import {getValidatedQuery} from "h3"
+import type {PageType} from "rimelight-components/types"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, pages} from "../../db"
 
 export default defineEventHandler(async (event) => {
   const queryData = await getValidatedQuery(
@@ -33,17 +33,17 @@ export default defineEventHandler(async (event) => {
   const filters = [eq(pages.type, type)]
 
   if (status === "published") {
-    // If we want published posts, we look for rows where posted_at HAS a date
-    filters.push(isNotNull(pages.posted_at))
+    // If we want published posts, we look for rows where postedAt HAS a date
+    filters.push(isNotNull(pages.postedAt))
   } else if (status === "draft") {
-    // If we want drafts, we look for rows where posted_at is EMPTY
-    filters.push(isNull(pages.posted_at))
+    // If we want drafts, we look for rows where postedAt is EMPTY
+    filters.push(isNull(pages.postedAt))
   }
 
   try {
     const results = await db.query.pages.findMany({
       where: and(...filters),
-      orderBy: [desc(pages.posted_at), desc(pages.created_at)],
+      orderBy: [desc(pages.postedAt), desc(pages.createdAt)],
       limit,
       offset
     })

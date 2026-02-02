@@ -1,6 +1,6 @@
-import { and, desc, eq, isNull } from "drizzle-orm"
-import { db, board } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {and, desc, eq, isNull} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {board, db} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -16,8 +16,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     const boards = await db.query.board.findMany({
-      where: and(eq(board.userId, userId), eq(board.isArchived, false), isNull(board.deleted_at)),
-      orderBy: [desc(board.created_at)]
+      where: and(eq(board.userId, userId), eq(board.isArchived, false), isNull(board.deletedAt)),
+      orderBy: [desc(board.createdAt)]
     })
 
     return boards

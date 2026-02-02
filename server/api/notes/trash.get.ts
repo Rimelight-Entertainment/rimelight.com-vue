@@ -1,6 +1,6 @@
-import { eq, desc, and, isNotNull } from "drizzle-orm"
-import { db, note } from "../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {and, desc, eq, isNotNull} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {db, note} from "../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const trashNotes = await db.query.note.findMany({
-    where: and(eq(note.userId, userId), isNotNull(note.deleted_at)),
-    orderBy: [desc(note.deleted_at)],
+    where: and(eq(note.userId, userId), isNotNull(note.deletedAt)),
+    orderBy: [desc(note.deletedAt)],
     with: {
       noteLabels: {
         with: {

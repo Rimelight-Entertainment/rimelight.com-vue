@@ -1,8 +1,8 @@
-import { eq, and } from "drizzle-orm"
-import { db, note } from "../../db"
-import { getValidatedQuery } from "h3"
-import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
+import {and, eq} from "drizzle-orm"
+import {getValidatedQuery} from "h3"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, note} from "../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
   const [softDeletedNote] = await db
     .update(note)
     .set({
-      deleted_at: new Date(),
+      deletedAt: new Date(),
       isPinned: false
     })
     .where(and(eq(note.id, id), eq(note.userId, userId)))

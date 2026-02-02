@@ -1,6 +1,6 @@
-import { eq, desc } from "drizzle-orm"
-import { db, pageVersions } from "../../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {desc, eq} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {db, pageVersions} from "../../../../db"
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id")
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(pageVersions)
       .where(eq(pageVersions.pageId, id))
-      .orderBy(desc(pageVersions.created_at))
+      .orderBy(desc(pageVersions.createdAt))
 
     return versions.map((version) => ({
       ...version,

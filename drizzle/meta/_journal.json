@@ -29,6 +29,34 @@
       "when": 1769981589689,
       "tag": "0003_old_scrambler",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770045621813,
+      "tag": "0004_fat_meteorite",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1770045804363,
+      "tag": "0005_chunky_carnage",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770046836624,
+      "tag": "0006_mature_runaways",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1770048173104,
+      "tag": "0007_organic_reavers",
+      "breakpoints": true
     }
   ]
 }

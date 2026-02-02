@@ -30,7 +30,7 @@ const links = computed<NavigationMenuItem[][]>(() => ([
     {
       label: "Teams",
       icon: "lucide:users-round",
-      to: "/dashboard/admin/organizations"
+      to: "/dashboard/admin/teams"
     },
     {
       label: "Users",
@@ -45,15 +45,15 @@ const links = computed<NavigationMenuItem[][]>(() => ([
 <template>
   <UDashboardPanel id="admin" :ui="{ body: 'lg:py-12' }">
     <template #header>
-      <UDashboardNavbar icon="lucide:building-2" title="Admin" />
+      <UDashboardNavbar icon="lucide:building-2" title="Admin"/>
 
       <UDashboardToolbar>
-        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight />
+        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight/>
       </UDashboardToolbar>
     </template>
 
     <template #body>
-      <NuxtPage />
+      <NuxtPage/>
     </template>
   </UDashboardPanel>
 </template>

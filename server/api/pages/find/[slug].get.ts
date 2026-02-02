@@ -1,12 +1,10 @@
-// server/api/pages/find/[slug].get.ts
-import { eq } from "drizzle-orm"
-import { db, pages } from "../../../db" // Verify this path is correct relative to this file
-import { type Page } from "rimelight-components/types"
-import { syncPageWithDefinition } from "rimelight-components/utils"
-import { PAGE_MAP } from "#types"
+import {PAGE_MAP} from "#types"
+import {eq} from "drizzle-orm"
+import {type Page} from "rimelight-components/types"
+import {syncPageWithDefinition} from "rimelight-components/utils"
+import {db, pages} from "../../../db"
 
 export default defineEventHandler(async (event) => {
-  // Use getRouterParam for [slug] in the filename
   const slug = getRouterParam(event, "slug")
 
   if (!slug) {

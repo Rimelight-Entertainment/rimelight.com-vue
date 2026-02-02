@@ -17,12 +17,12 @@ export interface PageVersion {
     blocks: any[]
     properties: any
   }
-  posted_at?: Date | null
+  postedAt?: Date | null
   createdBy: string
   approvedBy?: string | null
   approvedAt?: Date | null
-  created_at: Date
-  updated_at: Date
+  createdAt: Date
+  updatedAt: Date
   blocks?: any[]
   properties?: any
 }
@@ -179,12 +179,12 @@ watch(() => pageId, () => {
 <template>
   <UPopover v-model:open="isOpen" :popper="{ placement: 'bottom-start' }">
     <UButton
-      :loading="isLoading"
-      color="neutral"
-      icon="lucide:git-branch"
-      label="Versions"
-      size="xs"
-      variant="outline"
+        :loading="isLoading"
+        color="neutral"
+        icon="lucide:git-branch"
+        label="Versions"
+        size="xs"
+        variant="outline"
     />
 
     <template #content>
@@ -196,9 +196,9 @@ watch(() => pageId, () => {
 
         <div class="max-h-96 overflow-y-auto">
           <div
-            :class="{ 'bg-primary-50 dark:bg-primary-900/20': !selectedVersionId }"
-            class="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
-            @click="selectedVersionId = null; isOpen = false"
+              :class="{ 'bg-primary-50 dark:bg-primary-900/20': !selectedVersionId }"
+              class="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+              @click="selectedVersionId = null; isOpen = false"
           >
             <div class="flex items-center justify-between">
               <div class="flex-1">
@@ -214,23 +214,23 @@ watch(() => pageId, () => {
           </div>
 
           <div v-if="isLoading" class="px-3 py-4 text-center">
-            <USkeleton />
+            <USkeleton/>
           </div>
 
           <div
-            v-else-if="versions.length === 0"
-            class="px-3 py-4 text-center text-sm text-gray-500"
+              v-else-if="versions.length === 0"
+              class="px-3 py-4 text-center text-sm text-gray-500"
           >
             No versions yet
           </div>
 
           <div v-else class="divide-y divide-gray-200 dark:divide-gray-800">
             <div
-              v-for="version in versions"
-              :key="version.id"
-              :class="{ 'bg-primary-50 dark:bg-primary-900/20': selectedVersionId === version.id }"
-              class="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
-              @click="selectVersion(version)"
+                v-for="version in versions"
+                :key="version.id"
+                :class="{ 'bg-primary-50 dark:bg-primary-900/20': selectedVersionId === version.id }"
+                class="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                @click="selectVersion(version)"
             >
               <div class="flex items-start justify-between gap-2">
                 <div class="flex-1 min-w-0">
@@ -239,15 +239,15 @@ watch(() => pageId, () => {
                       {{ version.status }}
                     </UBadge>
                     <span class="text-xs text-gray-500 dark:text-gray-400">
-                      {{ formatDate(version.created_at) }}
+                      {{ formatDate(version.createdAt) }}
                     </span>
                   </div>
                   <p class="text-xs text-gray-600 dark:text-gray-300 truncate">
                     {{ version.title?.en || version.title || "Untitled" }}
                   </p>
                   <p
-                    v-if="version.approvedBy && version.approvedAt"
-                    class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                      v-if="version.approvedBy && version.approvedAt"
+                      class="text-xs text-gray-500 dark:text-gray-400 mt-1"
                   >
                     Approved {{ formatDate(version.approvedAt) }}
                   </p>
@@ -255,24 +255,24 @@ watch(() => pageId, () => {
 
                 <div v-if="isAdmin" class="shrink-0 flex items-center gap-1">
                   <UButton
-                    v-if="version.status === 'pending'"
-                    :loading="isApproving === version.id"
-                    color="success"
-                    icon="lucide:check"
-                    size="xs"
-                    title="Approve version"
-                    variant="ghost"
-                    @click.stop="approveVersion(version)"
+                      v-if="version.status === 'pending'"
+                      :loading="isApproving === version.id"
+                      color="success"
+                      icon="lucide:check"
+                      size="xs"
+                      title="Approve version"
+                      variant="ghost"
+                      @click.stop="approveVersion(version)"
                   />
                   <UButton
-                    v-if="selectedVersionId === version.id"
-                    :loading="isReverting === version.id"
-                    color="warning"
-                    icon="lucide:rotate-ccw"
-                    size="xs"
-                    title="Revert to this version"
-                    variant="ghost"
-                    @click.stop="revertVersion(version)"
+                      v-if="selectedVersionId === version.id"
+                      :loading="isReverting === version.id"
+                      color="warning"
+                      icon="lucide:rotate-ccw"
+                      size="xs"
+                      title="Revert to this version"
+                      variant="ghost"
+                      @click.stop="revertVersion(version)"
                   />
                 </div>
               </div>
@@ -281,8 +281,8 @@ watch(() => pageId, () => {
         </div>
 
         <div
-          v-if="pendingVersions.length > 0 && isAdmin"
-          class="px-3 py-2 border-t border-gray-200 dark:border-gray-800 mt-2"
+            v-if="pendingVersions.length > 0 && isAdmin"
+            class="px-3 py-2 border-t border-gray-200 dark:border-gray-800 mt-2"
         >
           <p class="text-xs text-gray-500 dark:text-gray-400">
             {{ pendingVersions.length }} pending version{{ pendingVersions.length !== 1 ? 's' : '' }}

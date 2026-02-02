@@ -1,6 +1,6 @@
-import { db, customFieldDefinition } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
-import { eq } from "drizzle-orm"
+import {eq} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {customFieldDefinition, db} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
     // Soft delete
     await db
       .update(customFieldDefinition)
-      .set({ deleted_at: new Date() })
+      .set({ deletedAt: new Date() })
       .where(eq(customFieldDefinition.id, fieldId))
 
     return { success: true }

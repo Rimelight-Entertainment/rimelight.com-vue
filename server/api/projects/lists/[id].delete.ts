@@ -1,6 +1,6 @@
-import { db, list } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
-import { eq } from "drizzle-orm"
+import {eq} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {db, list} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -40,12 +40,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Soft delete if using timestamps with deletedAt, but schema didn't explicitly show deletedAt in the snippet
-    // but borrowed ...timestamps usually has it or similar.
-    // Checking previous schemas: ...timestamps is imported from rimelight-components/db.
-    // Assuming it works like other imports, I used isNull(board.deleted_at) in index.get.ts.
-
-    await db.update(list).set({ deleted_at: new Date() }).where(eq(list.id, listId))
+    await db.update(list).set({ deletedAt: new Date() }).where(eq(list.id, listId))
 
     return { success: true }
   } catch (error) {

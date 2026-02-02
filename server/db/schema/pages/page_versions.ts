@@ -1,13 +1,8 @@
-import { pgTable, text, jsonb, timestamp, uuid } from "drizzle-orm/pg-core"
-import {
-  type PageType,
-  type Block,
-  type Localized,
-  type RegisterPageTypes
-} from "rimelight-components/types"
-import { id, timestamps } from "rimelight-components/db"
-import { pages } from "./pages"
-import { relations } from "drizzle-orm"
+import {relations} from "drizzle-orm"
+import {jsonb, pgTable, text, timestamp, uuid} from "drizzle-orm/pg-core"
+import {id, timestamps} from "rimelight-components/db"
+import {type Block, type Localized, type PageType, type RegisterPageTypes} from "rimelight-components/types"
+import {pages} from "./pages"
 
 export type PageVersionStatus = "pending" | "approved" | "rejected"
 
@@ -29,7 +24,7 @@ export const pageVersions = pgTable("page_versions", {
       properties: RegisterPageTypes[PageType]
     }>()
     .notNull(),
-  posted_at: timestamp("posted_at", { withTimezone: true }),
+  postedAt: timestamp("posted_at", { withTimezone: true }),
   createdBy: text("created_by").notNull(),
   approvedBy: text("approved_by"),
   approvedAt: timestamp("approved_at", { withTimezone: true }),

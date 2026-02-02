@@ -1,6 +1,6 @@
-import { db, board } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
-import { eq, and } from "drizzle-orm"
+import {and, eq} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {board, db} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     // Soft delete
-    await db.update(board).set({ deleted_at: new Date() }).where(eq(board.id, boardId))
+    await db.update(board).set({ deletedAt: new Date() }).where(eq(board.id, boardId))
 
     return { success: true }
   } catch (error) {

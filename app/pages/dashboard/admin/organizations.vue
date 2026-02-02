@@ -1,19 +1,100 @@
 <script lang="ts" setup>
+import type {TableColumn} from '@nuxt/ui'
+import {h, resolveComponent} from 'vue'
 import {z} from 'zod'
 import {authClient} from "~~/auth/auth-client"
 
+const UAvatar = resolveComponent('UAvatar')
+const UBadge = resolveComponent('UBadge')
+const UButton = resolveComponent('UButton')
+const UDropdownMenu = resolveComponent('UDropdownMenu')
+
 const toast = useToast()
 
-const columns = [
-  {accessorKey: 'name', header: 'Organization'},
-  {accessorKey: 'slug', header: 'Slug'},
-  {accessorKey: 'memberCount', header: 'Members'},
-  {accessorKey: 'teams', header: 'Teams'},
-  {accessorKey: 'createdAt', header: 'Created'},
-  {id: 'actions', header: 'Actions'}
+async function deleteOrg(id: string) {
+  // Logic for deletion
+}
+
+interface Organization {
+  id: string
+  name: string
+  slug: string
+  logo?: string
+  memberCount: number
+  createdAt: string
+  teams: { id: string, name: string }[]
+}
+
+const columns: TableColumn<Organization>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Organization',
+    cell: ({row}) => h('div', {class: 'flex items-center gap-3 font-medium'}, [
+      h(UAvatar, {
+        src: row.original.logo,
+        alt: row.original.name,
+        size: 'sm'
+      }),
+      h('span', row.original.name)
+    ])
+  },
+  {
+    accessorKey: 'slug',
+    header: 'Slug',
+    meta: {class: {td: 'font-mono text-xs'}}
+  },
+  {
+    accessorKey: 'memberCount',
+    header: 'Members'
+  },
+  {
+    accessorKey: 'teams',
+    header: 'Teams',
+    cell: ({row}) => {
+      const teams = row.original.teams || []
+      if (!teams.length) return h('span', {class: 'text-xs text-gray-400 italic'}, 'No teams')
+
+      return h('div', {class: 'flex flex-wrap gap-1'},
+          teams.map(team => h(UBadge, {
+            key: team.id,
+            color: 'neutral',
+            variant: 'soft',
+            size: 'xs'
+          }, () => team.name))
+      )
+    }
+  },
+  {
+    accessorKey: 'createdAt',
+    header: 'Created',
+    cell: ({row}) => new Date(row.original.createdAt).toLocaleDateString()
+  },
+  {
+    id: 'actions',
+    header: '',
+    meta: {class: {td: 'text-right'}},
+    cell: ({row}) => h(UDropdownMenu, {
+      content: {align: 'end'},
+      items: [
+        {label: 'Edit Details', icon: 'i-lucide-pencil'},
+        {
+          label: 'Delete Organization',
+          icon: 'i-lucide-trash',
+          color: 'error',
+          onSelect: () => deleteOrg(row.original.id)
+        }
+      ]
+    }, () => h(UButton, {
+      icon: 'i-lucide-ellipsis-vertical',
+      variant: 'ghost',
+      color: 'neutral'
+    }))
+  }
 ]
 
-const {data: orgs, refresh, pending} = await useLazyFetch<any[]>('/api/admin/organizations')
+const {data: orgs, pending, refresh} = await useLazyFetch<Organization[]>('/api/admin/organizations', {
+  default: () => []
+})
 
 const isCreateModalOpen = ref(false)
 const isSubmitting = ref(false)
@@ -79,64 +160,40 @@ async function onSubmit() {
 <template>
   <div class="flex justify-end">
     <UModal
-      v-model:open="isCreateModalOpen"
-      description="Set up a new workspace for your teams."
-      title="Create Organization"
+        v-model:open="isCreateModalOpen"
+        description="Set up a new workspace for your teams."
+        title="Create Organization"
     >
-      <UButton color="primary" icon="lucide:plus" label="Create Organization" />
+      <UButton color="primary" icon="lucide:plus" label="Create Organization"/>
 
       <template #body>
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
           <UFormField label="Organization Name" name="name">
-            <UInput v-model="state.name" class="w-full" placeholder="Acme Corp" />
+            <UInput v-model="state.name" class="w-full" placeholder="Acme Corp"/>
           </UFormField>
 
           <UFormField label="Slug" name="slug">
-            <UInput v-model="state.slug" class="w-full" placeholder="acme-corp" />
+            <UInput v-model="state.slug" class="w-full" placeholder="acme-corp"/>
           </UFormField>
 
           <div class="flex justify-end gap-3 pt-4">
             <UButton
-              color="neutral"
-              label="Cancel"
-              variant="ghost"
-              @click="isCreateModalOpen = false"
+                color="neutral"
+                label="Cancel"
+                variant="ghost"
+                @click="isCreateModalOpen = false"
             />
-            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit" />
+            <UButton :loading="isSubmitting" color="primary" label="Create" type="submit"/>
           </div>
         </UForm>
       </template>
     </UModal>
   </div>
 
-  <UTable :columns="columns" :loading="pending" :rows="(orgs || []) as any[]">
-    <template #name-cell="{ row }">
-      <div class="flex items-center gap-3">
-        <UAvatar :alt="(row.original as any).name" :src="(row.original as any).logo" size="sm" />
-      </div>
-    </template>
-
-    <template #teams-cell="{ row }">
-      <div class="flex flex-wrap gap-1">
-        <UBadge
-          v-for="team in (row.original as any).teams"
-          :key="team.id"
-          color="neutral"
-          size="xs"
-          variant="soft"
-        >
-          {{ team.name }}
-        </UBadge>
-        <span v-if="!(row.original as any).teams?.length" class="text-xs text-gray-400 italic"
-          >No teams</span
-        >
-      </div>
-    </template>
-
-    <template #createdAt-cell="{ row }"> </template>
-
-    <template #actions-cell="{ row }">
-      <UButton color="error" icon="lucide:trash" variant="ghost" />
-    </template>
-  </UTable>
+  <UTable
+      :columns="columns"
+      :data="orgs || []"
+      :loading="pending"
+      class="border rounded-lg border-gray-200 dark:border-gray-800"
+  />
 </template>

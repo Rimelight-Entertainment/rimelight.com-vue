@@ -1,10 +1,10 @@
-<script setup lang="ts">
-import { type Page, type PageType } from "rimelight-components/types"
-import { getLocalizedContent } from "rimelight-components/utils"
+<script lang="ts" setup>
+import {type Page, type PageType} from "rimelight-components/types"
+import {getLocalizedContent} from "rimelight-components/utils"
 
 const appConfig = useAppConfig()
-const { session } = useAuth()
-const { t, locale } = useI18n()
+const {session} = useAuth()
+const {t, locale} = useI18n()
 
 const INITIAL_LIMIT = 10
 const NEXT_LIMIT = 9
@@ -31,7 +31,7 @@ const fetchPages = async (
     offset: number
 ) => {
   return await $fetch<Page[]>("/api/pages/list", {
-    query: { type, status, limit, offset }
+    query: {type, status, limit, offset}
   })
 }
 
@@ -41,7 +41,7 @@ const fetchDraftsPage = (limit: number, offset: number) =>
 const fetchPostsPage = (limit: number, offset: number) =>
     fetchPages("BlogPost", "published", limit, offset)
 
-const { status: initialDraftsStatus } = await useLazyAsyncData(
+const {status: initialDraftsStatus} = await useLazyAsyncData(
     "initial-blog-drafts",
     async () => {
       const newDrafts = await fetchDraftsPage(INITIAL_LIMIT, 0)
@@ -58,7 +58,7 @@ const { status: initialDraftsStatus } = await useLazyAsyncData(
     }
 )
 
-const { status: initialPostsStatus } = await useLazyAsyncData(
+const {status: initialPostsStatus} = await useLazyAsyncData(
     "initial-blog-posts",
     async () => {
       const newPosts = await fetchPostsPage(INITIAL_LIMIT, 0)
@@ -69,7 +69,7 @@ const { status: initialPostsStatus } = await useLazyAsyncData(
         hasMorePosts.value = newPosts.length === INITIAL_LIMIT
       }
     },
-    { server: false }
+    {server: false}
 )
 
 const loadNextDraftsPage = async () => {
@@ -147,144 +147,144 @@ useSeoMeta({
   <UContainer>
     <UPage>
       <template #left>
-        <UPageAside> </UPageAside>
+        <UPageAside></UPageAside>
       </template>
-      <UPageHeader :title="t('page_blog_title')" :links="links">
+      <UPageHeader :links="links" :title="t('page_blog_title')">
         <template #description>
           <div class="flex flex-col gap-md">
             {{ t("page_blog_description") }}
-            <RCNewsletterSignup />
+            <RCNewsletterSignup/>
           </div>
         </template>
       </UPageHeader>
       <UPageBody>
         <div
-          v-if="
+            v-if="
             session &&
             session.user?.role === 'employee' &&
             initialDraftsStatus === 'pending'
           "
-          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
-          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
+          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96"/>
+          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none"/>
         </div>
         <RCSection
-          v-else-if="session && session.user?.role === 'employee'"
-          :level="2"
-          title="Drafts"
-          description="These posts have currently not been published."
+            v-else-if="session && session.user?.role === 'employee'"
+            :level="2"
+            description="These posts have currently not been published."
+            title="Drafts"
         >
           <UBlogPosts v-if="allDrafts.length" class="md:grid-cols-2 lg:grid-cols-3">
             <UBlogPost
-              v-for="(post, index) in allDrafts"
-              :key="post.slug"
-              :to="`/blog/${post.slug}`"
-              :image="{
-                src: post.banner?.src,
-                alt: post.banner?.alt,
-                width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246
-              }"
-              :badge="{
+                v-for="(post, index) in allDrafts"
+                :key="post.slug"
+                :authors="[]
+              "
+                :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0'
               }"
-              :date="post.posted_at ? formatDate(post.posted_at) : ''"
-              :title="getLocalizedContent(post.title, locale)"
-              :description="getLocalizedContent(post.description, locale)"
-              :authors="[]
-              "
-              :orientation="index === 0 ? 'horizontal' : 'vertical'"
-              :class="[index === 0 && 'col-span-full']"
-              variant="subtle"
-              :ui="{ image: 'object-center object-contain' }"
+                :class="[index === 0 && 'col-span-full']"
+                :date="post.postedAt ? formatDate(post.postedAt) : ''"
+                :description="getLocalizedContent(post.description, locale)"
+                :image="{
+                src: post.banner?.src,
+                alt: post.banner?.alt,
+                width: index === 0 ? 672 : 437,
+                height: index === 0 ? 378 : 246
+              }"
+                :orientation="index === 0 ? 'horizontal' : 'vertical'"
+                :title="getLocalizedContent(post.title, locale)"
+                :to="`/blog/${post.slug}`"
+                :ui="{ image: 'object-center object-contain' }"
+                variant="subtle"
             />
           </UBlogPosts>
           <div
-            v-if="hasMoreDrafts && allDrafts.length > 0"
-            class="col-span-full flex justify-center py-8"
+              v-if="hasMoreDrafts && allDrafts.length > 0"
+              class="col-span-full flex justify-center py-8"
           >
             <UButton
-              label="Load More Drafts"
-              icon="lucide:arrow-down"
-              size="lg"
-              color="primary"
-              variant="solid"
-              :loading="isFetchingMoreDrafts"
-              :disabled="isFetchingMoreDrafts"
-              @click="loadNextDraftsPage"
+                :disabled="isFetchingMoreDrafts"
+                :loading="isFetchingMoreDrafts"
+                color="primary"
+                icon="lucide:arrow-down"
+                label="Load More Drafts"
+                size="lg"
+                variant="solid"
+                @click="loadNextDraftsPage"
             />
           </div>
           <USeparator
-            v-else-if="
+              v-else-if="
               allDrafts.length > 0 && !hasMoreDrafts && hasLoadedNextDraftsPage
             "
-            label="You've reached the end of the drafts."
-            :ui="{ label: 'text-muted' }"
-            class="py-12"
+              :ui="{ label: 'text-muted' }"
+              class="py-12"
+              label="You've reached the end of the drafts."
           />
         </RCSection>
         <div
-          v-if="initialPostsStatus === 'pending'"
-          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            v-if="initialPostsStatus === 'pending'"
+            class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
-          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
+          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96"/>
+          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none"/>
         </div>
         <RCSection v-else :level="2" title="Posts">
           <UBlogPosts v-if="allPosts.length" class="md:grid-cols-2 lg:grid-cols-3">
             <UBlogPost
-              v-for="(post, index) in allPosts"
-              :key="post.slug"
-              :to="`/blog/${post.slug}`"
-              :image="{
-                src: post.banner?.src,
-                alt: post.banner?.alt,
-                width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246
-              }"
-              :badge="{
+                v-for="(post, index) in allPosts"
+                :key="post.slug"
+                :authors="[]
+              "
+                :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0'
               }"
-              :date="post.posted_at ? formatDate(post.posted_at) : ''"
-              :title="getLocalizedContent(post.title, locale)"
-              :description="getLocalizedContent(post.description, locale)"
-              :authors="[]
-              "
-              :orientation="index === 0 ? 'horizontal' : 'vertical'"
-              :class="[index === 0 && 'col-span-full']"
-              variant="subtle"
-              :ui="{ image: 'object-center object-contain' }"
+                :class="[index === 0 && 'col-span-full']"
+                :date="post.postedAt ? formatDate(post.postedAt) : ''"
+                :description="getLocalizedContent(post.description, locale)"
+                :image="{
+                src: post.banner?.src,
+                alt: post.banner?.alt,
+                width: index === 0 ? 672 : 437,
+                height: index === 0 ? 378 : 246
+              }"
+                :orientation="index === 0 ? 'horizontal' : 'vertical'"
+                :title="getLocalizedContent(post.title, locale)"
+                :to="`/blog/${post.slug}`"
+                :ui="{ image: 'object-center object-contain' }"
+                variant="subtle"
             />
           </UBlogPosts>
           <div
-            v-if="hasMorePosts && allPosts.length > 0"
-            class="col-span-full flex justify-center py-8"
+              v-if="hasMorePosts && allPosts.length > 0"
+              class="col-span-full flex justify-center py-8"
           >
             <UButton
-              label="Load More Posts"
-              icon="lucide:arrow-down"
-              size="lg"
-              color="primary"
-              variant="solid"
-              :loading="isFetchingMorePosts"
-              :disabled="isFetchingMorePosts"
-              @click="loadNextPostsPage"
+                :disabled="isFetchingMorePosts"
+                :loading="isFetchingMorePosts"
+                color="primary"
+                icon="lucide:arrow-down"
+                label="Load More Posts"
+                size="lg"
+                variant="solid"
+                @click="loadNextPostsPage"
             />
           </div>
           <USeparator
-            v-else-if="
+              v-else-if="
               allPosts.length > 0 && !hasMorePosts && hasLoadedNextPostsPage
             "
-            label="You've reached the end of the posts."
-            :ui="{ label: 'text-muted' }"
-            class="py-12"
+              :ui="{ label: 'text-muted' }"
+              class="py-12"
+              label="You've reached the end of the posts."
           />
         </RCSection>
       </UPageBody>

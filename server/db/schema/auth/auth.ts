@@ -1,16 +1,7 @@
-import { relations } from "drizzle-orm"
-import {
-  bigint,
-  boolean,
-  index,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  uniqueIndex
-} from "drizzle-orm/pg-core"
-import { timestamps } from "rimelight-components/db"
-import { type UserAvailability } from "rimelight-components/types"
+import {relations} from "drizzle-orm"
+import {bigint, boolean, index, integer, pgTable, text, timestamp, uniqueIndex} from "drizzle-orm/pg-core"
+import {timestamps} from "rimelight-components/db"
+import {type UserAvailability} from "rimelight-components/types"
 
 export const user = pgTable(
   "user",
@@ -25,11 +16,7 @@ export const user = pgTable(
     lastName: text("last_name").notNull(),
     availability: text("availability").$type<UserAvailability>().notNull().default("available"),
     status: text("status"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .defaultNow()
-      .$onUpdate(() => /* @__PURE__ */ new Date())
-      .notNull(),
+    ...timestamps,
     role: text("role"),
     banned: boolean("banned").default(false),
     banReason: text("ban_reason"),
@@ -50,17 +37,15 @@ export const session = pgTable(
     id: text("id").primaryKey(),
     expiresAt: timestamp("expires_at").notNull(),
     token: text("token").notNull().unique(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .$onUpdate(() => /* @__PURE__ */ new Date())
-      .notNull(),
+    ...timestamps,
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     impersonatedBy: text("impersonated_by"),
-    activeOrganizationId: text("active_organization_id")
+    activeOrganizationId: text("active_organization_id"),
+    activeTeamId: text("active_team_id")
   },
   (table) => [index("session_userId_idx").on(table.userId)]
 )
@@ -81,10 +66,7 @@ export const account = pgTable(
     refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
     scope: text("scope"),
     password: text("password"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .$onUpdate(() => /* @__PURE__ */ new Date())
-      .notNull()
+    ...timestamps
   },
   (table) => [index("account_userId_idx").on(table.userId)]
 )
@@ -96,11 +78,7 @@ export const verification = pgTable(
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
     expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .defaultNow()
-      .$onUpdate(() => /* @__PURE__ */ new Date())
-      .notNull()
+    ...timestamps
   },
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 )
@@ -110,7 +88,7 @@ export const organization = pgTable("organization", {
   name: text("name").notNull(),
   slug: text("slug").notNull().unique(),
   logo: text("logo"),
-  createdAt: timestamp("created_at").notNull(),
+  ...timestamps,
   metadata: text("metadata")
 })
 
@@ -125,7 +103,7 @@ export const member = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     role: text("role").default("member").notNull(),
-    createdAt: timestamp("created_at").notNull()
+    ...timestamps
   },
   (table) => [
     index("member_organizationId_idx").on(table.organizationId),
@@ -144,7 +122,7 @@ export const invitation = pgTable(
     role: text("role"),
     status: text("status").default("pending").notNull(),
     expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    ...timestamps,
     inviterId: text("inviter_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" })
@@ -163,7 +141,7 @@ export const team = pgTable(
     organizationId: text("organization_id")
       .notNull()
       .references(() => organization.id, { onDelete: "cascade" }),
-    createdAt: timestamp("created_at").notNull(),
+    ...timestamps,
     metadata: text("metadata")
   },
   (table) => [index("team_organizationId_idx").on(table.organizationId)]

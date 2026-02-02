@@ -1,6 +1,6 @@
-import { db, card } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
-import { eq } from "drizzle-orm"
+import {eq} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {card, db} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    await db.update(card).set({ deleted_at: new Date() }).where(eq(card.id, cardId))
+    await db.update(card).set({ deletedAt: new Date() }).where(eq(card.id, cardId))
 
     return { success: true }
   } catch (error) {

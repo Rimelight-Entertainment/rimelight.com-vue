@@ -1,11 +1,11 @@
-import { desc } from "drizzle-orm"
-import { getUserSession } from "~~/server/utils/session"
-import { db, organization } from "../../../db"
+import {desc} from "drizzle-orm"
+import {getUserSession} from "~~/server/utils/session"
+import {db, organization} from "../../../db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
 
-  if (!session || session.user.role !== "admin") {
+  if (!session || (session.user.role !== "admin" && session.user.role !== "owner")) {
     throw createError({
       statusCode: 403,
       statusMessage: "Unauthorized: Admin access required"

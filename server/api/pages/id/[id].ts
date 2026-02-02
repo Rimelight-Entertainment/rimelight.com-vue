@@ -1,8 +1,8 @@
-import { eq } from "drizzle-orm"
-import { db, pages, pageVersions } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import {eq} from "drizzle-orm"
 
-import { z } from "zod"
+import {z} from "zod"
+import {getUserSession} from "~~/server/utils/session"
+import {db, pages, pageVersions} from "../../../db"
 
 const updatePageVersionSchema = z.object({
   slug: z.string().optional(),
@@ -12,7 +12,7 @@ const updatePageVersionSchema = z.object({
   authorIds: z.array(z.string()).optional(),
   properties: z.record(z.string(), z.any()).optional(),
   blocks: z.array(z.any()).optional(),
-  posted_at: z.string().or(z.date()).optional()
+  postedAt: z.string().or(z.date()).optional()
 })
 
 export default defineEventHandler(async (event) => {
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
       properties: body.properties || {},
       blocks: body.blocks || []
     },
-    posted_at: body.posted_at ? new Date(body.posted_at) : null,
+    postedAt: body.postedAt ? new Date(body.postedAt) : null,
     createdBy: session.user.id
   }
 
