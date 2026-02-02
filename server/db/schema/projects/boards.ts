@@ -1,9 +1,9 @@
-import {relations} from "drizzle-orm"
-import {boolean, pgTable, text, uuid} from "drizzle-orm/pg-core"
-import {id, timestamps} from "rimelight-components/db"
-import {user} from "../auth/auth"
-import {customFieldDefinition} from "./custom_fields"
-import {list} from "./lists"
+import { relations } from "drizzle-orm"
+import { boolean, pgTable, text, uuid } from "drizzle-orm/pg-core"
+import { id, timestamps } from "rimelight-components/db"
+import { user } from "../auth/auth"
+import { customFieldDefinition } from "./custom_fields"
+import { list } from "./lists"
 
 export const board = pgTable("kanban_board", {
   id: id.primaryKey(),

@@ -1,18 +1,18 @@
-import {relations} from "drizzle-orm"
+import { relations } from "drizzle-orm"
 import {
-    type AnyPgColumn,
-    bigint,
-    boolean,
-    index,
-    integer,
-    pgTable,
-    text,
-    timestamp,
-    uniqueIndex,
-    uuid
+  type AnyPgColumn,
+  bigint,
+  boolean,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid
 } from "drizzle-orm/pg-core"
-import {id, timestamps} from "rimelight-components/db"
-import {type UserAvailability} from "rimelight-components/types"
+import { id, timestamps } from "rimelight-components/db"
+import { type UserAvailability } from "rimelight-components/types"
 
 export const user = pgTable(
   "user",

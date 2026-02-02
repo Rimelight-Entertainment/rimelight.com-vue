@@ -5,7 +5,6 @@ import {z} from 'zod'
 import {authClient} from "~~/auth/auth-client"
 
 const UAvatar = resolveComponent('UAvatar')
-const UBadge = resolveComponent('UBadge')
 const UButton = resolveComponent('UButton')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 
@@ -23,6 +22,19 @@ interface Team {
   subteams?: Team[]
 }
 
+const getAggregateMemberCount = (team: Team): number => {
+  const direct = team.memberCount || 0
+  const subteamTotal = team.subteams?.reduce((acc, subteam) => acc + getAggregateMemberCount(subteam), 0) || 0
+  return direct + subteamTotal
+}
+
+const getSubteamAggregateCount = (team: Team): number => {
+  if (!team.subteams?.length) return 0
+  return team.subteams.reduce((acc, subteam) => {
+    return acc + (subteam.memberCount || 0)
+  }, 0)
+}
+
 const columns: TableColumn<Team>[] = [
   {
     id: 'expand',
@@ -33,7 +45,7 @@ const columns: TableColumn<Team>[] = [
       return h(UButton, {
         color: 'neutral',
         variant: 'ghost',
-        icon: 'i-lucide-chevron-right',
+        icon: 'lucide:chevron-right',
         square: true,
         ui: {
           leadingIcon: [
@@ -51,7 +63,7 @@ const columns: TableColumn<Team>[] = [
   {
     accessorKey: 'name',
     header: 'Team',
-    cell: ({row}) => h('div', {class: 'flex items-center gap-3 font-medium'}, [
+    cell: ({row}) => h('div', {class: 'flex items-center gap-sm font-medium'}, [
       h(UAvatar, {
         src: row.original.logo,
         alt: row.original.name,
@@ -63,12 +75,30 @@ const columns: TableColumn<Team>[] = [
   {
     accessorKey: 'memberCount',
     header: 'Members',
-    // Example: 47 (36) where 47 is total including subteams, 36 is direct
     cell: ({row}) => {
-      const direct = row.original.memberCount || 0
-      // This logic assumes subteams are mapped. In production, calculate this on server for performance.
-      const total = direct + (row.original.subteams?.reduce((acc, st) => acc + st.memberCount, 0) || 0)
-      return `${total} (${direct})`
+      const team = row.original
+      const totalHeadcount = team.memberCount || 0
+      const subteamHeadcount = getSubteamAggregateCount(team)
+
+      // Calculate those who are ONLY in the parent
+      const exclusiveParent = Math.max(0, totalHeadcount - subteamHeadcount)
+
+      return h('div', {class: 'flex flex-col gap-1'}, [
+        h('div', {class: 'flex items-center gap-2'}, [
+          h('span', {class: 'text-sm font-bold'}, totalHeadcount.toLocaleString()),
+          h('span', {class: 'text-[10px] uppercase px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-500'}, 'Total')
+        ]),
+        h('div', {class: 'flex items-center gap-3 text-xs text-muted-foreground'}, [
+          h('span', {class: 'flex items-center gap-1'}, [
+            h('span', {class: 'w-1.5 h-1.5 rounded-full bg-primary-500'}),
+            `${exclusiveParent} Exclusive`
+          ]),
+          subteamHeadcount > 0 ? h('span', {class: 'flex items-center gap-1'}, [
+            h('span', {class: 'w-1.5 h-1.5 rounded-full bg-orange-400'}),
+            `${subteamHeadcount} via Subteams`
+          ]) : null
+        ])
+      ])
     }
   },
   {
@@ -129,17 +159,9 @@ function openCreateSubteamModal(parent: Team) {
 const state = reactive({
   name: '',
   parentId: null as string | null,
-  parentName: '' // For UI context in modal
+  parentName: ''
 })
 
-function getMemberCounts(team: Team) {
-  const direct = team.memberCount || 0
-  // Note: For a truly precise 'unique' count, the API should provide this.
-  // Assuming 'memberCount' is direct, we'll display direct and a placeholder for sub-totals if needed.
-  // If your API provides subteamMemberCount, use:
-  // return `${direct + team.subteamMemberCount} (${direct})`
-  return `${direct}`
-}
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters')
@@ -330,81 +352,83 @@ async function deleteTeam(id: string) {
 </script>
 
 <template>
-  <div class="flex justify-end">
-    <UModal
-        v-model:open="isCreateModalOpen"
-        :description="state.parentId ? `Creating subteam for ${state.parentName}` : 'Set up a new workspace for your teams.'"
-        :title="state.parentId ? 'Add Subteam' : 'Create Team'"
-    >
-      <UButton
-          color="primary"
-          icon="lucide:plus"
-          label="Create Team"
-          @click="() => { state.parentId = null; isCreateModalOpen = true; }"
-      />
+  <div class="flex flex-col flex-1 w-full">
+    <div class="flex justify-end">
+      <UModal
+          v-model:open="isCreateModalOpen"
+          :description="state.parentId ? `Creating subteam for ${state.parentName}` : 'Set up a new team workspace.'"
+          :title="state.parentId ? 'Add Subteam' : 'Create Team'"
+      >
+        <UButton
+            icon="lucide:plus"
+            label="Create Team"
+            @click="() => { state.parentId = null; isCreateModalOpen = true; }"
+        />
 
-      <template #body>
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="createTeam">
-          <UFormField v-if="state.parentId" label="Parent Team">
-            <UInput :placeholder="state.parentName" disabled variant="soft"/>
-          </UFormField>
+        <template #body>
+          <UForm :schema="schema" :state="state" class="flex flex-col gap-sm" @submit="createTeam">
+            <UFormField v-if="state.parentId" label="Parent Team">
+              <UInput :placeholder="state.parentName" disabled variant="soft"/>
+            </UFormField>
 
-          <UFormField label="Team Name" name="name">
-            <UInput v-model="state.name" class="w-full" placeholder="e.g. Recruitment"/>
-          </UFormField>
+            <UFormField label="Team Name" name="name">
+              <UInput v-model="state.name" class="w-full" placeholder="e.g. Recruitment"/>
+            </UFormField>
 
-          <div class="flex justify-end gap-3 pt-4">
-            <UButton
-                color="neutral"
-                label="Cancel"
-                variant="ghost"
-                @click="isCreateModalOpen = false"
-            />
-            <UButton :label="state.parentId ? 'Add Subteam' : 'Create'" :loading="isSubmitting" color="primary"
-                     type="submit"/>
-          </div>
-        </UForm>
-      </template>
-    </UModal>
-    <UModal
-        v-model:open="isUpdateModalOpen"
-        description="Update the team name and settings."
-        title="Edit Team"
-    >
-      <template #body>
-        <UForm :schema="updateSchema" :state="updateState" class="space-y-4" @submit="updateTeam">
-          <UFormField label="Team Name" name="name">
-            <UInput v-model="updateState.name" class="w-full"/>
-          </UFormField>
+            <div class="flex justify-between gap-sm">
+              <UButton
+                  color="error"
+                  label="Cancel"
+                  variant="subtle"
+                  @click="isCreateModalOpen = false"
+              />
+              <UButton
+                  :label="state.parentId ? 'Add Subteam' : 'Create'"
+                  :loading="isSubmitting"
+                  color="primary"
+                  type="submit"
+              />
+            </div>
+          </UForm>
+        </template>
+      </UModal>
+      <UModal
+          v-model:open="isUpdateModalOpen"
+          description="Update the team name and settings."
+          title="Edit Team"
+      >
+        <template #body>
+          <UForm :schema="updateSchema" :state="updateState" class="space-y-4" @submit="updateTeam">
+            <UFormField label="Team Name" name="name">
+              <UInput v-model="updateState.name" class="w-full"/>
+            </UFormField>
 
-          <div class="flex justify-end gap-3 pt-4">
-            <UButton
-                color="neutral"
-                label="Cancel"
-                variant="ghost"
-                @click="isUpdateModalOpen = false"
-            />
-            <UButton :loading="isSubmitting" color="primary" label="Save Changes" type="submit"/>
-          </div>
-        </UForm>
-      </template>
-    </UModal>
-    <UModal
-        v-model:open="isMembersModalOpen"
-        :title="`Manage Members: ${selectedTeam?.name}`"
-        class="sm:max-w-2xl"
-        description="View and manage users assigned to this team."
-    >
-      <template #body>
-        <div class="space-y-6">
-          <div class="flex gap-2">
+            <div class="flex justify-between gap-sm">
+              <UButton
+                  color="error"
+                  label="Cancel"
+                  variant="subtle"
+                  @click="isUpdateModalOpen = false"
+              />
+              <UButton :loading="isSubmitting" label="Save Changes" type="submit"/>
+            </div>
+          </UForm>
+        </template>
+      </UModal>
+      <UModal
+          v-model:open="isMembersModalOpen"
+          :title="`Manage Members: ${selectedTeam?.name}`"
+          class="sm:max-w-2xl"
+          description="View and manage users assigned to this team."
+      >
+        <template #body>
+          <div class="space-y-6">
+            <div class="flex gap-2"></div>
 
-          </div>
+            <USeparator/>
 
-          <USeparator/>
-
-          <UTable
-              :columns="[
+            <UTable
+                :columns="[
     { accessorKey: 'user.name', header: 'Name' },
     { accessorKey: 'user.email', header: 'Email' },
     {
@@ -418,38 +442,39 @@ async function deleteTeam(id: string) {
       })
     }
   ]"
-              :data="teamMembers"
-              :loading="isLoadingMembers"
-              class="border rounded-md max-h-96 overflow-y-auto"
-          >
-            <template #empty-state>
-              <div class="flex flex-col items-center justify-center py-6 text-sm text-gray-500">
-                No members found in this team.
-              </div>
-            </template>
-          </UTable>
-        </div>
-      </template>
+                :data="teamMembers"
+                :loading="isLoadingMembers"
+                class="border rounded-md max-h-96 overflow-y-auto"
+            >
+              <template #empty-state>
+                <div class="flex flex-col items-center justify-center py-6 text-sm text-gray-500">
+                  No members found in this team.
+                </div>
+              </template>
+            </UTable>
+          </div>
+        </template>
 
-      <template #footer>
-        <UButton class="w-full" color="neutral" label="Close" @click="isMembersModalOpen = false"/>
+        <template #footer>
+          <UButton
+              class="w-full"
+              color="neutral"
+              label="Close"
+              @click="isMembersModalOpen = false"
+          />
+        </template>
+      </UModal>
+    </div>
+
+    <UTable v-model:expanded="expanded" :columns="columns" :data="teams" :loading="pending">
+      <template #expanded="{ row }">
+        <UTable
+            :columns="columns"
+            :data="row.original.subteams"
+            :ui="{ thead: 'hidden' }"
+            class="-m-4"
+        />
       </template>
-    </UModal>
+    </UTable>
   </div>
-
-  <UTable
-      v-model:expanded="expanded"
-      :columns="columns"
-      :data="teams"
-      :loading="pending"
-  >
-    <template #expanded="{ row }">
-      <UTable
-          :columns="columns"
-          :data="row.original.subteams"
-          :ui="{ thead: 'hidden' }"
-          class="-m-4"
-      />
-    </template>
-  </UTable>
 </template>

@@ -1,5 +1,12 @@
 {
-  "jsPlugins": ["./.oxlint/rimelight.js"],
+  "jsPlugins": [
+    "./.oxlint/rimelight.js"
+  ],
+  "ignorePatterns": [
+    ".drizzle/",
+    "src-tauri/",
+    "backups/"
+  ],
   "rules": {
     "no-empty-pattern": "off",
     "rimelight/prefer-validated-getters": "warn",

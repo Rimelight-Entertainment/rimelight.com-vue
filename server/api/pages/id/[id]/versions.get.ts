@@ -1,6 +1,6 @@
-import {desc, eq} from "drizzle-orm"
-import {db, pageVersions} from "~~/server/db"
-import {getUserSession} from "~~/server/utils/session"
+import { desc, eq } from "drizzle-orm"
+import { db, pageVersions } from "~~/server/db"
+import { getUserSession } from "~~/server/utils/session"
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id")

@@ -1,8 +1,13 @@
-import {relations} from "drizzle-orm"
-import {jsonb, pgTable, text, timestamp, uuid} from "drizzle-orm/pg-core"
-import {id, timestamps} from "rimelight-components/db"
-import {type Block, type Localized, type PageType, type RegisterPageTypes} from "rimelight-components/types"
-import {pages} from "./pages"
+import { relations } from "drizzle-orm"
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { id, timestamps } from "rimelight-components/db"
+import {
+  type Block,
+  type Localized,
+  type PageType,
+  type RegisterPageTypes
+} from "rimelight-components/types"
+import { pages } from "./pages"
 
 export type PageVersionStatus = "pending" | "approved" | "rejected"
 
