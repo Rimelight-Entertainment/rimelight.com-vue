@@ -1,12 +1,17 @@
-# Nuxt dev/build outputs
+# Utilities
+.rimelight-utilities/**
+!.rimelight-utilities
+
+# Outputs
 .output
 .data
 .nuxt
 .nitro
-.cache
+.vercel_build_output
+.build-*
 dist
 
-# Node dependencies
+# Dependencies
 node_modules
 
 # Logs
@@ -14,9 +19,18 @@ logs
 *.log
 
 # Misc
-.DS_Store
 .fleet
-.idea
+
+# Temp directories
+.temp
+.tmp
+.cache
+
+# Testing
+reports
+coverage
+*.lcov
+.nyc_output
 
 # Local env Files
 .env
@@ -35,3 +49,26 @@ logs
 *.keystore
 *.jks
 /src-tauri/gen/android/keystore.properties
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+
+# Intellij idea
+*.iml
+.idea
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
