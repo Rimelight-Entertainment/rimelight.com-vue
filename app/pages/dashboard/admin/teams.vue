@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type {TableColumn} from '@nuxt/ui'
+import {$api} from "rimelight-components/composables";
 import {h, resolveComponent} from 'vue'
 import {z} from 'zod'
 import {authClient} from "~~/auth/auth-client"
+
 
 const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
@@ -53,7 +55,7 @@ const columns: TableColumn<Team>[] = [
             row.getIsExpanded() ? 'rotate-90' : ''
           ]
         },
-        onClick: (e) => {
+        onClick: (e: MouseEvent) => {
           e.stopPropagation()
           row.toggleExpanded()
         }
@@ -257,12 +259,12 @@ async function updateTeam() {
 async function fetchTeamMembers(teamId: string) {
   isLoadingMembers.value = true
   try {
-    const {data, error} = await authClient.organization.listTeamMembers({
-      query: {teamId}
-    })
+    // const {data, error} = await authClient.organization.listTeamMembers({
+    //   query: {teamId}
+    // })
 
-    if (error) throw error
-    teamMembers.value = data ?? []
+    // if (error) throw error
+    // teamMembers.value = data ?? []
   } catch (err: any) {
     toast.add({
       title: 'Fetch Error',
@@ -277,47 +279,47 @@ async function fetchTeamMembers(teamId: string) {
 async function addMemberToTeam(userId: string) {
   if (!selectedTeam.value) return
 
-  try {
-    // 1. Add to the specific subteam
-    const {error} = await authClient.organization.addTeamMember({
-      teamId: selectedTeam.value.id,
-      userId: userId
-    })
-    if (error) throw error
-
-    // 2. If it has a parent, add to parent as well
-    if (selectedTeam.value.parentId) {
-      await authClient.organization.addTeamMember({
-        teamId: selectedTeam.value.parentId,
-        userId: userId
-      }).catch(() => {
-        // Ignore if they are already in the parent team
-      })
-    }
-
-    toast.add({title: 'Success', description: 'Member added to team hierarchy.', color: 'success'})
-    await fetchTeamMembers(selectedTeam.value.id)
-  } catch (err: any) {
-    toast.add({title: 'Error', description: err.message, color: 'error'})
-  }
+  // try {
+  //   // 1. Add to the specific subteam
+  //   const {error} = await authClient.organization.addTeamMember({
+  //     teamId: selectedTeam.value.id,
+  //     userId: userId
+  //   })
+  //   if (error) throw error
+  //
+  //   // 2. If it has a parent, add to parent as well
+  //   if (selectedTeam.value.parentId) {
+  //     await authClient.organization.addTeamMember({
+  //       teamId: selectedTeam.value.parentId,
+  //       userId: userId
+  //     }).catch(() => {
+  //       // Ignore if they are already in the parent team
+  //     })
+  //   }
+  //
+  //   toast.add({title: 'Success', description: 'Member added to team hierarchy.', color: 'success'})
+  //   await fetchTeamMembers(selectedTeam.value.id)
+  // } catch (err: any) {
+  //   toast.add({title: 'Error', description: err.message, color: 'error'})
+  // }
 }
 
 async function removeMemberFromTeam(userId: string) {
-  if (!selectedTeam.value) return
-
-  try {
-    const {error} = await authClient.organization.removeTeamMember({
-      teamId: selectedTeam.value.id,
-      userId: userId
-    })
-
-    if (error) throw error
-
-    toast.add({title: 'Success', description: 'Member removed.', color: 'success'})
-    await fetchTeamMembers(selectedTeam.value.id)
-  } catch (err: any) {
-    toast.add({title: 'Error', description: err.message, color: 'error'})
-  }
+  // if (!selectedTeam.value) return
+  //
+  // try {
+  //   const {error} = await authClient.organization.removeTeamMember({
+  //     teamId: selectedTeam.value.id,
+  //     userId: userId
+  //   })
+  //
+  //   if (error) throw error
+  //
+  //   toast.add({title: 'Success', description: 'Member removed.', color: 'success'})
+  //   await fetchTeamMembers(selectedTeam.value.id)
+  // } catch (err: any) {
+  //   toast.add({title: 'Error', description: err.message, color: 'error'})
+  // }
 }
 
 async function deleteTeam(id: string) {

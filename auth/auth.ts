@@ -1,12 +1,39 @@
-import { RESTRICTED_SET } from "#shared/constants/restricted-usernames"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { APIError } from "better-auth/api"
 import { admin, organization } from "better-auth/plugins"
 import { v7 as uuidv7 } from "uuid"
-import { db } from "../server/db"
-import { ac, admin as adminRole, member, owner, user as userRole } from "./permissions"
-import { generateUniqueTag } from "./utils"
+import { db, user } from "../server/db"
+import { createAccessControl } from "better-auth/plugins/access"
+import {
+  statement,
+  admin as adminRole,
+  member,
+  owner,
+  user as userRole,
+  createRestrictedSet,
+  normalizeUsername,
+  createGenerateUniqueTag
+} from "rimelight-components/auth"
+
+const ac = createAccessControl(statement)
+
+// Project-specific restricted usernames (brand names, founder, etc.)
+const PROJECT_RESTRICTED_USERNAMES = [
+  "rimelight",
+  "rimelightent",
+  "rimelightentertainment",
+  "rimelightofficial",
+  "grandtale",
+  "playgrandtale",
+  "danielmarchi",
+  "dmarchi"
+]
+const RESTRICTED_SET = createRestrictedSet(PROJECT_RESTRICTED_USERNAMES)
+const generateUniqueTag = createGenerateUniqueTag(db, user)
+
+// Project-specific admin email domain
+const ADMIN_EMAIL_DOMAIN = "@rimelight.com"
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg" }),
@@ -137,24 +164,24 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
-        before: async (user, _ctx) => {
+        before: async (userData, _ctx) => {
           // 1. Normalize the incoming username (strip dots, dashes, underscores)
-          const normalizedInput = user.name.toLowerCase().replace(/[^a-z0-9]/g, "")
+          const normalizedInput = normalizeUsername(userData.name)
 
           // 2. Strict check against the restricted set
-          // This prevents "admin" but allows "admin_fan"
           if (RESTRICTED_SET.has(normalizedInput)) {
             throw new APIError("BAD_REQUEST", {
               message: "This username is reserved for official use."
             })
           }
 
-          const role = user.email.endsWith("@rimelight.com") ? "admin" : "user"
-          const uniqueTag = await generateUniqueTag(user.name)
+          // Determine admin role based on email domain
+          const role = userData.email.endsWith(ADMIN_EMAIL_DOMAIN) ? "admin" : "user"
+          const uniqueTag = await generateUniqueTag(userData.name)
 
           return {
             data: {
-              ...user,
+              ...userData,
               role,
               tag: uniqueTag
             }

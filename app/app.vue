@@ -3,6 +3,7 @@ import {ULink} from "#components"
 import * as locales from "@nuxt/ui/locale"
 import {PiniaColadaDevtools} from '@pinia/colada-devtools'
 import {useFavicon} from "@vueuse/core"
+import {useDashboard} from "rimelight-components/composables";
 
 const {locale} = useI18n()
 
@@ -160,18 +161,18 @@ useSeoMeta({
 
 <template>
   <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 0 }">
-    <NuxtRouteAnnouncer />
-    <NuxtLoadingIndicator color="#0064d7" />
+    <NuxtRouteAnnouncer/>
+    <NuxtLoadingIndicator color="#0064d7"/>
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage/>
     </NuxtLayout>
-    <RLConfirmModal />
-    <RLNotificationsSlideover />
+    <RLConfirmModal/>
+    <RLNotificationsSlideover/>
     <ClientOnly>
-      <RCScrollToTop />
+      <RCScrollToTop/>
     </ClientOnly>
-    <RLFloatingToolsOverlay />
-    <PiniaColadaDevtools />
+    <RLFloatingToolsOverlay/>
+    <PiniaColadaDevtools/>
   </UApp>
 </template>
 

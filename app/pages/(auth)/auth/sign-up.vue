@@ -1,78 +1,77 @@
-<script setup lang="ts">
-import { z } from "zod"
-import type { FormSubmitEvent } from "@nuxt/ui"
-import type { StepperItem } from "@nuxt/ui"
-import { RESTRICTED_SET, normalizeUsername } from "~~/shared/constants/restricted-usernames"
+<script lang="ts" setup>
+import type {FormSubmitEvent, StepperItem} from "@nuxt/ui"
+import {normalizeUsername, RESTRICTED_SET} from "rimelight-components/auth"
+import {z} from "zod"
 
-const { signUp, isLoading } = useAuth()
+const {signUp, isLoading} = useAuth()
 const toast = useToast()
-const { t } = useI18n()
+const {t} = useI18n()
 
 const step1Schema = z.object({
   username: z
-    .string()
-    .min(2, t("auth_username_length_error"))
-    .max(24, t("auth_username_length_error"))
-    .transform((val) => val.trim())
-    .refine((val) => !/\s/.test(val), {
-      message: t("auth_username_no_spaces")
-    })
-    .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
-      message:
-        t("auth_username_format_error")
-    })
-    .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
-      message: t("auth_username_format_error")
-    })
-    .refine((val) => {
-      // 1. Normalize the incoming attempt
-      const normalizedInput = normalizeUsername(val);
+      .string()
+      .min(2, t("auth_username_length_error"))
+      .max(24, t("auth_username_length_error"))
+      .transform((val) => val.trim())
+      .refine((val) => !/\s/.test(val), {
+        message: t("auth_username_no_spaces")
+      })
+      .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
+        message:
+            t("auth_username_format_error")
+      })
+      .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
+        message: t("auth_username_format_error")
+      })
+      .refine((val) => {
+        // 1. Normalize the incoming attempt
+        const normalizedInput = normalizeUsername(val);
 
-      // 2. Check if the normalized version hits a restricted keyword
-      return !RESTRICTED_SET.has(normalizedInput);
-    }, {
-      message: t("auth_username_restricted_error")
-    }),
+        // 2. Check if the normalized version hits a restricted keyword
+        return !RESTRICTED_SET.has(normalizedInput);
+      }, {
+        message: t("auth_username_restricted_error")
+      }),
   firstName: z
-    .string()
-    .min(2, t("auth_firstname_length_error"))
-    .max(24, t("auth_firstname_length_error")),
+      .string()
+      .min(2, t("auth_firstname_length_error"))
+      .max(24, t("auth_firstname_length_error")),
   lastName: z
-    .string()
-    .min(2, t("auth_lastname_length_error"))
-    .max(24, t("auth_lastname_length_error")),
+      .string()
+      .min(2, t("auth_lastname_length_error"))
+      .max(24, t("auth_lastname_length_error")),
   email: z.email(t("auth_email_invalid")),
   // Honeypot field meant to prevent simple bots. This is not expected to be filled by the user.
   emailConfirmation: z.string().max(0)
 })
 
 const step2Schema = z
-  .object({
-    password: z
-      .string()
-      .min(8, t("auth_password_length_error"))
-      .max(24, t("auth_password_length_error")),
-    passwordConfirmation: z.string()
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.passwordConfirmation) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["passwordConfirmation"],
-        message: t("auth_passwords_mismatch")
-      })
-    }
-    if (
-      (state.username ?? "").length > 0 &&
-      data.password.toLowerCase().includes((state.username ?? "").toLowerCase())
-    ) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["password"],
-        message: t("auth_password_contains_username")
-      })
-    }
-  })
+    .object({
+      password: z
+          .string()
+          .min(8, t("auth_password_length_error"))
+          .max(24, t("auth_password_length_error")),
+      passwordConfirmation: z.string()
+    })
+    .superRefine((data, ctx) => {
+      if (data.password !== data.passwordConfirmation) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["passwordConfirmation"],
+          message: t("auth_passwords_mismatch")
+        })
+      }
+      if (
+          (state.username ?? "").length > 0 &&
+          data.password.toLowerCase().includes((state.username ?? "").toLowerCase())
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["password"],
+          message: t("auth_password_contains_username")
+        })
+      }
+    })
 
 const step3Schema = z.object({
   terms: z.boolean().refine((val) => val, {
@@ -82,8 +81,8 @@ const step3Schema = z.object({
 })
 
 const schema = z.intersection(
-  step1Schema,
-  z.intersection(step2Schema, step3Schema)
+    step1Schema,
+    z.intersection(step2Schema, step3Schema)
 )
 
 type Schema = z.output<typeof schema>
@@ -201,7 +200,7 @@ async function nextStep() {
     //TODO is this necessary?
     // Validation failed, scroll to the first error
     const firstError = document.querySelector(".ring-red-500")
-    firstError?.scrollIntoView({ behavior: "smooth", block: "center" })
+    firstError?.scrollIntoView({behavior: "smooth", block: "center"})
     toast.add({
       color: "error",
       title: t("auth_validation_error_title"),
@@ -232,150 +231,150 @@ useHead({
 
 <template>
   <UStepper
-    ref="stepper"
-    :items="stepperItems"
-    class="w-full"
-    size="sm"
-    :model-value="currentStep"
-    linear
-    disabled
+      ref="stepper"
+      :items="stepperItems"
+      :model-value="currentStep"
+      class="w-full"
+      disabled
+      linear
+      size="sm"
   >
     <template #identity>
       <UForm
-        ref="step1Form"
-        :schema="step1Schema"
-        :state="state"
-        class="flex flex-col gap-md"
-        @submit.prevent
+          ref="step1Form"
+          :schema="step1Schema"
+          :state="state"
+          class="flex flex-col gap-md"
+          @submit.prevent
       >
         <div class="flex flex-col gap-md">
           <UFormField
-            :label="t('auth_email_label')"
-            name="email"
-            :description="t('auth_email_description')"
-            :help="t('auth_email_help')"
-            required
+              :description="t('auth_email_description')"
+              :help="t('auth_email_help')"
+              :label="t('auth_email_label')"
+              name="email"
+              required
           >
             <UInput
-              v-model="state.email"
-              type="email"
-              :placeholder="t('auth_email_placeholder')"
-              class="w-full"
+                v-model="state.email"
+                :placeholder="t('auth_email_placeholder')"
+                class="w-full"
+                type="email"
             >
               <template v-if="state.email?.length" #trailing>
                 <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="lucide:circle-x"
-                  aria-label="Clear input"
-                  @click="state.email = ''"
+                    aria-label="Clear input"
+                    color="neutral"
+                    icon="lucide:circle-x"
+                    size="sm"
+                    variant="link"
+                    @click="state.email = ''"
                 />
               </template>
             </UInput>
           </UFormField>
           <UFormField
-            :label="t('auth_email-confirmation_label')"
-            name="email-confirmation"
-            :description="t('auth_email-confirmation_description')"
-            :help="t('auth_email-confirmation_help')"
-            required
-            class="absolute h-0 w-0 overflow-hidden"
-            aria-hidden="true"
-            tabindex="-1"
+              :description="t('auth_email-confirmation_description')"
+              :help="t('auth_email-confirmation_help')"
+              :label="t('auth_email-confirmation_label')"
+              aria-hidden="true"
+              class="absolute h-0 w-0 overflow-hidden"
+              name="email-confirmation"
+              required
+              tabindex="-1"
           >
             <UInput
-              v-model="state.emailConfirmation"
-              type="email"
-              :placeholder="t('auth_email-confirmation_placeholder')"
-              autocomplete="off"
-              aria-autocomplete="none"
-              aria-hidden="true"
-              class="w-full"
-              tabindex="-1"
-              required
+                v-model="state.emailConfirmation"
+                :placeholder="t('auth_email-confirmation_placeholder')"
+                aria-autocomplete="none"
+                aria-hidden="true"
+                autocomplete="off"
+                class="w-full"
+                required
+                tabindex="-1"
+                type="email"
             >
               <template v-if="state.emailConfirmation?.length" #trailing>
                 <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="lucide:circle-x"
-                  aria-label="Clear input"
-                  aria-hidden="true"
-                  tabindex="-1"
-                  @click="state.emailConfirmation = ''"
+                    aria-hidden="true"
+                    aria-label="Clear input"
+                    color="neutral"
+                    icon="lucide:circle-x"
+                    size="sm"
+                    tabindex="-1"
+                    variant="link"
+                    @click="state.emailConfirmation = ''"
                 />
               </template>
             </UInput>
           </UFormField>
           <UFormField
-            :label="t('auth_username_label')"
-            name="username"
-            :description="t('auth_username_description')"
-            required
+              :description="t('auth_username_description')"
+              :label="t('auth_username_label')"
+              name="username"
+              required
           >
-            <UInput v-model="state.username" placeholder="Johndoe123" class="w-full">
+            <UInput v-model="state.username" class="w-full" placeholder="Johndoe123">
               <template v-if="state.username?.length" #trailing>
                 <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="lucide:circle-x"
-                  aria-label="Clear input"
-                  @click="state.username = ''"
+                    aria-label="Clear input"
+                    color="neutral"
+                    icon="lucide:circle-x"
+                    size="sm"
+                    variant="link"
+                    @click="state.username = ''"
                 />
               </template>
             </UInput>
           </UFormField>
           <div class="flex flex-row gap-sm">
             <UFormField
-              :label="t('auth_firstname_label')"
-              name="firstName"
-              :description="t('auth_firstname_description')"
-              required
-              class="w-1/2"
+                :description="t('auth_firstname_description')"
+                :label="t('auth_firstname_label')"
+                class="w-1/2"
+                name="firstName"
+                required
             >
               <UInput v-model="state.firstName" placeholder="John">
                 <template v-if="state.firstName?.length" #trailing>
                   <UButton
-                    color="neutral"
-                    variant="link"
-                    size="sm"
-                    icon="lucide:circle-x"
-                    aria-label="Clear input"
-                    @click="state.firstName = ''"
+                      aria-label="Clear input"
+                      color="neutral"
+                      icon="lucide:circle-x"
+                      size="sm"
+                      variant="link"
+                      @click="state.firstName = ''"
                   />
                 </template>
               </UInput>
             </UFormField>
             <UFormField
-              :label="t('auth_lastname_label')"
-              name="lastName"
-              :description="t('auth_lastname_description')"
-              required
-              class="w-1/2"
+                :description="t('auth_lastname_description')"
+                :label="t('auth_lastname_label')"
+                class="w-1/2"
+                name="lastName"
+                required
             >
               <UInput v-model="state.lastName" placeholder="Doe">
                 <template v-if="state.lastName?.length" #trailing>
                   <UButton
-                    color="neutral"
-                    variant="link"
-                    size="sm"
-                    icon="lucide:circle-x"
-                    aria-label="Clear input"
-                    @click="state.lastName = ''"
+                      aria-label="Clear input"
+                      color="neutral"
+                      icon="lucide:circle-x"
+                      size="sm"
+                      variant="link"
+                      @click="state.lastName = ''"
                   />
                 </template>
               </UInput>
             </UFormField>
           </div>
           <div class="flex justify-between gap-md">
-            <div />
+            <div/>
             <UButton
-              trailing-icon="lucide:arrow-right"
-              @click="nextStep"
-              :label="t('navigation_next')"
+                :label="t('navigation_next')"
+                trailing-icon="lucide:arrow-right"
+                @click="nextStep"
             />
           </div>
         </div>
@@ -383,70 +382,70 @@ useHead({
     </template>
     <template #security>
       <UForm
-        ref="step2Form"
-        :schema="step2Schema"
-        :state="state"
-        class="flex flex-col gap-md"
-        @submit.prevent
+          ref="step2Form"
+          :schema="step2Schema"
+          :state="state"
+          class="flex flex-col gap-md"
+          @submit.prevent
       >
         <div class="flex flex-col gap-md">
           <UFormField
-            :label="t('auth_password_label')"
-            name="password"
-            :description="t('auth_password_description')"
-            required
+              :description="t('auth_password_description')"
+              :label="t('auth_password_label')"
+              name="password"
+              required
           >
             <div class="flex flex-col gap-sm">
               <UInput
-                v-model="state.password"
-                :type="showPassword ? 'text' : 'password'"
-                placeholder="••••••••••••••••"
-                class="w-full"
+                  v-model="state.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  class="w-full"
+                  placeholder="••••••••••••••••"
               >
                 <template #trailing>
                   <UButton
-                    color="neutral"
-                    variant="link"
-                    size="sm"
-                    :icon="
-                              showPassword ? 'lucide:eye-off' : 'lucide:eye'
-                            "
-                    :aria-label="
+                      :aria-label="
                               showPassword ? 'Hide password' : 'Show password'
                             "
-                    :aria-pressed="showPassword"
-                    aria-controls="password"
-                    @click="showPassword = !showPassword"
+                      :aria-pressed="showPassword"
+                      :icon="
+                              showPassword ? 'lucide:eye-off' : 'lucide:eye'
+                            "
+                      aria-controls="password"
+                      color="neutral"
+                      size="sm"
+                      variant="link"
+                      @click="showPassword = !showPassword"
                   />
                 </template>
               </UInput>
-              <UProgress :color="color" :model-value="score" :max="4" size="sm" />
+              <UProgress :color="color" :max="4" :model-value="score" size="sm"/>
               <p id="password-strength" class="text-xs">
                 {{ t("auth_password_requirements_title") }}
               </p>
-              <ul class="space-y-1" aria-label="Password requirements">
+              <ul aria-label="Password requirements" class="space-y-1">
                 <li
-                  v-for="(req, index) in strength"
-                  :key="index"
-                  class="flex items-center gap-xs"
-                  :class="req.met ? 'text-success' : 'text-muted'"
+                    v-for="(req, index) in strength"
+                    :key="index"
+                    :class="req.met ? 'text-success' : 'text-muted'"
+                    class="flex items-center gap-xs"
                 >
                   <UIcon
-                    :name="
+                      :name="
                               req.met
                                 ? 'lucide:circle-check'
                                 : 'lucide:circle-x'
                             "
-                    class="size-4 shrink-0"
+                      class="size-4 shrink-0"
                   />
 
                   <span class="text-xs font-light">
                     {{ req.text }}
                     <span class="sr-only">
                       {{
-                                req.met
-                                  ? " - Requirement met"
-                                  : " - Requirement not met"
+                        req.met
+                            ? " - Requirement met"
+                            : " - Requirement not met"
                       }}
                     </span>
                   </span>
@@ -455,35 +454,35 @@ useHead({
             </div>
           </UFormField>
           <UFormField
-            :label="t('auth_password_confirmation_label')"
-            name="passwordConfirmation"
-            :description="t('auth_password_confirmation_description')"
-            required
+              :description="t('auth_password_confirmation_description')"
+              :label="t('auth_password_confirmation_label')"
+              name="passwordConfirmation"
+              required
           >
             <UInput
-              v-model="state.passwordConfirmation"
-              :type="showPasswordConfirmation ? 'text' : 'password'"
-              placeholder="••••••••••••••••"
-              class="w-full"
+                v-model="state.passwordConfirmation"
+                :type="showPasswordConfirmation ? 'text' : 'password'"
+                class="w-full"
+                placeholder="••••••••••••••••"
             >
               <template #trailing>
                 <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  :icon="
-                            showPasswordConfirmation
-                              ? 'lucide:eye-off'
-                              : 'lucide:eye'
-                          "
-                  :aria-label="
+                    :aria-label="
                             showPasswordConfirmation
                               ? 'Hide password'
                               : 'Show password'
                           "
-                  :aria-pressed="showPasswordConfirmation"
-                  aria-controls="passwordConfirmation"
-                  @click="
+                    :aria-pressed="showPasswordConfirmation"
+                    :icon="
+                            showPasswordConfirmation
+                              ? 'lucide:eye-off'
+                              : 'lucide:eye'
+                          "
+                    aria-controls="passwordConfirmation"
+                    color="neutral"
+                    size="sm"
+                    variant="link"
+                    @click="
                             showPasswordConfirmation = !showPasswordConfirmation
                           "
                 />
@@ -492,16 +491,16 @@ useHead({
           </UFormField>
           <div class="flex justify-between gap-md">
             <UButton
-              variant="outline"
-              leading-icon="lucide:arrow-left"
-              :label="t('navigation_previous')"
-              :class="{ invisible: currentStep === 0 }"
-              @click="prevStep"
+                :class="{ invisible: currentStep === 0 }"
+                :label="t('navigation_previous')"
+                leading-icon="lucide:arrow-left"
+                variant="outline"
+                @click="prevStep"
             />
             <UButton
-              trailing-icon="lucide:arrow-right"
-              @click="nextStep"
-              :label="t('navigation_next')"
+                :label="t('navigation_next')"
+                trailing-icon="lucide:arrow-right"
+                @click="nextStep"
             />
           </div>
         </div>
@@ -509,11 +508,11 @@ useHead({
     </template>
     <template #preferences>
       <UForm
-        ref="step3Form"
-        :schema="schema"
-        :state="state"
-        @submit="onSubmit($event as FormSubmitEvent<Schema>)"
-        class="flex flex-col gap-md"
+          ref="step3Form"
+          :schema="schema"
+          :state="state"
+          class="flex flex-col gap-md"
+          @submit="onSubmit($event as FormSubmitEvent<Schema>)"
       >
         <div class="flex flex-col gap-md">
           <UFormField name="terms">
@@ -521,32 +520,34 @@ useHead({
               <template #label>
                 {{ t("auth_terms_agreement_signup") }}
                 <ULink
-                  to="/documents/terms-of-service"
-                  class="font-medium text-primary"
-                  >{{ t("auth_terms_link") }}</ULink
-                >.
+                    class="font-medium text-primary"
+                    to="/documents/terms-of-service"
+                >{{ t("auth_terms_link") }}
+                </ULink
+                >
+                .
               </template>
             </UCheckbox>
           </UFormField>
           <UCheckbox
-            v-model="state.newsletter"
-            name="newsletter"
-            :label="t('auth_newsletter_label')"
-            :description="t('auth_newsletter_description')"
+              v-model="state.newsletter"
+              :description="t('auth_newsletter_description')"
+              :label="t('auth_newsletter_label')"
+              name="newsletter"
           />
           <div class="flex justify-between gap-md">
             <UButton
-              variant="outline"
-              leading-icon="lucide:arrow-left"
-              :label="t('navigation_previous')"
-              :class="{ invisible: currentStep === 0 }"
-              @click="prevStep"
+                :class="{ invisible: currentStep === 0 }"
+                :label="t('navigation_previous')"
+                leading-icon="lucide:arrow-left"
+                variant="outline"
+                @click="prevStep"
             />
             <UButton
-              type="submit"
-              :label="t('auth_sign_up_button')"
-              trailing-icon="lucide:check"
-              :loading="isLoading"
+                :label="t('auth_sign_up_button')"
+                :loading="isLoading"
+                trailing-icon="lucide:check"
+                type="submit"
             />
           </div>
         </div>
@@ -554,8 +555,8 @@ useHead({
     </template>
   </UStepper>
   <span class="text-center text-sm">{{
-            t("auth_details_changeable")
-  }}</span>
+      t("auth_details_changeable")
+    }}</span>
 </template>
 
 <style scoped></style>

@@ -1,11 +1,12 @@
-<script setup lang="ts">
-import { ref, reactive } from "vue"
+<script lang="ts" setup>
+import type {FormError} from "@nuxt/ui"
+import {useConfirm} from "rimelight-components/composables"
+import {reactive, ref} from "vue"
 import * as z from "zod"
-import type { FormError } from "@nuxt/ui"
-import { authClient } from "~~/auth/auth-client"
+import {authClient} from "~~/auth/auth-client"
 
-const { user } = useAuth()
-const { confirm } = useConfirm()
+const {user} = useAuth()
+const {confirm} = useConfirm()
 const toast = useToast()
 
 const profileSchema = z.object({
@@ -19,21 +20,21 @@ const profileState = reactive({
 })
 
 watch(
-  user,
-  (newUser) => {
-    if (newUser) {
-      profileState.name = newUser.name
-      profileState.image = newUser.image || ""
-    }
-  },
-  { immediate: true }
+    user,
+    (newUser) => {
+      if (newUser) {
+        profileState.name = newUser.name
+        profileState.image = newUser.image || ""
+      }
+    },
+    {immediate: true}
 )
 
 const isUpdatingProfile = ref(false)
 
 async function updateProfile() {
   isUpdatingProfile.value = true
-  const { error } = await authClient.updateUser({
+  const {error} = await authClient.updateUser({
     name: profileState.name,
     image: profileState.image || undefined
   })
@@ -59,12 +60,12 @@ async function updateProfile() {
 const emailSchema = z.object({
   newEmail: z.email("Invalid email address")
 })
-const emailState = reactive({ newEmail: "" })
+const emailState = reactive({newEmail: ""})
 const isUpdatingEmail = ref(false)
 
 async function updateEmail() {
   isUpdatingEmail.value = true
-  const { error } = await authClient.changeEmail({
+  const {error} = await authClient.changeEmail({
     newEmail: emailState.newEmail,
     callbackURL: "/dashboard"
   })
@@ -105,7 +106,7 @@ async function updatePassword() {
   if (!passwordState.current || !passwordState.new) return
 
   isUpdatingPassword.value = true
-  const { error } = await authClient.changePassword({
+  const {error} = await authClient.changePassword({
     currentPassword: passwordState.current,
     newPassword: passwordState.new,
     revokeOtherSessions: true
@@ -137,7 +138,7 @@ async function deleteAccount() {
   const isConfirmed = await confirm({
     title: "Delete your account?",
     description:
-      "This action is irreversible. All your data will be permanently removed.",
+        "This action is irreversible. All your data will be permanently removed.",
     confirmLabel: "Yes, delete my account",
     cancelLabel: "Cancel",
     danger: true
@@ -146,7 +147,7 @@ async function deleteAccount() {
   if (!isConfirmed) return
 
   isDeleting.value = true
-  const { error } = await authClient.deleteUser({
+  const {error} = await authClient.deleteUser({
     callbackURL: "/goodbye"
   })
 
@@ -174,32 +175,32 @@ async function deleteAccount() {
 <template>
   <div class="flex flex-col gap-xl">
     <UPageCard
-      title="Profile Details"
-      description="Manage your public profile information."
-      variant="soft"
+        description="Manage your public profile information."
+        title="Profile Details"
+        variant="soft"
     >
       <UForm
-        :schema="profileSchema"
-        :state="profileState"
-        class="flex max-w-sm flex-col gap-md"
-        @submit="updateProfile"
+          :schema="profileSchema"
+          :state="profileState"
+          class="flex max-w-sm flex-col gap-md"
+          @submit="updateProfile"
       >
         <UFormField label="Display Name" name="name">
-          <UInput v-model="profileState.name" icon="lucide:user" />
+          <UInput v-model="profileState.name" icon="lucide:user"/>
         </UFormField>
 
         <UFormField label="Avatar URL" name="image">
-          <UInput v-model="profileState.image" icon="lucide:image" />
+          <UInput v-model="profileState.image" icon="lucide:image"/>
         </UFormField>
 
-        <UButton label="Save Changes" type="submit" :loading="isUpdatingProfile" class="w-fit" />
+        <UButton :loading="isUpdatingProfile" class="w-fit" label="Save Changes" type="submit"/>
       </UForm>
     </UPageCard>
 
     <UPageCard
-      title="Email Address"
-      description="Update your email address. You will need to verify the new email."
-      variant="soft"
+        description="Update your email address. You will need to verify the new email."
+        title="Email Address"
+        variant="soft"
     >
       <div class="flex flex-row items-center gap-xs text-sm">
         Current email:
@@ -209,74 +210,74 @@ async function deleteAccount() {
       </div>
 
       <UForm
-        :schema="emailSchema"
-        :state="emailState"
-        class="flex max-w-sm flex-col gap-md"
-        @submit="updateEmail"
+          :schema="emailSchema"
+          :state="emailState"
+          class="flex max-w-sm flex-col gap-md"
+          @submit="updateEmail"
       >
         <UFormField label="New Email" name="newEmail">
-          <UInput v-model="emailState.newEmail" icon="lucide:mail" placeholder="email@domain.com" />
+          <UInput v-model="emailState.newEmail" icon="lucide:mail" placeholder="email@domain.com"/>
         </UFormField>
 
-        <UButton label="Update Email" type="submit" :loading="isUpdatingEmail" class="w-fit" />
+        <UButton :loading="isUpdatingEmail" class="w-fit" label="Update Email" type="submit"/>
       </UForm>
     </UPageCard>
 
     <UPageCard
-      title="Password"
-      description="Confirm your current password before setting a new one."
-      variant="soft"
+        description="Confirm your current password before setting a new one."
+        title="Password"
+        variant="soft"
     >
       <UForm
-        :schema="passwordSchema"
-        :state="passwordState"
-        :validate="validatePassword"
-        class="flex max-w-sm flex-col gap-md"
-        @submit="updatePassword"
+          :schema="passwordSchema"
+          :state="passwordState"
+          :validate="validatePassword"
+          class="flex max-w-sm flex-col gap-md"
+          @submit="updatePassword"
       >
         <UFormField label="Current Password" name="current">
           <UInput
-            v-model="passwordState.current"
-            type="password"
-            placeholder="••••••••"
-            class="w-full"
+              v-model="passwordState.current"
+              class="w-full"
+              placeholder="••••••••"
+              type="password"
           />
         </UFormField>
 
         <UFormField label="New Password" name="new">
           <UInput
-            v-model="passwordState.new"
-            type="password"
-            placeholder="••••••••"
-            class="w-full"
+              v-model="passwordState.new"
+              class="w-full"
+              placeholder="••••••••"
+              type="password"
           />
         </UFormField>
 
         <UButton
-          label="Update Password"
-          class="w-fit"
-          type="submit"
-          :loading="isUpdatingPassword"
+            :loading="isUpdatingPassword"
+            class="w-fit"
+            label="Update Password"
+            type="submit"
         />
       </UForm>
     </UPageCard>
 
     <UPageCard
-      title="Delete Account"
-      description="No longer want to use our service? This action is not reversible."
-      variant="soft"
-      :ui="{ root: 'bg-error/50', description: 'text-error' }"
+        :ui="{ root: 'bg-error/50', description: 'text-error' }"
+        description="No longer want to use our service? This action is not reversible."
+        title="Delete Account"
+        variant="soft"
     >
       <p class="text-sm">
         This will schedule your account for deletion after 30 days and revoke all active sessions.
         Signing back in at any point during this period will cancel the scheduling.
       </p>
       <UButton
-        label="Delete Account"
-        color="error"
-        :loading="isDeleting"
-        class="w-fit"
-        @click="deleteAccount"
+          :loading="isDeleting"
+          class="w-fit"
+          color="error"
+          label="Delete Account"
+          @click="deleteAccount"
       />
     </UPageCard>
   </div>

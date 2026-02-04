@@ -9,11 +9,14 @@ interface NuxtAppWithI18n {
   }
 }
 
+import { statement } from "rimelight-components/auth"
+
 type SignUpInput = Parameters<typeof authClient.signUp.email>[0]
 type SignInInput = Parameters<typeof authClient.signIn.email>[0]
 
-type CheckRoleArgs = Parameters<typeof authClient.organization.checkRolePermission>[0]
-type PermissionsInput = CheckRoleArgs["permissions"]
+type PermissionsInput = Partial<{
+  [K in keyof typeof statement]: (typeof statement)[K][number][]
+}>
 
 export const useAuth = () => {
   const toast = useToast()
@@ -198,18 +201,18 @@ export const useAuth = () => {
   }
   //endregion
 
+  type AppRole = "user" | "member" | "admin" | "owner"
+
   //region Check Permissions
   const checkPermission = (permissions: PermissionsInput) => {
-    const userRole = session.value?.user?.role
+    const userRole = session.value?.user?.role as AppRole | undefined
 
     if (!userRole) return false
 
-    const args = {
+    return authClient.organization.checkRolePermission({
       permissions,
       role: userRole
-    } as CheckRoleArgs
-
-    return authClient.organization.checkRolePermission(args)
+    })
   }
   //endregion
   //endregion

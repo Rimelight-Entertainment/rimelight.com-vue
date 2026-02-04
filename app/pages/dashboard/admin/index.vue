@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import {useApi} from "rimelight-components/composables"
+
 const {data: organizationsCount} = await useApi('/api/admin/organizations/count')
 const {data: teamsCount} = await useApi('/api/admin/teams/count')
 const {data: usersCount} = await useApi('/api/admin/users/count')
@@ -32,7 +34,7 @@ const stats = computed(() => [
   <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
     <UCard v-for="stat in stats" :key="stat.label">
       <div class="flex items-center gap-md">
-        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500" />
+        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
 
         <div>
           <p class="text-sm text-dimmed">{{ stat.label }}</p>

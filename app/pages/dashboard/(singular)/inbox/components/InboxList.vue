@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {format, isToday} from "date-fns"
-import type {Mail} from "#types"
+import {type Mail} from "rimelight-components/types"
 import {ref, watch} from "vue"
 
 export interface InboxListProps {
@@ -52,36 +52,36 @@ defineShortcuts({
 <template>
   <div class="divide-y divide-default overflow-y-auto">
     <div
-      v-for="(mail, index) in mails"
-      :key="index"
-      :ref="
+        v-for="(mail, index) in mails"
+        :key="index"
+        :ref="
         (el) => {
           mailsRefs[mail.id] = el as Element
         }
       "
     >
       <div
-        :class="[
+          :class="[
           mail.unread ? 'text-highlighted' : 'text-toned',
           selectedMail && selectedMail.id === mail.id
             ? 'border-primary bg-primary/10'
             : 'border-bg hover:border-primary hover:bg-primary/5'
         ]"
-        class="cursor-pointer border-l-2 p-4 text-sm transition-colors sm:px-6"
-        @click="selectedMail = mail"
+          class="cursor-pointer border-l-2 p-4 text-sm transition-colors sm:px-6"
+          @click="selectedMail = mail"
       >
         <div :class="[mail.unread && 'font-semibold']" class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             {{ mail.from.name }}
 
-            <UChip v-if="mail.unread" />
+            <UChip v-if="mail.unread"/>
           </div>
 
           <span>{{
               isToday(new Date(mail.date))
                   ? format(new Date(mail.date), "HH:mm")
                   : format(new Date(mail.date), "dd MMM")
-          }}</span>
+            }}</span>
         </div>
         <p :class="[mail.unread && 'font-semibold']" class="truncate">
           {{ mail.subject }}

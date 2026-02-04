@@ -1,0 +1,3 @@
+[submodule ".rimelight-utilities"]
+	path = .rimelight-utilities
+	url = https://github.com/Rimelight-Entertainment/rimelight-utilities.git

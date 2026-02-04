@@ -112,11 +112,11 @@ export default defineNuxtConfig({
     preset: isTauri ? "node" : "cloudflare_module",
     ...(!isTauri
       ? {
-          cloudflare: {
-            deployConfig: true,
-            nodeCompat: true
-          }
+        cloudflare: {
+          deployConfig: true,
+          nodeCompat: true
         }
+      }
       : {}),
     experimental: {
       websocket: true
@@ -133,17 +133,17 @@ export default defineNuxtConfig({
   },
   ...(!isTauri
     ? {
-        site: {
-          url: "https://rimelight.com",
-          name: "Rimelight Entertainment",
-          indexable: false
-        },
-        robots: {
-          blockAiBots: false,
-          blockNonSeoBots: false,
-          disallow: ["/internal"]
-        }
+      site: {
+        url: "https://rimelight.com",
+        name: "Rimelight Entertainment",
+        indexable: false
+      },
+      robots: {
+        blockAiBots: false,
+        blockNonSeoBots: false,
+        disallow: ["/internal"]
       }
+    }
     : {}),
   css: ["~/assets/css/main.css"],
   components: [
@@ -197,10 +197,8 @@ export default defineNuxtConfig({
     ]
   },
   icon: {
-    provider: "server",
     class: "icon",
     size: "24px",
-    mode: "svg",
     customCollections: [
       {
         prefix: "first-party",

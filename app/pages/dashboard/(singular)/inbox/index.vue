@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type {Mail} from '#types'
 import {breakpointsTailwind} from '@vueuse/core'
+import {useApi} from "rimelight-components/composables"
+import {type Mail} from "rimelight-components/types"
 
 const tabItems = [{
   label: 'All',
@@ -50,28 +51,28 @@ watch(filteredMails, () => {
   <UDashboardPanel id="inbox" :default-size="25" :max-size="30" :min-size="20" resizable>
     <UDashboardNavbar title="Inbox">
       <template #leading>
-        <UDashboardSidebarCollapse />
+        <UDashboardSidebarCollapse/>
       </template>
       <template #trailing>
-        <UBadge :label="filteredMails!.length" variant="subtle" />
+        <UBadge :label="filteredMails!.length" variant="subtle"/>
       </template>
 
       <template #right>
-        <UTabs v-model="selectedTab" :content="false" :items="tabItems" size="xs" />
+        <UTabs v-model="selectedTab" :content="false" :items="tabItems" size="xs"/>
       </template>
     </UDashboardNavbar>
-    <RLInboxList v-model="selectedMail" :mails="filteredMails!" />
+    <RLInboxList v-model="selectedMail" :mails="filteredMails!"/>
   </UDashboardPanel>
 
-  <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
+  <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null"/>
   <div v-else class="hidden flex-1 items-center justify-center lg:flex">
-    <UIcon class="size-32 text-dimmed" name="lucide:inbox" />
+    <UIcon class="size-32 text-dimmed" name="lucide:inbox"/>
   </div>
 
   <ClientOnly>
     <USlideover v-if="isMobile" v-model:open="isMailPanelOpen">
       <template #content>
-        <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null" />
+        <RLInboxMail v-if="selectedMail" :mail="selectedMail" @close="selectedMail = null"/>
       </template>
     </USlideover>
   </ClientOnly>

@@ -5,6 +5,21 @@ export default defineAppConfig({
   logomark: "first-party:logomark-white",
   logotype: "first-party:logotype-white",
   rimelightComponents: {
+    auth: {
+      adminEmailDomain: "@rimelight.com",
+      restrictedUsernames: [
+        // Brand-specific
+        "rimelight",
+        "rimelightent",
+        "rimelightentertainment",
+        "rimelightofficial",
+        "grandtale",
+        "playgrandtale",
+        // Founder
+        "danielmarchi",
+        "dmarchi"
+      ]
+    },
     callouts: {
       info: {
         icon: "lucide:shield-alert",

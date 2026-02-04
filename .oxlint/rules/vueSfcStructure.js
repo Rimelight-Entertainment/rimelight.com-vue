@@ -1,85 +1,115 @@
-import { defineRule } from "oxlint"
+import {defineRule} from "oxlint"
 
-/**
- * Rule: vue-sfc-unified-structure
- *
- * Rationale:
- * Enforces a strict, predictable structure for Vue Single File Components to ensure
- * consistency across production-scale applications.
- *
- * Incorrect:
- * <template>
- * ...
- * </template>
- * <script setup>
- * ...
- * </script>
- *
- * Correct:
- * <script setup>
- * ...
- * </script>
- *
- * <template>
- * ...
- * </template>
- *
- * <style scoped>
- * ...
- * </style>
- */
 export const vueSfcStructure = defineRule({
   meta: {
-    type: "suggestion",
+    type: "layout",
     docs: {
-      description: "Enforces Script -> Template -> Style order for Vue SFCs.",
+      description:
+        "Smart SFC structure rule that prevents nested tags and enforces internal padding.",
       category: "Style",
       recommended: true
     },
     fixable: "code",
     messages: {
-      invalidStructure: "SFC blocks must be ordered: Script, Template, Style."
+      invalidStructure: "SFC structure is incorrect. Correcting regions and padding."
     }
   },
 
   create(context) {
-    if (!context.getFilename().endsWith(".vue")) return {}
+    if (!context.filename.endsWith(".vue")) return {}
 
     return {
       Program(node) {
-        const sourceCode = context.getSourceCode()
-        const text = sourceCode.getText()
+        const sourceCode = context.sourceCode
+        const fullText = sourceCode.getText()
 
-        // Regex to capture the entirety of each block (including tags and attributes)
-        // [^] is used to match any character including newlines
-        const scriptRegex = /<script[^>]*>[\s\S]*?<\/script>/i
-        const templateRegex = /<template[^>]*>[\s\S]*?<\/template>/i
-        const styleRegex = /<style[^>]*>[\s\S]*?<\/style>/i
+        // 1. Detect if the linter gave us the WHOLE file or just the guts
+        // If it starts with <script, we are looking at the whole file.
+        const isFullFile = fullText.trim().startsWith("<script")
 
-        const scriptMatch = text.match(scriptRegex)
-        const templateMatch = text.match(templateRegex)
-        const styleMatch = text.match(styleRegex)
+        let scriptGuts = ""
+        let templateGuts = ""
+        let styleGuts = ""
 
-        const blocks = [
-          scriptMatch ? scriptMatch[0] : null,
-          templateMatch ? templateMatch[0] : null,
-          styleMatch ? styleMatch[0] : null
-        ].filter(Boolean)
+        if (isFullFile) {
+          scriptGuts = fullText.match(/<script\b[^>]* setup[^>]*>([\s\S]*?)<\/script>/)?.[1] || ""
+          templateGuts = fullText.match(/<template>([\s\S]*?)<\/template>/)?.[1] || ""
+          styleGuts = fullText.match(/<style\b[^>]*>([\s\S]*?)<\/style>/)?.[1] || ""
+        } else {
+          // We are trapped inside the <script> tag. The text IS the script guts.
+          scriptGuts = fullText
+        }
 
-        // Construct the expected string by joining existing blocks with double newlines
-        const expectedBody = blocks.join("\n\n")
+        // 2. Extract and Isolate
+        const importRegex = /^import\s+[\s\S]*?from\s+['"].*?['"];?/gm
+        const imports = scriptGuts.match(importRegex) || []
+        const body = scriptGuts.replace(importRegex, "").trim()
 
-        // Normalize the current text for comparison (remove trailing/leading whitespace)
-        const normalizedActual = text.trim().replace(/\r\n/g, "\n")
-        const normalizedExpected = expectedBody.trim().replace(/\r\n/g, "\n")
+        const patterns = {
+          meta: /(\/\* region Page Meta \*\/[\s\S]*?\/\* endregion \*\/)|(?:(?:\/\/ )?definePageMeta[\s\S]*?\)\n?)/,
+          props:
+            /(\/\* region Props \*\/[\s\S]*?\/\* endregion \*\/)|(?:(?:(?:\/\/ )?(?:export )?interface \w+Props[\s\S]*?})[\s\S]*?(?:(?:\/\/ )?const \w+ = defineProps[\s\S]*?\)\n?))|(?:(?:\/\/ )?const \w+ = defineProps[\s\S]*?\)\n?)/,
+          emits:
+            /(\/\* region Emits \*\/[\s\S]*?\/\* endregion \*\/)|(?:(?:(?:\/\/ )?(?:export )?interface \w+Emits[\s\S]*?})[\s\S]*?(?:(?:\/\/ )?const \w+ = defineEmits[\s\S]*?\)\n?))|(?:(?:\/\/ )?const \w+ = defineEmits[\s\S]*?\)\n?)/
+        }
 
-        if (normalizedActual !== normalizedExpected && blocks.length > 0) {
+        const extMeta = body.match(patterns.meta)?.[0] || null
+        const extProps = body.match(patterns.props)?.[0] || null
+        const extEmits = body.match(patterns.emits)?.[0] || null
+
+        let cleanLogic = body
+          .replace(/\/\* region [\s\S]*?endregion \*\//g, "")
+          .replace(extMeta || "", "")
+          .replace(extProps || "", "")
+          .replace(extEmits || "", "")
+          .trim()
+
+        const format = (content, name, boilerplate) => {
+          const isBlank =
+            !content ||
+            (content.includes("/* region") &&
+              content.replace(/\/\* region .*? \*\/|\/\* endregion \*\//g, "").trim() === "")
+          if (isBlank) return `/* region ${name} */\n${boilerplate}\n/* endregion */`
+          const raw = content.replace(/\/\* region .*? \*\/|\/\* endregion \*\//g, "").trim()
+          return `/* region ${name} */\n${raw}\n/* endregion */`
+        }
+
+        // 3. Rebuild the Script Body
+        const scriptInner = [
+          imports.join("\n"),
+          format(extMeta, "Page Meta", '// definePageMeta({\n//   layout: "default"\n// })'),
+          format(
+            extProps,
+            "Props",
+            "// export interface MyComponentProps {\n//   sample: string\n// }\n// const props = defineProps<MyComponentProps>()"
+          ),
+          format(
+            extEmits,
+            "Emits",
+            "// export interface MyEmits {\n//   (e: 'change', id: number): void\n// }\n// const emit = defineEmits<MyEmits>()"
+          ),
+          `/* region Logic & State */\n${cleanLogic || "// Logic"}\n/* endregion */`
+        ]
+          .filter((v) => v.trim() !== "")
+          .join("\n\n")
+
+        // 4. THE FIX: Conditional Output
+        let finalOutput = ""
+        if (isFullFile) {
+          // Rebuild whole file because we have access to it
+          finalOutput = `<script lang="ts" setup>\n${scriptInner.trim()}\n</script>\n\n<template>\n${templateGuts.trim() || "  <div></div>"}\n</template>\n\n<style scoped>\n${styleGuts.trim()}\n</style>\n`
+        } else {
+          // We are inside the tag. ONLY return the guts with surrounding newlines.
+          finalOutput = `\n${scriptInner.trim()}\n`
+        }
+
+        // 5. Compare and Report
+        if (fullText !== finalOutput) {
           context.report({
             node,
             messageId: "invalidStructure",
             fix(fixer) {
-              // We append a final newline for POSIX compliance
-              return fixer.replaceTextRange([0, text.length], `${expectedBody}\n`)
+              return fixer.replaceTextRange([0, fullText.length], finalOutput)
             }
           })
         }
