@@ -1,6 +1,11 @@
 import { fileURLToPath } from "node:url"
+import { existsSync } from "node:fs"
+import { resolve } from "node:path"
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri"
+
+const localModulePath = resolve(fileURLToPath(new URL(".", import.meta.url)), "../rimelight-components")
+const hasLocalModule = existsSync(resolve(localModulePath, "src/module.ts"))
 
 export default defineNuxtConfig({
   $env: {
@@ -78,7 +83,7 @@ export default defineNuxtConfig({
     viewTransition: true
   },
   modules: [
-    "rimelight-components",
+    hasLocalModule ? resolve(localModulePath, "src/module") : "rimelight-components",
     "@nuxt/ui",
     "@nuxtjs/device",
     "@nuxtjs/i18n",
@@ -120,6 +125,16 @@ export default defineNuxtConfig({
       : {}),
     experimental: {
       websocket: true
+    },
+    scheduledTasks: {
+      // Run every 5 minutes
+      // '*/5 * * * *': ['cache:cleanup'],
+
+      // Daily at midnight
+      "0 0 * * *": ["notes:cleanup-trash", "todos:cleanup-archived"],
+
+      // Weekly on Sunday at 2 AM
+      // '0 2 * * 0': ['db:optimize']
     },
     prerender: {
       //crawlLinks: true

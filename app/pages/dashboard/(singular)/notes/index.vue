@@ -181,10 +181,14 @@ const handleNoteSaved = () => {
         />
       </div>
 
+      <div class="flex w-full flex-col gap-xl">
+        <RCTodoList />
+      </div>
+
       <div v-if="pinnedNotes.length > 0" class="flex w-full flex-col gap-2">
         <h3 class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Pinned</h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <RLNoteCard
+          <RCNoteCard
               v-for="note in pinnedNotes"
               :key="note.id"
               :note="note"
@@ -206,7 +210,7 @@ const handleNoteSaved = () => {
           Others
         </h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <RLNoteCard
+          <RCNoteCard
               v-for="note in otherNotes"
               :key="note.id"
               :note="note"
@@ -220,7 +224,7 @@ const handleNoteSaved = () => {
         </div>
       </div>
 
-      <RLNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved"/>
+      <RCNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved"/>
     </div>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref, computed, watch, markRaw } from "vue"
 import type {NavigationMenuItem} from "@nuxt/ui"
 import {FocusTimerTool} from "rimelight-components/components"
 import {
@@ -6,7 +7,8 @@ import {
   useFocusTimer,
   useHeaderStack,
   useNotes,
-  useQuickActions
+  useQuickActions,
+  useTodos
 } from "rimelight-components/composables"
 
 const {totalHeight} = useHeaderStack()
@@ -40,15 +42,28 @@ registerAction({
 const isNoteModalOpen = ref(false)
 const {triggerRefresh} = useNotes()
 
+const isTodoModalOpen = ref(false)
+const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos()
+
 registerAction({
-  id: 'action-new-note',
-  label: 'New Note',
-  icon: 'lucide:sticky-note',
+  id: 'action-new-todo',
+  label: 'New To-do',
+  icon: 'lucide:check-circle-2',
   group: 1,
   onSelect: () => {
-    isNoteModalOpen.value = true
+    isTodoModalOpen.value = true
   }
 })
+
+const newTodoTitle = ref('')
+const newTodoDescription = ref('')
+const handleQuickTodoSave = async () => {
+  if (!newTodoTitle.value.trim()) return
+  await createTodo(newTodoTitle.value.trim(), newTodoDescription.value.trim() || undefined)
+  newTodoTitle.value = ''
+  newTodoDescription.value = ''
+  isTodoModalOpen.value = false
+}
 
 const open = ref(false)
 
@@ -157,7 +172,7 @@ const groups = computed(() => [
     <UDashboardGroup :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <RLTeamsMenu :collapsed="collapsed"/>
+          <RCTeamsMenu :collapsed="collapsed"/>
         </template>
 
         <template #default="{ collapsed }">
@@ -218,8 +233,31 @@ const groups = computed(() => [
       <UDashboardSearch :groups="groups"/>
       <slot/>
     </UDashboardGroup>
-    <RLQuickActions/>
-    <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
+    <RCQuickActions/>
+    <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
+    <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
+      <template #content>
+        <h3 class="text-lg font-bold">New To-do</h3>
+        <UInput
+          v-model="newTodoTitle"
+          autofocus
+          placeholder="What needs to be done?"
+          variant="outline"
+          @keydown.enter="handleQuickTodoSave"
+        />
+        <UInput
+          v-model="newTodoDescription"
+          placeholder="Description (optional)"
+          variant="outline"
+          size="sm"
+          @keydown.enter="handleQuickTodoSave"
+        />
+        <div class="flex justify-end gap-sm">
+          <UButton color="neutral" variant="ghost" label="Cancel" @click="isTodoModalOpen = false" />
+          <UButton color="primary" label="Create" @click="handleQuickTodoSave" />
+        </div>
+      </template>
+    </UModal>
   </div>
 </template>
 

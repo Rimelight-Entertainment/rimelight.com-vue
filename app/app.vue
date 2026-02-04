@@ -166,12 +166,12 @@ useSeoMeta({
     <NuxtLayout>
       <NuxtPage/>
     </NuxtLayout>
-    <RLConfirmModal/>
-    <RLNotificationsSlideover/>
+    <RCConfirmModal/>
+    <RCNotificationsSlideover/>
     <ClientOnly>
       <RCScrollToTop/>
     </ClientOnly>
-    <RLFloatingToolsOverlay/>
+    <RCFloatingToolsOverlay/>
     <PiniaColadaDevtools/>
   </UApp>
 </template>
