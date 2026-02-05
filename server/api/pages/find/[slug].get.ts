@@ -2,7 +2,7 @@ import { PAGE_MAP } from "#types"
 import { eq } from "drizzle-orm"
 import { type Page } from "rimelight-components/types"
 import { syncPageWithDefinition } from "rimelight-components/utils"
-import { db, pages } from "../../../db"
+import { db, pages } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, "slug")
@@ -39,3 +39,4 @@ export default defineEventHandler(async (event) => {
 
   return syncPageWithDefinition(mappedPage, definition)
 })
+

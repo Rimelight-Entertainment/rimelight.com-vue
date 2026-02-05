@@ -1,9 +1,9 @@
 import { and, isNotNull, lt } from "drizzle-orm"
-import { db, note } from "../../db"
+import { db, note } from "../db"
 
 export default defineTask({
     meta: {
-        name: "notes:cleanup-trash",
+        name: "cleanup-notes-trash",
         description: "Wipe notes in the trash older than 30 days"
     },
     async run() {
@@ -37,3 +37,4 @@ export default defineTask({
         }
     }
 })
+

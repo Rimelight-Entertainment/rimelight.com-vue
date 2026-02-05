@@ -2,8 +2,8 @@ import { and, desc, eq, isNotNull, isNull } from "drizzle-orm"
 import { getValidatedQuery } from "h3"
 import type { PageType } from "rimelight-components/types"
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, pages } from "../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, pages } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const queryData = await getValidatedQuery(
@@ -58,3 +58,4 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: "Failed to fetch pages" })
   }
 })
+

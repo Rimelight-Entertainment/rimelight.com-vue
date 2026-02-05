@@ -1,5 +1,5 @@
-import { db, card, list } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, card, list } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 import { z } from "zod"
 import { eq } from "drizzle-orm"
 
@@ -60,3 +60,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

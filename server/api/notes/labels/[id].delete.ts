@@ -1,6 +1,6 @@
 import { eq, and } from "drizzle-orm"
-import { db, noteLabel } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, noteLabel } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -26,3 +26,4 @@ export default defineEventHandler(async (event) => {
 
   return deletedLabel
 })
+

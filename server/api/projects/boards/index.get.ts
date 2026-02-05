@@ -1,6 +1,6 @@
 import { and, desc, eq, isNull } from "drizzle-orm"
-import { getUserSession } from "~~/server/utils/session"
-import { board, db } from "../../../db"
+import { getUserSession } from "#server/utils/session"
+import { board, db } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -30,3 +30,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

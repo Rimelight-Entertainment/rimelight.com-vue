@@ -1,6 +1,6 @@
 import { desc } from "drizzle-orm"
-import { getUserSession } from "~~/server/utils/session"
-import { db, user } from "../../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, user } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -18,3 +18,4 @@ export default defineEventHandler(async (event) => {
 
   return db.select().from(user).orderBy(desc(user.createdAt)).limit(limit).offset(offset)
 })
+

@@ -1,8 +1,8 @@
 import { and, eq } from "drizzle-orm"
 import { getValidatedQuery } from "h3"
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note } from "../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, note } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -52,3 +52,4 @@ export default defineEventHandler(async (event) => {
 
   return softDeletedNote
 })
+

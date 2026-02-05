@@ -1,7 +1,7 @@
 import { and, eq, inArray } from "drizzle-orm"
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note, note_noteLabel, noteLabel } from "../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, note, note_noteLabel, noteLabel } from "#server/db"
 
 const updateNoteSchema = z.object({
   title: z.string().optional(),
@@ -97,3 +97,4 @@ export default defineEventHandler(async (event) => {
     labels: noteWithLabels.noteLabels.map((nl) => nl.label)
   }
 })
+

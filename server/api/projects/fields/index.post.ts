@@ -1,5 +1,5 @@
-import { db, customFieldDefinition, board } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, customFieldDefinition, board } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 import { z } from "zod"
 import { eq } from "drizzle-orm"
 
@@ -66,3 +66,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

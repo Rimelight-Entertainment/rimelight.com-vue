@@ -1,6 +1,6 @@
-import { db } from "~~/server/db"
-import { team } from "~~/server/db/schema"
-import { getUserSession } from "~~/server/utils/session"
+import { db } from "#server/db"
+import { team } from "#server/db/schema"
+import { getUserSession } from "#server/utils/session"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -33,3 +33,4 @@ export default defineEventHandler(async (event) => {
 
   return newTeam
 })
+

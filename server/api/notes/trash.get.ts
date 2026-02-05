@@ -1,6 +1,6 @@
 import { and, desc, eq, isNotNull } from "drizzle-orm"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note } from "../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, note } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -27,3 +27,4 @@ export default defineEventHandler(async (event) => {
     labels: n.noteLabels.map((nl) => nl.label)
   }))
 })
+

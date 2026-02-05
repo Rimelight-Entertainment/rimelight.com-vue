@@ -1,5 +1,5 @@
-import { db, board } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, board } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 import { z } from "zod"
 
 const createBoardSchema = z.object({
@@ -41,3 +41,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

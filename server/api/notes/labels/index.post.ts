@@ -1,7 +1,7 @@
-import { db, noteLabel } from "../../../db"
+import { db, noteLabel } from "#server/db"
 
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
+import { getUserSession } from "#server/utils/session"
 
 const createLabelSchema = z.object({
   name: z.string().min(1)
@@ -27,3 +27,4 @@ export default defineEventHandler(async (event) => {
 
   return newLabel
 })
+

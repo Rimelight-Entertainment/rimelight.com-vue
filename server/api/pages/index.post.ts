@@ -1,5 +1,5 @@
-import { db, pages } from "~~/server/db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, pages } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 import { v7 as uuidv7 } from "uuid"
 
 import { z } from "zod"
@@ -59,3 +59,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

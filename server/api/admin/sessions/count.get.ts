@@ -1,6 +1,6 @@
 import { count } from "drizzle-orm"
-import { getUserSession } from "~~/server/utils/session"
-import { db, session as userSession } from "../../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, session as userSession } from "#server/db"
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -17,3 +17,4 @@ export default defineEventHandler(async (event) => {
     .from(userSession)
     .then((res) => res[0]?.count ?? 0)
 })
+

@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
-import { db, pageVersions } from "../../../db"
-import { getUserSession } from "~~/server/utils/session"
+import { db, pageVersions } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 
 export default defineEventHandler(async (event) => {
   const versionId = getRouterParam(event, "versionId")
@@ -42,3 +42,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

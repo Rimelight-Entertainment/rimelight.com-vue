@@ -1,4 +1,4 @@
-export * from "./auth/auth"
+export * from "rimelight-components/db"
 export * from "./pages/pages"
 export * from "./pages/page_versions"
 export * from "./projects/boards"

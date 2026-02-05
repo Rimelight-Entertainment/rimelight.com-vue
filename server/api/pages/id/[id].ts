@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm"
 
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, pages, pageVersions } from "../../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, pages, pageVersions } from "#server/db"
 
 const updatePageVersionSchema = z.object({
   slug: z.string().optional(),
@@ -82,3 +82,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

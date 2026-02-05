@@ -1,9 +1,9 @@
 import { and, eq, lt } from "drizzle-orm"
-import { db, todo } from "../../db"
+import { db, todo } from "../db"
 
 export default defineTask({
     meta: {
-        name: "todos:cleanup-archived",
+        name: "cleanup-todos-archived",
         description: "Wipe archived todos older than 30 days"
     },
     async run() {
@@ -37,3 +37,4 @@ export default defineTask({
         }
     }
 })
+

@@ -1,8 +1,8 @@
 import { and, eq, inArray } from "drizzle-orm"
 import { createError } from "h3"
 import { z } from "zod"
-import { getUserSession } from "~~/server/utils/session"
-import { db, note } from "../../db"
+import { getUserSession } from "#server/utils/session"
+import { db, note } from "#server/db"
 
 const batchActionSchema = z.object({
   ids: z.array(z.string()).min(1),
@@ -62,3 +62,4 @@ export default defineEventHandler(async (event) => {
     .where(and(inArray(note.id, ids), eq(note.userId, userId)))
     .returning()
 })
+

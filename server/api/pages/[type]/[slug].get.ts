@@ -1,5 +1,5 @@
 import { eq, and } from "drizzle-orm"
-import { db, pages } from "../../../db"
+import { db, pages } from "#server/db"
 import { type PageType, type Page } from "rimelight-components/types"
 import { syncPageWithDefinition } from "rimelight-components/utils"
 import { PAGE_MAP } from "#types"
@@ -43,3 +43,4 @@ export default defineEventHandler(async (event) => {
 
   return syncPageWithDefinition(mappedPage, definition)
 })
+
