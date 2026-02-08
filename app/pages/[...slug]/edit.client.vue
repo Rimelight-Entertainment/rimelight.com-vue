@@ -8,12 +8,14 @@ import {useRoute, useRouter} from "vue-router"
 import type {PageVersion} from "~/components/PageVersionSelector.vue"
 import {pageBySlugQuery} from "~/queries"
 import {PAGE_MAP as pageDefinitions} from "~/types"
+import { useAuth } from "~/composables"
 
 const router = useRouter()
 const appConfig = useAppConfig()
 const route = useRoute()
-const {share} = useShare()
-const {copy} = useClipboard()
+const { share } = useShare()
+const { user } = useAuth()
+const { copy } = useClipboard()
 const toast = useToast()
 const {t, locale} = useI18n()
 
@@ -138,7 +140,7 @@ const pageToDisplay = computed(() => {
  */
 const handleCreate = async (newPageData: Partial<Page>) => {
   try {
-    const createdPage = await $fetch<Page>('/api/pages', {
+    const createdPage = await $api<Page>('/api/pages', {
       method: 'POST',
       body: newPageData
     })
@@ -157,7 +159,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
  */
 const handleDelete = async (id: string) => {
   try {
-    await $fetch(`/api/pages/id/${id}`, {
+    await $api(`/api/pages/id/${id}`, {
       method: 'DELETE'
     })
 
@@ -276,45 +278,21 @@ useSeoMeta({
   </template>
   <template v-else>
     <div class="relative">
-      <!-- Version Selector - positioned in header area -->
-      <div class="fixed top-20 right-4 z-50">
-        <RLPageVersionSelector
-            v-if="pageState.data?.id"
-            v-model:current-version-id="currentVersionId"
-            :page-id="pageState.data.id"
-            @version-selected="handleVersionSelected"
-            @version-approved="handleVersionApproved"
-            @version-reverted="handleVersionReverted"
-        />
-      </div>
-
-      <!-- Version indicator banner -->
-      <div
-          v-if="isViewingVersion"
-          class="fixed top-0 left-0 right-0 z-40 bg-warning-500 text-white px-4 py-2 text-sm text-center"
-      >
-        <div class="flex items-center justify-center gap-2">
-          <UIcon name="lucide:eye"/>
-          <span>Viewing a previous version. Changes made here will create a new version.</span>
-          <UButton
-              color="neutral"
-              icon="lucide:x"
-              size="xs"
-              variant="ghost"
-              @click="currentVersionId = null; isViewingVersion = false; displayedPage = null"
-          />
-        </div>
-      </div>
-
       <RCPageEditor
           v-if="pageToDisplay"
           v-model="pageToDisplay"
+          v-model:current-version-id="currentVersionId"
+          :is-viewing-version="isViewingVersion"
+          :is-admin="user?.role === 'owner' || user?.role === 'admin'"
           :is-saving="isSaving"
           :on-create-page="handleCreate"
           :on-delete-page="handleDelete"
+          :on-fetch-pages="() => $api('/api/pages/list')"
+          :on-navigate-to-page="(slug: string) => router.push(`/${slug}/edit`)"
           :page-definitions="pageDefinitions"
           :resolve-page="resolvePage"
           @save="handleSave"
+          @version-navigate="handleVersionSelected"
       />
     </div>
   </template>

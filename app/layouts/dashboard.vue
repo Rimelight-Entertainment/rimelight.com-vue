@@ -9,6 +9,8 @@ import {
   useQuickActions,
   useTodos
 } from "rimelight-components/composables"
+import type { Page } from "rimelight-components/types"
+import { PAGE_MAP as pageDefinitions } from "~/types"
 import {computed, markRaw, ref, watch} from "vue"
 
 const {totalHeight} = useHeaderStack()
@@ -62,6 +64,43 @@ registerAction({
   group: 1,
   onSelect: () => {
     isTodoModalOpen.value = true
+  }
+})
+
+const isCreatePageModalOpen = ref(false)
+const isCreatingPage = ref(false)
+const router = useRouter()
+const { t } = useI18n()
+const toast = useToast()
+
+const handleCreatePage = async (newPageData: Partial<Page>) => {
+  try {
+    isCreatingPage.value = true
+    const createdPage = await $fetch<Page>('/api/pages', {
+      method: 'POST',
+      body: newPageData
+    })
+
+    toast.add({ color: 'success', title: t('toast_create_success', 'Page created successfully') })
+
+    isCreatePageModalOpen.value = false
+    // Redirect to the new page's editor
+    await router.push(`/${createdPage.slug}/edit`)
+  } catch (e) {
+    console.error(e)
+    toast.add({ color: 'error', title: t('toast_create_error', 'Failed to create page') })
+  } finally {
+    isCreatingPage.value = false
+  }
+}
+
+registerAction({
+  id: 'action-new-page',
+  label: 'New Page',
+  icon: 'lucide:file-plus',
+  group: 1,
+  onSelect: () => {
+    isCreatePageModalOpen.value = true
   }
 })
 
@@ -244,6 +283,13 @@ const groups = computed(() => [
       <slot/>
     </UDashboardGroup>
     <RCQuickActions/>
+    <RCCreatePageModal
+      v-model:open="isCreatePageModalOpen"
+      :definitions="pageDefinitions"
+      :loading="isCreatingPage"
+      @close="isCreatePageModalOpen = false"
+      @confirm="handleCreatePage"
+    />
     <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
     <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
       <template #content>
