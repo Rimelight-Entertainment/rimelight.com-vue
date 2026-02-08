@@ -1,9 +1,9 @@
-<script setup lang="ts">
-import { z } from "zod"
-import type { FormSubmitEvent } from "@nuxt/ui"
+<script lang="ts" setup>
+import type {FormSubmitEvent} from "#ui/types"
+import {z} from "zod"
 
-const { signIn, isLoading } = useAuth()
-const { t } = useI18n()
+const {signIn, isLoading} = useAuth()
+const {t} = useI18n()
 
 const schema = z.object({
   email: z.email(t("auth_email_invalid")),
@@ -36,27 +36,27 @@ useHead({
 
 <template>
   <div class="w-full flex flex-col gap-lg max-w-md">
-    <UForm :schema="schema" :state="state" @submit="onSubmit" class="flex flex-col gap-md">
+    <UForm :schema="schema" :state="state" class="flex flex-col gap-md" @submit="onSubmit">
       <UFormField
-        :label="t('auth_email_label')"
-        name="email"
         :description="t('auth_email_description')"
-        required
+        :label="t('auth_email_label')"
         class="text-black"
+        name="email"
+        required
       >
         <UInput
           v-model="state.email"
-          type="email"
           :placeholder="t('auth_email_placeholder')"
           class="w-full"
+          type="email"
         >
           <template v-if="state.email?.length" #trailing>
             <UButton
-              color="neutral"
-              variant="link"
-              size="sm"
-              icon="lucide:circle-x"
               aria-label="Clear input"
+              color="neutral"
+              icon="lucide:circle-x"
+              size="sm"
+              variant="link"
               @click="state.email = ''"
             />
           </template>
@@ -66,29 +66,29 @@ useHead({
         </template>
       </UFormField>
       <UFormField
+        :description="t('auth_password_description')"
         :label="t('auth_password_label')"
         name="password"
-        :description="t('auth_password_description')"
         required
       >
         <div class="flex flex-col gap-sm">
           <UInput
             v-model="state.password"
             :type="showPassword ? 'text' : 'password'"
-            placeholder="••••••••••••••••"
             class="w-full"
+            placeholder="••••••••••••••••"
           >
             <template #trailing>
               <UButton
-                color="neutral"
-                variant="link"
-                size="sm"
-                :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
                 :aria-label="
                         showPassword ? 'Hide password' : 'Show password'
                       "
                 :aria-pressed="showPassword"
+                :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
                 aria-controls="password"
+                color="neutral"
+                size="sm"
+                variant="link"
                 @click="showPassword = !showPassword"
               />
             </template>
@@ -97,27 +97,28 @@ useHead({
         <template #help>
           <ULink
             :to="`/app/pages/(auth)/auth/recovery`"
-            >{{ t('auth_sign-in_password_help') }}</ULink
+          >{{ t('auth_sign-in_password_help') }}
+          </ULink
           >
         </template>
       </UFormField>
-      <UCheckbox v-model="state.rememberMe" name="rememberMe" :label="t('auth_remember_me')" />
+      <UCheckbox v-model="state.rememberMe" :label="t('auth_remember_me')" name="rememberMe"/>
       <UButton
-        color="primary"
-        variant="solid"
-        type="submit"
-        :label="t('auth_sign_in_button')"
-        block
-        :loading="isLoading"
         :disabled="isLoading"
+        :label="t('auth_sign_in_button')"
+        :loading="isLoading"
+        block
+        color="primary"
+        type="submit"
+        variant="solid"
       />
     </UForm>
     <span class="text-center text-sm text-black"
-      >{{ t("auth_terms_agreement") }}
+    >{{ t("auth_terms_agreement") }}
       <ULink
-        to="/documents/terms-of-service"
         class="font-medium text-primary hover:text-dimmed"
-        >{{ t("auth_terms_link") }}</ULink
+        to="/documents/terms-of-service"
+      >{{ t("auth_terms_link") }}</ULink
       >.</span
     >
   </div>

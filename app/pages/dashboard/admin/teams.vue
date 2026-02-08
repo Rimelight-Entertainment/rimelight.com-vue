@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type {TableColumn} from '@nuxt/ui'
+import type {TableColumn} from "#ui/types'
 import {$api} from "rimelight-components/composables";
 import {h, resolveComponent} from 'vue'
 import {z} from 'zod'

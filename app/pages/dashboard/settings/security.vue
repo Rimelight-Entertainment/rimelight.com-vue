@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type {FormError} from "@nuxt/ui"
+import type {FormError} from "#ui/types"
 import {useConfirm} from "rimelight-components/composables"
 import {reactive, ref} from "vue"
 import * as z from "zod"
@@ -20,14 +20,14 @@ const profileState = reactive({
 })
 
 watch(
-    user,
-    (newUser) => {
-      if (newUser) {
-        profileState.name = newUser.name
-        profileState.image = newUser.image || ""
-      }
-    },
-    {immediate: true}
+  user,
+  (newUser) => {
+    if (newUser) {
+      profileState.name = newUser.name
+      profileState.image = newUser.image || ""
+    }
+  },
+  {immediate: true}
 )
 
 const isUpdatingProfile = ref(false)
@@ -138,7 +138,7 @@ async function deleteAccount() {
   const isConfirmed = await confirm({
     title: "Delete your account?",
     description:
-        "This action is irreversible. All your data will be permanently removed.",
+      "This action is irreversible. All your data will be permanently removed.",
     confirmLabel: "Yes, delete my account",
     cancelLabel: "Cancel",
     danger: true
@@ -175,15 +175,15 @@ async function deleteAccount() {
 <template>
   <div class="flex flex-col gap-xl">
     <UPageCard
-        description="Manage your public profile information."
-        title="Profile Details"
-        variant="soft"
+      description="Manage your public profile information."
+      title="Profile Details"
+      variant="soft"
     >
       <UForm
-          :schema="profileSchema"
-          :state="profileState"
-          class="flex max-w-sm flex-col gap-md"
-          @submit="updateProfile"
+        :schema="profileSchema"
+        :state="profileState"
+        class="flex max-w-sm flex-col gap-md"
+        @submit="updateProfile"
       >
         <UFormField label="Display Name" name="name">
           <UInput v-model="profileState.name" icon="lucide:user"/>
@@ -198,9 +198,9 @@ async function deleteAccount() {
     </UPageCard>
 
     <UPageCard
-        description="Update your email address. You will need to verify the new email."
-        title="Email Address"
-        variant="soft"
+      description="Update your email address. You will need to verify the new email."
+      title="Email Address"
+      variant="soft"
     >
       <div class="flex flex-row items-center gap-xs text-sm">
         Current email:
@@ -210,10 +210,10 @@ async function deleteAccount() {
       </div>
 
       <UForm
-          :schema="emailSchema"
-          :state="emailState"
-          class="flex max-w-sm flex-col gap-md"
-          @submit="updateEmail"
+        :schema="emailSchema"
+        :state="emailState"
+        class="flex max-w-sm flex-col gap-md"
+        @submit="updateEmail"
       >
         <UFormField label="New Email" name="newEmail">
           <UInput v-model="emailState.newEmail" icon="lucide:mail" placeholder="email@domain.com"/>
@@ -224,60 +224,60 @@ async function deleteAccount() {
     </UPageCard>
 
     <UPageCard
-        description="Confirm your current password before setting a new one."
-        title="Password"
-        variant="soft"
+      description="Confirm your current password before setting a new one."
+      title="Password"
+      variant="soft"
     >
       <UForm
-          :schema="passwordSchema"
-          :state="passwordState"
-          :validate="validatePassword"
-          class="flex max-w-sm flex-col gap-md"
-          @submit="updatePassword"
+        :schema="passwordSchema"
+        :state="passwordState"
+        :validate="validatePassword"
+        class="flex max-w-sm flex-col gap-md"
+        @submit="updatePassword"
       >
         <UFormField label="Current Password" name="current">
           <UInput
-              v-model="passwordState.current"
-              class="w-full"
-              placeholder="••••••••"
-              type="password"
+            v-model="passwordState.current"
+            class="w-full"
+            placeholder="••••••••"
+            type="password"
           />
         </UFormField>
 
         <UFormField label="New Password" name="new">
           <UInput
-              v-model="passwordState.new"
-              class="w-full"
-              placeholder="••••••••"
-              type="password"
+            v-model="passwordState.new"
+            class="w-full"
+            placeholder="••••••••"
+            type="password"
           />
         </UFormField>
 
         <UButton
-            :loading="isUpdatingPassword"
-            class="w-fit"
-            label="Update Password"
-            type="submit"
+          :loading="isUpdatingPassword"
+          class="w-fit"
+          label="Update Password"
+          type="submit"
         />
       </UForm>
     </UPageCard>
 
     <UPageCard
-        :ui="{ root: 'bg-error/50', description: 'text-error' }"
-        description="No longer want to use our service? This action is not reversible."
-        title="Delete Account"
-        variant="soft"
+      :ui="{ root: 'bg-error/50', description: 'text-error' }"
+      description="No longer want to use our service? This action is not reversible."
+      title="Delete Account"
+      variant="soft"
     >
       <p class="text-sm">
         This will schedule your account for deletion after 30 days and revoke all active sessions.
         Signing back in at any point during this period will cancel the scheduling.
       </p>
       <UButton
-          :loading="isDeleting"
-          class="w-fit"
-          color="error"
-          label="Delete Account"
-          @click="deleteAccount"
+        :loading="isDeleting"
+        class="w-fit"
+        color="error"
+        label="Delete Account"
+        @click="deleteAccount"
       />
     </UPageCard>
   </div>

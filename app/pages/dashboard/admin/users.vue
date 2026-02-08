@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {authClient} from "~~/auth"
+import {authClient} from "~~/auth/auth-client"
 
 definePageMeta({
   layout: "dashboard"

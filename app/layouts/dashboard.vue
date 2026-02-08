@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, watch, markRaw } from "vue"
-import type {NavigationMenuItem} from "@nuxt/ui"
+import type {NavigationMenuItem} from "#ui/types"
 import {FocusTimerTool} from "rimelight-components/components"
 import {
   useFloatingTools,
@@ -10,6 +9,7 @@ import {
   useQuickActions,
   useTodos
 } from "rimelight-components/composables"
+import {computed, markRaw, ref, watch} from "vue"
 
 const {totalHeight} = useHeaderStack()
 
@@ -34,7 +34,7 @@ watch([focusTimer.isRunning], ([timer]) => {
 registerAction({
   id: 'focus-timer-action',
   label: 'New Focus Timer',
-  icon: 'lucide:timer',
+  icon: 'i-lucide-timer',
   group: 0,
   onSelect: () => openTool('focusTimer')
 })
@@ -43,12 +43,22 @@ const isNoteModalOpen = ref(false)
 const {triggerRefresh} = useNotes()
 
 const isTodoModalOpen = ref(false)
-const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos()
+const {createTodo, triggerRefresh: triggerTodoRefresh} = useTodos()
+
+registerAction({
+  id: 'action-new-note',
+  label: 'New Note',
+  icon: 'lucide-sticky-note',
+  group: 1,
+  onSelect: () => {
+    isNoteModalOpen.value = true
+  }
+})
 
 registerAction({
   id: 'action-new-todo',
   label: 'New To-do',
-  icon: 'lucide:check-circle-2',
+  icon: 'i-lucide-check-circle-2',
   group: 1,
   onSelect: () => {
     isTodoModalOpen.value = true
@@ -114,18 +124,18 @@ const links = computed<NavigationMenuItem[][]>(() => [
   ],
   [
     ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
-        ? [
-          {
-            label: "Admin",
-            icon: "lucide:shield-check",
-            to: "/dashboard/admin",
-            defaultOpen: false,
-            onSelect: () => {
-              open.value = false
-            }
+      ? [
+        {
+          label: "Admin",
+          icon: "lucide:shield-check",
+          to: "/dashboard/admin",
+          defaultOpen: false,
+          onSelect: () => {
+            open.value = false
           }
-        ]
-        : []),
+        }
+      ]
+      : []),
 
     {
       label: "Users",
@@ -161,8 +171,8 @@ const groups = computed(() => [
 
 <template>
   <div
-      :style="{ '--total-header-offset': `${totalHeight}px` }"
-      class="flex h-svh w-full flex-col overflow-hidden"
+    :style="{ '--total-header-offset': `${totalHeight}px` }"
+    class="flex h-svh w-full flex-col overflow-hidden"
   >
     <ClientOnly>
       <RCHeaderLayer id="global-header" :order="2">
@@ -178,23 +188,23 @@ const groups = computed(() => [
         <template #default="{ collapsed }">
           <UDashboardSearchButton :collapsed="collapsed" class="w-full"/>
           <UNavigationMenu
-              :collapsed="collapsed"
-              :items="links[0]"
-              orientation="vertical"
-              popover
-              tooltip
+            :collapsed="collapsed"
+            :items="links[0]"
+            orientation="vertical"
+            popover
+            tooltip
           />
         </template>
 
         <template #footer="{ collapsed }">
           <div class="flex flex-col gap-sm w-full">
             <UNavigationMenu
-                :collapsed="collapsed"
-                :items="links[1]"
-                block
-                class="w-full"
-                orientation="vertical"
-                tooltip
+              :collapsed="collapsed"
+              :items="links[1]"
+              block
+              class="w-full"
+              orientation="vertical"
+              tooltip
             />
 
             <USeparator/>
@@ -202,28 +212,28 @@ const groups = computed(() => [
             <div class="flex flex-row gap-xs justify-between">
               <div class="flex flex-row gap-xs">
                 <UButton
-                    color="neutral"
-                    icon="lucide:cog"
-                    size="sm"
-                    to="/dashboard/settings"
-                    variant="soft"
+                  color="neutral"
+                  icon="lucide:cog"
+                  size="sm"
+                  to="/dashboard/settings"
+                  variant="soft"
                 />
               </div>
 
               <div class="flex flex-row gap-xs">
                 <UButton
-                    color="neutral"
-                    icon="lucide:circle-question-mark"
-                    size="sm"
-                    to="/dashboard/help"
-                    variant="soft"
+                  color="neutral"
+                  icon="lucide:circle-question-mark"
+                  size="sm"
+                  to="/dashboard/help"
+                  variant="soft"
                 />
                 <UButton
-                    color="neutral"
-                    icon="lucide:bug"
-                    size="sm"
-                    to="/dashboard/report-issue"
-                    variant="soft"
+                  color="neutral"
+                  icon="lucide:bug"
+                  size="sm"
+                  to="/dashboard/report-issue"
+                  variant="soft"
                 />
               </div>
             </div>
@@ -248,13 +258,13 @@ const groups = computed(() => [
         <UInput
           v-model="newTodoDescription"
           placeholder="Description (optional)"
-          variant="outline"
           size="sm"
+          variant="outline"
           @keydown.enter="handleQuickTodoSave"
         />
         <div class="flex justify-end gap-sm">
-          <UButton color="neutral" variant="ghost" label="Cancel" @click="isTodoModalOpen = false" />
-          <UButton color="primary" label="Create" @click="handleQuickTodoSave" />
+          <UButton color="neutral" label="Cancel" variant="ghost" @click="isTodoModalOpen = false"/>
+          <UButton color="primary" label="Create" @click="handleQuickTodoSave"/>
         </div>
       </template>
     </UModal>
