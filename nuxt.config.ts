@@ -1,11 +1,6 @@
 import { fileURLToPath } from "node:url"
-import { existsSync } from "node:fs"
-import { resolve } from "node:path"
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri"
-
-const localModulePath = resolve(fileURLToPath(new URL(".", import.meta.url)), "../rimelight-components")
-const hasLocalModule = existsSync(resolve(localModulePath, "src/module.ts"))
 
 export default defineNuxtConfig({
   $env: {
@@ -83,7 +78,7 @@ export default defineNuxtConfig({
     viewTransition: true
   },
   modules: [
-    hasLocalModule ? resolve(localModulePath, "src/module") : "rimelight-components",
+    "rimelight-components",
     "@nuxt/ui",
     "@nuxtjs/device",
     "@nuxtjs/i18n",
@@ -92,7 +87,7 @@ export default defineNuxtConfig({
     "@pinia/colada-nuxt",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : [])
   ],
-  compatibilityDate: "2025-01-01",
+  compatibilityDate: "2026-01-01",
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url))
