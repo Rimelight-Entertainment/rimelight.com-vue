@@ -1,4 +1,4 @@
-import { clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useState, useToast } from "#imports"
+import { clearNuxtData, navigateTo, useAsyncData, useNuxtApp, useRoute, useState, useToast } from "#imports"
 import { computed } from "vue"
 import { authClient } from "~~/auth/auth-client"
 

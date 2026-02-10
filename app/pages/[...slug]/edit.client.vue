@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import {useQuery, useQueryCache} from "@pinia/colada"
 import {$api} from "rimelight-components/composables"
-import {type Block, type Page} from "rimelight-components/types"
-import {getLocalizedContent} from "rimelight-components/utils"
+import {type Block, type Page, type PageVersion} from "rimelight-components/types"
+import {getLocalizedContent, convertVersionToPage} from "rimelight-components/utils"
 import {computed, ref, watch} from "vue"
 import {useRoute, useRouter} from "vue-router"
-import type {PageVersion} from "~/components/PageVersionSelector.vue"
 import {pageBySlugQuery} from "~/queries"
 import {PAGE_MAP as pageDefinitions} from "~/types"
 import { useAuth } from "~/composables"
@@ -83,19 +82,38 @@ const handleSave = async (updatedPage: Page): Promise<void> => {
   }
 }
 
+const handlePublish = async (pageToPublish: Page) => {
+  if (!pageToPublish.id) return
+  isSaving.value = true
+
+  try {
+    await $api(`/api/pages/id/${pageToPublish.id}/publish`, {
+      method: "POST"
+    })
+
+    toast.add({
+      color: "success",
+      title: t("toast_publish_success", "Page Published"),
+      description: t("toast_publish_success_desc", "The page has been successfully published.")
+    })
+
+    await refetchPage()
+  } catch (e: any) {
+    toast.add({
+      color: "error",
+      title: t("toast_publish_error", "Failed to publish"),
+      description: e.message || "An error occurred while publishing the page"
+    })
+  } finally {
+    isSaving.value = false
+  }
+}
+
 const handleVersionSelected = async (version: PageVersion) => {
   isViewingVersion.value = true
   currentVersionId.value = version.id
 
-  // Convert version to Page format
-  displayedPage.value = {
-    ...version,
-    id: version.pageId, // Use the page ID, not version ID
-    type: version.type as any,
-    blocks: version.blocks || version.content.blocks,
-    properties: version.properties || version.content.properties,
-    authorsIds: version.authorIds
-  } as Page
+  displayedPage.value = convertVersionToPage(version)
 }
 
 const handleVersionApproved = async () => {
@@ -128,12 +146,20 @@ watch(() => pageState.value.data, (newPage) => {
 }, {immediate: true})
 
 // Computed page to display (version or live)
-const pageToDisplay = computed(() => {
+const localPage = ref<Page | null>(null)
+
+// Sync localPage with live data or version data
+watch([() => pageState.value.data, isViewingVersion, displayedPage], () => {
   if (isViewingVersion.value && displayedPage.value) {
-    return displayedPage.value
+    localPage.value = displayedPage.value
+  } else if (pageState.value.data) {
+    // Only update if we are not viewing a version, OR if we just switched back
+    // But we need to be careful not to overwrite valid edits if just pageState refreshed?
+    // Usually if pageState refreshes (e.g. after save), we want to update.
+    // Deep copy to break reference
+    localPage.value = JSON.parse(JSON.stringify(pageState.value.data))
   }
-  return pageState.value.data || null
-})
+}, { immediate: true })
 
 /**
  * Handler for creating a new page
@@ -279,9 +305,9 @@ useSeoMeta({
   <template v-else>
     <div class="relative">
       <RCPageEditor
-          v-if="pageToDisplay"
-          v-model="pageToDisplay"
-          v-model:current-version-id="currentVersionId"
+        v-if="localPage"
+        v-model="localPage"
+        v-model:current-version-id="currentVersionId"
           :is-viewing-version="isViewingVersion"
           :is-admin="user?.role === 'owner' || user?.role === 'admin'"
           :is-saving="isSaving"
@@ -293,6 +319,9 @@ useSeoMeta({
           :resolve-page="resolvePage"
           @save="handleSave"
           @version-navigate="handleVersionSelected"
+          @version-approved="handleVersionApproved"
+          @version-reverted="handleVersionReverted"
+          @publish="handlePublish"
       />
     </div>
   </template>

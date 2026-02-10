@@ -61,6 +61,23 @@ const handleSave = async (updatedPage: Page): Promise<void> => {
   }
 }
 
+const handlePublish = async (updatedPage: Page): Promise<void> => {
+  if (!updatedPage.id) return
+  isSaving.value = true
+
+  try {
+    await $fetch(`/api/pages/id/${updatedPage.id}/publish`, {
+      method: "POST"
+    })
+
+    toast.add({ color: "success", title: t("toast_publish_success", "Page Published") })
+  } catch (e) {
+    toast.add({ color: "error", title: t("toast_publish_error", "Failed to publish") })
+  } finally {
+    isSaving.value = false
+  }
+}
+
 /**
  * Handler for creating a new page
  */
@@ -180,6 +197,7 @@ useSeoMeta({
       :on-create-page="handleCreate"
       :on-delete-page="handleDelete"
       @save="handleSave"
+      @publish="handlePublish"
     />
   </template>
   <template v-else>

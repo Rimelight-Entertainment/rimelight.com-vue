@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type {TableColumn} from "#ui/types'
+import type {TableColumn} from "#ui/types"
 import {$api} from "rimelight-components/composables";
 import {h, resolveComponent} from 'vue'
 import {z} from 'zod'
@@ -357,14 +357,14 @@ async function deleteTeam(id: string) {
   <div class="flex flex-col flex-1 w-full">
     <div class="flex justify-end">
       <UModal
-          v-model:open="isCreateModalOpen"
-          :description="state.parentId ? `Creating subteam for ${state.parentName}` : 'Set up a new team workspace.'"
-          :title="state.parentId ? 'Add Subteam' : 'Create Team'"
+        v-model:open="isCreateModalOpen"
+        :description="state.parentId ? `Creating subteam for ${state.parentName}` : 'Set up a new team workspace.'"
+        :title="state.parentId ? 'Add Subteam' : 'Create Team'"
       >
         <UButton
-            icon="lucide:plus"
-            label="Create Team"
-            @click="() => { state.parentId = null; isCreateModalOpen = true; }"
+          icon="lucide:plus"
+          label="Create Team"
+          @click="() => { state.parentId = null; isCreateModalOpen = true; }"
         />
 
         <template #body>
@@ -379,25 +379,25 @@ async function deleteTeam(id: string) {
 
             <div class="flex justify-between gap-sm">
               <UButton
-                  color="error"
-                  label="Cancel"
-                  variant="subtle"
-                  @click="isCreateModalOpen = false"
+                color="error"
+                label="Cancel"
+                variant="subtle"
+                @click="isCreateModalOpen = false"
               />
               <UButton
-                  :label="state.parentId ? 'Add Subteam' : 'Create'"
-                  :loading="isSubmitting"
-                  color="primary"
-                  type="submit"
+                :label="state.parentId ? 'Add Subteam' : 'Create'"
+                :loading="isSubmitting"
+                color="primary"
+                type="submit"
               />
             </div>
           </UForm>
         </template>
       </UModal>
       <UModal
-          v-model:open="isUpdateModalOpen"
-          description="Update the team name and settings."
-          title="Edit Team"
+        v-model:open="isUpdateModalOpen"
+        description="Update the team name and settings."
+        title="Edit Team"
       >
         <template #body>
           <UForm :schema="updateSchema" :state="updateState" class="space-y-4" @submit="updateTeam">
@@ -407,10 +407,10 @@ async function deleteTeam(id: string) {
 
             <div class="flex justify-between gap-sm">
               <UButton
-                  color="error"
-                  label="Cancel"
-                  variant="subtle"
-                  @click="isUpdateModalOpen = false"
+                color="error"
+                label="Cancel"
+                variant="subtle"
+                @click="isUpdateModalOpen = false"
               />
               <UButton :loading="isSubmitting" label="Save Changes" type="submit"/>
             </div>
@@ -418,10 +418,10 @@ async function deleteTeam(id: string) {
         </template>
       </UModal>
       <UModal
-          v-model:open="isMembersModalOpen"
-          :title="`Manage Members: ${selectedTeam?.name}`"
-          class="sm:max-w-2xl"
-          description="View and manage users assigned to this team."
+        v-model:open="isMembersModalOpen"
+        :title="`Manage Members: ${selectedTeam?.name}`"
+        class="sm:max-w-2xl"
+        description="View and manage users assigned to this team."
       >
         <template #body>
           <div class="space-y-6">
@@ -430,7 +430,7 @@ async function deleteTeam(id: string) {
             <USeparator/>
 
             <UTable
-                :columns="[
+              :columns="[
     { accessorKey: 'user.name', header: 'Name' },
     { accessorKey: 'user.email', header: 'Email' },
     {
@@ -444,9 +444,9 @@ async function deleteTeam(id: string) {
       })
     }
   ]"
-                :data="teamMembers"
-                :loading="isLoadingMembers"
-                class="border rounded-md max-h-96 overflow-y-auto"
+              :data="teamMembers"
+              :loading="isLoadingMembers"
+              class="border rounded-md max-h-96 overflow-y-auto"
             >
               <template #empty-state>
                 <div class="flex flex-col items-center justify-center py-6 text-sm text-gray-500">
@@ -459,10 +459,10 @@ async function deleteTeam(id: string) {
 
         <template #footer>
           <UButton
-              class="w-full"
-              color="neutral"
-              label="Close"
-              @click="isMembersModalOpen = false"
+            class="w-full"
+            color="neutral"
+            label="Close"
+            @click="isMembersModalOpen = false"
           />
         </template>
       </UModal>
@@ -471,10 +471,10 @@ async function deleteTeam(id: string) {
     <UTable v-model:expanded="expanded" :columns="columns" :data="teams" :loading="pending">
       <template #expanded="{ row }">
         <UTable
-            :columns="columns"
-            :data="row.original.subteams"
-            :ui="{ thead: 'hidden' }"
-            class="-m-4"
+          :columns="columns"
+          :data="row.original.subteams"
+          :ui="{ thead: 'hidden' }"
+          class="-m-4"
         />
       </template>
     </UTable>

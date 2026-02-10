@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {type NavigationMenuItem} from "#ui/types'
+import {type NavigationMenuItem} from "#ui/types"
 
 definePageMeta({
   layout: "dashboard"

@@ -156,7 +156,7 @@ export default defineAppConfig({
     },
     dropdownMenu: {
       slots: {
-        content: "rounded-none"
+        content: "z-[100] rounded-none"
       }
     },
     selectMenu: {
@@ -166,7 +166,7 @@ export default defineAppConfig({
     },
     popover: {
       slots: {
-        content: "rounded-none ring-0"
+        content: "z-[100] rounded-none ring-0"
       }
     },
     modal: {

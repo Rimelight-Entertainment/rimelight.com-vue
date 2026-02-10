@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {type NavigationMenuItem} from "#ui/types'
+import {type NavigationMenuItem} from "#ui/types"
 
 definePageMeta({
   layout: "dashboard"
@@ -12,6 +12,11 @@ const links = computed<NavigationMenuItem[][]>(() => [
       icon: "lucide:sticky-note",
       to: "/dashboard/notes",
       exact: true
+    },
+    {
+      label: "Todos",
+      icon: "lucide:check-square",
+      to: "/dashboard/notes/todos"
     }
   ],
   [

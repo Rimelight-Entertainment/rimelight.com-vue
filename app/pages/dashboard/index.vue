@@ -8,6 +8,14 @@ definePageMeta({
 
 <template>
   <UDashboardPanel v-if="session" id="home">
+    <template #header>
+      <UDashboardNavbar title="Home" icon="lucide:home">
+        <template #leading>
+          <UDashboardSidebarCollapse />
+        </template>
+      </UDashboardNavbar>
+    </template>
+
     <template #body>
       <div class="flex flex-col gap-xs">
         <h2>Welcome back, {{ session.user.name }}</h2>

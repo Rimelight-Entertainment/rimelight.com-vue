@@ -35,7 +35,7 @@ const isNoteMatch = (note: Note) => {
   if (!note.labels?.length) return false
 
   return note.labels.some(
-      (joinEntry) => joinEntry.labelId === selectedLabelId.value
+      (joinEntry) => joinEntry.label?.id === selectedLabelId.value
   )
 }
 
@@ -181,9 +181,6 @@ const handleNoteSaved = () => {
         />
       </div>
 
-      <div class="flex w-full flex-col gap-xl">
-        <RCTodoList />
-      </div>
 
       <div v-if="pinnedNotes.length > 0" class="flex w-full flex-col gap-2">
         <h3 class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Pinned</h3>

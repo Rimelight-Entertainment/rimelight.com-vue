@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TabsItem } from "#ui/types'
+import type { TabsItem } from "#ui/types"
 
 const route = useRoute()
 const router = useRouter()

@@ -244,7 +244,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             :style="{ '--header-bottom-boundary': `${(bottomOffsets[layerId] || 0) - 64}px` }"
             :ui="{
             viewportWrapper:
-              'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)]',
+              'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
             viewport: 'rounded-none',
             label: 'text-white',
             link: 'hover:text-primary-200 active:text-500'
