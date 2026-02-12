@@ -1,9 +1,17 @@
 import { fileURLToPath } from "node:url";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri";
 
+const currentDir = fileURLToPath(new URL('.', import.meta.url));
+const localLayerPath = resolve(currentDir, "../rimelight-components");
+const isLocalLayer = existsSync(localLayerPath);
+
 export default defineNuxtConfig({
-  extends: [],
+  extends: [
+    isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components"
+  ],
   compatibilityDate: "2026-01-01",
   $env: {
     development: {
@@ -84,7 +92,6 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
   modules: [
-    "rimelight-components",
     "@nuxt/ui",
     "@nuxt/image",
     "@nuxt/a11y",
