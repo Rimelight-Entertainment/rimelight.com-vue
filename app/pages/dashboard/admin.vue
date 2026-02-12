@@ -45,7 +45,11 @@ const links = computed<NavigationMenuItem[][]>(() => ([
 <template>
   <UDashboardPanel id="admin" :ui="{ body: 'lg:py-12' }">
     <template #header>
-      <UDashboardNavbar icon="lucide:building-2" title="Admin" />
+      <UDashboardNavbar icon="lucide:building-2" title="Admin">
+        <template #leading>
+          <UDashboardSidebarCollapse />
+        </template>
+      </UDashboardNavbar>
 
       <UDashboardToolbar>
         <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight />

@@ -1,11 +1,11 @@
-<script lang="ts" setup>
-import {type NavigationMenuItem} from "#ui/types"
+<script setup lang="ts">
+import { type NavigationMenuItem } from "#ui/types"
 
 definePageMeta({
   layout: "dashboard"
 })
 
-const links = computed<NavigationMenuItem[][]>(() => [
+const links = [
   [
     {
       label: "Notes",
@@ -31,16 +31,20 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard/notes/trash"
     }
   ]
-])
+] satisfies NavigationMenuItem[][]
 </script>
 
 <template>
-  <UDashboardPanel id="notes" :ui="{ body: 'lg:py-12' }">
+  <UDashboardPanel id="notes" :ui="{ body: 'p-0' }">
     <template #header>
-      <UDashboardNavbar icon="lucide:building-2" title="Notes" />
+      <UDashboardNavbar title="Notes">
+        <template #leading>
+          <UDashboardSidebarCollapse />
+        </template>
+      </UDashboardNavbar>
 
       <UDashboardToolbar>
-        <UNavigationMenu :items="links" class="-mx-1 flex-1" highlight />
+        <UNavigationMenu :items="links" highlight class="-mx-1 flex-1" />
       </UDashboardToolbar>
     </template>
 
@@ -49,5 +53,3 @@ const links = computed<NavigationMenuItem[][]>(() => [
     </template>
   </UDashboardPanel>
 </template>
-
-<style scoped></style>

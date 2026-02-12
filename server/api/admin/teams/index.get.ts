@@ -1,20 +1,14 @@
 import { desc, eq } from "drizzle-orm"
-import { getUserSession } from "#server/utils/session"
-import { db, team } from "#server/db"
+import { requireAdminOrOwner } from "#server/utils/session"
+import { db, team, user } from "#server/db"
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
+  const session = await requireAdminOrOwner(event)
 
-  if (!session || (session.user.role !== "admin" && session.user.role !== "owner")) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Unauthorized: Admin access required"
-    })
-  }
+  const query = getQuery(event)
+  const orgId = query.all === 'true' ? undefined : session.session?.activeOrganizationId
 
-  const orgId = session.session?.activeOrganizationId
-
-  if (!orgId) {
+  if (!orgId && query.all !== 'true') {
     throw createError({
       statusCode: 400,
       statusMessage: "No active organization selected"
@@ -24,7 +18,7 @@ export default defineEventHandler(async (event) => {
   const allTeams = await db
     .select()
     .from(team)
-    .where(eq(team.organizationId, orgId))
+    .where(orgId ? eq(team.organizationId, orgId) : undefined)
     .orderBy(desc(team.createdAt))
 
   const teamMap = new Map()

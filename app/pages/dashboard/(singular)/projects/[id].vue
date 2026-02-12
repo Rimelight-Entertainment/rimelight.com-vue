@@ -211,67 +211,105 @@ async function deleteField(id: string) {
 </script>
 
 <template>
-  <div class="flex flex-col h-full w-full">
-    <div class="flex-1 overflow-hidden relative">
-      <!-- Added relative for positioning -->
-      <div
+  <UDashboardPanel id="projects-board">
+    <template #header>
+      <UDashboardNavbar
+        v-if="board"
+        :title="board.title"
+        class="border-b border-gray-200 dark:border-gray-800"
+      >
+        <template #leading>
+          <UButton
+            color="neutral"
+            icon="i-heroicons-arrow-left"
+            variant="ghost"
+            @click="navigateTo('/dashboard/projects')"
+          />
+          <UDashboardSidebarCollapse/>
+        </template>
+        <template #right>
+          <UButton
+            color="neutral"
+            icon="i-heroicons-table-cells"
+            label="Fields"
+            variant="soft"
+            @click="isFieldManagerOpen = true"
+          />
+          <UButton icon="i-heroicons-plus" label="Add List" @click="isAddListModalOpen = true"/>
+        </template>
+      </UDashboardNavbar>
+      <UDashboardNavbar
+        v-else
+        class="border-b border-gray-200 dark:border-gray-800"
+        title="Loading board..."
+      >
+        <template #leading>
+          <UDashboardSidebarCollapse/>
+        </template>
+      </UDashboardNavbar>
+    </template>
+
+    <template #body>
+      <div class="flex-1 overflow-hidden relative">
+        <!-- Added relative for positioning -->
+        <div
           v-if="board"
           class="h-full overflow-x-auto bg-gray-50 dark:bg-gray-950/50 p-6 flex gap-6 items-start"
-      >
-        <draggable
+        >
+          <draggable
             v-model="localLists"
             :animation="200"
             class="flex gap-6 h-full items-start"
             handle=".list-drag-handle"
             item-key="id"
             @end="onListDrop"
-        >
-          <template #item="{ element: list, index }">
-            <div class="flex-none w-80 flex flex-col max-h-full group/list">
-              <!-- List Header -->
-              <div class="flex items-center justify-between mb-3 px-1">
-                <div class="flex items-center gap-2">
-                  <div
+          >
+            <template #item="{ element: list, index }">
+              <div class="flex-none w-80 flex flex-col max-h-full group/list">
+                <!-- List Header -->
+                <div class="flex items-center justify-between mb-3 px-1">
+                  <div class="flex items-center gap-2">
+                    <div
                       :class="[
                           index % 4 === 0 ? 'bg-blue-500' :
                           index % 4 === 1 ? 'bg-purple-500' :
                           index % 4 === 2 ? 'bg-orange-500' : 'bg-green-500'
                         ]"
                       class="w-3 h-3 rounded-full"
-                  />
-                  <h3
+                    />
+                    <h3
                       class="font-bold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-wider"
-                  >
-                    {{ list.title }}
-                  </h3>
-                  <span
+                    >
+                      {{ list.title }}
+                    </h3>
+                    <span
                       class="text-xs font-medium text-gray-400 bg-gray-200/50 dark:bg-gray-800 px-1.5 py-0.5 rounded-md"
-                  >{{ list.cards?.length || 0 }}</span
-                  >
-                </div>
-                <div
+                    >{{ list.cards?.length || 0 }}</span
+                    >
+                  </div>
+                  <div
                     class="flex items-center gap-1 opacity-0 group-hover/list:opacity-100 transition-opacity"
-                >
-                  <UIcon
+                  >
+                    <UIcon
                       class="list-drag-handle cursor-move text-gray-400 hover:text-gray-600"
                       name="i-heroicons-bars-2"
-                  />
-                  <UDropdownMenu
+                    />
+                    <UDropdownMenu
                       :items="[[{ label: 'Delete List', icon: 'i-heroicons-trash', color: 'error', onSelect: () => deleteList(list.id) }]]"
-                  >
-                    <UButton
+                    >
+                      <UButton
                         color="neutral"
                         icon="i-heroicons-ellipsis-horizontal"
                         size="xs"
                         variant="ghost"
-                    />
-                  </UDropdownMenu>
+                      />
+                    </UDropdownMenu>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Cards Container -->
-              <div class="flex-1 overflow-y-auto space-y-3 min-h-[100px] pb-4 pr-1">
-                <draggable
+                <!-- Cards Container -->
+                <div class="flex-1 overflow-y-auto space-y-3 min-h-[100px] pb-4 pr-1">
+                  <draggable
                     v-model="list.cards"
                     :animation="200"
                     drag-class="rotate-1"
@@ -279,47 +317,47 @@ async function deleteField(id: string) {
                     group="cards"
                     item-key="id"
                     @change="(e: any) => onCardDrop(e, list.id)"
-                >
-                  <template #item="{ element }">
-                    <div
+                  >
+                    <template #item="{ element }">
+                      <div
                         class="bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-500/30 transition-all group/card"
                         @click="openCardDetail(element)"
-                    >
-                      <div
-                          class="text-[15px] font-medium text-gray-900 dark:text-white mb-1.5 leading-snug"
                       >
-                        {{ element.title }}
-                      </div>
-                      <div
+                        <div
+                          class="text-[15px] font-medium text-gray-900 dark:text-white mb-1.5 leading-snug"
+                        >
+                          {{ element.title }}
+                        </div>
+                        <div
                           v-if="element.description"
                           class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3"
-                      >
-                        {{ element.description }}
-                      </div>
+                        >
+                          {{ element.description }}
+                        </div>
 
-                      <!-- Custom Fields Preview -->
-                      <div
+                        <!-- Custom Fields Preview -->
+                        <div
                           v-if="board.customFields && board.customFields.length > 0"
                           class="flex flex-wrap gap-1.5 mt-2"
-                      >
-                        <template v-for="field in (board.customFields as any[])" :key="field.id">
-                          <div
+                        >
+                          <template v-for="field in (board.customFields as any[])" :key="field.id">
+                            <div
                               v-if="element.customFields?.[field.id]"
                               class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[10px] font-semibold text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                          >
-                            <span class="opacity-50 uppercase text-[9px]">{{ field.name }}</span>
-                            <span>{{
-                                (typeof element.customFields[field.id] === 'object' && element.customFields[field.id] !== null) ? (element.customFields[field.id].label || element.customFields[field.id].value) : element.customFields[field.id]
-                              }}</span>
-                          </div>
-                        </template>
+                            >
+                              <span class="opacity-50 uppercase text-[9px]">{{ field.name }}</span>
+                              <span>{{
+                                  (typeof element.customFields[field.id] === 'object' && element.customFields[field.id] !== null) ? (element.customFields[field.id].label || element.customFields[field.id].value) : element.customFields[field.id]
+                                }}</span>
+                            </div>
+                          </template>
+                        </div>
                       </div>
-                    </div>
-                  </template>
-                </draggable>
+                    </template>
+                  </draggable>
 
-                <!-- Inline Add Card -->
-                <UButton
+                  <!-- Inline Add Card -->
+                  <UButton
                     block
                     class="mt-2 text-gray-400 hover:text-primary-500 font-medium justify-start px-2 py-2 rounded-xl"
                     color="neutral"
@@ -328,34 +366,36 @@ async function deleteField(id: string) {
                     size="sm"
                     variant="ghost"
                     @click="openAddCardModal(list.id)"
-                />
+                  />
+                </div>
               </div>
-            </div>
-          </template>
-        </draggable>
+            </template>
+          </draggable>
 
-        <!-- Add List Column -->
-        <div class="flex-none w-80">
-          <UButton
+          <!-- Add List Column -->
+          <div class="flex-none w-80">
+            <UButton
               block
               class="h-[120px] dashed border-2 border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col gap-2 group hover:border-primary-500/50 hover:bg-white dark:hover:bg-gray-900 transition-all text-gray-400 hover:text-primary-500"
               color="neutral"
               variant="ghost"
               @click="isAddListModalOpen = true"
-          >
-            <UIcon
+            >
+              <UIcon
                 class="text-2xl group-hover:scale-110 transition-transform"
                 name="i-heroicons-plus-circle"
-            />
-            <span class="font-bold uppercase tracking-widest text-[11px]">Add another list</span>
-          </UButton>
+              />
+              <span class="font-bold uppercase tracking-widest text-[11px]">Add another list</span>
+            </UButton>
+          </div>
+        </div>
+
+        <div v-else class="flex items-center justify-center h-full">
+          <UIcon class="text-4xl text-primary-500 animate-spin" name="i-heroicons-arrow-path"/>
         </div>
       </div>
-
-      <div v-else class="flex items-center justify-center h-full">
-        <UIcon class="text-4xl text-primary-500 animate-spin" name="i-heroicons-arrow-path"/>
-      </div>
-    </div>
+    </template>
+  </UDashboardPanel>
 
     <!-- Modals -->
     <UModal
@@ -706,5 +746,4 @@ async function deleteField(id: string) {
         </div>
       </template>
     </USlideover>
-  </div>
 </template>

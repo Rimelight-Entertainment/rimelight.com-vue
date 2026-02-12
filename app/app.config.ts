@@ -156,7 +156,7 @@ export default defineAppConfig({
     },
     dropdownMenu: {
       slots: {
-        content: "z-[100] rounded-none"
+        content: "rounded-none"
       }
     },
     selectMenu: {
@@ -166,7 +166,7 @@ export default defineAppConfig({
     },
     popover: {
       slots: {
-        content: "z-[100] rounded-none ring-0"
+        content: "rounded-none ring-0"
       }
     },
     modal: {
@@ -268,9 +268,20 @@ export default defineAppConfig({
         root: "min-h-full"
       }
     },
+    dashboardNavbar: {
+      slots: {
+        root: "h-12",
+        title: "text-xl"
+      }
+    },
     dashboardSidebar: {
       slots: {
         root: "min-h-full"
+      }
+    },
+    dashboardToolbar: {
+      slots: {
+        root: "h-12",
       }
     },
     blogPost: {

@@ -6,9 +6,11 @@ import {useFavicon} from "@vueuse/core"
 import {useDashboard} from "rimelight-components/composables";
 
 const {locale} = useI18n()
-
-const lang = computed(() => locales[locale.value].code)
-const dir = computed(() => locales[locale.value].dir)
+const currentLocale = computed(() => {
+  return (locales as any)[locale.value] || locales.en
+})
+const lang = computed(() => currentLocale.value.code)
+const dir = computed(() => currentLocale.value.dir)
 
 const colorMode = useColorMode()
 
@@ -16,17 +18,17 @@ const color = computed(() => {
   return colorMode.value === "dark" ? "#020618" : "white"
 })
 
-const icon = useFavicon()
+const icon = import.meta.client ? useFavicon() : undefined
 
 const router = useRouter()
 const {isNotificationsSlideoverOpen} = useDashboard()
 
 function alertMode() {
-  icon.value = '/favicon-alert.svg'
+  if (icon) icon.value = '/favicon-alert.svg'
 }
 
 function normalMode() {
-  icon.value = '/favicon.svg'
+  if (icon) icon.value = '/favicon.svg'
 }
 
 /* sample reactive favicon for future implementation
@@ -160,19 +162,19 @@ useSeoMeta({
 </script>
 
 <template>
-  <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 0 }">
+  <UApp :locale="currentLocale" :tooltip="{ delayDuration: 0 }">
     <NuxtRouteAnnouncer/>
     <NuxtLoadingIndicator color="#0064d7"/>
     <NuxtLayout>
       <NuxtPage/>
     </NuxtLayout>
-    <RCConfirmModal/>
-    <RCNotificationsSlideover/>
     <ClientOnly>
+      <RCConfirmModal/>
+      <RCNotificationsSlideover/>
       <RCScrollToTop/>
+      <RCFloatingToolsOverlay/>
+      <PiniaColadaDevtools/>
     </ClientOnly>
-    <RCFloatingToolsOverlay/>
-    <PiniaColadaDevtools/>
   </UApp>
 </template>
 

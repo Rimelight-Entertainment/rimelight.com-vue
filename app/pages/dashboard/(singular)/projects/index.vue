@@ -73,17 +73,19 @@ const items = (row: any) => [
 </script>
 
 <template>
-  <div class="flex flex-col h-full">
-    <UDashboardNavbar :ui="{ right: 'gap-3' }" title="Projects">
-      <template #leading>
-        <UDashboardSidebarCollapse/>
-      </template>
-      <template #right>
-        <UButton icon="i-heroicons-plus" label="Create Board" @click="isCreateModalOpen = true"/>
-      </template>
-    </UDashboardNavbar>
+  <UDashboardPanel id="projects">
+    <template #header>
+      <UDashboardNavbar :ui="{ right: 'gap-3' }" title="Projects">
+        <template #leading>
+          <UDashboardSidebarCollapse/>
+        </template>
+        <template #right>
+          <UButton icon="i-heroicons-plus" label="Create Board" @click="isCreateModalOpen = true"/>
+        </template>
+      </UDashboardNavbar>
+    </template>
 
-    <div class="flex-1 overflow-y-auto p-4">
+    <template #body>
       <div v-if="status === 'pending'" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <UCard v-for="i in 6" :key="i">
           <template #header>
@@ -161,8 +163,8 @@ const items = (row: any) => [
             @click="isCreateModalOpen = true"
         />
       </div>
-    </div>
-  </div>
+    </template>
+  </UDashboardPanel>
 
   <!-- Create Modal -->
   <UModal
