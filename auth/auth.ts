@@ -165,6 +165,10 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (userData, _ctx) => {
+          throw new APIError("FORBIDDEN", {
+            message: "Signups are temporarily disabled"
+          })
+
           // 1. Normalize the incoming username (strip dots, dashes, underscores)
           const normalizedInput = normalizeUsername(userData.name)
 
