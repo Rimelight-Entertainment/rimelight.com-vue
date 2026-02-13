@@ -2,7 +2,7 @@
 import {useQuery, useQueryCache} from "@pinia/colada"
 
 import {type Block, type Page, type PageVersion} from "rimelight-components/types"
-import {getLocalizedContent, convertVersionToPage} from "rimelight-components/utils"
+
 import {computed, ref, watch} from "vue"
 import {useRoute, useRouter} from "vue-router"
 import {pageBySlugQuery} from "~/queries"

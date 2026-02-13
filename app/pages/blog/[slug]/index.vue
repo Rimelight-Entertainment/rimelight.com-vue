@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router"
 import { type Page, type PageType}  from "rimelight-components/types"
-import { getLocalizedContent } from "rimelight-components/utils"
+
 import { useI18n } from "vue-i18n"
 
 const appConfig = useAppConfig()

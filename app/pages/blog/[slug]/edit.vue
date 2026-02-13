@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { type Block, type Page, type PageType } from "rimelight-components/types"
-import { getLocalizedContent } from "rimelight-components/utils"
+
 import { PAGE_MAP as pageDefinitions } from "~/types"
 
 const router = useRouter()

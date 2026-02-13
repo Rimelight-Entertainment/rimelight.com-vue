@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {type Page, type PageType} from "rimelight-components/types"
-import {getLocalizedContent} from "rimelight-components/utils"
+
 
 const appConfig = useAppConfig()
 const {session} = useAuth()
