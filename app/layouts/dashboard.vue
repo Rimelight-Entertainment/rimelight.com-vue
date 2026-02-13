@@ -4,6 +4,7 @@ import type {NavigationMenuItem} from "#ui/types"
 import type { Page } from "#rimelight-components/types"
 import { PAGE_MAP as pageDefinitions } from "~/types"
 import {computed, markRaw, ref, watch} from "vue"
+import RCFocusTimerTool from "rimelight-components/components/dashboard/floating-tools/FocusTimerTool.vue"
 
 const {totalHeight} = useHeaderStack()
 
@@ -16,7 +17,7 @@ registerTool({
   id: 'focusTimer',
   title: 'Focus Timer',
   icon: 'lucide:timer',
-  component: markRaw(FocusTimerTool),
+  component: markRaw(RCFocusTimerTool),
   tooltip: () => useFocusTimer().formattedTime.value,
   onClose: () => useFocusTimer().resetTimer()
 })

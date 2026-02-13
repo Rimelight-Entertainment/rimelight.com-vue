@@ -9,7 +9,9 @@ const localLayerPath = resolve(currentDir, "../rimelight-components");
 const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
-  extends: [isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components"],
+  extends: [
+    [isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components", { install: true }]
+  ],
   compatibilityDate: "2026-02-13",
   $env: {
     development: {
@@ -90,13 +92,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
   modules: [
-    "@nuxt/ui",
-    "@nuxt/icon",
-    "@nuxt/image",
-    "@nuxt/a11y",
-    "@nuxtjs/device",
-    "@nuxtjs/i18n",
-    "@vueuse/nuxt",
+
     "@pinia/nuxt",
     "@pinia/colada-nuxt",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
@@ -188,40 +184,7 @@ export default defineNuxtConfig({
   pages: {
     pattern: ["**/*.vue", "!**/components/**"],
   },
-  colorMode: {
-    preference: "dark",
-    fallback: "dark",
-  },
-  fonts: {
-    defaults: {
-      weights: [
-        // Thin
-        100,
-        // ExtraLight
-        200,
-        // Light
-        300,
-        // Regular
-        400,
-        // Medium
-        500,
-        // SemiBold
-        600,
-        // Bold
-        700,
-        // Extra Bold
-        800,
-      ],
-      styles: ["normal", "italic"],
-    },
-    families: [
-      {
-        name: "JetBrains Mono",
-        global: true,
-        provider: "local",
-      },
-    ],
-  },
+
   icon: {
     class: "icon",
     size: "24px",
@@ -296,32 +259,9 @@ export default defineNuxtConfig({
       //}
     ],
   },
-  ui: {
-    prefix: "U",
-    mdc: true,
-    content: true,
-    theme: {
-      colors: [
-        "neutral",
-        "primary",
-        "secondary",
-        "info",
-        "success",
-        "warning",
-        "error",
-        "commentary",
-        "ideation",
-        "source",
-      ],
-    },
-  },
+
   future: {
     compatibilityVersion: 5,
   },
-  experimental: {
-    viteEnvironmentApi: false,
-    typescriptPlugin: true,
-    nitroAutoImports: true,
-    //typedPages: true
-  },
+
 });
