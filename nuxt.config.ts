@@ -1,18 +1,16 @@
-import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri";
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url));
+const currentDir = fileURLToPath(new URL(".", import.meta.url));
 const localLayerPath = resolve(currentDir, "../rimelight-components");
 const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
-  extends: [
-    isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components"
-  ],
-  compatibilityDate: "2026-01-01",
+  extends: [isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components"],
+  compatibilityDate: "2026-02-13",
   $env: {
     development: {
       devtools: { enabled: true },
@@ -93,6 +91,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "@nuxt/ui",
+    "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/a11y",
     "@nuxtjs/device",
@@ -105,6 +104,8 @@ export default defineNuxtConfig({
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
+    "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
+    "rimelight-components": localLayerPath,
   },
   vite: {
     clearScreen: false,
@@ -320,7 +321,7 @@ export default defineNuxtConfig({
   experimental: {
     viteEnvironmentApi: false,
     typescriptPlugin: true,
-    nitroAutoImports: true
+    nitroAutoImports: true,
     //typedPages: true
   },
 });

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {$api} from "rimelight-components/composables"
+import { navigateTo } from "#app";
 import draggable from 'vuedraggable'
 
 const route = useRoute()

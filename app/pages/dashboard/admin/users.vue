@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { authClient } from "~~/auth/auth-client"
 import { useApi, useConfirm } from "rimelight-components/composables"
+import { navigateTo } from "#app";
+import type { TableColumn } from "@nuxt/ui"
 
 const { confirm: confirmAction } = useConfirm()
 const toast = useToast()
@@ -163,7 +165,7 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: 'user',
     header: 'User',
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: NormalizedUser } }) => {
       const user = row.original.user
       return h('div', { class: 'flex items-center gap-3' }, [
         h(resolveComponent('UAvatar'), {
@@ -194,7 +196,7 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: 'user.role',
     header: 'System Role',
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: NormalizedUser } }) => {
       const role = row.original.user.role
       return h(resolveComponent('UBadge'), {
         color: role === 'admin' ? 'red' : 'gray',
@@ -207,12 +209,12 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: 'organizations',
     header: 'Organizations',
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: NormalizedUser } }) => {
       const orgs = row.original.organizations
       if (!orgs?.length) return h('span', { class: 'text-xs text-gray-400 italic' }, 'None')
       
       return h('div', { class: 'flex flex-wrap gap-1 max-w-[200px]' }, 
-        orgs.map(org => h(resolveComponent('UBadge'), {
+        orgs.map((org: Organization) => h(resolveComponent('UBadge'), {
           key: org.id,
           variant: 'subtle',
           size: 'xs',
@@ -225,12 +227,12 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: 'teams',
     header: 'Teams',
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: NormalizedUser } }) => {
       const teams = row.original.teams
       if (!teams?.length) return h('span', { class: 'text-xs text-gray-400 italic' }, 'None')
       
       return h('div', { class: 'flex flex-wrap gap-1 max-w-[200px]' }, 
-        teams.map(t => h(resolveComponent('UBadge'), {
+        teams.map((t: UserTeam) => h(resolveComponent('UBadge'), {
           key: t.id,
           variant: 'subtle',
           size: 'xs',
@@ -243,7 +245,7 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: 'user.banned',
     header: 'Status',
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: NormalizedUser } }) => {
       const banned = row.original.user.banned
       return h(resolveComponent('UBadge'), {
         color: banned ? 'red' : 'green',
