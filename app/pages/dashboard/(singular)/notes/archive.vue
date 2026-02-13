@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useApi, useNotes} from "rimelight-components/composables"
+
 import {type Note} from "rimelight-components/db"
 
 const {data: notes, refresh} = await useApi<Note[]>("/api/notes", {

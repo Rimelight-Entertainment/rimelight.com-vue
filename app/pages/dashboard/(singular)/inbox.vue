@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {breakpointsTailwind} from '@vueuse/core'
-import {useApi} from "rimelight-components/composables"
+
 import {type Mail} from "rimelight-components/types"
 
 definePageMeta({

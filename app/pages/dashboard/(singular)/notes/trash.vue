@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useApi, useConfirm, useNotes} from "rimelight-components/composables"
+
 import {type Note} from "rimelight-components/db"
 
 const {confirm} = useConfirm()

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type {ChipProps, DropdownMenuItem, NavigationMenuItem} from "@nuxt/ui"
-import {useDashboard, useHeaderStack} from "rimelight-components/composables";
+
 
 const {session, signOut} = useAuth()
 const route = useRoute()

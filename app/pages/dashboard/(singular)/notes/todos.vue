@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useApi, useTodos} from 'rimelight-components/composables'
+
 import type {Todo} from "rimelight-components/db"
 
 const {data: todos, refresh: refreshTodos} = await useApi<Todo[]>("/api/todos")

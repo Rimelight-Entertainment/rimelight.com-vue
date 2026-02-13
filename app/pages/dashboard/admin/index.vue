@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useApi} from "rimelight-components/composables"
+
 
 const {data: organizationsCount} = await useApi('/api/admin/organizations/count')
 const {data: teamsCount} = await useApi('/api/admin/teams/count')

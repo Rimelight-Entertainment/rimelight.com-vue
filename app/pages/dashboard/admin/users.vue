@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { authClient } from "~~/auth/auth-client"
-import { useApi, useConfirm } from "rimelight-components/composables"
+
 import { navigateTo } from "#app";
 import type { TableColumn } from "@nuxt/ui"
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type {FormError} from "#ui/types"
-import {useConfirm} from "rimelight-components/composables"
+
 import {reactive, ref} from "vue"
 import * as z from "zod"
 import {authClient} from "~~/auth/auth-client"

@@ -3,7 +3,7 @@ import {ULink} from "#components"
 import * as locales from "@nuxt/ui/locale"
 import {PiniaColadaDevtools} from '@pinia/colada-devtools'
 import {useFavicon} from "@vueuse/core"
-import {useDashboard} from "rimelight-components/composables";
+
 
 const {locale} = useI18n()
 const currentLocale = computed(() => {

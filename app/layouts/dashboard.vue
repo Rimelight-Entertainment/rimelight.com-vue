@@ -1,14 +1,6 @@
 <script lang="ts" setup>
 import type {NavigationMenuItem} from "#ui/types"
-import {FocusTimerTool} from "rimelight-components/components"
-import {
-  useFloatingTools,
-  useFocusTimer,
-  useHeaderStack,
-  useNotes,
-  useQuickActions,
-  useTodos
-} from "rimelight-components/composables"
+
 import type { Page } from "rimelight-components/types"
 import { PAGE_MAP as pageDefinitions } from "~/types"
 import {computed, markRaw, ref, watch} from "vue"

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {format} from 'date-fns'
-import {$api} from "rimelight-components/composables"
+
 import { navigateTo } from "#app";
 import {z} from 'zod'
 
