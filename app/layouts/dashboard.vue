@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type {NavigationMenuItem} from "#ui/types"
 
-import type { Page } from "rimelight-components/types"
+import type { Page } from "#rimelight-components/types"
 import { PAGE_MAP as pageDefinitions } from "~/types"
 import {computed, markRaw, ref, watch} from "vue"
 

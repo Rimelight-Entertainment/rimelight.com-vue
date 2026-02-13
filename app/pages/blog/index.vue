@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {type Page, type PageType} from "rimelight-components/types"
+import {type Page, type PageType} from "#rimelight-components/types"
 
 
 const appConfig = useAppConfig()

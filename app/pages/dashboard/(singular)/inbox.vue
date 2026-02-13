@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {breakpointsTailwind} from '@vueuse/core'
 
-import {type Mail} from "rimelight-components/types"
+import {type Mail} from "#rimelight-components/types"
 
 definePageMeta({
   layout: "dashboard"

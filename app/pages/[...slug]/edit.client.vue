@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useQuery, useQueryCache} from "@pinia/colada"
 
-import {type Block, type Page, type PageVersion} from "rimelight-components/types"
+import {type Block, type Page, type PageVersion} from "#rimelight-components/types"
 
 import {computed, ref, watch} from "vue"
 import {useRoute, useRouter} from "vue-router"

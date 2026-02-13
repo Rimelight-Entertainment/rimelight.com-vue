@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { type Block, type Page, type PageType } from "rimelight-components/types"
+import { type Block, type Page, type PageType } from "#rimelight-components/types"
 
 import { PAGE_MAP as pageDefinitions } from "~/types"
 

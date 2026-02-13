@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router"
-import { type Page, type PageType}  from "rimelight-components/types"
+import { type Page, type PageType}  from "#rimelight-components/types"
 
 import { useI18n } from "vue-i18n"
 

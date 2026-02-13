@@ -1,6 +1,6 @@
 import { defineQueryOptions } from "@pinia/colada";
 
-import { type Page } from "rimelight-components/types";
+import { type Page } from "#rimelight-components/types";
 
 export const PAGE_QUERY_KEYS = {
   all: ["pages"] as const,

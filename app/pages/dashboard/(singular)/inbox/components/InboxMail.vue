@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {format} from "date-fns"
-import {type Mail} from "rimelight-components/types"
+import {type Mail} from "#rimelight-components/types"
 import {ref} from "vue"
 
 export interface InboxMailProps {
