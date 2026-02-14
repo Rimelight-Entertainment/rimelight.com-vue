@@ -12,17 +12,12 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     });
   }
 
-  // Guard against empty auth base route.
-  if (to.path === "/auth") {
-    return navigateTo("/auth/sign-in");
-  }
-
   // User is not authenticated
   if (!session.value) {
-    if (to.path === "/dashboard") {
+    if (to.path === "/auth") {
       return navigateTo("/auth/sign-in");
     }
-    if (to.path === "/blog/drafts") {
+    if (!to.path.startsWith("/auth")) {
       return navigateTo("/auth/sign-in");
     }
   }
