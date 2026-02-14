@@ -1,37 +1,76 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from "#ui/types";
-
 import type { Page } from "#rimelight-components/types";
 import { PAGE_MAP as pageDefinitions } from "~/types";
-import { computed, markRaw, ref, watch } from "vue";
+import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue";
 import RCFocusTimerTool from "rimelight-components/components/dashboard/floating-tools/FocusTimerTool.vue";
 
 const { totalHeight } = useHeaderStack();
 
-const { registerTool, openTool } = useFloatingTools();
-const { registerAction } = useQuickActions();
+const { registerTool, openTool, removeTool } = useFloatingTools();
+const { registerAction, unregisterAction } = useQuickActions();
 
 const focusTimer = useFocusTimer();
 
-registerTool({
-  id: "focusTimer",
-  title: "Focus Timer",
-  icon: "lucide:timer",
-  component: markRaw(RCFocusTimerTool),
-  tooltip: () => useFocusTimer().formattedTime.value,
-  onClose: () => useFocusTimer().resetTimer(),
+onMounted(() => {
+  registerTool({
+    id: "focusTimer",
+    title: "Focus Timer",
+    icon: "lucide:timer",
+    component: markRaw(RCFocusTimerTool),
+    tooltip: () => useFocusTimer().formattedTime.value,
+    onClose: () => useFocusTimer().resetTimer(),
+  });
+
+  registerAction({
+    id: "focus-timer-action",
+    label: "New Focus Timer",
+    icon: "i-lucide-timer",
+    group: 0,
+    onSelect: () => openTool("focusTimer"),
+  });
+
+  registerAction({
+    id: "action-new-note",
+    label: "New Note",
+    icon: "lucide-sticky-note",
+    group: 1,
+    onSelect: () => {
+      isNoteModalOpen.value = true;
+    },
+  });
+
+  registerAction({
+    id: "action-new-todo",
+    label: "New To-do",
+    icon: "i-lucide-check-circle-2",
+    group: 1,
+    onSelect: () => {
+      isTodoModalOpen.value = true;
+    },
+  });
+
+  registerAction({
+    id: "action-new-page",
+    label: "New Page",
+    icon: "lucide:file-plus",
+    group: 1,
+    onSelect: () => {
+      isCreatePageModalOpen.value = true;
+    },
+  });
+});
+
+onUnmounted(() => {
+  removeTool("focusTimer");
+  unregisterAction("focus-timer-action");
+  unregisterAction("action-new-note");
+  unregisterAction("action-new-todo");
+  unregisterAction("action-new-page");
 });
 
 watch([focusTimer.isRunning], ([timer]) => {
   if (timer) openTool("focusTimer");
-});
-
-registerAction({
-  id: "focus-timer-action",
-  label: "New Focus Timer",
-  icon: "i-lucide-timer",
-  group: 0,
-  onSelect: () => openTool("focusTimer"),
 });
 
 const isNoteModalOpen = ref(false);
@@ -39,26 +78,6 @@ const { triggerRefresh } = useNotes();
 
 const isTodoModalOpen = ref(false);
 const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos();
-
-registerAction({
-  id: "action-new-note",
-  label: "New Note",
-  icon: "lucide-sticky-note",
-  group: 1,
-  onSelect: () => {
-    isNoteModalOpen.value = true;
-  },
-});
-
-registerAction({
-  id: "action-new-todo",
-  label: "New To-do",
-  icon: "i-lucide-check-circle-2",
-  group: 1,
-  onSelect: () => {
-    isTodoModalOpen.value = true;
-  },
-});
 
 const isCreatePageModalOpen = ref(false);
 const isCreatingPage = ref(false);
@@ -86,16 +105,6 @@ const handleCreatePage = async (newPageData: Partial<Page>) => {
     isCreatingPage.value = false;
   }
 };
-
-registerAction({
-  id: "action-new-page",
-  label: "New Page",
-  icon: "lucide:file-plus",
-  group: 1,
-  onSelect: () => {
-    isCreatePageModalOpen.value = true;
-  },
-});
 
 const newTodoTitle = ref("");
 const newTodoDescription = ref("");
@@ -275,7 +284,6 @@ const groups = computed(() => [
       <UDashboardSearch :groups="groups" />
       <slot />
     </UDashboardGroup>
-    <RCQuickActions />
     <RCCreatePageModal
       v-model:open="isCreatePageModalOpen"
       :definitions="pageDefinitions"

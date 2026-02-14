@@ -170,7 +170,7 @@ useSeoMeta({
     <ClientOnly>
       <RCConfirmModal />
       <RCNotificationsSlideover />
-      <RCScrollToTop />
+      <RCFloatingActionsOverlay />
       <RCFloatingToolsOverlay />
       <PiniaColadaDevtools />
     </ClientOnly>
