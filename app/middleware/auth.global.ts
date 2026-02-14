@@ -1,5 +1,16 @@
 export default defineNuxtRouteMiddleware(async (to, _from) => {
-  const { session } = useAuth();
+  const { session, status } = useAuth();
+
+  if (status.value === 'pending') {
+    await new Promise<void>((resolve) => {
+      const stop = watch(status, (val) => {
+        if (val !== 'pending') {
+          stop();
+          resolve();
+        }
+      });
+    });
+  }
 
   // Guard against empty auth base route.
   if (to.path === "/auth") {
