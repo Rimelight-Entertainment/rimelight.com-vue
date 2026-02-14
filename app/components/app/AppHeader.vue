@@ -556,7 +556,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
     </template>
     <template #collapsed-center>
       <ClientOnly>
-        <RCLogo class="h-12" variant="mark" />
+        <RCLogo class="h-6 w-auto" variant="mark" />
       </ClientOnly>
     </template>
     <template #collapsed-right>
