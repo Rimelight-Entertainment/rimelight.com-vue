@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent, StepperItem } from "#ui/types";
-import { normalizeUsername, RESTRICTED_SET } from "rimelight-components/auth";
+import { normalizeUsername, RESTRICTED_SET } from "rimelight-components/auth/restricted-usernames";
 import { z } from "zod";
 
 const { signUp, isLoading } = useAuth();

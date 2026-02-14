@@ -17,7 +17,7 @@ interface NuxtAppWithI18n {
   };
 }
 
-import { statement } from "rimelight-components/auth";
+import { statement } from "rimelight-components/auth/statements";
 
 type SignUpInput = Parameters<typeof authClient.signUp.email>[0];
 type SignInInput = Parameters<typeof authClient.signIn.email>[0];
