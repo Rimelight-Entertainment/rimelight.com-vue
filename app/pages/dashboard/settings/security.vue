@@ -1,155 +1,154 @@
 <script lang="ts" setup>
-import type {FormError} from "#ui/types"
+import type { FormError } from "#ui/types";
 
-import {reactive, ref} from "vue"
-import * as z from "zod"
-import {authClient} from "~~/auth/auth-client"
+import { reactive, ref } from "vue";
+import * as z from "zod";
+import { authClient } from "~~/auth/auth-client";
 
-const {user} = useAuth()
-const {confirm} = useConfirm()
-const toast = useToast()
+const { user } = useAuth();
+const { confirm } = useConfirm();
+const toast = useToast();
 
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  image: z.url("Invalid URL").optional().or(z.literal(""))
-})
+  image: z.url("Invalid URL").optional().or(z.literal("")),
+});
 
 const profileState = reactive({
   name: "",
-  image: ""
-})
+  image: "",
+});
 
 watch(
   user,
   (newUser) => {
     if (newUser) {
-      profileState.name = newUser.name
-      profileState.image = newUser.image || ""
+      profileState.name = newUser.name;
+      profileState.image = newUser.image || "";
     }
   },
-  {immediate: true}
-)
+  { immediate: true },
+);
 
-const isUpdatingProfile = ref(false)
+const isUpdatingProfile = ref(false);
 
 async function updateProfile() {
-  isUpdatingProfile.value = true
-  const {error} = await authClient.updateUser({
+  isUpdatingProfile.value = true;
+  const { error } = await authClient.updateUser({
     name: profileState.name,
-    image: profileState.image || undefined
-  })
+    image: profileState.image || undefined,
+  });
 
   if (error) {
     toast.add({
       title: "Profile Update Failed",
       description: error.message,
       color: "error",
-      icon: "lucide:circle-x"
-    })
+      icon: "lucide:circle-x",
+    });
   } else {
     toast.add({
       title: "Profile Updated",
       description: "Your profile details have been saved.",
       color: "success",
-      icon: "lucide:circle-check"
-    })
+      icon: "lucide:circle-check",
+    });
   }
-  isUpdatingProfile.value = false
+  isUpdatingProfile.value = false;
 }
 
 const emailSchema = z.object({
-  newEmail: z.email("Invalid email address")
-})
-const emailState = reactive({newEmail: ""})
-const isUpdatingEmail = ref(false)
+  newEmail: z.email("Invalid email address"),
+});
+const emailState = reactive({ newEmail: "" });
+const isUpdatingEmail = ref(false);
 
 async function updateEmail() {
-  isUpdatingEmail.value = true
-  const {error} = await authClient.changeEmail({
+  isUpdatingEmail.value = true;
+  const { error } = await authClient.changeEmail({
     newEmail: emailState.newEmail,
-    callbackURL: "/dashboard"
-  })
+    callbackURL: "/dashboard",
+  });
 
   if (error) {
   } else {
-    emailState.newEmail = ""
+    emailState.newEmail = "";
   }
-  isUpdatingEmail.value = false
+  isUpdatingEmail.value = false;
 }
 
 const passwordSchema = z.object({
   current: z.string().min(8, "Must be at least 8 characters"),
-  new: z.string().min(8, "Must be at least 8 characters")
-})
+  new: z.string().min(8, "Must be at least 8 characters"),
+});
 
-type PasswordSchema = z.output<typeof passwordSchema>
+type PasswordSchema = z.output<typeof passwordSchema>;
 
 const passwordState = reactive<Partial<PasswordSchema>>({
   current: undefined,
-  new: undefined
-})
+  new: undefined,
+});
 
 const validatePassword = (state: Partial<PasswordSchema>): FormError[] => {
-  const errors: FormError[] = []
+  const errors: FormError[] = [];
   if (state.current && state.new && state.current === state.new) {
     errors.push({
       name: "new",
-      message: "New password must be different from current"
-    })
+      message: "New password must be different from current",
+    });
   }
-  return errors
-}
+  return errors;
+};
 
-const isUpdatingPassword = ref(false)
+const isUpdatingPassword = ref(false);
 
 async function updatePassword() {
-  if (!passwordState.current || !passwordState.new) return
+  if (!passwordState.current || !passwordState.new) return;
 
-  isUpdatingPassword.value = true
-  const {error} = await authClient.changePassword({
+  isUpdatingPassword.value = true;
+  const { error } = await authClient.changePassword({
     currentPassword: passwordState.current,
     newPassword: passwordState.new,
-    revokeOtherSessions: true
-  })
+    revokeOtherSessions: true,
+  });
 
   if (error) {
     toast.add({
       title: "Password Update Failed",
       description: error.message,
       color: "error",
-      icon: "heroicons:exclamation-circle"
-    })
+      icon: "heroicons:exclamation-circle",
+    });
   } else {
     toast.add({
       title: "Password Updated",
       description: "Your password has been changed successfully.",
       color: "success",
-      icon: "heroicons:lock-closed"
-    })
-    passwordState.current = undefined
-    passwordState.new = undefined
+      icon: "heroicons:lock-closed",
+    });
+    passwordState.current = undefined;
+    passwordState.new = undefined;
   }
-  isUpdatingPassword.value = false
+  isUpdatingPassword.value = false;
 }
 
-const isDeleting = ref(false)
+const isDeleting = ref(false);
 
 async function deleteAccount() {
   const isConfirmed = await confirm({
     title: "Delete your account?",
-    description:
-      "This action is irreversible. All your data will be permanently removed.",
+    description: "This action is irreversible. All your data will be permanently removed.",
     confirmLabel: "Yes, delete my account",
     cancelLabel: "Cancel",
-    danger: true
-  })
+    danger: true,
+  });
 
-  if (!isConfirmed) return
+  if (!isConfirmed) return;
 
-  isDeleting.value = true
-  const {error} = await authClient.deleteUser({
-    callbackURL: "/goodbye"
-  })
+  isDeleting.value = true;
+  const { error } = await authClient.deleteUser({
+    callbackURL: "/goodbye",
+  });
 
   if (error) {
     if (error.code === "FRESH_SESSION_REQUIRED") {
@@ -157,17 +156,17 @@ async function deleteAccount() {
         title: "Security Check Required",
         description: "Please log out and log back in to delete your account.",
         color: "warning",
-        icon: "heroicons:shield-check"
-      })
+        icon: "heroicons:shield-check",
+      });
     } else {
       toast.add({
         title: "Deletion Failed",
         description: error.message || "An unexpected error occurred.",
         color: "error",
-        icon: "heroicons:exclamation-circle"
-      })
+        icon: "heroicons:exclamation-circle",
+      });
     }
-    isDeleting.value = false
+    isDeleting.value = false;
   }
 }
 </script>
@@ -186,14 +185,14 @@ async function deleteAccount() {
         @submit="updateProfile"
       >
         <UFormField label="Display Name" name="name">
-          <UInput v-model="profileState.name" icon="lucide:user"/>
+          <UInput v-model="profileState.name" icon="lucide:user" />
         </UFormField>
 
         <UFormField label="Avatar URL" name="image">
-          <UInput v-model="profileState.image" icon="lucide:image"/>
+          <UInput v-model="profileState.image" icon="lucide:image" />
         </UFormField>
 
-        <UButton :loading="isUpdatingProfile" class="w-fit" label="Save Changes" type="submit"/>
+        <UButton :loading="isUpdatingProfile" class="w-fit" label="Save Changes" type="submit" />
       </UForm>
     </UPageCard>
 
@@ -216,10 +215,10 @@ async function deleteAccount() {
         @submit="updateEmail"
       >
         <UFormField label="New Email" name="newEmail">
-          <UInput v-model="emailState.newEmail" icon="lucide:mail" placeholder="email@domain.com"/>
+          <UInput v-model="emailState.newEmail" icon="lucide:mail" placeholder="email@domain.com" />
         </UFormField>
 
-        <UButton :loading="isUpdatingEmail" class="w-fit" label="Update Email" type="submit"/>
+        <UButton :loading="isUpdatingEmail" class="w-fit" label="Update Email" type="submit" />
       </UForm>
     </UPageCard>
 

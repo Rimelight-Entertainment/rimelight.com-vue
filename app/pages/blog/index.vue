@@ -1,127 +1,126 @@
 <script lang="ts" setup>
-import {type Page, type PageType} from "#rimelight-components/types"
+import { type Page, type PageType } from "#rimelight-components/types";
 
+const appConfig = useAppConfig();
+const { session } = useAuth();
+const { t, locale } = useI18n();
 
-const appConfig = useAppConfig()
-const {session} = useAuth()
-const {t, locale} = useI18n()
+const INITIAL_LIMIT = 10;
+const NEXT_LIMIT = 9;
 
-const INITIAL_LIMIT = 10
-const NEXT_LIMIT = 9
+const allDrafts = ref<Page[]>([]);
+const currentDraftsOffset = ref(0);
+const hasMoreDrafts = ref(true);
+const isFetchingMoreDrafts = ref(false);
+const hasLoadedNextPostsPage = ref(false);
 
-const allDrafts = ref<Page[]>([])
-const currentDraftsOffset = ref(0)
-const hasMoreDrafts = ref(true)
-const isFetchingMoreDrafts = ref(false)
-const hasLoadedNextPostsPage = ref(false)
-
-const allPosts = ref<Page[]>([])
-const currentPostsOffset = ref(0)
-const hasMorePosts = ref(true)
-const isFetchingMorePosts = ref(false)
-const hasLoadedNextDraftsPage = ref(false)
+const allPosts = ref<Page[]>([]);
+const currentPostsOffset = ref(0);
+const hasMorePosts = ref(true);
+const isFetchingMorePosts = ref(false);
+const hasLoadedNextDraftsPage = ref(false);
 
 /**
  * Generic fetcher for any page type
  */
 const fetchPages = async (
-    type: PageType,
-    status: 'draft' | 'published',
-    limit: number,
-    offset: number
+  type: PageType,
+  status: "draft" | "published",
+  limit: number,
+  offset: number,
 ) => {
   return await $fetch<Page[]>("/api/pages/list", {
-    query: {type, status, limit, offset}
-  })
-}
+    query: { type, status, limit, offset },
+  });
+};
 
 const fetchDraftsPage = (limit: number, offset: number) =>
-    fetchPages("BlogPost", "draft", limit, offset)
+  fetchPages("BlogPost", "draft", limit, offset);
 
 const fetchPostsPage = (limit: number, offset: number) =>
-    fetchPages("BlogPost", "published", limit, offset)
+  fetchPages("BlogPost", "published", limit, offset);
 
-const {status: initialDraftsStatus} = await useLazyAsyncData(
-    "initial-blog-drafts",
-    async () => {
-      const newDrafts = await fetchDraftsPage(INITIAL_LIMIT, 0)
+const { status: initialDraftsStatus } = await useLazyAsyncData(
+  "initial-blog-drafts",
+  async () => {
+    const newDrafts = await fetchDraftsPage(INITIAL_LIMIT, 0);
 
-      if (newDrafts) {
-        allDrafts.value = [...newDrafts] // Reset/Set initial
-        currentDraftsOffset.value = newDrafts.length
-        hasMoreDrafts.value = newDrafts.length === INITIAL_LIMIT
-      }
-    },
-    {
-      server: false,
-      immediate: session.value?.user?.role === "owner" || session.value?.user?.role === "member"
+    if (newDrafts) {
+      allDrafts.value = [...newDrafts]; // Reset/Set initial
+      currentDraftsOffset.value = newDrafts.length;
+      hasMoreDrafts.value = newDrafts.length === INITIAL_LIMIT;
     }
-)
+  },
+  {
+    server: false,
+    immediate: session.value?.user?.role === "owner" || session.value?.user?.role === "member",
+  },
+);
 
-const {status: initialPostsStatus} = await useLazyAsyncData(
-    "initial-blog-posts",
-    async () => {
-      const newPosts = await fetchPostsPage(INITIAL_LIMIT, 0)
+const { status: initialPostsStatus } = await useLazyAsyncData(
+  "initial-blog-posts",
+  async () => {
+    const newPosts = await fetchPostsPage(INITIAL_LIMIT, 0);
 
-      if (newPosts) {
-        allPosts.value = [...newPosts]
-        currentPostsOffset.value = newPosts.length
-        hasMorePosts.value = newPosts.length === INITIAL_LIMIT
-      }
-    },
-    {server: false}
-)
+    if (newPosts) {
+      allPosts.value = [...newPosts];
+      currentPostsOffset.value = newPosts.length;
+      hasMorePosts.value = newPosts.length === INITIAL_LIMIT;
+    }
+  },
+  { server: false },
+);
 
 const loadNextDraftsPage = async () => {
-  if (!hasMoreDrafts.value || isFetchingMoreDrafts.value) return
+  if (!hasMoreDrafts.value || isFetchingMoreDrafts.value) return;
 
-  isFetchingMoreDrafts.value = true
+  isFetchingMoreDrafts.value = true;
 
-  const newDrafts = await fetchDraftsPage(NEXT_LIMIT, currentDraftsOffset.value)
+  const newDrafts = await fetchDraftsPage(NEXT_LIMIT, currentDraftsOffset.value);
 
   if (newDrafts && newDrafts.length > 0) {
-    allDrafts.value.push(...newDrafts)
-    currentDraftsOffset.value += newDrafts.length
-    hasMoreDrafts.value = newDrafts.length === NEXT_LIMIT
+    allDrafts.value.push(...newDrafts);
+    currentDraftsOffset.value += newDrafts.length;
+    hasMoreDrafts.value = newDrafts.length === NEXT_LIMIT;
   } else {
-    hasMoreDrafts.value = false
+    hasMoreDrafts.value = false;
   }
 
-  hasLoadedNextDraftsPage.value = true
-  isFetchingMoreDrafts.value = false
-}
+  hasLoadedNextDraftsPage.value = true;
+  isFetchingMoreDrafts.value = false;
+};
 
 const loadNextPostsPage = async () => {
-  if (!hasMorePosts.value || isFetchingMorePosts.value) return
+  if (!hasMorePosts.value || isFetchingMorePosts.value) return;
 
-  isFetchingMorePosts.value = true
+  isFetchingMorePosts.value = true;
 
-  const newPosts = await fetchPostsPage(NEXT_LIMIT, currentPostsOffset.value)
+  const newPosts = await fetchPostsPage(NEXT_LIMIT, currentPostsOffset.value);
 
   if (newPosts && newPosts.length > 0) {
-    allPosts.value.push(...newPosts)
-    currentPostsOffset.value += newPosts.length
-    hasMorePosts.value = newPosts.length === NEXT_LIMIT
+    allPosts.value.push(...newPosts);
+    currentPostsOffset.value += newPosts.length;
+    hasMorePosts.value = newPosts.length === NEXT_LIMIT;
   } else {
-    hasMorePosts.value = false
+    hasMorePosts.value = false;
   }
 
-  hasLoadedNextPostsPage.value = true
-  isFetchingMorePosts.value = false
-}
+  hasLoadedNextPostsPage.value = true;
+  isFetchingMorePosts.value = false;
+};
 
 const formatDate = (date: string | Date) => {
-  return useDateFormat(date, "DD/MM/YYYY").value
-}
+  return useDateFormat(date, "DD/MM/YYYY").value;
+};
 
 const links = [
   {
     icon: "lucide:rss",
     label: "RSS",
     to: "/blog/rss.xml",
-    target: "_blank"
-  }
-]
+    target: "_blank",
+  },
+];
 
 useHead({
   title: "me.blog",
@@ -130,17 +129,17 @@ useHead({
       rel: "alternate",
       type: "application/atom+xml",
       title: "rimelight.com Blog RSS",
-      href: "https://rimelight.com/blog/rss.xml"
-    }
-  ]
-})
+      href: "https://rimelight.com/blog/rss.xml",
+    },
+  ],
+});
 
 useSeoMeta({
   title: "me.blog",
   ogTitle: "me.blog",
   description: `Read the latest blog posts from the ${appConfig.title} Blog.`,
-  ogDescription: `Read the latest blog posts from the ${appConfig.title} Blog.`
-})
+  ogDescription: `Read the latest blog posts from the ${appConfig.title} Blog.`,
+});
 </script>
 
 <template>
@@ -159,11 +158,7 @@ useSeoMeta({
       </UPageHeader>
       <UPageBody>
         <div
-          v-if="
-            session &&
-            session.user?.role === 'employee' &&
-            initialDraftsStatus === 'pending'
-          "
+          v-if="session && session.user?.role === 'employee' && initialDraftsStatus === 'pending'"
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
@@ -179,13 +174,12 @@ useSeoMeta({
             <UBlogPost
               v-for="(post, index) in allDrafts"
               :key="post.slug"
-              :authors="[]
-              "
+              :authors="[]"
               :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
-                class: 'rounded-none p-0 ring-0'
+                class: 'rounded-none p-0 ring-0',
               }"
               :class="[index === 0 && 'col-span-full']"
               :date="post.postedAt ? formatDate(post.postedAt) : ''"
@@ -194,7 +188,7 @@ useSeoMeta({
                 src: post.banner?.src,
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246
+                height: index === 0 ? 378 : 246,
               }"
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
               :title="getLocalizedContent(post.title, locale)"
@@ -219,9 +213,7 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="
-              allDrafts.length > 0 && !hasMoreDrafts && hasLoadedNextDraftsPage
-            "
+            v-else-if="allDrafts.length > 0 && !hasMoreDrafts && hasLoadedNextDraftsPage"
             :ui="{ label: 'text-muted' }"
             class="py-12"
             label="You've reached the end of the drafts."
@@ -239,13 +231,12 @@ useSeoMeta({
             <UBlogPost
               v-for="(post, index) in allPosts"
               :key="post.slug"
-              :authors="[]
-              "
+              :authors="[]"
               :badge="{
                 label: t(post.type),
                 color: 'primary',
                 variant: 'outline',
-                class: 'rounded-none p-0 ring-0'
+                class: 'rounded-none p-0 ring-0',
               }"
               :class="[index === 0 && 'col-span-full']"
               :date="post.postedAt ? formatDate(post.postedAt) : ''"
@@ -254,7 +245,7 @@ useSeoMeta({
                 src: post.banner?.src,
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246
+                height: index === 0 ? 378 : 246,
               }"
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
               :title="getLocalizedContent(post.title, locale)"
@@ -279,9 +270,7 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="
-              allPosts.length > 0 && !hasMorePosts && hasLoadedNextPostsPage
-            "
+            v-else-if="allPosts.length > 0 && !hasMorePosts && hasLoadedNextPostsPage"
             :ui="{ label: 'text-muted' }"
             class="py-12"
             label="You've reached the end of the posts."

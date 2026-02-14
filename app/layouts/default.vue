@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-
-
-const {totalHeight} = useHeaderStack()
+const { totalHeight } = useHeaderStack();
 </script>
 
 <template>

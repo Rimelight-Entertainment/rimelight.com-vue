@@ -33,9 +33,7 @@ Use project-specific CSS variables from `main.css`:
 
 ```vue
 <template>
-  <div class="bg-elevated text-highlighted gap-md p-padding-lg">
-    Content
-  </div>
+  <div class="bg-elevated text-highlighted gap-md p-padding-lg">Content</div>
 </template>
 ```
 

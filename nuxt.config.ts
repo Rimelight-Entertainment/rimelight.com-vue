@@ -10,7 +10,10 @@ const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
   extends: [
-    [isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components", { install: true }]
+    [
+      isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
+      { install: true },
+    ],
   ],
   compatibilityDate: "2026-02-13",
   $env: {
@@ -92,7 +95,6 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
   modules: [
-
     "@pinia/nuxt",
     "@pinia/colada-nuxt",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
@@ -263,5 +265,4 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 5,
   },
-
 });

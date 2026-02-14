@@ -1,5 +1,3 @@
 {
-  "extends": [
-    "./.rimelight-utilities/.oxlintrc.json"
-  ]
+  "extends": ["./.rimelight-utilities/.oxlintrc.json"]
 }

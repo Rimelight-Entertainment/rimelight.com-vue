@@ -17,17 +17,17 @@
 ```typescript
 // Avoid
 enum Status {
-  Active = 'active',
-  Inactive = 'inactive'
+  Active = "active",
+  Inactive = "inactive",
 }
 
 // Prefer
 const STATUS = {
-  ACTIVE: 'active',
-  INACTIVE: 'inactive'
-} as const
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+} as const;
 
-type Status = typeof STATUS[keyof typeof STATUS]
+type Status = (typeof STATUS)[keyof typeof STATUS];
 ```
 
 ## No Classes
@@ -43,20 +43,20 @@ All major interfaces should be exported for reusability:
 ```typescript
 // Export prop interfaces
 export interface UserCardProps {
-  userId: string
-  showAvatar?: boolean
+  userId: string;
+  showAvatar?: boolean;
 }
 
 // Export emit interfaces
 export interface UserCardEmits {
-  (e: 'update', userId: string): void
-  (e: 'delete'): void
+  (e: "update", userId: string): void;
+  (e: "delete"): void;
 }
 
 // Export data models
 export interface User {
-  id: string
-  email: string
-  name: string
+  id: string;
+  email: string;
+  name: string;
 }
 ```

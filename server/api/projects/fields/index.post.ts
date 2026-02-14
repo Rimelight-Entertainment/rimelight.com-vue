@@ -1,7 +1,7 @@
-import { db, customFieldDefinition, board } from "#server/db"
-import { getUserSession } from "#server/utils/session"
-import { z } from "zod"
-import { eq } from "drizzle-orm"
+import { db, customFieldDefinition, board } from "#server/db";
+import { getUserSession } from "#server/utils/session";
+import { z } from "zod";
+import { eq } from "drizzle-orm";
 
 const createFieldSchema = z.object({
   boardId: z.string().uuid(),
@@ -12,37 +12,37 @@ const createFieldSchema = z.object({
       z.object({
         label: z.string(),
         value: z.string(),
-        color: z.string().optional()
-      })
+        color: z.string().optional(),
+      }),
     )
-    .optional()
-})
+    .optional(),
+});
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  const userId = session?.user?.id
+  const session = await getUserSession(event);
+  const userId = session?.user?.id;
 
   if (!userId) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",
-      message: "Authentication required."
-    })
+      message: "Authentication required.",
+    });
   }
 
-  const data = await readValidatedBody(event, createFieldSchema.parse)
+  const data = await readValidatedBody(event, createFieldSchema.parse);
 
   // Verify board ownership
   const boardExists = await db.query.board.findFirst({
-    where: eq(board.id, data.boardId)
-  })
+    where: eq(board.id, data.boardId),
+  });
 
   if (!boardExists || boardExists.userId !== userId) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
-      message: "Board not found"
-    })
+      message: "Board not found",
+    });
   }
 
   try {
@@ -52,18 +52,17 @@ export default defineEventHandler(async (event) => {
         boardId: data.boardId,
         name: data.name,
         type: data.type,
-        options: data.options || []
+        options: data.options || [],
       })
-      .returning()
+      .returning();
 
-    return newField[0]
+    return newField[0];
   } catch (error) {
-    console.error("Failed to create custom field:", error)
+    console.error("Failed to create custom field:", error);
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",
-      message: "Could not create custom field."
-    })
+      message: "Could not create custom field.",
+    });
   }
-})
-
+});

@@ -1,41 +1,41 @@
-import { eq } from "drizzle-orm"
-import { readValidatedBody } from "h3"
-import { z } from "zod"
-import { getUserSession } from "#server/utils/session"
-import { db, note, note_noteLabel } from "#server/db"
+import { eq } from "drizzle-orm";
+import { readValidatedBody } from "h3";
+import { z } from "zod";
+import { getUserSession } from "#server/utils/session";
+import { db, note, note_noteLabel } from "#server/db";
 
 const createNoteSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
   isPinned: z.boolean().optional(),
   isArchived: z.boolean().optional(),
-  labels: z.array(z.string()).optional()
-})
+  labels: z.array(z.string()).optional(),
+});
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  const userId = session?.user?.id
+  const session = await getUserSession(event);
+  const userId = session?.user?.id;
 
   if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
   }
 
-  const validatedBody = await readValidatedBody(event, createNoteSchema.parse)
-  const { labels, ...noteData } = validatedBody
+  const validatedBody = await readValidatedBody(event, createNoteSchema.parse);
+  const { labels, ...noteData } = validatedBody;
 
   const [newNote] = await db
     .insert(note)
     .values({
       userId,
-      ...noteData
+      ...noteData,
     })
-    .returning()
+    .returning();
 
   if (!newNote) {
     throw createError({
       statusCode: 500,
-      statusMessage: "Failed to create note record."
-    })
+      statusMessage: "Failed to create note record.",
+    });
   }
 
   if (labels && labels.length > 0) {
@@ -43,17 +43,17 @@ export default defineEventHandler(async (event) => {
       await db.insert(note_noteLabel).values(
         labels.map((labelId) => ({
           noteId: newNote.id,
-          labelId
-        }))
-      )
+          labelId,
+        })),
+      );
     } catch (error) {
-      await db.delete(note).where(eq(note.id, newNote.id))
+      await db.delete(note).where(eq(note.id, newNote.id));
 
       throw createError({
         statusCode: 500,
         statusMessage: "Failed to assign labels. Note creation rolled back.",
-        cause: error
-      })
+        cause: error,
+      });
     }
   }
 
@@ -62,22 +62,21 @@ export default defineEventHandler(async (event) => {
     with: {
       noteLabels: {
         with: {
-          label: true
-        }
-      }
-    }
-  })
+          label: true,
+        },
+      },
+    },
+  });
 
   if (!noteWithLabels) {
     throw createError({
       statusCode: 500,
-      statusMessage: "Failed to retrieve created note."
-    })
+      statusMessage: "Failed to retrieve created note.",
+    });
   }
 
   return {
     ...noteWithLabels,
-    labels: noteWithLabels.noteLabels.map((nl) => nl.label) || []
-  }
-})
-
+    labels: noteWithLabels.noteLabels.map((nl) => nl.label) || [],
+  };
+});

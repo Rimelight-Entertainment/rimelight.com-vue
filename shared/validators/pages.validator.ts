@@ -1,12 +1,12 @@
-import { z } from "zod"
+import { z } from "zod";
 
 const BaseRules = z.object({
-  id: z.uuid()
-})
+  id: z.uuid(),
+});
 
-const fields = Object.keys(BaseRules.shape) as [keyof typeof BaseRules.shape]
+const fields = Object.keys(BaseRules.shape) as [keyof typeof BaseRules.shape];
 
-export const CreateRules = BaseRules.omit({ id: true })
+export const CreateRules = BaseRules.omit({ id: true });
 
 export const ListRules = z.object({
   keywords: z.string().optional(),
@@ -14,16 +14,16 @@ export const ListRules = z.object({
   offset: z.coerce.number().int().nonnegative().default(0).optional(),
   sortBy: z.enum(fields).optional(),
   sortOrder: z.enum(["asc", "desc"]).default("desc").optional(),
-  include: z.enum(fields).optional()
-})
+  include: z.enum(fields).optional(),
+});
 
 export const ReadRules = z.object({
   id: z.uuid(),
-  include: z.enum(fields).optional
-})
+  include: z.enum(fields).optional,
+});
 
-export const UpdateRules = BaseRules
+export const UpdateRules = BaseRules;
 
 export const DeleteRules = z.object({
-  id: z.uuid()
-})
+  id: z.uuid(),
+});

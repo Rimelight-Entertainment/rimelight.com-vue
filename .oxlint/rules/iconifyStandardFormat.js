@@ -1,4 +1,4 @@
-import { defineRule } from "oxlint"
+import { defineRule } from "oxlint";
 
 /**
  * Rule: iconify-standard-format
@@ -21,24 +21,24 @@ export const iconifyStandardFormat = defineRule({
     docs: {
       description: "Enforce standard 'prefix:name' format for Iconify icons.",
       category: "Style",
-      recommended: true
+      recommended: true,
     },
     fixable: "code",
     messages: {
-      useStandardFormat: "Icon '{{plugin}}' should use the 'prefix:name' format."
-    }
+      useStandardFormat: "Icon '{{plugin}}' should use the 'prefix:name' format.",
+    },
   },
 
   create(context) {
-    const iconRegex = /^i-([a-z0-9]+)-(.+)$/
+    const iconRegex = /^i-([a-z0-9]+)-(.+)$/;
 
     function checkAndFix(node, value) {
-      if (typeof value !== "string") return
+      if (typeof value !== "string") return;
 
-      const match = value.match(iconRegex)
+      const match = value.match(iconRegex);
       if (match) {
-        const [full, prefix, name] = match
-        const newValue = `${prefix}:${name}`
+        const [full, prefix, name] = match;
+        const newValue = `${prefix}:${name}`;
 
         context.report({
           node,
@@ -46,30 +46,30 @@ export const iconifyStandardFormat = defineRule({
           data: { plugin: full },
           fix(fixer) {
             // Determine the original quoting style to preserve it
-            const raw = context.getSourceCode().getText(node)
-            const quote = raw.startsWith("'") ? "'" : raw.startsWith("`") ? "`" : '"'
-            return fixer.replaceText(node, `${quote}${newValue}${quote}`)
-          }
-        })
+            const raw = context.getSourceCode().getText(node);
+            const quote = raw.startsWith("'") ? "'" : raw.startsWith("`") ? "`" : '"';
+            return fixer.replaceText(node, `${quote}${newValue}${quote}`);
+          },
+        });
       }
     }
 
     return {
       // Targets Vue/JSX attributes: <Icon name="i-lucide-user" />
       JSXAttribute(node) {
-        const name = node.name.name
+        const name = node.name.name;
         if ((name === "name" || name === "icon") && node.value?.type === "Literal") {
-          checkAndFix(node.value, node.value.value)
+          checkAndFix(node.value, node.value.value);
         }
       },
 
       // Targets JS/TS Object properties: { icon: "i-mdi-home" }
       Property(node) {
-        const keyName = node.key.type === "Identifier" ? node.key.name : node.key.value
+        const keyName = node.key.type === "Identifier" ? node.key.name : node.key.value;
         if ((keyName === "name" || keyName === "icon") && node.value.type === "Literal") {
-          checkAndFix(node.value, node.value.value)
+          checkAndFix(node.value, node.value.value);
         }
-      }
-    }
-  }
-})
+      },
+    };
+  },
+});

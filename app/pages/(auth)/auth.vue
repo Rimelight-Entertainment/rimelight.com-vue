@@ -1,33 +1,31 @@
 <script setup lang="ts">
-import type { TabsItem } from "#ui/types"
+import type { TabsItem } from "#ui/types";
 
-const route = useRoute()
-const router = useRouter()
-const { t } = useI18n()
+const route = useRoute();
+const router = useRouter();
+const { t } = useI18n();
 
 const tabs: TabsItem[] = [
   {
-    icon: 'lucide:log-in',
-    label: t('auth_sign-in'),
-    value: '/auth/sign-in',
+    icon: "lucide:log-in",
+    label: t("auth_sign-in"),
+    value: "/auth/sign-in",
   },
   {
     icon: "lucide:square-pen",
-    label: t('auth_sign-up'),
-    value: '/auth/sign-up',
-  }
-]
+    label: t("auth_sign-up"),
+    value: "/auth/sign-up",
+  },
+];
 
 const activeTab = computed({
   get() {
-    return tabs.some(i => i.value === route.path)
-        ? route.path
-        : '/auth/sign-in'
+    return tabs.some((i) => i.value === route.path) ? route.path : "/auth/sign-in";
   },
   set(path) {
-    router.push(path as string)
-  }
-})
+    router.push(path as string);
+  },
+});
 </script>
 
 <template>

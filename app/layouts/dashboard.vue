@@ -1,115 +1,115 @@
 <script lang="ts" setup>
-import type {NavigationMenuItem} from "#ui/types"
+import type { NavigationMenuItem } from "#ui/types";
 
-import type { Page } from "#rimelight-components/types"
-import { PAGE_MAP as pageDefinitions } from "~/types"
-import {computed, markRaw, ref, watch} from "vue"
-import RCFocusTimerTool from "rimelight-components/components/dashboard/floating-tools/FocusTimerTool.vue"
+import type { Page } from "#rimelight-components/types";
+import { PAGE_MAP as pageDefinitions } from "~/types";
+import { computed, markRaw, ref, watch } from "vue";
+import RCFocusTimerTool from "rimelight-components/components/dashboard/floating-tools/FocusTimerTool.vue";
 
-const {totalHeight} = useHeaderStack()
+const { totalHeight } = useHeaderStack();
 
-const {registerTool, openTool} = useFloatingTools()
-const {registerAction} = useQuickActions()
+const { registerTool, openTool } = useFloatingTools();
+const { registerAction } = useQuickActions();
 
-const focusTimer = useFocusTimer()
+const focusTimer = useFocusTimer();
 
 registerTool({
-  id: 'focusTimer',
-  title: 'Focus Timer',
-  icon: 'lucide:timer',
+  id: "focusTimer",
+  title: "Focus Timer",
+  icon: "lucide:timer",
   component: markRaw(RCFocusTimerTool),
   tooltip: () => useFocusTimer().formattedTime.value,
-  onClose: () => useFocusTimer().resetTimer()
-})
+  onClose: () => useFocusTimer().resetTimer(),
+});
 
 watch([focusTimer.isRunning], ([timer]) => {
-  if (timer) openTool('focusTimer')
-})
+  if (timer) openTool("focusTimer");
+});
 
 registerAction({
-  id: 'focus-timer-action',
-  label: 'New Focus Timer',
-  icon: 'i-lucide-timer',
+  id: "focus-timer-action",
+  label: "New Focus Timer",
+  icon: "i-lucide-timer",
   group: 0,
-  onSelect: () => openTool('focusTimer')
-})
+  onSelect: () => openTool("focusTimer"),
+});
 
-const isNoteModalOpen = ref(false)
-const {triggerRefresh} = useNotes()
+const isNoteModalOpen = ref(false);
+const { triggerRefresh } = useNotes();
 
-const isTodoModalOpen = ref(false)
-const {createTodo, triggerRefresh: triggerTodoRefresh} = useTodos()
-
-registerAction({
-  id: 'action-new-note',
-  label: 'New Note',
-  icon: 'lucide-sticky-note',
-  group: 1,
-  onSelect: () => {
-    isNoteModalOpen.value = true
-  }
-})
+const isTodoModalOpen = ref(false);
+const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos();
 
 registerAction({
-  id: 'action-new-todo',
-  label: 'New To-do',
-  icon: 'i-lucide-check-circle-2',
+  id: "action-new-note",
+  label: "New Note",
+  icon: "lucide-sticky-note",
   group: 1,
   onSelect: () => {
-    isTodoModalOpen.value = true
-  }
-})
+    isNoteModalOpen.value = true;
+  },
+});
 
-const isCreatePageModalOpen = ref(false)
-const isCreatingPage = ref(false)
-const router = useRouter()
-const { t } = useI18n()
-const toast = useToast()
+registerAction({
+  id: "action-new-todo",
+  label: "New To-do",
+  icon: "i-lucide-check-circle-2",
+  group: 1,
+  onSelect: () => {
+    isTodoModalOpen.value = true;
+  },
+});
+
+const isCreatePageModalOpen = ref(false);
+const isCreatingPage = ref(false);
+const router = useRouter();
+const { t } = useI18n();
+const toast = useToast();
 
 const handleCreatePage = async (newPageData: Partial<Page>) => {
   try {
-    isCreatingPage.value = true
-    const createdPage = await $fetch<Page>('/api/pages', {
-      method: 'POST',
-      body: newPageData
-    })
+    isCreatingPage.value = true;
+    const createdPage = await $fetch<Page>("/api/pages", {
+      method: "POST",
+      body: newPageData,
+    });
 
-    toast.add({ color: 'success', title: t('toast_create_success', 'Page created successfully') })
+    toast.add({ color: "success", title: t("toast_create_success", "Page created successfully") });
 
-    isCreatePageModalOpen.value = false
+    isCreatePageModalOpen.value = false;
     // Redirect to the new page's editor
-    await router.push(`/${createdPage.slug}/edit`)
+    await router.push(`/${createdPage.slug}/edit`);
   } catch (e) {
-    console.error(e)
-    toast.add({ color: 'error', title: t('toast_create_error', 'Failed to create page') })
+    console.error(e);
+    toast.add({ color: "error", title: t("toast_create_error", "Failed to create page") });
   } finally {
-    isCreatingPage.value = false
+    isCreatingPage.value = false;
   }
-}
+};
 
 registerAction({
-  id: 'action-new-page',
-  label: 'New Page',
-  icon: 'lucide:file-plus',
+  id: "action-new-page",
+  label: "New Page",
+  icon: "lucide:file-plus",
   group: 1,
   onSelect: () => {
-    isCreatePageModalOpen.value = true
-  }
-})
+    isCreatePageModalOpen.value = true;
+  },
+});
 
-const newTodoTitle = ref('')
-const newTodoDescription = ref('')
+const newTodoTitle = ref("");
+const newTodoDescription = ref("");
 const handleQuickTodoSave = async () => {
-  if (!newTodoTitle.value.trim()) return
-  await createTodo(newTodoTitle.value.trim(), newTodoDescription.value.trim() || undefined)
-  newTodoTitle.value = ''
-  newTodoDescription.value = ''
-  isTodoModalOpen.value = false
-}
+  if (!newTodoTitle.value.trim()) return;
+  await createTodo(newTodoTitle.value.trim(), newTodoDescription.value.trim() || undefined);
+  newTodoTitle.value = "";
+  newTodoDescription.value = "";
+  isTodoModalOpen.value = false;
+};
 
-const open = ref(false)
+const open = ref(false);
 
-const {user} = useAuth()
+const { user } = useAuth();
 
 const links = computed<NavigationMenuItem[][]>(() => [
   [
@@ -120,8 +120,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
         to: "/dashboard",
         defaultOpen: false,
         onSelect: () => {
-          open.value = false
-        }
+          open.value = false;
+        },
       },
       {
         label: "Inbox",
@@ -130,7 +130,7 @@ const links = computed<NavigationMenuItem[][]>(() => [
         badge: "4",
         defaultOpen: false,
         onSelect: () => {
-          open.value = false
+          open.value = false;
         },
       },
       {
@@ -139,8 +139,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
         to: "/dashboard/notes",
         defaultOpen: false,
         onSelect: () => {
-          open.value = false
-        }
+          open.value = false;
+        },
       },
       {
         label: "Projects",
@@ -148,25 +148,25 @@ const links = computed<NavigationMenuItem[][]>(() => [
         to: "/dashboard/projects",
         defaultOpen: false,
         onSelect: () => {
-          open.value = false
-        }
-      }
+          open.value = false;
+        },
+      },
     ],
-    []
+    [],
   ],
   [
     ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
       ? [
-        {
-          label: "Admin",
-          icon: "lucide:shield-check",
-          to: "/dashboard/admin",
-          defaultOpen: false,
-          onSelect: () => {
-            open.value = false
-          }
-        }
-      ]
+          {
+            label: "Admin",
+            icon: "lucide:shield-check",
+            to: "/dashboard/admin",
+            defaultOpen: false,
+            onSelect: () => {
+              open.value = false;
+            },
+          },
+        ]
       : []),
 
     {
@@ -175,17 +175,17 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard/users",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false
-      }
-    }
-  ]
-])
+        open.value = false;
+      },
+    },
+  ],
+]);
 
 const groups = computed(() => [
   {
     id: "links",
     label: "Go to",
-    items: links.value.flat()
+    items: links.value.flat(),
   },
   {
     id: "code",
@@ -194,11 +194,11 @@ const groups = computed(() => [
       {
         id: "source",
         label: "View page source",
-        icon: "simple-icons:github"
-      }
-    ]
-  }
-])
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+]);
 </script>
 
 <template>
@@ -208,17 +208,17 @@ const groups = computed(() => [
   >
     <ClientOnly>
       <RCHeaderLayer id="global-header" :order="2">
-        <RLAppHeader/>
+        <RLAppHeader />
       </RCHeaderLayer>
     </ClientOnly>
     <UDashboardGroup :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-dimmed">
       <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
         <template #header="{ collapsed }">
-          <RCTeamsMenu :collapsed="collapsed"/>
+          <RCTeamsMenu :collapsed="collapsed" />
         </template>
 
         <template #default="{ collapsed }">
-          <UDashboardSearchButton :collapsed="collapsed" class="w-full"/>
+          <UDashboardSearchButton :collapsed="collapsed" class="w-full" />
           <UNavigationMenu
             :collapsed="collapsed"
             :items="links[0]"
@@ -239,7 +239,7 @@ const groups = computed(() => [
               tooltip
             />
 
-            <USeparator/>
+            <USeparator />
 
             <div class="flex flex-row gap-xs justify-between">
               <div class="flex flex-row gap-xs">
@@ -272,10 +272,10 @@ const groups = computed(() => [
           </div>
         </template>
       </UDashboardSidebar>
-      <UDashboardSearch :groups="groups"/>
-      <slot/>
+      <UDashboardSearch :groups="groups" />
+      <slot />
     </UDashboardGroup>
-    <RCQuickActions/>
+    <RCQuickActions />
     <RCCreatePageModal
       v-model:open="isCreatePageModalOpen"
       :definitions="pageDefinitions"
@@ -283,7 +283,7 @@ const groups = computed(() => [
       @close="isCreatePageModalOpen = false"
       @confirm="handleCreatePage"
     />
-    <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh"/>
+    <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
     <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
       <template #content>
         <h3 class="text-lg font-bold">New To-do</h3>
@@ -302,8 +302,13 @@ const groups = computed(() => [
           @keydown.enter="handleQuickTodoSave"
         />
         <div class="flex justify-end gap-sm">
-          <UButton color="neutral" label="Cancel" variant="ghost" @click="isTodoModalOpen = false"/>
-          <UButton color="primary" label="Create" @click="handleQuickTodoSave"/>
+          <UButton
+            color="neutral"
+            label="Cancel"
+            variant="ghost"
+            @click="isTodoModalOpen = false"
+          />
+          <UButton color="primary" label="Create" @click="handleQuickTodoSave" />
         </div>
       </template>
     </UModal>

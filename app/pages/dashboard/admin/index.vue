@@ -1,40 +1,38 @@
 <script lang="ts" setup>
-
-
-const {data: organizationsCount} = await useApi('/api/admin/organizations/count')
-const {data: teamsCount} = await useApi('/api/admin/teams/count')
-const {data: usersCount} = await useApi('/api/admin/users/count')
-const {data: sessionsCount} = await useApi('/api/admin/sessions/count')
+const { data: organizationsCount } = await useApi("/api/admin/organizations/count");
+const { data: teamsCount } = await useApi("/api/admin/teams/count");
+const { data: usersCount } = await useApi("/api/admin/users/count");
+const { data: sessionsCount } = await useApi("/api/admin/sessions/count");
 
 const stats = computed(() => [
   {
-    label: 'Total Organizations',
+    label: "Total Organizations",
     value: organizationsCount.value ?? 0,
-    icon: 'lucide:building-2'
+    icon: "lucide:building-2",
   },
   {
-    label: 'Total Teams',
+    label: "Total Teams",
     value: teamsCount.value ?? 0,
-    icon: 'lucide:users'
+    icon: "lucide:users",
   },
   {
-    label: 'Total Users',
+    label: "Total Users",
     value: usersCount.value ?? 0,
-    icon: 'lucide:user'
+    icon: "lucide:user",
   },
   {
-    label: 'Active Sessions',
+    label: "Active Sessions",
     value: sessionsCount.value ?? 0,
-    icon: 'lucide:activity'
-  }
-])
+    icon: "lucide:activity",
+  },
+]);
 </script>
 
 <template>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
     <UCard v-for="stat in stats" :key="stat.label">
       <div class="flex items-center gap-md">
-        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500"/>
+        <UIcon :name="stat.icon" class="w-6 h-6 text-primary-500" />
 
         <div>
           <p class="text-sm text-dimmed">{{ stat.label }}</p>

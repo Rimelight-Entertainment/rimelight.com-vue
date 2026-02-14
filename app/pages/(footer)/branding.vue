@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import mainCss from "~/assets/css/main.css?raw"
+import mainCss from "~/assets/css/main.css?raw";
 
-const appConfig = useAppConfig()
-const {t} = useI18n()
+const appConfig = useAppConfig();
+const { t } = useI18n();
 
 useHead({
-  title: "Branding"
-})
+  title: "Branding",
+});
 
 useSeoMeta({
   title: "Branding",
   ogTitle: "Branding",
   description: `Branding guidelines and assets for ${appConfig.title}.`,
-  ogDescription: `Branding guidelines and assets for ${appConfig.title}.`
-})
+  ogDescription: `Branding guidelines and assets for ${appConfig.title}.`,
+});
 </script>
 
 <template>
@@ -33,7 +33,7 @@ useSeoMeta({
             <RCCallout variant="error">
               <p>If a color combination isn't listed, it means it shouldn't be used.</p>
               <p></p
-              ></RCCallout>
+            ></RCCallout>
             <RCSection :level="3" title="Logomark">
               <RCSection :level="4" title="Monochrome White">
                 <div class="flex flex-col gap-lg lg:grid lg:grid-cols-4">
@@ -208,10 +208,10 @@ useSeoMeta({
             :level="2"
             :title="t('page_branding_section_patterns_heading')"
           >
-            <RCImageSwatch/>
-            <RCImageSwatch/>
-            <RCImageSwatch/>
-            <RCImageSwatch/>
+            <RCImageSwatch />
+            <RCImageSwatch />
+            <RCImageSwatch />
+            <RCImageSwatch />
           </RCSection>
           <RCSection
             :level="2"
@@ -243,9 +243,9 @@ useSeoMeta({
                   <div class="rounded-md bg-inverted p-md text-inverted">Inverted</div>
                 </div>
                 <div class="flex flex-row gap-md">
-                  <UButton color="primary" label="Button" variant="solid"/>
-                  <UButton :loading="true" color="primary" label="Button" variant="solid"/>
-                  <UButton :disabled="true" color="primary" label="Button" variant="solid"/>
+                  <UButton color="primary" label="Button" variant="solid" />
+                  <UButton :loading="true" color="primary" label="Button" variant="solid" />
+                  <UButton :disabled="true" color="primary" label="Button" variant="solid" />
                 </div>
               </div>
             </div>

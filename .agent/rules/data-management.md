@@ -13,14 +13,14 @@
 **Example:**
 
 ```typescript
-import { pgTable, uuid, text, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 
-export const users = pgTable('users', {
-  id: uuid('id').primaryKey().defaultRandom(), // UUIDv7
-  email: text('email').notNull().unique(),
-  name: text('name').notNull(),
-  createdAt: timestamp('created_at').defaultNow()
-})
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(), // UUIDv7
+  email: text("email").notNull().unique(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
 ```
 
 ## Server API
@@ -49,19 +49,15 @@ server/
 **Example:**
 
 ```typescript
-import { db } from '~/server/db'
-import { users } from '~/server/db/schema'
-import { eq } from 'drizzle-orm'
+import { db } from "~/server/db";
+import { users } from "~/server/db/schema";
+import { eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  const userId = getRouterParam(event, 'id')
+  const userId = getRouterParam(event, "id");
 
-  const user = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, userId))
-    .limit(1)
+  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
 
-  return user[0]
-})
+  return user[0];
+});
 ```

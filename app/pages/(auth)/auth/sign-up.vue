@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type {FormSubmitEvent, StepperItem} from "#ui/types"
-import {normalizeUsername, RESTRICTED_SET} from "rimelight-components/auth"
-import {z} from "zod"
+import type { FormSubmitEvent, StepperItem } from "#ui/types";
+import { normalizeUsername, RESTRICTED_SET } from "rimelight-components/auth";
+import { z } from "zod";
 
-const {signUp, isLoading} = useAuth()
-const toast = useToast()
-const {t} = useI18n()
+const { signUp, isLoading } = useAuth();
+const toast = useToast();
+const { t } = useI18n();
 
 const step1Schema = z.object({
   username: z
@@ -14,24 +14,26 @@ const step1Schema = z.object({
     .max(24, t("auth_username_length_error"))
     .transform((val) => val.trim())
     .refine((val) => !/\s/.test(val), {
-      message: t("auth_username_no_spaces")
+      message: t("auth_username_no_spaces"),
     })
     .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
-      message:
-        t("auth_username_format_error")
+      message: t("auth_username_format_error"),
     })
     .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), {
-      message: t("auth_username_format_error")
+      message: t("auth_username_format_error"),
     })
-    .refine((val) => {
-      // 1. Normalize the incoming attempt
-      const normalizedInput = normalizeUsername(val);
+    .refine(
+      (val) => {
+        // 1. Normalize the incoming attempt
+        const normalizedInput = normalizeUsername(val);
 
-      // 2. Check if the normalized version hits a restricted keyword
-      return !RESTRICTED_SET.has(normalizedInput);
-    }, {
-      message: t("auth_username_restricted_error")
-    }),
+        // 2. Check if the normalized version hits a restricted keyword
+        return !RESTRICTED_SET.has(normalizedInput);
+      },
+      {
+        message: t("auth_username_restricted_error"),
+      },
+    ),
   firstName: z
     .string()
     .min(2, t("auth_firstname_length_error"))
@@ -42,8 +44,8 @@ const step1Schema = z.object({
     .max(24, t("auth_lastname_length_error")),
   email: z.email(t("auth_email_invalid")),
   // Honeypot field meant to prevent simple bots. This is not expected to be filled by the user.
-  emailConfirmation: z.string().max(0)
-})
+  emailConfirmation: z.string().max(0),
+});
 
 const step2Schema = z
   .object({
@@ -51,15 +53,15 @@ const step2Schema = z
       .string()
       .min(8, t("auth_password_length_error"))
       .max(24, t("auth_password_length_error")),
-    passwordConfirmation: z.string()
+    passwordConfirmation: z.string(),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.passwordConfirmation) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["passwordConfirmation"],
-        message: t("auth_passwords_mismatch")
-      })
+        message: t("auth_passwords_mismatch"),
+      });
     }
     if (
       (state.username ?? "").length > 0 &&
@@ -68,24 +70,21 @@ const step2Schema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["password"],
-        message: t("auth_password_contains_username")
-      })
+        message: t("auth_password_contains_username"),
+      });
     }
-  })
+  });
 
 const step3Schema = z.object({
   terms: z.boolean().refine((val) => val, {
-    message: t("auth_terms_required")
+    message: t("auth_terms_required"),
   }),
-  newsletter: z.boolean().optional()
-})
+  newsletter: z.boolean().optional(),
+});
 
-const schema = z.intersection(
-  step1Schema,
-  z.intersection(step2Schema, step3Schema)
-)
+const schema = z.intersection(step1Schema, z.intersection(step2Schema, step3Schema));
 
-type Schema = z.output<typeof schema>
+type Schema = z.output<typeof schema>;
 
 const state = reactive<Partial<Schema>>({
   username: "",
@@ -96,122 +95,122 @@ const state = reactive<Partial<Schema>>({
   password: "",
   passwordConfirmation: "",
   terms: false,
-  newsletter: false
-})
+  newsletter: false,
+});
 
-const stepper = useTemplateRef<StepperItem>("stepper")
-const currentStep = ref(0)
+const stepper = useTemplateRef<StepperItem>("stepper");
+const currentStep = ref(0);
 
-const step1Form = useTemplateRef<any>("step1Form")
-const step2Form = useTemplateRef<any>("step2Form")
-const step3Form = useTemplateRef<any>("step3Form")
+const step1Form = useTemplateRef<any>("step1Form");
+const step2Form = useTemplateRef<any>("step2Form");
+const step3Form = useTemplateRef<any>("step3Form");
 
-const showPassword = ref(false)
-const showPasswordConfirmation = ref(false)
+const showPassword = ref(false);
+const showPasswordConfirmation = ref(false);
 
 function checkStrength(str: string) {
   const requirements = [
     {
       regex: /.{8,}/,
-      text: t("auth_password_req_length")
+      text: t("auth_password_req_length"),
     },
     {
       regex: /\d/,
-      text: t("auth_password_req_number")
+      text: t("auth_password_req_number"),
     },
     {
       regex: /[a-z]/,
-      text: t("auth_password_req_lowercase")
+      text: t("auth_password_req_lowercase"),
     },
     {
       regex: /[A-Z]/,
-      text: t("auth_password_req_uppercase")
+      text: t("auth_password_req_uppercase"),
     },
     {
       regex: /[^\w\s]/,
-      text: t("auth_password_req_special")
-    }
-  ]
+      text: t("auth_password_req_special"),
+    },
+  ];
 
   return requirements.map((req) => ({
     met: req.regex.test(str),
-    text: req.text
-  }))
+    text: req.text,
+  }));
 }
 
 const strength = computed(() => {
-  const pwd = state.password ?? ""
-  return checkStrength(pwd)
-})
-const score = computed(() => strength.value.filter((req) => req.met).length)
+  const pwd = state.password ?? "";
+  return checkStrength(pwd);
+});
+const score = computed(() => strength.value.filter((req) => req.met).length);
 
 const color = computed(() => {
-  if (score.value === 0) return "neutral"
-  if (score.value <= 1) return "error"
-  if (score.value <= 2) return "warning"
-  if (score.value === 3) return "warning"
-  return "success"
-})
+  if (score.value === 0) return "neutral";
+  if (score.value <= 1) return "error";
+  if (score.value <= 2) return "warning";
+  if (score.value === 3) return "warning";
+  return "success";
+});
 
 const stepperItems = computed<StepperItem[]>(() => [
   {
     slot: "identity" as const,
     title: t("auth_stepper_identity"),
-    icon: "lucide:user-circle"
+    icon: "lucide:user-circle",
   },
   {
     slot: "security" as const,
     title: t("auth_stepper_security"),
-    icon: "lucide:lock"
+    icon: "lucide:lock",
   },
   {
     slot: "preferences" as const,
     title: t("auth_stepper_preferences"),
-    icon: "lucide:check-circle"
-  }
-])
+    icon: "lucide:check-circle",
+  },
+]);
 
 async function nextStep() {
-  let isValid = false
-  let currentForm
+  let isValid = false;
+  let currentForm;
 
   switch (currentStep.value) {
     case 0:
-      currentForm = step1Form.value
-      break
+      currentForm = step1Form.value;
+      break;
     case 1:
-      currentForm = step2Form.value
-      break
+      currentForm = step2Form.value;
+      break;
     case 2:
-      currentForm = step3Form.value
-      break
+      currentForm = step3Form.value;
+      break;
     default:
-      return
+      return;
   }
 
   if (currentForm) {
-    isValid = await currentForm.validate()
+    isValid = await currentForm.validate();
   }
 
   if (isValid) {
-    stepper.value?.next()
-    currentStep.value++
+    stepper.value?.next();
+    currentStep.value++;
   } else {
     //TODO is this necessary?
     // Validation failed, scroll to the first error
-    const firstError = document.querySelector(".ring-red-500")
-    firstError?.scrollIntoView({behavior: "smooth", block: "center"})
+    const firstError = document.querySelector(".ring-red-500");
+    firstError?.scrollIntoView({ behavior: "smooth", block: "center" });
     toast.add({
       color: "error",
       title: t("auth_validation_error_title"),
-      description: t("auth_validation_error_description")
-    })
+      description: t("auth_validation_error_description"),
+    });
   }
 }
 
 function prevStep() {
-  stepper.value?.prev()
-  currentStep.value--
+  stepper.value?.prev();
+  currentStep.value--;
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -220,13 +219,13 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     firstName: event.data.firstName,
     lastName: event.data.lastName,
     email: event.data.email,
-    password: event.data.password
-  })
+    password: event.data.password,
+  });
 }
 
 useHead({
-  title: 'Sign Up'
-})
+  title: "Sign Up",
+});
 </script>
 
 <template>
@@ -370,7 +369,7 @@ useHead({
             </UFormField>
           </div>
           <div class="flex justify-between gap-md">
-            <div/>
+            <div />
             <UButton
               :label="t('navigation_next')"
               trailing-icon="lucide:arrow-right"
@@ -404,13 +403,9 @@ useHead({
               >
                 <template #trailing>
                   <UButton
-                    :aria-label="
-                              showPassword ? 'Hide password' : 'Show password'
-                            "
+                    :aria-label="showPassword ? 'Hide password' : 'Show password'"
                     :aria-pressed="showPassword"
-                    :icon="
-                              showPassword ? 'lucide:eye-off' : 'lucide:eye'
-                            "
+                    :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
                     aria-controls="password"
                     color="neutral"
                     size="sm"
@@ -419,7 +414,7 @@ useHead({
                   />
                 </template>
               </UInput>
-              <UProgress :color="color" :max="4" :model-value="score" size="sm"/>
+              <UProgress :color="color" :max="4" :model-value="score" size="sm" />
               <p id="password-strength" class="text-xs">
                 {{ t("auth_password_requirements_title") }}
               </p>
@@ -431,22 +426,14 @@ useHead({
                   class="flex items-center gap-xs"
                 >
                   <UIcon
-                    :name="
-                              req.met
-                                ? 'lucide:circle-check'
-                                : 'lucide:circle-x'
-                            "
+                    :name="req.met ? 'lucide:circle-check' : 'lucide:circle-x'"
                     class="size-4 shrink-0"
                   />
 
                   <span class="text-xs font-light">
                     {{ req.text }}
                     <span class="sr-only">
-                      {{
-                        req.met
-                          ? " - Requirement met"
-                          : " - Requirement not met"
-                      }}
+                      {{ req.met ? " - Requirement met" : " - Requirement not met" }}
                     </span>
                   </span>
                 </li>
@@ -467,24 +454,14 @@ useHead({
             >
               <template #trailing>
                 <UButton
-                  :aria-label="
-                            showPasswordConfirmation
-                              ? 'Hide password'
-                              : 'Show password'
-                          "
+                  :aria-label="showPasswordConfirmation ? 'Hide password' : 'Show password'"
                   :aria-pressed="showPasswordConfirmation"
-                  :icon="
-                            showPasswordConfirmation
-                              ? 'lucide:eye-off'
-                              : 'lucide:eye'
-                          "
+                  :icon="showPasswordConfirmation ? 'lucide:eye-off' : 'lucide:eye'"
                   aria-controls="passwordConfirmation"
                   color="neutral"
                   size="sm"
                   variant="link"
-                  @click="
-                            showPasswordConfirmation = !showPasswordConfirmation
-                          "
+                  @click="showPasswordConfirmation = !showPasswordConfirmation"
                 />
               </template>
             </UInput>
@@ -519,12 +496,9 @@ useHead({
             <UCheckbox v-model="state.terms" required>
               <template #label>
                 {{ t("auth_terms_agreement_signup") }}
-                <ULink
-                  class="font-medium text-primary"
-                  to="/documents/terms-of-service"
-                >{{ t("auth_terms_link") }}
-                </ULink
-                >
+                <ULink class="font-medium text-primary" to="/documents/terms-of-service"
+                  >{{ t("auth_terms_link") }}
+                </ULink>
                 .
               </template>
             </UCheckbox>
@@ -554,9 +528,7 @@ useHead({
       </UForm>
     </template>
   </UStepper>
-  <span class="text-center text-sm">{{
-      t("auth_details_changeable")
-    }}</span>
+  <span class="text-center text-sm">{{ t("auth_details_changeable") }}</span>
 </template>
 
 <style scoped></style>

@@ -1,50 +1,50 @@
 <script lang="ts" setup>
-import type {FormSubmitEvent} from "#ui/types"
-import * as z from "zod"
+import type { FormSubmitEvent } from "#ui/types";
+import * as z from "zod";
 
-const fileRef = ref<HTMLInputElement>()
+const fileRef = ref<HTMLInputElement>();
 
 const profileSchema = z.object({
   name: z.string().min(2, "Too short"),
   email: z.string().email("Invalid email"),
   username: z.string().min(2, "Too short"),
   avatar: z.string().optional(),
-  bio: z.string().optional()
-})
+  bio: z.string().optional(),
+});
 
-type ProfileSchema = z.output<typeof profileSchema>
+type ProfileSchema = z.output<typeof profileSchema>;
 
 const profile = reactive<Partial<ProfileSchema>>({
   name: "Benjamin Canac",
   email: "ben@nuxtlabs.com",
   username: "benjamincanac",
   avatar: undefined,
-  bio: undefined
-})
-const toast = useToast()
+  bio: undefined,
+});
+const toast = useToast();
 
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
   toast.add({
     title: "Success",
     description: "Your settings have been updated.",
     icon: "lucide:check",
-    color: "success"
-  })
-  console.log(event.data)
+    color: "success",
+  });
+  console.log(event.data);
 }
 
 function onFileChange(e: Event) {
-  const input = e.target as HTMLInputElement
+  const input = e.target as HTMLInputElement;
 
   if (!input.files?.length) {
-    return
+    return;
   }
 
-  profile.avatar = URL.createObjectURL(input.files[0]!)
+  profile.avatar = URL.createObjectURL(input.files[0]!);
 }
 
 function onFileClick() {
-  fileRef.value?.click()
+  fileRef.value?.click();
 }
 </script>
 
@@ -74,9 +74,9 @@ function onFileClick() {
         name="name"
         required
       >
-        <UInput v-model="profile.name" autocomplete="off"/>
+        <UInput v-model="profile.name" autocomplete="off" />
       </UFormField>
-      <USeparator/>
+      <USeparator />
       <UFormField
         class="flex items-start justify-between gap-4 max-sm:flex-col"
         description="Used to sign in, for email receipts and product updates."
@@ -84,9 +84,9 @@ function onFileClick() {
         name="email"
         required
       >
-        <UInput v-model="profile.email" autocomplete="off" type="email"/>
+        <UInput v-model="profile.email" autocomplete="off" type="email" />
       </UFormField>
-      <USeparator/>
+      <USeparator />
       <UFormField
         class="flex items-start justify-between gap-4 max-sm:flex-col"
         description="Your unique username for logging in and your profile URL."
@@ -94,9 +94,9 @@ function onFileClick() {
         name="username"
         required
       >
-        <UInput v-model="profile.username" autocomplete="off" type="username"/>
+        <UInput v-model="profile.username" autocomplete="off" type="username" />
       </UFormField>
-      <USeparator/>
+      <USeparator />
       <UFormField
         class="flex justify-between gap-4 max-sm:flex-col sm:items-center"
         description="JPG, GIF or PNG. 1MB Max."
@@ -104,8 +104,8 @@ function onFileClick() {
         name="avatar"
       >
         <div class="flex flex-wrap items-center gap-3">
-          <UAvatar :alt="profile.name" :src="profile.avatar" size="lg"/>
-          <UButton color="neutral" label="Choose" @click="onFileClick"/>
+          <UAvatar :alt="profile.name" :src="profile.avatar" size="lg" />
+          <UButton color="neutral" label="Choose" @click="onFileClick" />
           <input
             ref="fileRef"
             accept=".jpg, .jpeg, .png, .gif"
@@ -115,7 +115,7 @@ function onFileClick() {
           />
         </div>
       </UFormField>
-      <USeparator/>
+      <USeparator />
       <UFormField
         :ui="{ container: 'w-full' }"
         class="flex items-start justify-between gap-4 max-sm:flex-col"
@@ -123,7 +123,7 @@ function onFileClick() {
         label="Bio"
         name="bio"
       >
-        <UTextarea v-model="profile.bio" :rows="5" autoresize class="w-full"/>
+        <UTextarea v-model="profile.bio" :rows="5" autoresize class="w-full" />
       </UFormField>
     </UPageCard>
   </UForm>

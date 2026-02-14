@@ -1,38 +1,38 @@
-import { db, list, board } from "#server/db"
-import { getUserSession } from "#server/utils/session"
-import { z } from "zod"
-import { eq, and } from "drizzle-orm"
+import { db, list, board } from "#server/db";
+import { getUserSession } from "#server/utils/session";
+import { z } from "zod";
+import { eq, and } from "drizzle-orm";
 
 const createListSchema = z.object({
   boardId: z.string().uuid(),
-  title: z.string().min(1)
-})
+  title: z.string().min(1),
+});
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  const userId = session?.user?.id
+  const session = await getUserSession(event);
+  const userId = session?.user?.id;
 
   if (!userId) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",
-      message: "Authentication required."
-    })
+      message: "Authentication required.",
+    });
   }
 
-  const data = await readValidatedBody(event, createListSchema.parse)
+  const data = await readValidatedBody(event, createListSchema.parse);
 
   // Verify board belongs to user
   const boardExists = await db.query.board.findFirst({
-    where: and(eq(board.id, data.boardId), eq(board.userId, userId))
-  })
+    where: and(eq(board.id, data.boardId), eq(board.userId, userId)),
+  });
 
   if (!boardExists) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
-      message: "Board not found"
-    })
+      message: "Board not found",
+    });
   }
 
   try {
@@ -41,18 +41,17 @@ export default defineEventHandler(async (event) => {
       .values({
         boardId: data.boardId,
         title: data.title,
-        order: 1000 // Default to end, can be adjusted or better calculation logic added later
+        order: 1000, // Default to end, can be adjusted or better calculation logic added later
       })
-      .returning()
+      .returning();
 
-    return newList[0]
+    return newList[0];
   } catch (error) {
-    console.error("Failed to create list:", error)
+    console.error("Failed to create list:", error);
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",
-      message: "Could not create list."
-    })
+      message: "Could not create list.",
+    });
   }
-})
-
+});

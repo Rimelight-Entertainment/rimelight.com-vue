@@ -1,12 +1,12 @@
-import { createAuthClient } from "better-auth/vue"
-import { inferAdditionalFields } from "better-auth/client/plugins"
-import { adminClient, organizationClient } from "better-auth/client/plugins"
-import type { AccessControl } from "better-auth/plugins/access"
-import type { auth } from "./auth"
-import { createAccessControl } from "better-auth/plugins/access"
-import { statement, owner, admin, member, user } from "rimelight-components/auth"
+import { createAuthClient } from "better-auth/vue";
+import { inferAdditionalFields } from "better-auth/client/plugins";
+import { adminClient, organizationClient } from "better-auth/client/plugins";
+import type { AccessControl } from "better-auth/plugins/access";
+import type { auth } from "./auth";
+import { createAccessControl } from "better-auth/plugins/access";
+import { statement, owner, admin, member, user } from "rimelight-components/auth";
 
-const ac = createAccessControl(statement)
+const ac = createAccessControl(statement);
 
 export const authClient = createAuthClient({
   plugins: [
@@ -18,13 +18,13 @@ export const authClient = createAuthClient({
         owner,
         admin,
         member,
-        user
+        user,
       },
       teams: {
-        enabled: true
-      }
-    })
-  ]
-})
+        enabled: true,
+      },
+    }),
+  ],
+});
 
-export type ClientSession = typeof authClient.$Infer.Session
+export type ClientSession = typeof authClient.$Infer.Session;

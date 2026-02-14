@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type NavigationMenuItem } from "#ui/types"
+import { type NavigationMenuItem } from "#ui/types";
 
 definePageMeta({
-  layout: "dashboard"
-})
+  layout: "dashboard",
+});
 
 const links = [
   [
@@ -11,27 +11,27 @@ const links = [
       label: "Notes",
       icon: "lucide:sticky-note",
       to: "/dashboard/notes",
-      exact: true
+      exact: true,
     },
     {
       label: "Todos",
       icon: "lucide:check-square",
-      to: "/dashboard/notes/todos"
-    }
+      to: "/dashboard/notes/todos",
+    },
   ],
   [
     {
       label: "Archive",
       icon: "lucide:archive",
-      to: "/dashboard/notes/archive"
+      to: "/dashboard/notes/archive",
     },
     {
       label: "Trash",
       icon: "lucide:trash-2",
-      to: "/dashboard/notes/trash"
-    }
-  ]
-] satisfies NavigationMenuItem[][]
+      to: "/dashboard/notes/trash",
+    },
+  ],
+] satisfies NavigationMenuItem[][];
 </script>
 
 <template>

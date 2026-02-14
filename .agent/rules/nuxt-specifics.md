@@ -24,15 +24,15 @@
 ```typescript
 // Correct - Composable with shared state
 export const useCounter = () => {
-  const count = useState('counter', () => 0)
-  return { count }
-}
+  const count = useState("counter", () => 0);
+  return { count };
+};
 
 // Incorrect - Will cause SSR issues
 export const useCounter = () => {
-  const count = ref(0) // Shared across all requests!
-  return { count }
-}
+  const count = ref(0); // Shared across all requests!
+  return { count };
+};
 ```
 
 ## Data Fetching
@@ -47,15 +47,15 @@ export const useCounter = () => {
 
 ```typescript
 // Correct - SSR-friendly
-const { data, pending } = await useApi('/api/users')
+const { data, pending } = await useApi("/api/users");
 
 // Correct - Client-side (event handlers)
 const handleClick = async () => {
-  const data = await $api('/api/users', { method: 'POST' })
-}
+  const data = await $api("/api/users", { method: "POST" });
+};
 
 // Incorrect - Don't use directly
-const { data } = await useFetch('/api/users') // ❌
+const { data } = await useFetch("/api/users"); // ❌
 ```
 
 ## SEO
@@ -67,14 +67,14 @@ const { data } = await useFetch('/api/users') // ❌
 
 ```typescript
 useHead({
-  title: 'My Page'
-})
+  title: "My Page",
+});
 
 useSeoMeta({
-  title: 'My Page',
-  description: 'Description of my page',
-  ogImage: '/og-image.png'
-})
+  title: "My Page",
+  description: "Description of my page",
+  ogImage: "/og-image.png",
+});
 ```
 
 ## Images & Icons

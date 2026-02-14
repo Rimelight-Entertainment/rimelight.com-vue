@@ -42,12 +42,7 @@
             "type": "text"
           }
         ],
-        "characters": [
-          "Aleph Lightbringer",
-          "Chief",
-          "Leah Lightbringer",
-          "Zev Lightbringer"
-        ]
+        "characters": ["Aleph Lightbringer", "Chief", "Leah Lightbringer", "Zev Lightbringer"]
       },
       "slots": {
         "act1": [

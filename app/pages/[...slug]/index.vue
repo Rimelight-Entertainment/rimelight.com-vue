@@ -1,43 +1,42 @@
 <script lang="ts" setup>
-import {useRoute} from "vue-router"
-import {type Page} from "#rimelight-components/types"
+import { useRoute } from "vue-router";
+import { type Page } from "#rimelight-components/types";
 
-import {useI18n} from "vue-i18n"
+import { useI18n } from "vue-i18n";
 
-const appConfig = useAppConfig()
-const route = useRoute()
-const {locale} = useI18n()
+const appConfig = useAppConfig();
+const route = useRoute();
+const { locale } = useI18n();
 
-const slug = Array.isArray(route.params.slug)
-    ? route.params.slug.join('/')
-    : route.params.slug
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join("/") : route.params.slug;
 
 const {
   data: page,
   status: pageStatus,
-  error: pageError
+  error: pageError,
 } = await useLazyFetch<Page>(`/api/pages/find/${slug}`, {
   method: "GET",
   key: `catch-all-${slug}`,
-})
+});
 
 const resolvePage = async (id: string) => {
   return await $fetch<Page>(`/api/pages/id/${id}`, {
-    query: {select: 'title,icon,slug'}
-  })
-}
+    query: { select: "title,icon,slug" },
+  });
+};
 
 useHead({
-  title: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title
-})
+  title: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title,
+});
 
 useSeoMeta({
   titleTemplate: `%s - ${appConfig.title}`,
   title: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title,
   ogTitle: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title,
   description: () => getLocalizedContent(page.value?.description, locale) ?? appConfig.description,
-  ogDescription: () => getLocalizedContent(page.value?.description, locale) ?? appConfig.description
-})
+  ogDescription: () =>
+    getLocalizedContent(page.value?.description, locale) ?? appConfig.description,
+});
 </script>
 
 <template>
@@ -51,7 +50,7 @@ useSeoMeta({
       :error="{
         statusCode: 404,
         statusMessage: 'Page Not Found',
-        message: 'The requested page could not be located.'
+        message: 'The requested page could not be located.',
       }"
       redirect="/"
     />

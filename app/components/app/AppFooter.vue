@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import {ar, en, es, fr, ja, ko, pt, ro, zh_cn} from "@nuxt/ui/locale"
-import type {FooterColumn} from "@nuxt/ui"
+import { ar, en, es, fr, ja, ko, pt, ro, zh_cn } from "@nuxt/ui/locale";
+import type { FooterColumn } from "@nuxt/ui";
 
-const appConfig = useAppConfig()
-const {locale, setLocale} = useI18n()
+const appConfig = useAppConfig();
+const { locale, setLocale } = useI18n();
 
-type Locale = "en"
+type Locale = "en";
 
 function onLocaleUpdate(newLocale: string | undefined) {
   if (typeof newLocale === "string") {
-    setLocale(newLocale as Locale)
+    setLocale(newLocale as Locale);
   }
 }
 
@@ -19,51 +19,59 @@ const columns: FooterColumn[] = [
     children: [
       {
         label: "Branding",
-        to: "/branding"
+        to: "/branding",
       },
       {
         label: "Visitor Count",
-        to: "/visitors"
-      }
-    ]
+        to: "/visitors",
+      },
+    ],
   },
   {
     label: "Documents",
     children: [
       {
         label: "Privacy Policy",
-        to: "/documents/policies/privacy-policy"
+        to: "/documents/policies/privacy-policy",
       },
       {
         label: "Cookie Policy",
-        to: "/documents/policies/cookie-policy"
+        to: "/documents/policies/cookie-policy",
       },
       {
         label: "Terms of Service",
-        to: "/documents/policies/term-of-service"
+        to: "/documents/policies/term-of-service",
       },
       {
         label: "Code of Conduct",
-        to: "/documents/policies/code-of-conduct"
+        to: "/documents/policies/code-of-conduct",
       },
       {
         label: "Other Documents",
-        to: "/documents/other"
-      }
-    ]
-  }
-]
+        to: "/documents/other",
+      },
+    ],
+  },
+];
 </script>
 
 <template>
   <RCFooter :contain="false" class="bg-black z-50">
     <template #left>
-      <RCNewsletterSignup class="max-w-64" />
+      <ClientOnly>
+        <RCNewsletterSignup class="max-w-64" />
+      </ClientOnly>
       <div class="flex flex-col items-center gap-xs lg:items-start">
         <RCLogo class="h-6 w-auto" variant="type" />
         <p class="text-sm text-white">Tell your story.</p>
         <span class="text-sm text-white">
-          © {{ new Date().getFullYear() }} {{ appConfig.title }}
+          © <ClientOnly>
+            {{ new Date().getFullYear() }}
+            <template #fallback>
+              2026
+            </template>
+          </ClientOnly>
+          {{ appConfig.title }}
         </span>
       </div>
     </template>

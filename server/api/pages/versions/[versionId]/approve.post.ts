@@ -1,26 +1,26 @@
-import { eq } from "drizzle-orm"
-import { db, pages, pageVersions } from "#server/db"
-import { getUserSession } from "#server/utils/session"
+import { eq } from "drizzle-orm";
+import { db, pages, pageVersions } from "#server/db";
+import { getUserSession } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
-  const versionId = getRouterParam(event, "versionId")
-  const session = await getUserSession(event)
+  const versionId = getRouterParam(event, "versionId");
+  const session = await getUserSession(event);
 
   if (!versionId) {
-    throw createError({ statusCode: 400, statusMessage: "Missing version ID" })
+    throw createError({ statusCode: 400, statusMessage: "Missing version ID" });
   }
 
   if (!session?.user?.id) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
   }
 
   // Only admin or owner can approve versions
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "admin"
+  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "admin";
   if (!isAuthorized) {
     throw createError({
       statusCode: 403,
-      statusMessage: "Only admins and owners can approve versions"
-    })
+      statusMessage: "Only admins and owners can approve versions",
+    });
   }
 
   try {
@@ -29,14 +29,14 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(pageVersions)
       .where(eq(pageVersions.id, versionId))
-      .limit(1)
+      .limit(1);
 
     if (!version) {
-      throw createError({ statusCode: 404, statusMessage: "Version not found" })
+      throw createError({ statusCode: 404, statusMessage: "Version not found" });
     }
 
     if (version.status === "approved") {
-      throw createError({ statusCode: 400, statusMessage: "Version is already approved" })
+      throw createError({ statusCode: 400, statusMessage: "Version is already approved" });
     }
 
     // Update the actual page with the version's data
@@ -48,17 +48,17 @@ export default defineEventHandler(async (event) => {
       authorIds: version.authorIds,
       postedAt: version.postedAt,
       updatedAt: new Date(),
-      content: version.content
-    }
+      content: version.content,
+    };
 
     const [updatedPage] = await db
       .update(pages)
       .set(updateData)
       .where(eq(pages.id, version.pageId))
-      .returning()
+      .returning();
 
     if (!updatedPage) {
-      throw createError({ statusCode: 404, statusMessage: "Page not found" })
+      throw createError({ statusCode: 404, statusMessage: "Page not found" });
     }
 
     // Mark the version as approved
@@ -67,25 +67,24 @@ export default defineEventHandler(async (event) => {
       .set({
         status: "approved",
         approvedBy: session.user.id,
-        approvedAt: new Date()
+        approvedAt: new Date(),
       })
-      .where(eq(pageVersions.id, versionId))
+      .where(eq(pageVersions.id, versionId));
 
     return {
       ...updatedPage,
       blocks: updatedPage.content.blocks,
       properties: updatedPage.content.properties,
-      message: "Version approved and page updated successfully"
-    }
+      message: "Version approved and page updated successfully",
+    };
   } catch (error: any) {
     if (error.statusCode) {
-      throw error
+      throw error;
     }
-    console.error("Approve Version Error:", error)
+    console.error("Approve Version Error:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to approve version"
-    })
+      statusMessage: error.message || "Failed to approve version",
+    });
   }
-})
-
+});

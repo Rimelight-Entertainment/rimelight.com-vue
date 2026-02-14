@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-const {session} = useAuth()
+const { session } = useAuth();
 
 definePageMeta({
-  layout: "dashboard"
-})
+  layout: "dashboard",
+});
 </script>
 
 <template>

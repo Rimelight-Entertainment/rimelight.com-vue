@@ -268,10 +268,7 @@
       ]
     ],
     "weight": 0,
-    "aliases": [
-      "Al",
-      "Lightbearer"
-    ],
+    "aliases": ["Al", "Lightbearer"],
     "species": "franchises/grand-tale/lore/species/fauna/centaur",
     "pageName": "",
     "pronouns": "He / Him",
