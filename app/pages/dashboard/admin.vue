@@ -7,7 +7,7 @@ definePageMeta({
 
 const { permissions } = useAuth();
 
-if (!permissions.admin.canAccess) {
+if (!permissions.admin.canAccess.value) {
   throw showError({
     statusCode: 403,
     statusMessage: "Forbidden: You do not have permission to access the admin panel.",

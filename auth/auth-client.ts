@@ -3,11 +3,8 @@ import { inferAdditionalFields } from "better-auth/client/plugins";
 import { adminClient, organizationClient } from "better-auth/client/plugins";
 import type { AccessControl } from "better-auth/plugins/access";
 import type { auth } from "./auth";
-import { createAccessControl } from "better-auth/plugins/access";
 import { statement } from "rimelight-components/auth/statements";
-import { owner, admin, member, user } from "rimelight-components/auth/permissions";
-
-const ac = createAccessControl(statement);
+import { ac, owner, admin, member, user } from "rimelight-components/auth/permissions";
 
 export const authClient = createAuthClient({
   plugins: [
