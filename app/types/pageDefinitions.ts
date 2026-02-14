@@ -1,3 +1,5 @@
+import { definePageDefinition } from "rimelight-components/utils"
+
 export const DOCUMENT_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.document",
   properties: {

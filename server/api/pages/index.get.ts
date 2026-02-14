@@ -50,8 +50,8 @@ export default defineEventHandler(async (event) => {
 
     return results.map((row) => ({
       ...row,
-      blocks: row.content.blocks,
-      properties: row.content.properties,
+      blocks: row.content?.blocks || [],
+      properties: row.content?.properties || {},
     }));
   } catch (error) {
     console.error("Pages API Error:", error);
