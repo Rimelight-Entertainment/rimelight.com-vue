@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-const { data: organizationsCount } = await useApi("/api/admin/organizations/count");
-const { data: teamsCount } = await useApi("/api/admin/teams/count");
-const { data: usersCount } = await useApi("/api/admin/users/count");
-const { data: sessionsCount } = await useApi("/api/admin/sessions/count");
+const [{ data: organizationsCount }, { data: teamsCount }, { data: usersCount }, { data: sessionsCount }] = await Promise.all([
+  useApi<number>("/api/admin/organizations/count"),
+  useApi<number>("/api/admin/teams/count"),
+  useApi<number>("/api/admin/users/count"),
+  useApi<number>("/api/admin/sessions/count"),
+]);
 
 const stats = computed(() => [
   {
