@@ -58,13 +58,13 @@ const items = computed<NavigationMenuItem[]>(() => [
     children: [
       {
         label: "About Us",
-        to: "/about-us",
-        active: route.path.startsWith("/about-us"),
+        to: "/company/about",
+        active: route.path.startsWith("/company/about"),
       },
       {
         label: "Careers",
-        to: "/events",
-        active: route.path.startsWith("/events"),
+        to: "/company/careers",
+        active: route.path.startsWith("/company/careers"),
       },
     ],
   },

@@ -3,6 +3,7 @@ import {
   navigateTo,
   useAsyncData,
   useNuxtApp,
+  useRequestHeaders,
   useRoute,
   useState,
   useToast,
@@ -33,6 +34,9 @@ export const useAuth = () => {
 
   //region Data
   // Data - Session
+  // Capture headers outside useAsyncData to preserve Nuxt context
+  const headers = import.meta.server ? useRequestHeaders(["cookie"]) : ({} as HeadersInit);
+
   const {
     data: session,
     status,
@@ -41,22 +45,36 @@ export const useAuth = () => {
   } = useAsyncData(
     "auth-session",
     async () => {
-      // We use getSession() instead of useSession() here because useSession is a reactive hook
-      // and shouldn't be called inside useAsyncData. getSession returns a Promise.
-      const timeoutPromise = new Promise<null>((_, reject) =>
-        setTimeout(() => reject(new Error("Client auth timeout")), 8000),
-      );
-
       try {
+        if (import.meta.server) {
+          try {
+            const { auth } = await import("../../auth/auth");
+            return await auth.api.getSession({
+              headers: headers as HeadersInit,
+            });
+          } catch (e) {
+            console.error("[SSR Auth] Internal session fetch failed:", e);
+            return null;
+          }
+        }
+
+        // Client side
+        const timeoutPromise = new Promise<null>((_, reject) =>
+          setTimeout(() => reject(new Error("Client auth timeout")), 8000),
+        );
+
         const response = await Promise.race([authClient.getSession(), timeoutPromise]);
-        return response?.data?.user ? response.data : null;
+        const data = (response as any)?.data || response;
+        return data?.user ? data : null;
       } catch (e) {
-        console.error("Client auth session fetch failed:", e);
+        if (import.meta.client) {
+          console.error("Client auth session fetch failed:", e);
+        }
         return null;
       }
     },
     {
-      server: false,
+      server: true,
       immediate: true,
     },
   );

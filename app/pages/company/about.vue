@@ -99,7 +99,7 @@ useHead({
       <UContainer class="bg-primary-900/10 rounded-xl p-12 border border-primary-500/20">
           <h2 class="text-3xl font-bold mb-4">{{ t("about_join_us_title") }}</h2>
           <p class="text-lg text-neutral-400 mb-8">{{ t("about_join_us_description") }}</p>
-          <UButton size="lg" to="/careers" icon="lucide:briefcase">View Careers</UButton>
+          <UButton size="lg" to="/company/careers" icon="lucide:briefcase">View Careers</UButton>
       </UContainer>
     </section>
 
