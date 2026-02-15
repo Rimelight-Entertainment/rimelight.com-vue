@@ -103,6 +103,11 @@ export default defineNuxtConfig({
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
     "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
+    "#rimelight-components/types": resolve(localLayerPath, "app/types"),
+    "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
+    "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
+    "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
+    "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
     ...(isLocalLayer ? { "rimelight-components": localLayerPath } : {}),
   },
   vite: {

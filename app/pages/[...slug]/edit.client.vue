@@ -7,7 +7,6 @@ import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { pageBySlugQuery } from "~/queries";
 import { PAGE_MAP as pageDefinitions } from "~/types";
-import { useAuth } from "~/composables";
 
 const router = useRouter();
 const appConfig = useAppConfig();

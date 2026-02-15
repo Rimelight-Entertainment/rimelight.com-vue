@@ -211,116 +211,74 @@ const groups = computed(() => [
 </script>
 
 <template>
-  <div
-    :style="{ '--total-header-offset': `${totalHeight}px` }"
-    class="flex h-svh w-full flex-col overflow-hidden"
+  <RCBaseDashboardLayout
+    v-model:sidebar-open="open"
+    :links="links[0] ?? []"
+    :footer-links="links[1] ?? []"
+    :search-groups="groups"
   >
-    <ClientOnly>
-      <RCHeaderLayer id="global-header" :order="2">
-        <RLAppHeader />
-      </RCHeaderLayer>
-    </ClientOnly>
-    <UDashboardGroup :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-dimmed">
-      <UDashboardSidebar id="default" v-model:open="open" class="bg-muted">
-        <template #header="{ collapsed }">
-          <RCTeamsMenu :collapsed="collapsed" />
-        </template>
+    <template #header>
+      <RLAppHeader />
+    </template>
 
-        <template #default="{ collapsed }">
-          <UDashboardSearchButton :collapsed="collapsed" class="w-full" />
-          <UNavigationMenu
-            :collapsed="collapsed"
-            :items="links[0]"
-            orientation="vertical"
-            popover
-            tooltip
+    <template #sidebar-footer-actions>
+      <div class="flex flex-row gap-xs">
+        <UButton color="neutral" icon="lucide:cog" size="sm" to="/dashboard/settings" variant="soft" />
+      </div>
+
+      <div class="flex flex-row gap-xs">
+        <UButton
+          color="neutral"
+          icon="lucide:circle-question-mark"
+          size="sm"
+          to="/dashboard/help"
+          variant="soft"
+        />
+        <UButton color="neutral" icon="lucide:bug" size="sm" to="/dashboard/report-issue" variant="soft" />
+      </div>
+    </template>
+
+    <slot />
+
+    <template #modals>
+      <RCCreatePageModal
+        v-model:open="isCreatePageModalOpen"
+        :definitions="pageDefinitions"
+        :loading="isCreatingPage"
+        @close="isCreatePageModalOpen = false"
+        @confirm="handleCreatePage"
+      />
+      <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
+      <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
+        <template #content>
+          <h3 class="text-lg font-bold">New To-do</h3>
+          <UInput
+            v-model="newTodoTitle"
+            autofocus
+            placeholder="What needs to be done?"
+            variant="outline"
+            @keydown.enter="handleQuickTodoSave"
           />
-        </template>
-
-        <template #footer="{ collapsed }">
-          <div class="flex flex-col gap-sm w-full">
-            <UNavigationMenu
-              :collapsed="collapsed"
-              :items="links[1]"
-              block
-              class="w-full"
-              orientation="vertical"
-              tooltip
+          <UInput
+            v-model="newTodoDescription"
+            placeholder="Description (optional)"
+            size="sm"
+            variant="outline"
+            @keydown.enter="handleQuickTodoSave"
+          />
+          <div class="flex justify-end gap-sm">
+            <UButton
+              color="neutral"
+              label="Cancel"
+              variant="ghost"
+              @click="isTodoModalOpen = false"
             />
-
-            <USeparator />
-
-            <div class="flex flex-row gap-xs justify-between">
-              <div class="flex flex-row gap-xs">
-                <UButton
-                  color="neutral"
-                  icon="lucide:cog"
-                  size="sm"
-                  to="/dashboard/settings"
-                  variant="soft"
-                />
-              </div>
-
-              <div class="flex flex-row gap-xs">
-                <UButton
-                  color="neutral"
-                  icon="lucide:circle-question-mark"
-                  size="sm"
-                  to="/dashboard/help"
-                  variant="soft"
-                />
-                <UButton
-                  color="neutral"
-                  icon="lucide:bug"
-                  size="sm"
-                  to="/dashboard/report-issue"
-                  variant="soft"
-                />
-              </div>
-            </div>
+            <UButton color="primary" label="Create" @click="handleQuickTodoSave" />
           </div>
         </template>
-      </UDashboardSidebar>
-      <UDashboardSearch :groups="groups" />
-      <slot />
-    </UDashboardGroup>
-    <RCCreatePageModal
-      v-model:open="isCreatePageModalOpen"
-      :definitions="pageDefinitions"
-      :loading="isCreatingPage"
-      @close="isCreatePageModalOpen = false"
-      @confirm="handleCreatePage"
-    />
-    <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
-    <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
-      <template #content>
-        <h3 class="text-lg font-bold">New To-do</h3>
-        <UInput
-          v-model="newTodoTitle"
-          autofocus
-          placeholder="What needs to be done?"
-          variant="outline"
-          @keydown.enter="handleQuickTodoSave"
-        />
-        <UInput
-          v-model="newTodoDescription"
-          placeholder="Description (optional)"
-          size="sm"
-          variant="outline"
-          @keydown.enter="handleQuickTodoSave"
-        />
-        <div class="flex justify-end gap-sm">
-          <UButton
-            color="neutral"
-            label="Cancel"
-            variant="ghost"
-            @click="isTodoModalOpen = false"
-          />
-          <UButton color="primary" label="Create" @click="handleQuickTodoSave" />
-        </div>
-      </template>
-    </UModal>
-  </div>
+      </UModal>
+    </template>
+  </RCBaseDashboardLayout>
 </template>
 
 <style scoped></style>
