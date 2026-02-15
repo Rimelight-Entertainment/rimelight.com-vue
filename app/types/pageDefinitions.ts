@@ -1,21 +1,27 @@
-import { definePageDefinition } from "rimelight-components/utils"
-import { BLOG_POST_DEFINITION, DOCUMENT_DEFINITION } from "rimelight-components/types"
+import { BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION, DOCUMENT_DEFINITION } from "rimelight-components/types"
 
-export { BLOG_POST_DEFINITION, DOCUMENT_DEFINITION }
+export { DOCUMENT_DEFINITION }
 
-export const PROJECT_DEFINITION = definePageDefinition({
-  typeLabelKey: "page.type.project",
+export const BLOG_POST_DEFINITION = definePageDefinition({
+  ...BASE_BLOG_POST_DEFINITION,
   properties: {
-    version: {
-      label: { en: "Version Info" },
-      defaultOpen: true,
+    ...BASE_BLOG_POST_DEFINITION.properties,
+    meta: {
+      ...BASE_BLOG_POST_DEFINITION.properties["meta"]!,
       fields: {
-        versionNumber: { value: "1.0.0", label: { en: "Version Number" }, type: "text" },
-        releaseDate: { value: "", label: { en: "Release Date" }, type: "text" },
-      },
-    },
-  },
-});
+        ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields,
+        category: {
+          ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields["category"]!,
+          options: [
+            { en: "Company News" },
+            { en: "Development Log" },
+            { en: "New Release" },
+          ]
+        }
+      }
+    }
+  }
+})
 
 export const PATCH_NOTE_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.patchNote",
@@ -24,9 +30,9 @@ export const PATCH_NOTE_DEFINITION = definePageDefinition({
       label: { en: "Version Info" },
       defaultOpen: true,
       fields: {
-        versionNumber: { value: "1.0.0", label: { en: "Version Number" }, type: "text" },
+        versionNumber: { defaultValue: "1.0.0", label: { en: "Version Number" }, type: "text" },
         releaseDate: {
-          value: { en: "" },
+          defaultValue: { en: "" },
           label: { en: "Release Date" },
           type: "text",
         },
@@ -42,8 +48,8 @@ export const LOCATION_DEFINITION = definePageDefinition({
       label: { en: "Geography" },
       defaultOpen: true,
       fields: {
-        region: { value: { en: "" }, label: { en: "Region" }, type: "text" },
-        climate: { value: "Temperate", label: { en: "Climate" }, type: "text" },
+        region: { defaultValue: { en: "" }, label: { en: "Region" }, type: "text" },
+        climate: { defaultValue: "Temperate", label: { en: "Climate" }, type: "text" },
       },
     },
   },
@@ -57,12 +63,12 @@ export const SPECIES_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         lifespan: {
-          value: { en: "" },
+          defaultValue: { en: "" },
           label: { en: "Average Lifespan" },
           type: "text",
         },
         homeworld: {
-          value: "",
+          defaultValue: "",
           label: { en: "Homeworld" },
           type: "page",
           allowedPageTypes: ["Location"],
@@ -79,9 +85,9 @@ export const CHARACTER_DEFINITION = definePageDefinition({
       label: { en: "Identity" },
       defaultOpen: true,
       fields: {
-        name: { value: { en: "" }, label: { en: "Name" }, type: "text" },
-        title: { value: { en: "" }, label: { en: "Social Title" }, type: "text" },
-        aliases: { value: [], label: { en: "Aliases" }, type: "text-array" },
+        name: { defaultValue: { en: "" }, label: { en: "Name" }, type: "text" },
+        title: { defaultValue: { en: "" }, label: { en: "Social Title" }, type: "text" },
+        aliases: { defaultValue: [], label: { en: "Aliases" }, type: "text-array" },
       },
     },
     characteristics: {
@@ -89,19 +95,24 @@ export const CHARACTER_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         species: {
-          value: "",
+          defaultValue: "",
           label: { en: "Species" },
           type: "page",
           allowedPageTypes: ["Species"],
         },
         sex: {
-          value: "Unknown",
+          defaultValue: { en: "Unknown" },
           label: { en: "Sex" },
           type: "enum",
-          options: ["Male", "Female", "Other", "Unknown"],
+          options: [
+            { en: "Male" },
+            { en: "Female" },
+            { en: "Other" },
+            { en: "Unknown" }
+          ],
         },
-        height: { value: 0, label: { en: "Height" }, type: "number" },
-        weight: { value: 0, label: { en: "Weight" }, type: "number" },
+        height: { defaultValue: 0, label: { en: "Height" }, type: "number" },
+        weight: { defaultValue: 0, label: { en: "Weight" }, type: "number" },
       },
     },
   },
@@ -134,13 +145,18 @@ export const SKILL_DEFINITION = definePageDefinition({
       label: { en: "Mechanics" },
       defaultOpen: true,
       fields: {
-        cooldown: { value: 10, label: { en: "Cooldown (sec)" }, type: "number" },
-        manaCost: { value: 50, label: { en: "Mana Cost" }, type: "number" },
+        cooldown: { defaultValue: 10, label: { en: "Cooldown (sec)" }, type: "number" },
+        manaCost: { defaultValue: 50, label: { en: "Mana Cost" }, type: "number" },
         damageType: {
-          value: "Physical",
+          defaultValue: { en: "Physical" },
           label: { en: "Damage Type" },
           type: "enum",
-          options: ["Physical", "Magic", "True", "None"],
+          options: [
+            { en: "Physical" },
+            { en: "Magic" },
+            { en: "True" },
+            { en: "None" }
+          ],
         },
       },
     },
@@ -155,17 +171,26 @@ export const ITEM_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         rarity: {
-          value: "Common",
+          defaultValue: { en: "Common" },
           label: { en: "Rarity" },
           type: "enum",
-          options: ["Common", "Uncommon", "Rare", "Epic", "Legendary"],
+          options: [
+            { en: "Common" },
+            { en: "Uncommon" },
+            { en: "Rare" },
+            { en: "Epic" },
+            { en: "Legendary" }
+          ],
         },
-        price: { value: 100, label: { en: "Gold Price" }, type: "number" },
+        price: { defaultValue: 100, label: { en: "Gold Price" }, type: "number" },
         isQuestItem: {
-          value: "No",
+          defaultValue: { en: "No" },
           label: { en: "Quest Item" },
           type: "enum",
-          options: ["Yes", "No"],
+          options: [
+            { en: "Yes" },
+            { en: "No" }
+          ],
         },
       },
     },
@@ -180,17 +205,26 @@ export const HERO_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         class: {
-          value: "Warrior",
+          defaultValue: { en: "Warrior" },
           label: { en: "Class" },
           type: "enum",
-          options: ["Warrior", "Mage", "Rogue", "Paladin"],
+          options: [
+            { en: "Warrior" },
+            { en: "Mage" },
+            { en: "Rogue" },
+            { en: "Paladin" }
+          ],
         },
-        difficulty: { value: 1, label: { en: "Difficulty" }, type: "number" },
+        difficulty: { defaultValue: 1, label: { en: "Difficulty" }, type: "number" },
         primaryRole: {
-          value: "Tank",
+          defaultValue: { en: "Tank" },
           label: { en: "Primary Role" },
           type: "enum",
-          options: ["Tank", "DPS", "Support"],
+          options: [
+            { en: "Tank" },
+            { en: "DPS" },
+            { en: "Support" }
+          ],
         },
       },
     },
@@ -198,8 +232,8 @@ export const HERO_DEFINITION = definePageDefinition({
       label: { en: "Progression" },
       defaultOpen: true,
       fields: {
-        baseHp: { value: 500, label: { en: "Base HP" }, type: "number" },
-        baseMana: { value: 100, label: { en: "Base Mana" }, type: "number" },
+        baseHp: { defaultValue: 500, label: { en: "Base HP" }, type: "number" },
+        baseMana: { defaultValue: 100, label: { en: "Base Mana" }, type: "number" },
       },
     },
   },
@@ -229,7 +263,6 @@ declare global {
   interface RimelightRegisterPageTypes {
     Document: typeof DOCUMENT_DEFINITION.properties;
     BlogPost: typeof BLOG_POST_DEFINITION.properties;
-    Project: typeof PROJECT_DEFINITION.properties;
     PatchNote: typeof PATCH_NOTE_DEFINITION.properties;
     Location: typeof LOCATION_DEFINITION.properties;
     Species: typeof SPECIES_DEFINITION.properties;
@@ -244,7 +277,6 @@ declare global {
 export const PAGE_MAP = {
   Document: DOCUMENT_DEFINITION,
   BlogPost: BLOG_POST_DEFINITION,
-  Project: PROJECT_DEFINITION,
   PatchNote: PATCH_NOTE_DEFINITION,
   Location: LOCATION_DEFINITION,
   Species: SPECIES_DEFINITION,
