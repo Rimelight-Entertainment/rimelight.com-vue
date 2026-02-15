@@ -3,7 +3,7 @@ import type { NavigationMenuItem } from "#ui/types";
 import type { Page } from "#rimelight-components/types";
 import { PAGE_MAP as pageDefinitions } from "~/types";
 import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue";
-import RCFocusTimerTool from "rimelight-components/components/dashboard/floating-tools/FocusTimerTool.vue";
+import RCFocusTimerTool from "rimelight-components/app/components/dashboard/floating-tools/FocusTimerTool.vue";
 
 const { totalHeight } = useHeaderStack();
 
