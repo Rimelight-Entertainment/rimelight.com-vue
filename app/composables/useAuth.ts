@@ -29,7 +29,9 @@ type PermissionsInput = Partial<{
 
 export const useAuth = () => {
   const toast = useToast();
-  const getT = () => (useNuxtApp() as unknown as NuxtAppWithI18n).$i18n.t;
+  const route = useRoute();
+  const nuxtApp = useNuxtApp();
+  const getT = () => (nuxtApp as unknown as NuxtAppWithI18n).$i18n.t;
   const isLoading = useState("auth-loading", () => false);
 
   //region Data
@@ -130,7 +132,7 @@ export const useAuth = () => {
       });
 
       await refresh();
-      const redirect = useRoute().query.redirect as string;
+      const redirect = route.query.redirect as string;
       await navigateTo(redirect || "/");
     } catch (err) {
       console.error("Network error during signup:", err);
@@ -172,7 +174,7 @@ export const useAuth = () => {
       });
 
       await refresh();
-      const redirect = useRoute().query.redirect as string;
+      const redirect = route.query.redirect as string;
       await navigateTo(redirect || "/");
     } catch {
       toast.add({
@@ -212,7 +214,7 @@ export const useAuth = () => {
         description: "You have been signed out.",
       });
 
-      clearNuxtData("auth-session");
+      nuxtApp.runWithContext(() => clearNuxtData("auth-session"));
       await navigateTo("/");
     } catch (err) {
       console.error("Sign Out Error:", err);
