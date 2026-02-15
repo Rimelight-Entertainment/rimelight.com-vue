@@ -20,6 +20,7 @@
     "lint:fix": "oxlint . --fix",
     "format": "oxfmt --check",
     "format:fix": "oxfmt .",
+    "i18n": "vue-i18n-extract report --vueFiles './{app,server,shared}/**/*.?(js|vue|ts)' --languageFiles './i18n/locales/*.?(json|yml|yaml|js)'",
     "check": "bun run typecheck && bun run lint && bun run format",
     "fix": "bun run lint:fix && bun run format:fix",
     "db:generate": "drizzle-kit generate",
@@ -77,6 +78,7 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18",
+    "vue-i18n-extract": "^2.0.7",
     "vue-tsc": "^3.2.4",
     "wrangler": "^4.62.0"
   },
