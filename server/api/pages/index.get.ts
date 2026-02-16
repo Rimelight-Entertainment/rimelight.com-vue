@@ -1,4 +1,4 @@
-import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import { getValidatedQuery } from "h3";
 import type { PageType } from "rimelight-components/types";
 import { z } from "zod";
@@ -13,15 +13,26 @@ export default defineEventHandler(async (event) => {
       offset: z.string().optional(),
       type: z.string().optional(),
       status: z.enum(["published", "draft"]).optional(),
+      orderBy: z.enum(["title", "postedAt", "createdAt"]).optional(),
+      order: z.enum(["asc", "desc"]).optional(),
     }).parse,
   );
-  const session = await getUserSession(event);
+
+  // Try to get session, but don't fail if it errors
+  let session = null;
+  try {
+    session = await getUserSession(event);
+  } catch (error) {
+    console.warn("Failed to get user session:", error);
+  }
 
   // 1. Extract and Validate Params
   const limit = Math.max(1, parseInt(queryData.limit || "") || 10);
   const offset = Math.max(0, parseInt(queryData.offset || "") || 0);
   const type = (queryData.type as PageType) || "Default";
   const status = queryData.status as "published" | "draft";
+  const orderByField = queryData.orderBy || "postedAt";
+  const orderDirection = queryData.order || "desc";
 
   // 2. Security Check: Only 'owner' or 'employee' can view drafts
   const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member";
@@ -40,10 +51,16 @@ export default defineEventHandler(async (event) => {
     filters.push(isNull(pages.postedAt));
   }
 
+  // 4. Build Order By
+  const orderFn = orderDirection === "asc" ? asc : desc;
+  const orderByColumn = orderByField === "title" ? pages.title :
+    orderByField === "createdAt" ? pages.createdAt :
+      pages.postedAt;
+
   try {
     const results = await db.query.pages.findMany({
       where: and(...filters),
-      orderBy: [desc(pages.postedAt), desc(pages.createdAt)],
+      orderBy: [orderFn(orderByColumn)],
       limit,
       offset,
     });

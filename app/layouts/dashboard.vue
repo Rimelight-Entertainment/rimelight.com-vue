@@ -121,49 +121,46 @@ const open = ref(false);
 const { user } = useAuth();
 
 const links = computed<NavigationMenuItem[][]>(() => [
-  [
-    [
-      {
-        label: "Home",
-        icon: "lucide:home",
-        to: "/dashboard",
-        defaultOpen: false,
-        onSelect: () => {
-          open.value = false;
-        },
+  markRaw([
+    {
+      label: "Home",
+      icon: "lucide:home",
+      to: "/dashboard",
+      defaultOpen: false,
+      onSelect: () => {
+        open.value = false;
       },
-      {
-        label: "Inbox",
-        icon: "lucide:inbox",
-        to: "/dashboard/inbox",
-        badge: "4",
-        defaultOpen: false,
-        onSelect: () => {
-          open.value = false;
-        },
+    },
+    {
+      label: "Inbox",
+      icon: "lucide:inbox",
+      to: "/dashboard/inbox",
+      badge: "4",
+      defaultOpen: false,
+      onSelect: () => {
+        open.value = false;
       },
-      {
-        label: "Notes",
-        icon: "lucide:notebook",
-        to: "/dashboard/notes",
-        defaultOpen: false,
-        onSelect: () => {
-          open.value = false;
-        },
+    },
+    {
+      label: "Notes",
+      icon: "lucide:notebook",
+      to: "/dashboard/notes",
+      defaultOpen: false,
+      onSelect: () => {
+        open.value = false;
       },
-      {
-        label: "Projects",
-        icon: "lucide:square-kanban",
-        to: "/dashboard/projects",
-        defaultOpen: false,
-        onSelect: () => {
-          open.value = false;
-        },
+    },
+    {
+      label: "Projects",
+      icon: "lucide:square-kanban",
+      to: "/dashboard/projects",
+      defaultOpen: false,
+      onSelect: () => {
+        open.value = false;
       },
-    ],
-    [],
-  ],
-  [
+    },
+  ]),
+  markRaw([
     ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
       ? [
           {
@@ -187,7 +184,7 @@ const links = computed<NavigationMenuItem[][]>(() => [
         open.value = false;
       },
     },
-  ],
+  ]),
 ]);
 
 const groups = computed(() => [

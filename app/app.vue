@@ -53,31 +53,6 @@ defineShortcuts({
 
 const toast = useToast();
 
-const descriptionComponent = h("div", [
-  "This website uses ",
-  h(
-    ULink,
-    {
-      href: "https://en.wikipedia.org/wiki/HTTP_cookie",
-      class: "text-primary",
-      target: "_blank",
-    },
-    "cookies",
-  ),
-  " to ensure to enhance your browsing experience. ",
-  h("br"),
-  "By continuing to use our site, you agree to our ",
-  h(
-    ULink,
-    {
-      href: "/documents/policies/cookie-policy/",
-      class: "text-primary",
-    },
-    "Cookie Policy",
-  ),
-  ".",
-]);
-
 type CookieConsent = "accepted" | "rejected" | null;
 
 const cookie = useCookie<CookieConsent>("cookie-consent", {
@@ -86,6 +61,29 @@ const cookie = useCookie<CookieConsent>("cookie-consent", {
   secure: import.meta.env.PROD,
   sameSite: "lax",
 });
+
+const createCookieDescription = () => {
+  return h('div', { class: 'text-sm text-muted mt-1' }, [
+    "This website uses ",
+    h('span', [
+      h(ULink, {
+        href: "https://en.wikipedia.org/wiki/HTTP_COOKIE",
+        class: "text-primary",
+        target: "_blank",
+      }, { default: () => "cookies" })
+    ]),
+    " to enhance your browsing experience. ",
+    h('br'),
+    "By continuing to use our site, you agree to our ",
+    h('span', [
+      h(ULink, {
+        href: "/documents/policies/cookie-policy/",
+        class: "text-primary",
+      }, { default: () => "Cookie Policy" })
+    ]),
+    ".",
+  ]);
+};
 
 onMounted(() => {
   if (cookie.value === "accepted") {
@@ -97,7 +95,7 @@ onMounted(() => {
     color: "primary",
     icon: "lucide:cookie",
     title: "Cookie Consent",
-    description: () => descriptionComponent,
+    description: createCookieDescription,
     actions: [
       {
         icon: "lucide:check",

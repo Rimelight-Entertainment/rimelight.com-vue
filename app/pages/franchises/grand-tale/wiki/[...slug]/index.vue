@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { type Page } from "#rimelight-components/types";
 
+definePageMeta({
+  layout: 'grand-tale'
+});
+
 const route = useRoute()
 const { user } = useAuth()
 const { locale } = useI18n()
@@ -12,14 +16,15 @@ const slug = computed(() => {
   return s
 })
 
+const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`)
 const canEdit = computed(() => user.value?.role === 'owner' || user.value?.role === 'admin')
 
 const {
   data: page,
   status: pageStatus,
   error: pageError
-} = await useApi<Page>(() => `/api/pages/find/${slug.value}`, {
-  key: `catch-all-${slug.value}`,
+} = await useApi<Page>(() => `/api/pages/find/${lookupSlug.value}`, {
+  key: `wiki-${slug.value}`,
 })
 
 const resolvePage = async (id: string) => {
@@ -45,13 +50,13 @@ useSeoMeta({
 
   <LazyUError
     v-else-if="pageError || !page"
-    :clear="{ label: 'Return Home' }"
+    :clear="{ label: 'Back to Wiki' }"
     :error="{
       status: 404,
       statusText: 'Page Not Found',
-      message: 'The requested page could not be located.',
+      message: 'The requested wiki page could not be located.',
     }"
-    redirect="/"
+    redirect="/franchises/grand-tale/wiki"
   />
 
   <RCPageRenderer
@@ -59,7 +64,7 @@ useSeoMeta({
     v-model="page"
     :resolve-page="resolvePage"
     :can-edit="canEdit"
-    :edit-url="`/${slug}/edit`"
+    :edit-url="`/franchises/grand-tale/wiki/${slug}/edit`"
   />
 </template>
 

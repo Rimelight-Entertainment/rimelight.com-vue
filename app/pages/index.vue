@@ -44,7 +44,15 @@ const featuredProjects = [
       <!-- Background Elements -->
       <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-900 via-neutral-950 to-neutral-950 opacity-80" />
-        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay animate-pulse-slow" />
+        <NuxtImg 
+          src="https://images.unsplash.com/photo-1550745165-9bc0b252726f"
+          alt="Hero Background"
+          class="absolute top-0 left-0 w-full h-full object-cover opacity-20 mix-blend-overlay animate-pulse-slow"
+          loading="eager"
+          fetchpriority="high"
+          preload
+          format="webp"
+        />
       </div>
       
       <!-- Content -->
@@ -103,10 +111,14 @@ const featuredProjects = [
           >
             <!-- Image Background -->
             <div class="absolute inset-0">
-              <img 
+              <NuxtImg 
                 :src="project.image" 
                 :alt="project.title"
                 class="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700 ease-out"
+                loading="lazy"
+                format="webp"
+                width="600"
+                height="500"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
             </div>

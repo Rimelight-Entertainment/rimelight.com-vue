@@ -8,21 +8,17 @@ const toast = useToast()
 const { t, locale } = useI18n()
 const appConfig = useAppConfig()
 
-const slugParam = route.params.slug
-const slug = computed(() => {
-  if (!slugParam) return ''
-  return Array.isArray(slugParam) ? slugParam.join('/') : slugParam
-})
-
+const slug = route.params.slug as string
 const isSaving = ref(false)
+const PAGE_TYPE: PageType = "BlogPost"
 
 const {
   data: page,
   status: pageStatus,
   error: pageError
-} = useApi<Page>(() => `/api/pages/find/${slug.value}`, {
+} = useApi<Page>(`/api/pages/${PAGE_TYPE}/${slug}`, {
   method: "GET",
-  key: `edit-page-${slug.value}`,
+  key: `edit-blog-${slug}`,
 })
 
 const localPage = ref<Page | null>(null)
@@ -83,7 +79,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
 
     toast.add({ color: 'success', title: t('toast_create_success') })
 
-    await router.push(`/${createdPage.slug}/edit`)
+    await router.push(`/blog/${createdPage.slug}/edit`)
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_create_error') })
   }
@@ -97,14 +93,14 @@ const handleDelete = async (id: string) => {
 
     toast.add({ color: 'success', title: t('toast_delete_success') })
 
-    await router.push('/')
+    await router.push('/blog')
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_delete_error') })
   }
 }
 
 useHead({
-  title: () => `Edit: ${getLocalizedContent(page.value?.title, locale) ?? appConfig.title}`
+  title: () => `Edit Post: ${getLocalizedContent(page.value?.title, locale) ?? appConfig.title}`
 })
 </script>
 
@@ -113,13 +109,13 @@ useHead({
 
   <LazyUError
     v-else-if="pageError || !page"
-    :clear="{ label: 'Return Home' }"
+    :clear="{ label: 'Back to Blog' }"
     :error="{
       status: 404,
-      statusText: 'Page Not Found',
-      message: 'The requested page could not be located.',
+      statusText: 'Post Not Found',
+      message: 'The blog post you are looking for does not exist or has been removed.',
     }"
-    redirect="/"
+    redirect="/blog"
   />
 
   <template v-else-if="localPage && localPage.id">
@@ -137,4 +133,3 @@ useHead({
 </template>
 
 <style scoped></style>
-

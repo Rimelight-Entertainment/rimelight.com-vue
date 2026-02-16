@@ -4,6 +4,25 @@ import type { ChipProps, DropdownMenuItem, NavigationMenuItem } from "@nuxt/ui";
 const { session, signOut } = useAuth();
 const route = useRoute();
 const { t } = useI18n();
+const toast = useToast();
+
+async function onSignOut() {
+  const { error } = await signOut()
+  if (error) {
+    toast.add({
+      color: "error",
+      title: "Sign Out Failed",
+      description: error.message || "A connection issue occurred."
+    })
+  } else {
+    toast.add({
+      color: "success",
+      title: "Sign Out Successful",
+      description: "You have been signed out."
+    })
+  }
+}
+
 
 const layerId = inject<string>("header_layer_id", "default");
 
@@ -26,11 +45,19 @@ watch(() => slideoverState.notifications, (val) => {
 
 type menuItem = NavigationMenuItem & DropdownMenuItem;
 
-const items = computed<NavigationMenuItem[]>(() => [
+const items = computed<NavigationMenuItem[]>(() => markRaw([
   {
     label: "Grand Tale",
-    active: route.path.startsWith("/grand-tale"),
+    active: route.path.startsWith("/franchises/grand-tale"),
     slot: "grand-tale" as const,
+    children: [
+      { label: "Home", to: "/franchises/grand-tale" },
+      { label: "News", to: "/franchises/grand-tale/news" },
+      { label: "About", to: "/franchises/grand-tale/about" },
+      { label: "Wiki", to: "/franchises/grand-tale/wiki" },
+      { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
+      { label: "Support", to: "/franchises/grand-tale/support" },
+    ],
   },
   {
     label: "Community",
@@ -74,7 +101,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.path.startsWith("/store"),
     slot: "store" as const,
   },
-]);
+]));
 
 const accountMenuItems = computed<menuItem[][]>(() => {
   return [
@@ -503,7 +530,8 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                         color="neutral"
                         leading-icon="lucide:log-out"
                         variant="ghost"
-                        @click="signOut"
+                        @click="onSignOut"
+
                       />
                     </div>
                   </div>

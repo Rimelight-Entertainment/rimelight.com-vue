@@ -2,6 +2,7 @@
 import { authClient } from "~~/auth/auth-client";
 
 import { navigateTo } from "#app";
+import { defaultWindow } from "rimelight-components/utils";
 import type { TableColumn } from "@nuxt/ui";
 
 const { confirm: confirmAction } = useConfirm();
@@ -356,7 +357,9 @@ const impersonateUser = async (userId: string) => {
   const { error } = await authClient.admin.impersonateUser({ userId });
   if (!error) {
     navigateTo("/dashboard");
-    window.location.reload();
+    if (defaultWindow) {
+      defaultWindow.location.reload();
+    }
   }
 };
 

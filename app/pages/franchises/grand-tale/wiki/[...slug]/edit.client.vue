@@ -14,15 +14,16 @@ const slug = computed(() => {
   return Array.isArray(slugParam) ? slugParam.join('/') : slugParam
 })
 
+const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`)
 const isSaving = ref(false)
 
 const {
   data: page,
   status: pageStatus,
   error: pageError
-} = useApi<Page>(() => `/api/pages/find/${slug.value}`, {
+} = useApi<Page>(`/api/pages/find/${lookupSlug.value}`, {
   method: "GET",
-  key: `edit-page-${slug.value}`,
+  key: `edit-wiki-${slug.value}`,
 })
 
 const localPage = ref<Page | null>(null)
@@ -83,7 +84,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
 
     toast.add({ color: 'success', title: t('toast_create_success') })
 
-    await router.push(`/${createdPage.slug}/edit`)
+    await router.push(`/franchises/grand-tale/wiki/${createdPage.slug}/edit`)
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_create_error') })
   }
@@ -97,14 +98,14 @@ const handleDelete = async (id: string) => {
 
     toast.add({ color: 'success', title: t('toast_delete_success') })
 
-    await router.push('/')
+    await router.push('/franchises/grand-tale/wiki')
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_delete_error') })
   }
 }
 
 useHead({
-  title: () => `Edit: ${getLocalizedContent(page.value?.title, locale) ?? appConfig.title}`
+  title: () => `Edit Wiki: ${getLocalizedContent(page.value?.title, locale) ?? appConfig.title}`
 })
 </script>
 
@@ -113,13 +114,13 @@ useHead({
 
   <LazyUError
     v-else-if="pageError || !page"
-    :clear="{ label: 'Return Home' }"
+    :clear="{ label: 'Back to Wiki' }"
     :error="{
       status: 404,
       statusText: 'Page Not Found',
-      message: 'The requested page could not be located.',
+      message: 'The requested wiki page could not be located.',
     }"
-    redirect="/"
+    redirect="/franchises/grand-tale/wiki"
   />
 
   <template v-else-if="localPage && localPage.id">
@@ -137,4 +138,3 @@ useHead({
 </template>
 
 <style scoped></style>
-

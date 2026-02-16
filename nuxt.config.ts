@@ -22,10 +22,6 @@ export default defineNuxtConfig({
       devServer: { host: "127.0.0.1", port: 3000 },
       typescript: { typeCheck: false },
       site: { indexable: false },
-      a11y: {
-        defaultHighlight: true,
-        logIssues: true,
-      },
     },
     testing: {
       devtools: { enabled: false },
@@ -270,7 +266,6 @@ export default defineNuxtConfig({
       //}
     ],
   },
-
   future: {
     compatibilityVersion: 5,
   },

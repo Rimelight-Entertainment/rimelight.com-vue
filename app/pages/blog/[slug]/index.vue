@@ -1,72 +1,65 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-import { type Page, type PageType } from "#rimelight-components/types";
+import { type Page, type PageType } from "#rimelight-components/types"
 
-import { useI18n } from "vue-i18n";
+const route = useRoute()
+const { user } = useAuth()
+const { locale } = useI18n()
+const appConfig = useAppConfig()
 
-const appConfig = useAppConfig();
-const route = useRoute();
-const { locale } = useI18n();
-const PAGE_TYPE: PageType = "BlogPost";
+const PAGE_TYPE: PageType = "BlogPost"
+const slug = route.params.slug
 
-const slug = route.params.slug;
+const canEdit = computed(() => user.value?.role === 'owner' || user.value?.role === 'admin')
 
 const {
-  data: post,
-  status: postStatus,
-  error: postError,
-} = await useLazyFetch<Page>(`/api/pages/${PAGE_TYPE}/${slug}`, {
+  data: page,
+  status: pageStatus,
+  error: pageError
+} = await useApi<Page>(`/api/pages/${PAGE_TYPE}/${slug}`, {
   method: "GET",
-  key: `/api/pages/${PAGE_TYPE}/${slug}`,
-});
+  key: `blog-${slug}`,
+})
 
 const resolvePage = async (id: string) => {
-  try {
-    return await $fetch<Page>(`/api/pages/id/${id}`, {
-      query: { select: "title,icon,slug" },
-    });
-  } catch (e) {
-    console.error("Failed to resolve mention:", e);
-    throw e;
-  }
-};
+  return $api<Page>(`/api/pages/id/${id}`, {
+    query: { select: "title,icon,slug" },
+  })
+}
 
 useHead({
-  title: () => getLocalizedContent(post.value?.title, locale) ?? appConfig.title,
-});
+  title: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title
+})
 
 useSeoMeta({
-  titleTemplate: `%s - me.blog`,
-  title: () => getLocalizedContent(post.value?.title, locale) ?? appConfig.title,
-  ogTitle: () => getLocalizedContent(post.value?.title, locale) ?? appConfig.title,
-  description: () => getLocalizedContent(post.value?.description, locale) ?? appConfig.description,
-  ogDescription: () =>
-    getLocalizedContent(post.value?.description, locale) ?? appConfig.description,
-});
+  title: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title,
+  ogTitle: () => getLocalizedContent(page.value?.title, locale) ?? appConfig.title,
+  description: () => getLocalizedContent(page.value?.description, locale) ?? appConfig.description,
+  ogDescription: () => getLocalizedContent(page.value?.description, locale) ?? appConfig.description
+})
 </script>
 
 <template>
-  <template v-if="postStatus === 'pending'">
-    <div class="flex items-center justify-center p-12">
-      <UIcon name="i-heroicons-arrow-path" class="animate-spin" />
-    </div>
-  </template>
+  <USkeleton v-if="pageStatus === 'pending'" class="h-full w-full" />
 
-  <template v-else-if="postError || !post">
-    <LazyUError
-      :error="{
-        statusCode: 404,
-        statusMessage: 'Post not found',
-        message: 'The blog post you are looking for does not exist or has been removed.',
-      }"
-      redirect="/blog"
-      :clear="{ label: 'Back to Blog' }"
-    />
-  </template>
+  <LazyUError
+    v-else-if="pageError || !page"
+    :clear="{ label: 'Back to Blog' }"
+    :error="{
+      status: 404,
+      statusText: 'Post Not Found',
+      message: 'The blog post you are looking for does not exist or has been removed.',
+    }"
+    redirect="/blog"
+  />
 
-  <template v-else>
-    <RCPageRenderer v-model="post" :resolve-page="resolvePage" />
-  </template>
+  <RCPageRenderer
+    v-else
+    v-model="page"
+    :resolve-page="resolvePage"
+    :can-edit="canEdit"
+    :edit-url="`/blog/${slug}/edit`"
+  />
 </template>
 
 <style scoped></style>
+
