@@ -6,12 +6,8 @@ const { totalHeight } = useHeaderStack();
   <div :style="{ '--total-header-offset': `${totalHeight}px` }">
     <ClientOnly>
       <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
-        <UBanner
-          class="bg-accented"
-          icon="lucide:construction"
-          title="Grand Tale is currently in development! Some pages may be incomplete."
-          closable
-        />
+        <UBanner class="bg-accented" icon="lucide:construction"
+          title="Grand Tale is currently in development! Some pages may be incomplete." closable />
       </RCHeaderLayer>
     </ClientOnly>
 
@@ -31,7 +27,7 @@ const { totalHeight } = useHeaderStack();
       <slot />
     </UMain>
 
-    <LazyRLAppFooter hydrate-on-visible />
+    <RLAppFooter />
   </div>
 </template>
 

@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // 3. Build Dynamic Filter
-  const filters = [eq(pages.type, type)];
+  const filters = [eq(pages.type, type), isNull(pages.deletedAt)];
 
   if (status === "published") {
     // If we want published posts, we look for rows where postedAt HAS a date

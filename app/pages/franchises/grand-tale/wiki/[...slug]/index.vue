@@ -2,7 +2,7 @@
 import { type Page } from "#rimelight-components/types";
 
 definePageMeta({
-  layout: 'grand-tale'
+  layout: 'wiki'
 });
 
 const route = useRoute()
@@ -48,23 +48,12 @@ useSeoMeta({
 <template>
   <USkeleton v-if="pageStatus === 'pending'" class="h-full w-full" />
 
-  <LazyUError
-    v-else-if="pageError || !page"
-    :clear="{ label: 'Back to Wiki' }"
-    :error="{
-      status: 404,
-      statusText: 'Page Not Found',
-      message: 'The requested wiki page could not be located.',
-    }"
-    redirect="/franchises/grand-tale/wiki"
-  />
+  <LazyUError v-else-if="pageError || !page" :clear="{ label: 'Back to Wiki' }" :error="{
+    status: 404,
+    statusText: 'Page Not Found',
+    message: 'The requested wiki page could not be located.',
+  }" redirect="/franchises/grand-tale/wiki" />
 
-  <RCPageRenderer
-    v-else
-    v-model="page"
-    :resolve-page="resolvePage"
-    :can-edit="canEdit"
-    :edit-url="`/franchises/grand-tale/wiki/${slug}/edit`"
-  />
+  <RCPageRenderer v-else v-model="page" :resolve-page="resolvePage" :can-edit="canEdit"
+    :edit-url="`/franchises/grand-tale/wiki/${slug}/edit`" />
 </template>
-

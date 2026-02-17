@@ -3,64 +3,101 @@ const { t } = useI18n();
 
 // Navigation items grouped by section
 const navigationItems = computed(() => [
-  // Getting Started Group
   [
+    {
+      label: 'Wiki Explorer',
+      type: 'label' as const
+    },
     {
       label: 'Getting Started',
-      icon: 'i-lucide-book-open',
       to: '/franchises/grand-tale/wiki/getting-started'
+    },
+    {
+      label: 'Contribution Guide',
+      to: '/franchises/grand-tale/wiki/contribution-guide'
     }
   ],
-  // Page Categories Group
   [
     {
+      label: 'Tales',
+      type: 'label' as const
+    },
+    {
+      label: 'Chronology',
+      to: '/franchises/grand-tale/wiki/tales/chronology'
+    },
+    {
+      label: 'World Lore',
+      to: '/franchises/grand-tale/wiki/tales/world-lore'
+    }
+  ],
+  [
+    {
+      label: 'Lore',
+      type: 'label' as const
+    },
+    {
       label: 'Characters',
-      icon: 'i-lucide-users',
-      to: '/franchises/grand-tale/wiki/categories/characters'
+      to: '/franchises/grand-tale/wiki/lore/characters'
     },
     {
       label: 'Locations',
-      icon: 'i-lucide-map-pin',
-      to: '/franchises/grand-tale/wiki/categories/locations'
+      to: '/franchises/grand-tale/wiki/lore/locations'
     },
     {
       label: 'Species',
-      icon: 'i-lucide-dna',
-      to: '/franchises/grand-tale/wiki/categories/species'
+      to: '/franchises/grand-tale/wiki/lore/species'
     },
     {
       label: 'Items',
-      icon: 'i-lucide-sword',
-      to: '/franchises/grand-tale/wiki/categories/items'
+      to: '/franchises/grand-tale/wiki/lore/items'
     },
     {
       label: 'Skills',
-      icon: 'i-lucide-sparkles',
-      to: '/franchises/grand-tale/wiki/categories/skills'
+      to: '/franchises/grand-tale/wiki/lore/skills'
     },
     {
       label: 'Heroes',
-      icon: 'i-lucide-shield-check',
-      to: '/franchises/grand-tale/wiki/categories/heroes'
+      to: '/franchises/grand-tale/wiki/lore/heroes'
+    }
+  ],
+  [
+    {
+      label: 'Mechanics & Systems',
+      type: 'label' as const
+    },
+    {
+      label: 'Combat Fundamentals',
+      to: '/franchises/grand-tale/wiki/mechanics/combat'
+    },
+    {
+      label: 'Soulstone Resonance',
+      to: '/franchises/grand-tale/wiki/mechanics/soulstone'
+    },
+    {
+      label: 'Damage Formulas',
+      to: '/franchises/grand-tale/wiki/mechanics/damage'
+    }
+  ],
+  [
+    {
+      label: 'Community',
+      type: 'label' as const
+    },
+    {
+      label: 'Contribute',
+      to: '#'
     }
   ]
 ]);
 </script>
 
 <template>
-  <aside class="space-y-8">
-    <div class="space-y-4">
-      <h2 class="text-xs font-bold uppercase tracking-widest text-primary-500 px-4">Wiki Explorer</h2>
-      <UNavigationMenu
-        :items="navigationItems"
-        orientation="vertical"
-        variant="link"
-        class="w-full"
-        :ui="{
-          link: 'text-sm font-medium text-primary-100/60 hover:text-white transition-colors px-4 py-2'
-        }"
-      />
-    </div>
+  <div class="space-y-8 p-md">
+    <UNavigationMenu :items="navigationItems" orientation="vertical" :ui="{
+      label: 'text-[10px] font-black uppercase tracking-[0.1em]',
+      link: 'text-[11px] text-dimmed py-1'
+    }" class="w-full" />
 
     <!-- Stats or Contribution Info -->
     <div class="px-4 py-6 bg-primary-900/50 border border-primary-800/50 rounded-none space-y-4">
@@ -75,7 +112,6 @@ const navigationItems = computed(() => [
           <div class="text-[9px] text-primary-100/40 uppercase font-bold">Contributors</div>
         </div>
       </div>
-      <UButton block size="xs" color="primary" variant="outline" icon="i-lucide-plus" class="text-[10px] font-bold">Contribute</UButton>
     </div>
-  </aside>
+  </div>
 </template>

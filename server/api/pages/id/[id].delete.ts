@@ -14,10 +14,14 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const [deletedPage] = await db.delete(pages).where(eq(pages.id, id)).returning();
+    const [deletedPage] = await db
+      .update(pages)
+      .set({ deletedAt: new Date() })
+      .where(eq(pages.id, id))
+      .returning();
 
     if (!deletedPage) {
-      createError({ statusCode: 404, statusMessage: "Page not found" });
+      throw createError({ statusCode: 404, statusMessage: "Page not found" });
     }
 
     return { success: true };
