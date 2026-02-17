@@ -168,7 +168,7 @@ const handleCreateSubmit = async () => {
 
     toast.add({color: 'success', title: t('toast_create_success')})
     ui.isCreateModalOpen = false
-    await navigateTo(`/blog/${createdPage.slug}/edit`)
+    await navigateTo(`/company/blog/${createdPage.slug}/edit`)
   } catch (e: any) {
     toast.add({
       color: 'error',
@@ -197,7 +197,7 @@ const links = computed(() => {
     {
       icon: "lucide:rss",
       label: "RSS",
-      to: "/blog/rss.xml",
+      to: "/company/blog/rss.xml",
       target: "_blank"
     }
   ]
@@ -292,7 +292,7 @@ useSeoMeta({
               }"
                 :orientation="index === 0 ? 'horizontal' : 'vertical'"
                 :title="getLocalizedContent(post.title, locale)"
-                :to="`/blog/${post.slug}/edit`"
+                :to="`/company/blog/${post.slug}/edit`"
                 :ui="{ image: 'object-center object-contain' }"
                 variant="subtle"
             />
@@ -357,7 +357,7 @@ useSeoMeta({
               }"
                 :orientation="index === 0 ? 'horizontal' : 'vertical'"
                 :title="getLocalizedContent(post.title, locale)"
-                :to="`/blog/${post.slug}`"
+                :to="`/company/blog/${post.slug}`"
                 :ui="{ image: 'object-center object-contain' }"
                 variant="subtle"
             />

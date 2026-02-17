@@ -49,7 +49,7 @@ useSeoMeta({
       statusText: 'Post Not Found',
       message: 'The blog post you are looking for does not exist or has been removed.',
     }"
-    redirect="/blog"
+    redirect="/company/blog"
   />
 
   <RCPageRenderer
@@ -57,7 +57,7 @@ useSeoMeta({
     v-model="page"
     :resolve-page="resolvePage"
     :can-edit="canEdit"
-    :edit-url="`/blog/${slug}/edit`"
+    :edit-url="`/company/blog/${slug}/edit`"
   />
 </template>
 
