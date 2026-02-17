@@ -1,5 +1,9 @@
 {
   "placeholder": "Placeholder",
+  "newsletter_field_label": "Subscribe to our Newsletter",
+  "newsletter_description": "Stay updated on new posts and updates. Unsubscribe at any time.",
+  "newsletter_placeholder": "email{'@'}domain.com",
+  "newsletter_button_label": "Subscribe",
   "footer_resources_title": "Resources",
   "footer_branding_label": "Branding",
   "footer_visitor_count_label": "Visitor Count",

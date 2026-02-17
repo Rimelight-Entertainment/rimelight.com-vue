@@ -6,8 +6,8 @@ const { totalHeight } = useHeaderStack();
   <div :style="{ '--total-header-offset': `${totalHeight}px` }">
     <ClientOnly>
       <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
-        <UBanner class="bg-accented" icon="lucide:construction"
-          title="Grand Tale is currently in development! Some pages may be incomplete." closable />
+        <UBanner icon="lucide:construction"
+          title="Grand Tale is currently in development! Some pages may be incomplete." closable :ui="{ title: 'text-white' }" class="bg-primary-500"/>
       </RCHeaderLayer>
     </ClientOnly>
 

@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import type { ChipProps, DropdownMenuItem, NavigationMenuItem } from "@nuxt/ui";
+import type {ChipProps, DropdownMenuItem, NavigationMenuItem} from "@nuxt/ui";
 
-const { session, signOut } = useAuth();
+const {session, signOut} = useAuth();
 const route = useRoute();
-const { t } = useI18n();
+const {t} = useI18n();
 const toast = useToast();
 
 async function onSignOut() {
-  const { error } = await signOut()
+  const {error} = await signOut()
   if (error) {
     toast.add({
       color: "error",
@@ -26,7 +26,7 @@ async function onSignOut() {
 
 const layerId = inject<string>("header_layer_id", "default");
 
-const { bottomOffsets } = useHeaderStack();
+const {bottomOffsets} = useHeaderStack();
 
 const slideoverState = reactive({
   left: false,
@@ -34,10 +34,10 @@ const slideoverState = reactive({
   notifications: false
 });
 
-const { isNotificationsSlideoverOpen } = useDashboard();
+const {isNotificationsSlideoverOpen} = useDashboard();
 watch(isNotificationsSlideoverOpen, (val) => {
   slideoverState.notifications = val;
-}, { immediate: true });
+}, {immediate: true});
 
 watch(() => slideoverState.notifications, (val) => {
   isNotificationsSlideoverOpen.value = val;
@@ -51,12 +51,12 @@ const items = computed<NavigationMenuItem[]>(() => markRaw([
     active: route.path.startsWith("/franchises/grand-tale"),
     slot: "grand-tale" as const,
     children: [
-      { label: "Home", to: "/franchises/grand-tale" },
-      { label: "News", to: "/franchises/grand-tale/news" },
-      { label: "About", to: "/franchises/grand-tale/about" },
-      { label: "Wiki", to: "/franchises/grand-tale/wiki" },
-      { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
-      { label: "Support", to: "/franchises/grand-tale/support" },
+      {label: "Home", to: "/franchises/grand-tale"},
+      {label: "News", to: "/franchises/grand-tale/news"},
+      {label: "About", to: "/franchises/grand-tale/about"},
+      {label: "Wiki", to: "/franchises/grand-tale/wiki"},
+      {label: "Leaderboards", to: "/franchises/grand-tale/leaderboards"},
+      {label: "Support", to: "/franchises/grand-tale/support"},
     ],
   },
   {
@@ -124,13 +124,15 @@ const accountMenuItems = computed<menuItem[][]>(() => {
               label: "Available",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
+              onClick: async () => {
+              },
             },
             {
               label: "Busy",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
+              onClick: async () => {
+              },
             },
           ],
           [
@@ -138,7 +140,8 @@ const accountMenuItems = computed<menuItem[][]>(() => {
               label: "Invisible",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
+              onClick: async () => {
+              },
             },
           ],
         ],
@@ -205,31 +208,6 @@ const accountMenuItems = computed<menuItem[][]>(() => {
   ];
 });
 
-const availabilityMenuItems = computed<menuItem[][]>(() => {
-  return [
-    [
-      {
-        label: "Available",
-        icon: "pajamas:status-active",
-        color: "success",
-        onClick: async () => {},
-      },
-      {
-        label: "Busy",
-        icon: "pajamas:status-active",
-        color: "error",
-        onClick: async () => {},
-      },
-      {
-        label: "Invisibile",
-        icon: "pajamas:status-active",
-        color: "neutral",
-        onClick: async () => {},
-      },
-    ],
-  ];
-});
-
 defineShortcuts(extractShortcuts(accountMenuItems.value));
 
 const availabilityChip = computed<ChipProps | undefined>(() => {
@@ -266,7 +244,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <ClientOnly>
-          <RCLogo class="h-6 w-auto" variant="mark" />
+          <RCLogo class="h-6 w-auto" variant="mark"/>
         </ClientOnly>
         <UNavigationMenu
           :items="items"
@@ -275,61 +253,47 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             viewportWrapper:
               'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
             viewport: 'rounded-none',
-            label: 'text-white',
-            link: 'hover:text-primary-200 active:text-500',
+            link: [
+      'text-white transition-colors duration-200',
+      'hover:text-primary-400',
+      'data-[state=open]:text-primary-400',
+      'aria-[current]:text-primary-400'
+    ]
           }"
           variant="link"
         >
           <template #grand-tale-content="{ item }">
-            <div class="flex flex-col lg:flex-row p-4 lg:p-6 gap-6 lg:gap-8 lg:min-w-[500px]">
-              <div class="flex flex-col gap-2 flex-2">
-                <UButton
-                  v-for="child in (item as any).children"
-                  :key="child.label"
-                  :label="child.label"
-                  :to="child.to"
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  variant="ghost"
+            <div class="flex flex-col lg:flex-row gap-lg bg-white h-full lg:h-64">
+              <div class="flex flex-col lg:flex-row gap-lg p-lg flex-1">
+                <NuxtImg
+                  class="h-full w-auto object-cover shrink-0"
+                  src="/images/placeholders/placeholder_header_grand-tale.jpg"
                 />
-              </div>
-              <div class="hidden lg:block w-px bg-white/10" />
-              <hr class="lg:hidden border-white/10" />
-              <div class="flex flex-col gap-4 flex-1">
-                <span class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500"
-                  >Featured</span
-                >
-                <div
-                  class="bg-white/5 rounded-md p-4 aspect-video flex items-center justify-center border border-white/10"
-                >
-                  <span class="text-xs text-dimmed">Ad / Highlight</span>
+
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="hidden lg:block h-full"
+                            orientation="vertical"/>
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
+
+                <div class="flex flex-col flex-2 overflow-y-auto">
+                  <UButton
+                    v-for="child in (item as any).children"
+                    :key="child.label"
+                    :label="child.label"
+                    :to="child.to"
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    variant="ghost"
+                  />
                 </div>
               </div>
-            </div>
-          </template>
 
-          <template #community-content="{ item }">
-            <div class="flex flex-col lg:flex-row p-4 lg:p-6 gap-6 lg:gap-8 lg:min-w-[500px]">
-              <div class="flex flex-col gap-2 flex-2">
-                <UButton
-                  v-for="child in (item as any).children"
-                  :key="child.label"
-                  :label="child.label"
-                  :to="child.to"
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  variant="ghost"
-                />
-              </div>
-              <div class="hidden lg:block w-px bg-white/10" />
-              <hr class="lg:hidden border-white/10" />
-              <div class="flex flex-col gap-4 flex-1">
-                <span class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500"
-                  >Socials</span
+              <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
+                <span class="pl-sm text-xs font-bold uppercase tracking-wider text-dimmed"
+                >Socials</span
                 >
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-1">
                   <UButton
-                    class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
+                    class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:instagram"
                     label="Instagram"
@@ -337,7 +301,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                   <UButton
-                    class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
+                    class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="ic:baseline-discord"
                     label="Discord"
@@ -345,7 +309,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                   <UButton
-                    class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
+                    class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:spotify"
                     label="Spotify"
@@ -353,7 +317,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                   <UButton
-                    class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
+                    class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:github"
                     label="GitHub"
@@ -361,7 +325,82 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                   <UButton
-                    class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:linkedin"
+                    label="LinkedIn"
+                    to="https://www.linkedin.com/company/rimelight"
+                    variant="ghost"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template #community-content="{ item }">
+            <div class="flex flex-col lg:flex-row gap-lg bg-white h-full lg:h-64">
+              <div class="flex flex-col lg:flex-row gap-lg p-lg flex-1">
+                <NuxtImg
+                  class="h-full w-auto object-cover shrink-0"
+                  src="/images/placeholders/placeholder_header_community.jpg"
+                />
+
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="hidden lg:block h-full"
+                            orientation="vertical"/>
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
+
+                <div class="flex flex-col flex-2 overflow-y-auto">
+                  <UButton
+                    v-for="child in (item as any).children"
+                    :key="child.label"
+                    :label="child.label"
+                    :to="child.to"
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    variant="ghost"
+                  />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
+                <span class="pl-sm text-xs font-bold uppercase tracking-wider text-dimmed"
+                >Socials</span
+                >
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-1">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:instagram"
+                    label="Instagram"
+                    to="https://www.instagram.com/rimelight.com"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="ic:baseline-discord"
+                    label="Discord"
+                    to="https://discord.com/users/682049695173836979"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:spotify"
+                    label="Spotify"
+                    to="https://open.spotify.com/user/v5m4qoc9j35ccc6nbzqcookvj?si=d795f9bc1cb34222"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:github"
+                    label="GitHub"
+                    to="https://www.github.com/rimelight"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:linkedin"
                     label="LinkedIn"
@@ -374,70 +413,80 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
           </template>
 
           <template #company-content="{ item }">
-            <div class="flex flex-col lg:flex-row p-4 lg:p-6 gap-6 lg:gap-8 lg:min-w-[500px]">
-              <div class="flex flex-col gap-2 flex-2">
-                <UButton
-                  v-for="child in (item as any).children"
-                  :key="child.label"
-                  :label="child.label"
-                  :to="child.to"
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  variant="ghost"
+            <div class="flex flex-col lg:flex-row gap-lg bg-white h-full lg:h-64">
+              <div class="flex flex-col lg:flex-row gap-lg p-lg flex-1">
+                <NuxtImg
+                  class="h-full w-auto object-cover shrink-0"
+                  src="/images/placeholders/placeholder_header_company.jpg"
                 />
+
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="hidden lg:block h-full"
+                            orientation="vertical"/>
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
+
+                <div class="flex flex-col flex-2 overflow-y-auto">
+                  <UButton
+                    v-for="child in (item as any).children"
+                    :key="child.label"
+                    :label="child.label"
+                    :to="child.to"
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    variant="ghost"
+                  />
+                </div>
               </div>
-              <div class="hidden lg:block w-px bg-white/10" />
-              <hr class="lg:hidden border-white/10" />
-              <div class="flex flex-col gap-4 flex-1">
-                <span class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500"
-                  >Contact</span
-                >
-                <UButton
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  icon="lucide:mail"
-                  label="Email Us"
-                  to="mailto:contact@rimelight.com"
-                  variant="ghost"
-                />
+
+              <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
+      <span class="pl-sm text-xs font-bold uppercase tracking-wider text-neutral-500">
+        Contact
+      </span>
+                <div class="grid grid-cols-1 gap-1">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:mail"
+                    label="Email Us"
+                    to="mailto:contact@rimelight.com"
+                    variant="ghost"
+                  />
+                </div>
               </div>
             </div>
           </template>
 
           <template #store-content="{ item }">
-            <div class="flex flex-col lg:flex-row p-4 lg:p-6 gap-6 lg:gap-8 lg:min-w-[500px]">
-              <div class="flex flex-col gap-2 flex-2">
-                <span class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500 mb-2"
-                  >Categories</span
-                >
-                <UButton
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  label="Merchandise"
-                  to="/store/merch"
-                  variant="ghost"
+            <div class="flex flex-col lg:flex-row gap-lg bg-white h-full lg:h-64">
+              <div class="flex flex-col lg:flex-row gap-lg p-lg flex-1">
+                <NuxtImg
+                  class="h-full w-auto object-cover shrink-0"
+                  src="/images/placeholders/placeholder_header_store.jpg"
                 />
-                <UButton
-                  class="justify-start px-3 text-white hover:text-primary-200 hover:bg-white/5"
-                  color="neutral"
-                  label="Digital Goods"
-                  to="/store/digital"
-                  variant="ghost"
-                />
-              </div>
-              <div class="hidden lg:block w-px bg-white/10" />
-              <hr class="lg:hidden border-white/10" />
-              <div class="flex flex-col gap-4 flex-1">
-                <span class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500"
-                  >Sale</span
-                >
-                <div
-                  class="bg-primary-500/20 rounded-md p-4 flex flex-col gap-2 border border-primary-500/50"
-                >
-                  <span class="text-sm font-bold text-white">Season Pass</span>
-                  <span class="text-xs text-dimmed">Get 20% off today!</span>
-                  <UButton class="mt-2" color="primary" label="Shop Now" size="xs" />
+
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="hidden lg:block h-full"
+                            orientation="vertical"/>
+                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
+
+                <div class="flex flex-col flex-2 overflow-y-auto">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    label="Merchandise"
+                    to="/store/merch"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    label="Digital Goods"
+                    to="/store/digital"
+                    variant="ghost"
+                  />
                 </div>
+              </div>
+
+              <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
+
               </div>
             </div>
           </template>
@@ -450,16 +499,16 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
         <ClientOnly>
           <template v-if="session">
             <div class="flex flex-row items-center gap-md">
-              <UButton color="neutral" label="Dashboard" to="/dashboard" variant="link" />
               <UTooltip text="Notifications">
                 <UButton
+                  class="text-white hover:bg-primary-500"
                   color="neutral"
                   square
                   variant="ghost"
                   @click="slideoverState.notifications = true"
                 >
                   <UChip color="error" inset>
-                    <UIcon class="size-5 shrink-0" name="i-lucide-bell" />
+                    <UIcon class="size-5 shrink-0" name="lucide:bell"/>
                   </UChip>
                 </UButton>
               </UTooltip>
@@ -486,7 +535,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 </template>
                 <template #content>
                   <div class="flex flex-col">
-                    <div class="flex flex-col gap-xs bg-elevated p-sm">
+                    <div class="flex flex-col gap-xs bg-primary-500 p-sm">
                       <UUser
                         v-if="session"
                         :avatar="{
@@ -494,32 +543,43 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                           alt: session?.user.name ?? '',
                         }"
                         :description="session?.user.status ?? 'Set a custom status...'"
-                        :ui="{ name: 'text-left', description: 'text-left' }"
+                        :ui="{ name: 'text-left text-white', description: 'text-left text-neutral-400' }"
                         size="md"
                       >
                         <template #name>
                           <span
-                            >{{ session?.user.name }}
+                          >{{ session?.user.name }}
                             <span class="text-dimmed">#{{ session?.user.tag }}</span></span
                           >
                         </template>
                       </UUser>
                       <UButton
+                        :label="t('dashboard')"
+                        class="text-white hover:text-black"
+                        color="neutral"
+                        leading-icon="lucide:layout-dashboard"
+                        to="/dashboard"
+                        variant="ghost"
+                      />
+                      <UButton
                         :label="t('account_profile')"
+                        class="text-white hover:text-black"
                         color="neutral"
                         leading-icon="lucide:user"
                         variant="ghost"
                       />
                     </div>
-                    <div class="flex flex-col gap-xs bg-muted p-sm">
+                    <div class="flex flex-col gap-xs bg-primary-600 p-sm">
                       <UButton
                         :label="t('account_support')"
+                        class="text-white hover:text-black"
                         color="neutral"
                         leading-icon="lucide:headset"
                         variant="ghost"
                       />
                       <UButton
                         :label="t('account_settings')"
+                        class="text-white hover:text-black"
                         color="neutral"
                         leading-icon="lucide:cog"
                         to="/dashboard/settings"
@@ -527,11 +587,11 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       />
                       <UButton
                         :label="t('auth_sign-out')"
+                        class="text-white hover:text-black"
                         color="neutral"
                         leading-icon="lucide:log-out"
                         variant="ghost"
                         @click="onSignOut"
-
                       />
                     </div>
                   </div>
@@ -540,8 +600,8 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             </div>
           </template>
           <template v-else>
-            <UButton :label="t('auth_sign-up')" to="/auth/sign-up" variant="outline" />
-            <UButton :label="t('auth_sign-in')" to="/auth/sign-in" variant="solid" />
+            <UButton :label="t('auth_sign-up')" to="/auth/sign-up" variant="outline"/>
+            <UButton :label="t('auth_sign-in')" to="/auth/sign-in" variant="solid"/>
           </template>
         </ClientOnly>
       </div>
@@ -565,7 +625,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               @click="slideoverState.left = true"
             />
             <template #header>
-              <RCLogo class="h-6 w-auto" variant="mark" />
+              <RCLogo class="h-6 w-auto" variant="mark"/>
               <UButton
                 color="neutral"
                 icon="lucide:x"
@@ -575,7 +635,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             </template>
             <template #body>
               <div class="flex size-full flex-col items-start gap-md">
-                <UNavigationMenu :items="items" orientation="vertical" variant="link" />
+                <UNavigationMenu :items="items" orientation="vertical" variant="link"/>
               </div>
             </template>
           </USlideover>
@@ -584,7 +644,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
     </template>
     <template #collapsed-center>
       <ClientOnly>
-        <RCLogo class="h-6 w-auto" variant="mark" />
+        <RCLogo class="h-6 w-auto" variant="mark"/>
       </ClientOnly>
     </template>
     <template #collapsed-right>
@@ -598,7 +658,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               @click="slideoverState.notifications = true"
             >
               <UChip color="error" inset>
-                <UIcon class="size-5 shrink-0" name="i-lucide-bell" />
+                <UIcon class="size-5 shrink-0" name="i-lucide-bell"/>
               </UChip>
             </UButton>
           </UTooltip>
@@ -630,12 +690,12 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               >
                 <template #name>
                   <span
-                    >{{ session?.user.name }}
+                  >{{ session?.user.name }}
                     <span class="text-dimmed">#{{ session?.user.tag }}</span></span
                   >
                 </template>
               </UUser>
-              <div v-else />
+              <div v-else/>
               <UButton
                 color="neutral"
                 icon="lucide:x"
@@ -646,7 +706,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             <template #body>
               <div class="flex flex-col gap-md">
                 <template v-if="session">
-                  <UNavigationMenu :items="accountMenuItems" orientation="vertical" />
+                  <UNavigationMenu :items="accountMenuItems" orientation="vertical"/>
                 </template>
                 <template v-else>
                   <UButton

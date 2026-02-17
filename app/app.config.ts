@@ -85,7 +85,7 @@ export default defineAppConfig({
       commentary: "commentary",
       ideation: "ideation",
       source: "source",
-      neutral: "neutrals",
+      neutral: "zinc",
     },
     icons: {
       close: "lucide:x",
@@ -99,23 +99,6 @@ export default defineAppConfig({
           false: "text-muted",
         },
       },
-    },
-    button: {
-      slots: {
-        base: "rounded-none",
-      },
-      compoundVariants: [
-        {
-          color: "primary",
-          variant: "solid",
-          class: "bg-primary-500 text-white hover:bg-primary-600 disabled:bg-primary-700",
-        },
-        {
-          color: "primary",
-          variant: "outline",
-          class: "ring-primary-500 hover:bg-primary/25",
-        },
-      ],
     },
     formField: {
       slots: {

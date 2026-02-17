@@ -65,30 +65,6 @@
   /* region Brand Colors */
 
   /* region Primary */
-  /*--color-primary-50: #dae9fd;
-  --color-primary-100: #b5d2fa;
-  --color-primary-200: #90bbf5;
-  --color-primary-300: #6aa4f0;
-  --color-primary-400: #428cea;
-  --color-primary-500: oklch(0.5672 0.191 255.63);
-  --color-primary-600: #0059b2;
-  --color-primary-700: #004083;
-  --color-primary-800: #002857;
-  --color-primary-900: #00132f;
-  --color-primary-950: #00030c;*/
-
-  /*--color-primary-50: #ffffff;
-  --color-primary-100:#cce3f9;
-  --color-primary-200: #99c7f4;
-  --color-primary-300: #66abee;
-  --color-primary-400: #338fe9;
-  --color-primary-500: #0073e3;
-  --color-primary-600: #005cb6;
-  --color-primary-700: #004588;
-  --color-primary-800: #002e5b;
-  --color-primary-900: #00172d;
-  --color-primary-950: #000000;*/
-
   --color-primary-50: #ffffff;
   --color-primary-100: #cce0f7;
   --color-primary-200: #99c1ef;
@@ -101,10 +77,6 @@
   --color-primary-900: #00142b;
   --color-primary-950: #000000;
   /* endregion */
-
-  /*oklch(0.505 0.2055 260) #104eb0*/
-  /*oklch(0.505 0.2055 255)*/
-  /*oklch(0.5 0.2 255)*/
 
   /* region Secondary */
   --color-secondary-50: oklch(98.7% 0.022 95.277);
@@ -229,41 +201,6 @@
 
 :root {
   --ui-header-height: 4rem;
-
-  --ui-text-dimmed: var(--color-primary-800);
-  --ui-text-muted: var(--color-primary-700);
-  --ui-text-toned: var(--color-primary-600);
-  --ui-text: var(--color-primary-950);
-  --ui-text-highlighted: var(--color-neutrals-950);
-  --ui-text-inverted: var(--color-primary-50);
-
-  --ui-bg: var(--color-primary-50);
-  --ui-bg-dimmed: var(--color-primary-900);
-  --ui-bg-muted: var(--color-primary-300);
-  --ui-bg-elevated: var(--color-primary-400);
-  --ui-bg-accented: var(--color-primary-500);
-  --ui-bg-inverted: var(--color-primary-950);
-}
-
-.dark {
-  --ui-text-dimmed: var(--color-primary-200);
-  --ui-text-muted: var(--color-primary-300);
-  --ui-text-toned: var(--color-primary-400);
-  --ui-text: var(--color-primary-50);
-  --ui-text-highlighted: var(--color-primary-50);
-  --ui-text-inverted: var(--color-primary-950);
-
-  --ui-bg: var(--color-primary-950);
-  --ui-bg-dimmed: var(--color-primary-900);
-  --ui-bg-muted: var(--color-primary-800);
-  --ui-bg-elevated: var(--color-primary-700);
-  --ui-bg-accented: var(--color-primary-500);
-  --ui-bg-inverted: var(--color-primary-50);
-
-  --ui-border: var(--color-primary-200);
-  --ui-border-muted: var(--color-primary-300);
-  --ui-border-accented: var(--color-primary-500);
-  --ui-border-inverted: var(--color-primary-950);
 }
 
 /* region Scrollbar */

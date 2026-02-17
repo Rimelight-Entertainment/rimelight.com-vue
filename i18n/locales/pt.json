@@ -1,5 +1,9 @@
 {
   "placeholder": "Espaço Reservado",
+  "newsletter_field_label": "Inscreva-se na nossa Newsletter",
+  "newsletter_description": "Fique atualizado sobre novos posts e novidades. Cancele a inscrição a qualquer momento.",
+  "newsletter_placeholder": "email{'@'}dominio.com",
+  "newsletter_button_label": "Inscrever",
   "footer_resources_title": "Recursos",
   "footer_branding_label": "Marca",
   "footer_visitor_count_label": "Contagem de Visitantes",
