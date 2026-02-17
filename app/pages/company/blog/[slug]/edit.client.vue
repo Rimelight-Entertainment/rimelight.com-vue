@@ -63,6 +63,8 @@ const handlePublish = async (updatedPage: Page): Promise<void> => {
     })
 
     toast.add({ color: "success", title: t("toast_publish_success") })
+
+    await router.push(`/company/blog/${updatedPage.slug}`)
   } catch (e) {
     toast.add({ color: "error", title: t("toast_publish_error") })
   } finally {
@@ -79,7 +81,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
 
     toast.add({ color: 'success', title: t('toast_create_success') })
 
-    await router.push(`/blog/${createdPage.slug}/edit`)
+    await router.push(`/company/blog/${createdPage.slug}/edit`)
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_create_error') })
   }
@@ -93,7 +95,7 @@ const handleDelete = async (id: string) => {
 
     toast.add({ color: 'success', title: t('toast_delete_success') })
 
-    await router.push('/blog')
+    await router.push('/company/blog')
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_delete_error') })
   }
@@ -107,28 +109,16 @@ useHead({
 <template>
   <USkeleton v-if="pageStatus === 'pending'" class="h-full w-full" />
 
-  <LazyUError
-    v-else-if="pageError || !page"
-    :clear="{ label: 'Back to Blog' }"
-    :error="{
-      status: 404,
-      statusText: 'Post Not Found',
-      message: 'The blog post you are looking for does not exist or has been removed.',
-    }"
-    redirect="/blog"
-  />
+  <LazyUError v-else-if="pageError || !page" :clear="{ label: 'Back to Blog' }" :error="{
+    status: 404,
+    statusText: 'Post Not Found',
+    message: 'The blog post you are looking for does not exist or has been removed.',
+  }" redirect="/company/blog" />
 
   <template v-else-if="localPage && localPage.id">
-    <RCPageEditor
-      v-model="localPage"
-      :is-saving="isSaving"
-      :page-definitions="pageDefinitions"
-      :resolve-page="resolvePage"
-      :on-create-page="handleCreate"
-      :on-delete-page="handleDelete"
-      @save="handleSave"
-      @publish="handlePublish"
-    />
+    <RCPageEditor v-model="localPage" :is-saving="isSaving" :page-definitions="pageDefinitions"
+      :resolve-page="resolvePage" :on-create-page="handleCreate" :on-delete-page="handleDelete" @save="handleSave"
+      @publish="handlePublish" />
   </template>
 </template>
 

@@ -4,11 +4,13 @@ import { z } from "zod";
 import { getUserSession } from "#server/utils/session";
 import { db, pages, pageVersions } from "#server/db";
 
+const localizedSchema = z.record(z.string(), z.any());
+
 const updatePageVersionSchema = z.object({
   slug: z.string().optional(),
-  title: z.string().optional(),
-  description: z.string().or(z.record(z.string(), z.any())).optional(),
-  tags: z.array(z.string()).optional(),
+  title: z.string().or(localizedSchema).optional(),
+  description: z.string().or(localizedSchema).optional(),
+  tags: z.array(z.string().or(localizedSchema)).optional(),
   authorIds: z.array(z.string()).optional(),
   properties: z.record(z.string(), z.any()).optional(),
   blocks: z.array(z.any()).optional(),

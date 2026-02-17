@@ -115,7 +115,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
     toast.add({ color: 'success', title: t('toast_create_success') })
 
     // Redirect to the new page's editor
-    await router.push(`/blog/${createdPage.slug}/edit`)
+    await router.push(`/company/blog/${createdPage.slug}/edit`)
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_create_error') })
   }
@@ -132,14 +132,14 @@ const handleDelete = async (id: string) => {
 
     toast.add({ color: 'success', title: t('toast_delete_success') })
 
-    await router.push('/blog')
+    await router.push('/company/blog')
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_delete_error') })
   }
 }
 
 const goBackToView = () => {
-  router.push(`/blog/${slug}`)
+  router.push(`/company/blog/${slug}`)
 }
 
 watch(route, () => {
@@ -206,7 +206,7 @@ useSeoMeta({
         statusMessage: 'Post not found',
         message: 'The blog post you are looking for does not exist or has been removed.'
       }"
-      redirect="/blog"
+      redirect="/company/blog"
       :clear="{ label: 'Back to Blog' }"
     />
     <div v-else class="flex flex-col items-center justify-center h-screen gap-4">

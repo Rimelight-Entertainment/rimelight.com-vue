@@ -4,11 +4,14 @@ import { v7 as uuidv7 } from "uuid";
 
 import { z } from "zod";
 
+const localizedSchema = z.record(z.string(), z.any());
+
 const createPageSchema = z.object({
   type: z.string(),
   slug: z.string(),
-  title: z.string(),
-  description: z.string().or(z.record(z.string(), z.any())).optional(),
+  title: z.string().or(localizedSchema),
+  description: z.string().or(localizedSchema).optional(),
+  tags: z.array(z.string().or(localizedSchema)).optional(),
   properties: z.record(z.string(), z.any()).optional(),
   blocks: z.array(z.any()).optional(),
 });
@@ -28,6 +31,7 @@ export default defineEventHandler(async (event) => {
     slug: body.slug,
     title: body.title as any,
     description: (body.description || {}) as any,
+    tags: (body.tags || []) as any,
     authorIds: [session.user.id],
     content: {
       properties: body.properties || {},

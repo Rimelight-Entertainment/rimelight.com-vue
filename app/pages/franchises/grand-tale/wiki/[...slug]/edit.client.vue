@@ -68,6 +68,9 @@ const handlePublish = async (updatedPage: Page): Promise<void> => {
     })
 
     toast.add({ color: "success", title: t("toast_publish_success") })
+
+    // Redirect to the live page
+    await router.push(`/${updatedPage.slug}`)
   } catch (e) {
     toast.add({ color: "error", title: t("toast_publish_error") })
   } finally {
@@ -112,28 +115,16 @@ useHead({
 <template>
   <USkeleton v-if="pageStatus === 'pending'" class="h-full w-full" />
 
-  <LazyUError
-    v-else-if="pageError || !page"
-    :clear="{ label: 'Back to Wiki' }"
-    :error="{
-      status: 404,
-      statusText: 'Page Not Found',
-      message: 'The requested wiki page could not be located.',
-    }"
-    redirect="/franchises/grand-tale/wiki"
-  />
+  <LazyUError v-else-if="pageError || !page" :clear="{ label: 'Back to Wiki' }" :error="{
+    status: 404,
+    statusText: 'Page Not Found',
+    message: 'The requested wiki page could not be located.',
+  }" redirect="/franchises/grand-tale/wiki" />
 
   <template v-else-if="localPage && localPage.id">
-    <RCPageEditor
-      v-model="localPage"
-      :is-saving="isSaving"
-      :page-definitions="pageDefinitions"
-      :resolve-page="resolvePage"
-      :on-create-page="handleCreate"
-      :on-delete-page="handleDelete"
-      @save="handleSave"
-      @publish="handlePublish"
-    />
+    <RCPageEditor v-model="localPage" :is-saving="isSaving" :page-definitions="pageDefinitions"
+      :resolve-page="resolvePage" :on-create-page="handleCreate" :on-delete-page="handleDelete" @save="handleSave"
+      @publish="handlePublish" />
   </template>
 </template>
 
