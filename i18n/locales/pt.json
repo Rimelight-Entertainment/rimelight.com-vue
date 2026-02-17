@@ -1,3 +1,12 @@
 {
-  "placeholder": "Placeholder"
+  "placeholder": "Espaço Reservado",
+  "footer_resources_title": "Recursos",
+  "footer_branding_label": "Marca",
+  "footer_visitor_count_label": "Contagem de Visitantes",
+  "footer_documents_title": "Documentos",
+  "footer_privacy_policy_label": "Política de Privacidade",
+  "footer_cookie_policy_label": "Política de Cookies",
+  "footer_terms_of_service_label": "Termos de Serviço",
+  "footer_code_of_conduct_label": "Código de Conduta",
+  "footer_other_documents_label": "Outros Documentos"
 }
