@@ -41,7 +41,7 @@ const heroLinks = ref<ButtonProps[]>([
     trailingIcon: 'lucide:arrow-right',
     label: t('home_hero_actions_02'),
     to: '/company/about',
-    class: 'text-neutral-300 ring-neutral-300 bg-transparent hover:bg-neutral-800/50'
+    class: 'text-white ring-white bg-transparent hover:bg-black hover:text-white'
   },
 ])
 
@@ -67,7 +67,7 @@ const ctaLinks = ref<ButtonProps[]>([
     color: 'neutral',
     label: t('home_cta_actions_02'),
     to: '/company/careers',
-    class: 'text-black ring-black bg-transparent hover:bg-neutral-800/50'
+    class: 'text-black ring-black bg-transparent hover:bg-black hover:text-white'
   }
 ])
 </script>
@@ -86,10 +86,10 @@ const ctaLinks = ref<ButtonProps[]>([
       <!--          <source src="/videos/hero-background.mp4" type="video/mp4"/>-->
       <!--        </video>-->
       <NuxtImg alt="Hero background" class="h-full w-full object-cover"
-               src="/images/placeholders/placeholder_home_hero_background.jpg"/>
+               src="/images/placeholders/placeholder_home_hero_background.png"/>
     </div>
 
-    <div class="absolute inset-0 -z-10 bg-black/50"/>
+    <div class="absolute inset-0 -z-10 bg-black/30"/>
 
     <UPageHero :description="t('home_hero_description')" :links="heroLinks" :title="t('home_hero_title')"
                :ui="{ title: 'text-white', description: 'text-neutral-300' }" class="relative z-0"
@@ -104,11 +104,11 @@ const ctaLinks = ref<ButtonProps[]>([
   </div>
 
   <div class="relative overflow-hidden isolate">
-    <div class="absolute inset-0 -z-20 bg-black">
+    <div class="absolute inset-0 -z-20">
       <NuxtImg alt="Projects background" class="h-full w-full object-cover"
-               src="/images/placeholders/placeholder_home_projects_background.jpg"/>
+               src="/images/placeholders/placeholder_home_company_background.jpg"/>
     </div>
-    <div class="absolute inset-0 -z-10 bg-black/90"/>
+    <div class="absolute inset-0 -z-10 bg-black/93"/>
 
     <UPageSection :ui="{
     title: 'font-bold uppercase leading-tight',
@@ -136,12 +136,13 @@ const ctaLinks = ref<ButtonProps[]>([
         </div>
       </template>
 
-      <div
-        class="relative aspect-video bg-neutral-800 border border-neutral-700 overflow-hidden flex items-center justify-center group">
-        <div class="absolute inset-0 bg-linear-to-tr from-primary-900/20 to-neutral-900/20"/>
-        <UIcon class="w-16 h-16 text-white opacity-80 group-hover:scale-110 transition-transform duration-300"
-               name="lucide:play"/>
-      </div>
+      <ScriptYouTubePlayer
+        above-the-fold
+        trigger="immediate"
+        thumbnail-size="maxresdefault"
+        video-id="uH1Hw6SDI1M"
+        class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
+      />
     </UPageSection>
   </div>
 
@@ -162,12 +163,12 @@ const ctaLinks = ref<ButtonProps[]>([
 
       <div class="flex flex-wrap justify-center gap-lg">
         <NuxtLink v-for="(project, index) in featuredProjects" :key="index" :to="project.to"
-                  class="block relative h-128 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                  class="block relative h-128 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] group">
           <UCard
-            class="group h-full w-full overflow-hidden">
-            <div class="absolute inset-0 z-0">
+            class="relative h-full w-full overflow-hidden isolate transition-transform duration-700 ease-out group-hover:scale-[1.02] rounded-[inherit] will-change-transform">
+            <div class="absolute inset-0 z-0 overflow-hidden rounded-[inherit]">
               <NuxtImg :alt="project.title" :src="project.image"
-                       class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                       class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
                        loading="lazy"/>
               <div class="absolute inset-0 bg-linear-to-t from-neutral-950 via-neutral-950/50 to-transparent"/>
             </div>
@@ -175,7 +176,8 @@ const ctaLinks = ref<ButtonProps[]>([
             <div class="absolute inset-0 p-lg flex flex-col gap-sm justify-end z-10">
               <div class="flex gap-sm">
                 <UBadge v-for="tag in project.tags" :key="tag" :label="tag"
-                        class="text-white font-bold uppercase tracking-wider" color="primary" variant="solid"/>
+                        class="text-white font-bold uppercase tracking-wider bg-primary-500" color="primary"
+                        variant="solid"/>
               </div>
               <h3 class="text-3xl font-bold uppercase text-white">
                 {{ project.title }}
@@ -183,7 +185,8 @@ const ctaLinks = ref<ButtonProps[]>([
               <p class="text-neutral-400">
                 {{ project.description }}
               </p>
-              <UButton class="font-bold uppercase tracking-widest -ml-2" label="Discover"
+              <UButton :to="project.to"
+                       class="font-bold uppercase tracking-widest -ml-2" label="Discover"
                        trailing-icon="lucide:arrow-right" variant="link"/>
             </div>
           </UCard>
@@ -195,8 +198,10 @@ const ctaLinks = ref<ButtonProps[]>([
   <div class="relative overflow-hidden isolate">
     <div class="absolute inset-0 -z-20">
       <NuxtImg alt="CTA background" class="h-full w-full object-cover"
-               src="/images/placeholders/placeholder_home_cta_background.jpg"/>
+               src="/images/placeholders/placeholder_home_news_background.jpg"/>
     </div>
+
+    <div class="absolute inset-0 -z-10 bg-black/80"/>
 
     <UPageSection :description="t('home_news_description')" :title="t('home_news_title')">
       <UBlogPosts v-if="latestPosts?.length" class="grid md:grid-cols-2 lg:grid-cols-3">
@@ -206,11 +211,13 @@ const ctaLinks = ref<ButtonProps[]>([
           variant: 'outline',
           class: 'rounded-none p-0 ring-0'
         }" :date="post.postedAt ? formatDate(post.postedAt) : ''"
-                   :description="getLocalizedContent(post.description, locale)" :image="{
+                   :description="getLocalizedContent(post.description, locale)"
+                   :image="{
             src: post.banner?.src,
             alt: post.banner?.alt,
           }" :title="getLocalizedContent(post.title, locale)" :to="`/company/blog/${post.slug}`"
-                   :ui="{ image: 'object-center object-contain' }" variant="subtle"/>
+                   :ui="{ image: 'object-center object-contain', title: 'text-black' }"
+                   class="bg-white" variant="soft"/>
       </UBlogPosts>
 
       <div v-else-if="postsStatus === 'pending'" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -218,13 +225,11 @@ const ctaLinks = ref<ButtonProps[]>([
       </div>
 
       <div v-if="latestPosts?.length" class="flex justify-center mt-12">
-        <UButton color="neutral" to="/company/blog" trailing-icon="lucide:arrow-right" variant="link">
+        <UButton color="primary" to="/company/blog" trailing-icon="lucide:arrow-right" variant="link">
           View All News
         </UButton>
       </div>
     </UPageSection>
-
-
   </div>
 
   <div class="relative overflow-hidden isolate">

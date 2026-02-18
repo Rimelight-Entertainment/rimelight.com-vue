@@ -95,6 +95,10 @@ const handlePublish = async (updatedPage: Page): Promise<void> => {
     })
 
     toast.add({ color: "success", title: t("toast_publish_success", "Page Published") })
+
+    // Redirect to the live page
+    await nextTick()
+    await navigateTo(`/company/blog/${updatedPage.slug}`)
   } catch (e) {
     toast.add({ color: "error", title: t("toast_publish_error", "Failed to publish") })
   } finally {
@@ -235,7 +239,6 @@ useSeoMeta({
       :is-saving="isSaving"
       :page-definitions="pageDefinitions"
       :resolve-page="resolvePage"
-      :on-create-page="handleCreate"
       :on-delete-page="handleDelete"
       @save="handleSave"
       @publish="handlePublish"

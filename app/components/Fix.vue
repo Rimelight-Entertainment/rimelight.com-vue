@@ -3,7 +3,7 @@
 
 <template>
   <span
-    >This component exists due to an issue with tailwind. I currently do not have the time to figure
+  >This component exists due to an issue with tailwind. I currently do not have the time to figure
     out the issue, therefore this workaround exists to force classes to be loaded.</span
   >
   <!-- prettier-ignore -->
@@ -47,7 +47,7 @@
     class="mr-1 mr-2 mr-3  group relative flex border-elevated border-accented items-center px-3 py-1.5 text-sm transition-all duration-200 border-s-2 -ms-px mr-4 mr-6 mr-8 mr-10 mr-12 mr-16 mr-20 mr-24 mr-32 mr-40 mr-48 mr-56 mr-64 mr-96 mr-128 mr-256 lg:mr-1 lg:mr-2 lg:mr-3 lg:mr-4 lg:mr-6 lg:mr-8 lg:mr-10 lg:mr-12 lg:mr-16 lg:mr-20 lg:mr-24 lg:mr-32 lg:mr-40 lg:mr-48 lg:mr-56 lg:mr-64 lg:mr-96 lg:mr-128 lg:mr-256"/>
   <!-- prettier-ignore -->
   <div
-    class="flex flex-row text-right text-left grid-cols-6 grid-cols-7 lg:grid-cols-12 col-span-1 col-span-2 col-span-3 col-span-4 col-span-5 col-span-6 col-span-7 col-span-8 col-span-9 col-span-10 col-span-11 col-span-12 max-w-(--ui-container) list-disc list-inside grid-cols-24 top-24 top-32 top-40 lg:col-span-14 lg:grid-cols-24 max-w-128 max-w-96 max-w-192 max-w-[100rem] max-w-256 lg:col-span-1 lg:grid-cols-16 lg:col-span-2 lg:col-span-3 lg:col-span-4 lg:col-span-5 lg:col-span-6 lg:col-span-7 lg:col-span-8 lg:col-span-9 lg:col-span-10 lg:col-span-11 lg:col-span-12 border-primary-500 sm:flex-row md:flex-row lg:flex-row xl:flex-row flex-col sm:flex-col divide-none bg-muted p-0 m-0 bg-dimmed bg-elevated md:flex-col lg:flex-col xl:flex-col flex-wrap flex-grid grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4 grid-cols-5 grid-cols-6 grid-cols-7 grid-cols-8"/>
+    class="flex flex-row  border-t-4 border-t-2 text-right text-left grid-cols-6 grid-cols-7 lg:grid-cols-12 col-span-1 col-span-2 col-span-3 col-span-4 col-span-5 col-span-6 col-span-7 col-span-8 col-span-9 col-span-10 col-span-11 col-span-12 max-w-(--ui-container) list-disc list-inside grid-cols-24 top-24 top-32 top-40 lg:col-span-14 lg:grid-cols-24 max-w-128 max-w-96 max-w-192 max-w-[100rem] max-w-256 lg:col-span-1 lg:grid-cols-16 lg:col-span-2 lg:col-span-3 lg:col-span-4 lg:col-span-5 lg:col-span-6 lg:col-span-7 lg:col-span-8 lg:col-span-9 lg:col-span-10 lg:col-span-11 lg:col-span-12 border-primary-500 sm:flex-row md:flex-row lg:flex-row xl:flex-row flex-col sm:flex-col divide-none bg-muted p-0 m-0 bg-dimmed bg-elevated md:flex-col lg:flex-col xl:flex-col flex-wrap flex-grid grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4 grid-cols-5 grid-cols-6 grid-cols-7 grid-cols-8"/>
   <!-- prettier-ignore -->
   <div
     class="px-12 pt-0 mb-2 px-3 pl-0 border-primary self-start  border-primary-500 px-8 sticky items-start top-0 top-10 top-24 top-32 px-10 pl-5 pl-10 pl-6 items-start sm:items-start md:items-start lg:items-start xl:items-start"/>

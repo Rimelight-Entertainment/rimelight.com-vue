@@ -64,7 +64,9 @@ const handlePublish = async (updatedPage: Page): Promise<void> => {
 
     toast.add({ color: "success", title: t("toast_publish_success") })
 
-    await router.push(`/company/blog/${updatedPage.slug}`)
+    // Redirect to the live post
+    await nextTick()
+    await navigateTo(`/company/blog/${updatedPage.slug}`)
   } catch (e) {
     toast.add({ color: "error", title: t("toast_publish_error") })
   } finally {
@@ -81,7 +83,7 @@ const handleCreate = async (newPageData: Partial<Page>) => {
 
     toast.add({ color: 'success', title: t('toast_create_success') })
 
-    await router.push(`/company/blog/${createdPage.slug}/edit`)
+    await navigateTo(`/company/blog/${createdPage.slug}/edit`)
   } catch (e) {
     toast.add({ color: 'error', title: t('toast_create_error') })
   }
@@ -117,7 +119,7 @@ useHead({
 
   <template v-else-if="localPage && localPage.id">
     <RCPageEditor v-model="localPage" :is-saving="isSaving" :page-definitions="pageDefinitions"
-      :resolve-page="resolvePage" :on-create-page="handleCreate" :on-delete-page="handleDelete" @save="handleSave"
+      :resolve-page="resolvePage" :on-delete-page="handleDelete" @save="handleSave"
       @publish="handlePublish" />
   </template>
 </template>
