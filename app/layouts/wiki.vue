@@ -5,7 +5,7 @@
     <NuxtLayout name="grand-tale">
         <UPage class="flex-1">
             <template #left>
-                <UPageAside class="bg-neutral-800 w-64 border-none">
+                <UPageAside class="bg-grand-tale-primary-800 w-64 border-r border-grand-tale-secondary-500">
                     <RLWikiSidebar />
                 </UPageAside>
             </template>

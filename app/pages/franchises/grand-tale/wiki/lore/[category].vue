@@ -53,12 +53,12 @@ const columns: TableColumn<Page>[] = [
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center gap-3' }, [
         h(UIcon, {
-          name: row.original.icon || 'i-lucide-file-text',
-          class: 'size-5 text-primary-500 flex-shrink-0'
+          name: row.original.icon || 'lucide:file-text',
+          class: 'size-5 text-grand-tale-secondary-500 flex-shrink-0'
         }),
         h(NuxtLink, {
           to: `/${row.original.slug}`,
-          class: 'font-bold text-white hover:text-primary-400 uppercase transition-colors'
+          class: 'font-bold text-white hover:text-grand-tale-secondary-400 uppercase transition-colors'
         }, {
           default: () => getLocalizedContent(row.original.title, locale.value)
         })
@@ -71,7 +71,7 @@ const columns: TableColumn<Page>[] = [
     header: 'Description',
     cell: ({ row }) => {
       const description = getLocalizedContent(row.original.description, locale.value);
-      return h('span', { class: 'text-primary-100/60 line-clamp-1 max-w-md' }, description || '---');
+      return h('span', { class: 'text-grand-tale-secondary-100/60 line-clamp-1 max-w-md' }, description || '---');
     }
   },
   {
@@ -85,11 +85,11 @@ const columns: TableColumn<Page>[] = [
     cell: ({ row }) => {
       return h(NuxtLink, {
         to: `/${row.original.slug}`,
-        class: 'inline-flex items-center gap-2 text-xs text-primary-500 font-bold uppercase hover:text-primary-400 transition-colors'
+        class: 'inline-flex items-center gap-2 text-xs text-grand-tale-secondary-500 font-bold uppercase hover:text-grand-tale-secondary-400 transition-colors'
       }, {
         default: () => [
           'Read More',
-          h(UIcon, { name: 'i-lucide-arrow-right', class: 'size-3' })
+          h(UIcon, { name: 'lucide:arrow-right', class: 'size-3' })
         ]
       });
     }
@@ -108,20 +108,20 @@ const pagination = ref({
   <div class="space-y-12">
     <section class="space-y-6">
       <div
-        class="inline-flex items-center gap-2 px-3 py-1 bg-primary-500/10 border border-primary-500/20 text-primary-400 text-xs font-bold uppercase tracking-widest">
+        class="inline-flex items-center gap-2 px-3 py-1 bg-grand-tale-primary-500/10 border border-grand-tale-secondary-500/20 text-grand-tale-secondary-400 text-xs font-bold uppercase tracking-widest">
         {{ pageType }}
       </div>
       <h1 class="text-5xl font-black uppercase tracking-tighter text-white leading-none">{{ categoryLabel }}</h1>
-      <p class="text-xl text-primary-100/60 font-light max-w-2xl leading-relaxed">
+      <p class="text-xl text-grand-tale-secondary-100/60 font-light max-w-2xl leading-relaxed">
         Browse all {{ categoryLabel.toLowerCase() }} in the Grand Tale universe.
       </p>
     </section>
 
-    <hr class="border-primary-800/30" />
+    <hr class="border-grand-tale-secondary-800/30" />
 
     <!-- Loading State -->
     <div v-if="status === 'pending'" class="flex items-center justify-center p-12">
-      <UIcon class="animate-spin size-8 text-primary-500" name="i-heroicons-arrow-path" />
+      <UIcon class="animate-spin size-8 text-grand-tale-secondary-500" name="lucide:loader-2" />
     </div>
 
     <!-- Error State -->
@@ -132,25 +132,25 @@ const pagination = ref({
     <!-- Content Table -->
     <div v-else class="space-y-6">
       <div class="flex items-center gap-4">
-        <UInput v-model="globalFilter" icon="i-lucide-search" placeholder="Filter articles..." class="max-w-xs w-full"
-          variant="outline" color="primary" :ui="{
-            base: 'bg-primary-800/20 border-primary-800/50 focus:border-primary-500/50 transition-colors',
+        <UInput v-model="globalFilter" icon="lucide:search" placeholder="Filter articles..." class="max-w-xs w-full"
+          variant="outline" color="grand-tale-primary" :ui="{
+            base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
           }" />
       </div>
 
       <UTable ref="table" v-model:pagination="pagination" v-model:global-filter="globalFilter" :data="pages || []"
         :columns="columns" :pagination-options="{
           getPaginationRowModel: getPaginationRowModel()
-        }" sticky class="border border-primary-800/50 bg-primary-800/10" :ui="{
-          thead: 'bg-primary-900/50 backdrop-blur-sm',
-          th: 'text-primary-400 font-black uppercase tracking-wider border-b border-primary-800/50',
-          td: 'border-b border-primary-800/30'
+        }" sticky class="border border-grand-tale-secondary-800/50 bg-grand-tale-primary-800/10" :ui="{
+          thead: 'bg-grand-tale-primary-900/50 backdrop-blur-sm',
+          th: 'text-grand-tale-secondary-400 font-black uppercase tracking-wider border-b border-grand-tale-secondary-800/50',
+          td: 'border-b border-grand-tale-secondary-800/30'
         }">
         <template #empty>
           <div class="p-12 text-center space-y-4">
-            <UIcon name="i-lucide-inbox" class="size-16 text-primary-500/50 mx-auto" />
+            <UIcon name="lucide:inbox" class="size-16 text-grand-tale-secondary-500/50 mx-auto" />
             <h3 class="text-xl font-bold text-white">No {{ categoryLabel }} Yet</h3>
-            <p class="text-primary-100/60">Articles in this category are currently being written.</p>
+            <p class="text-grand-tale-secondary-100/60">Articles in this category are currently being written.</p>
           </div>
         </template>
       </UTable>

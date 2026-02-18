@@ -274,7 +274,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Explore</span>
+                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Explore</span>
                   <div class="grid grid-cols-1 gap-1">
                     <UButton v-for="child in (item as any).children" :key="child.label" :label="child.label"
                              :to="child.to" class="text-black hover:bg-neutral-200" color="neutral" variant="ghost"/>
@@ -283,7 +283,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Resources</span>
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Resources</span>
 
               </div>
             </div>
@@ -300,7 +300,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Connect</span>
+                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Connect</span>
                   <div class="grid grid-cols-1 gap-1">
                     <UButton v-for="child in (item as any).children" :key="child.label" :label="child.label"
                              :to="child.to" class="text-black hover:bg-neutral-200" color="neutral" variant="ghost"/>
@@ -309,7 +309,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Socials</span>
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Socials</span>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-1">
                   <UButton class="text-black hover:bg-neutral-200" color="neutral" icon="mdi:instagram"
                            label="Instagram" to="https://www.instagram.com/" variant="ghost"/>
@@ -334,7 +334,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Studio</span>
+                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Studio</span>
                   <div class="grid grid-cols-1 gap-1">
                     <UButton v-for="child in (item as any).children" :key="child.label" :label="child.label"
                              :to="child.to" class="text-black hover:bg-neutral-200" color="neutral" variant="ghost"/>
@@ -343,14 +343,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">
                   Contact
                 </span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton class="text-black hover:bg-neutral-200" color="neutral" icon="lucide:mail" label="Email Us"
                            to="mailto:contact@rimelight.com" variant="ghost"/>
                 </div>
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">
                   Socials
                 </span>
                 <div class="grid grid-cols-1 gap-1">
@@ -374,7 +374,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full"/>
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Category</span>
+                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Category</span>
                   <div class="grid grid-cols-1 gap-1">
                     <UButton class="text-black hover:bg-neutral-200" color="neutral" label="Merchandise"
                              to="/store/merch" variant="ghost"/>
@@ -385,7 +385,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-neutral-500">Assistance</span>
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Assistance</span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton class="text-black hover:bg-neutral-200" color="neutral" icon="lucide:shopping-bag"
                            label="Order Status" to="/store/orders" variant="ghost"/>

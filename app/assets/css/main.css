@@ -196,6 +196,37 @@
 
   /* endregion */
 
+
+  /* region Grand Tale */
+  /* region Primary */
+  --color-grand-tale-primary-50: oklch(1 0 0);
+  --color-grand-tale-primary-100: oklch(0.8897 0.0348 17.82);
+  --color-grand-tale-primary-200: oklch(0.7784 0.075 18.91);
+  --color-grand-tale-primary-300: oklch(0.6721 0.1165 20.61);
+  --color-grand-tale-primary-400: oklch(0.5759 0.1601 23.59);
+  --color-grand-tale-primary-500: oklch(0.5035 0.1896 27.5);
+  --color-grand-tale-primary-600: oklch(0.4281 0.1594 27.3);
+  --color-grand-tale-primary-700: oklch(0.3502 0.1267 26.81);
+  --color-grand-tale-primary-800: oklch(0.2693 0.0933 26.14);
+  --color-grand-tale-primary-900: oklch(0.1815 0.0536 24.18);
+  --color-grand-tale-primary-950: oklch(0 0 0);
+  /* endregion */
+
+  /* region Secondary */
+  --color-grand-tale-secondary-50: oklch(1 0 0);
+  --color-grand-tale-secondary-100: oklch(0.9242 0.029 77.54);
+  --color-grand-tale-secondary-200: oklch(0.8483 0.0583 77.19);
+  --color-grand-tale-secondary-300: oklch(0.772 0.0853 76.63);
+  --color-grand-tale-secondary-400: oklch(0.6976 0.1107 74.68);
+  --color-grand-tale-secondary-500: oklch(0.6254 0.1275 69.96);
+  --color-grand-tale-secondary-600: oklch(0.5322 0.107 70.48);
+  --color-grand-tale-secondary-700: oklch(0.4348 0.0853 71.27);
+  --color-grand-tale-secondary-800: oklch(0.3329 0.0633 71.87);
+  --color-grand-tale-secondary-900: oklch(0.2209 0.0379 75.04);
+  --color-grand-tale-secondary-950: oklch(0 0 0);
+  /* endregion */
+
+
   /* endregion */
 }
 

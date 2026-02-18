@@ -21,17 +21,17 @@ const { bottomOffsets } = useHeaderStack();
 </script>
 
 <template>
-  <RCHeader class="bg-primary-950/80 backdrop-blur-xl border-b border-primary-800/50 shadow-lg" :contain="false">
+  <RCHeader class="bg-grand-tale-primary-700 border-b border-grand-tale-secondary-500 shadow-lg" :contain="false">
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <div class="flex items-center gap-2">
-          <UIcon name="i-lucide-scroll" class="text-primary-400 size-5" />
+          <UIcon name="i-lucide-scroll" class="text-grand-tale-secondary-400 size-5" />
           <span class="font-black text-white uppercase tracking-widest text-sm whitespace-nowrap">Grand Tale</span>
         </div>
         <div class="h-4 w-px bg-white/10" />
         <UNavigationMenu :items="links" variant="link" :ui="{
           viewportWrapper: 'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
-          link: 'text-sm font-medium text-gray-400 hover:text-white transition-colors py-0 h-10'
+          link: 'text-sm font-medium text-grand-tale-secondary-500 hover:text-white transition-colors py-0 h-10'
         }" :style="{ '--header-bottom-boundary': `${(bottomOffsets[layerId] || 0) - 64}px` }" />
       </div>
     </template>
@@ -39,20 +39,20 @@ const { bottomOffsets } = useHeaderStack();
     <template #right>
       <div class="flex flex-row items-center gap-md">
         <UNavigationMenu :items="rightLinks" variant="link" :ui="{
-          link: 'text-sm font-medium text-gray-400 hover:text-white transition-colors py-0 h-10'
+          link: 'text-sm font-medium text-grand-tale-secondary-500 hover:text-white transition-colors py-0 h-10'
         }" />
       </div>
     </template>
 
     <template #collapsed-left>
       <div class="flex items-center px-4">
-        <UButton color="neutral" icon="lucide:menu" variant="ghost" @click="isSlideoverOpen = true" />
+        <UButton color="grand-tale-secondary" icon="lucide:menu" variant="ghost" @click="isSlideoverOpen = true" />
       </div>
     </template>
 
     <template #collapsed-center>
       <div class="flex items-center gap-2">
-        <UIcon name="i-lucide-scroll" class="text-primary-400 size-4" />
+        <UIcon name="i-lucide-scroll" class="text-grand-tale-secondary-400 size-4" />
         <span class="font-black text-white uppercase tracking-widest text-xs whitespace-nowrap">Grand Tale</span>
       </div>
     </template>
@@ -66,16 +66,16 @@ const { bottomOffsets } = useHeaderStack();
           }">
             <template #header>
               <div class="flex items-center gap-2">
-                <UIcon name="i-lucide-scroll" class="text-primary-400 size-5" />
+                <UIcon name="i-lucide-scroll" class="text-grand-tale-secondary-400 size-5" />
                 <span class="font-black text-white uppercase tracking-widest text-sm">Grand Tale</span>
               </div>
-              <UButton color="neutral" icon="lucide:x" variant="ghost" @click="isSlideoverOpen = false" />
+              <UButton color="grand-tale-secondary" icon="lucide:x" variant="ghost" @click="isSlideoverOpen = false" />
             </template>
             <template #body>
               <div class="flex flex-col gap-4">
                 <UNavigationMenu :items="[...links, ...rightLinks]" orientation="vertical" variant="link" class="w-full"
                   :ui="{
-                    link: 'text-base font-medium text-gray-400 hover:text-white transition-colors px-4 py-3'
+                    link: 'text-base font-medium text-grand-tale-secondary-500 hover:text-white transition-colors px-4 py-3'
                   }" @click="isSlideoverOpen = false" />
               </div>
             </template>

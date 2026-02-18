@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n();
 
-// Navigation items grouped by section
 const navigationItems = computed(() => [
   [
     {
@@ -90,26 +89,29 @@ const navigationItems = computed(() => [
     }
   ]
 ]);
+const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
+  query: { slugPrefix: 'franchises/grand-tale/wiki' }
+});
 </script>
 
 <template>
-  <div class="space-y-8 p-md">
+  <div class="flex flex-col gap-md p-md">
     <UNavigationMenu :items="navigationItems" orientation="vertical" :ui="{
       label: 'text-[10px] font-black uppercase tracking-[0.1em]',
-      link: 'text-[11px] text-dimmed py-1'
+      link: 'text-[11px] text-grand-tale-secondary-500 py-1',
     }" class="w-full" />
 
     <!-- Stats or Contribution Info -->
-    <div class="px-4 py-6 bg-primary-900/50 border border-primary-800/50 rounded-none space-y-4">
-      <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-500">Wiki Stats</h3>
+    <div class="px-4 py-6 bg-grand-tale-primary-900/50 border border-grand-tale-secondary-800/50 rounded-none space-y-4">
+      <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-grand-tale-secondary-500">Wiki Stats</h3>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <div class="text-lg font-bold text-white">1,248</div>
-          <div class="text-[9px] text-primary-100/40 uppercase font-bold">Articles</div>
+          <div class="text-lg font-bold text-white">{{ articleCount?.toLocaleString() ?? 0 }}</div>
+          <div class="text-[9px] text-grand-tale-secondary-100/40 uppercase font-bold">Articles</div>
         </div>
         <div>
           <div class="text-lg font-bold text-white">52</div>
-          <div class="text-[9px] text-primary-100/40 uppercase font-bold">Contributors</div>
+          <div class="text-[9px] text-grand-tale-secondary-100/40 uppercase font-bold">Contributors</div>
         </div>
       </div>
     </div>
