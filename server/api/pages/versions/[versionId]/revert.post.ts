@@ -1,26 +1,13 @@
 import { and, eq, gt } from "drizzle-orm";
-import { getUserSession } from "#server/utils/session";
+import { requireAdminOrOwner } from "#server/utils/session";
 import { db, pages, pageVersions } from "#server/db";
 
 export default defineEventHandler(async (event) => {
   const versionId = getRouterParam(event, "versionId");
-  const session = await getUserSession(event);
+  const session = await requireAdminOrOwner(event);
 
   if (!versionId) {
     throw createError({ statusCode: 400, statusMessage: "Missing version ID" });
-  }
-
-  if (!session?.user?.id) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
-  }
-
-  // Only admin or owner can revert versions
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "admin";
-  if (!isAuthorized) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Only admins and owners can revert versions",
-    });
   }
 
   try {

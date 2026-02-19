@@ -24,10 +24,10 @@ useHead({
       </p>
       <div class="bg-grand-tale-primary-950/50 border border-grand-tale-secondary-800/50 p-6 flex gap-4 max-w-xl">
         <UInput icon="lucide:search" placeholder="Search the library..." size="xl" class="flex-1"
-          color="grand-tale-primary" variant="outline" :ui="{
+          color="neutral" variant="outline" :ui="{
             base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
           }" />
-        <UButton color="grand-tale-primary" icon="lucide:arrow-right" size="xl" />
+        <UButton color="neutral" icon="lucide:arrow-right" size="xl" />
       </div>
     </section>
 

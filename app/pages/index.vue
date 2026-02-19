@@ -203,7 +203,7 @@ const ctaLinks = ref<ButtonProps[]>([
 
     <div class="absolute inset-0 -z-10 bg-black/80"/>
 
-    <UPageSection :description="t('home_news_description')" :title="t('home_news_title')">
+    <UPageSection :description="t('home_news_description')" :title="t('home_news_title')" :ui="{ title: 'text-white' }">
       <UBlogPosts v-if="latestPosts?.length" class="grid md:grid-cols-2 lg:grid-cols-3">
         <UBlogPost v-for="post in latestPosts" :key="post.slug" :authors="[]" :badge="{
           label: t(post.type),

@@ -1,21 +1,17 @@
 import { eq } from "drizzle-orm";
 import { db, pageVersions } from "#server/db";
-import { getUserSession } from "#server/utils/session";
+import { requireAdminOrOwner } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
   const versionId = getRouterParam(event, "versionId");
-  const session = await getUserSession(event);
+  const session = await requireAdminOrOwner(event);
 
   if (!versionId) {
     throw createError({ statusCode: 400, statusMessage: "Missing version ID" });
   }
 
-  // Check authorization - users need to be authenticated to view versions
-  if (!session?.user) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
-  }
-
   try {
+    // Get the version
     const [version] = await db
       .select()
       .from(pageVersions)
@@ -26,19 +22,29 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 404, statusMessage: "Version not found" });
     }
 
+    if (version.status !== "pending") {
+      throw createError({ statusCode: 400, statusMessage: "Only pending versions can be rejected" });
+    }
+
+    // Mark the version as rejected
+    await db
+      .update(pageVersions)
+      .set({
+        status: "rejected",
+      })
+      .where(eq(pageVersions.id, versionId));
+
     return {
-      ...version,
-      blocks: version.content?.blocks || [],
-      properties: version.content?.properties || {},
+      message: "Version rejected successfully",
     };
   } catch (error: any) {
     if (error.statusCode) {
       throw error;
     }
-    console.error("Version Fetch Error:", error);
+    console.error("Reject Version Error:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to fetch version",
+      statusMessage: error.message || "Failed to reject version",
     });
   }
 });

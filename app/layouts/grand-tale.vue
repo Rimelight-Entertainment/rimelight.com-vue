@@ -3,16 +3,6 @@
 
 <template>
   <NuxtLayout name="default">
-    <template #banner>
-      <ClientOnly>
-        <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
-          <UBanner icon="lucide:construction"
-            title="Grand Tale is currently in development! Some pages may be incomplete." closable
-            :ui="{ title: 'text-white' }" class="bg-grand-tale-primary-500" />
-        </RCHeaderLayer>
-      </ClientOnly>
-    </template>
-
     <template #franchise-header>
       <ClientOnly>
         <RCHeaderLayer id="franchise-header" :order="3">

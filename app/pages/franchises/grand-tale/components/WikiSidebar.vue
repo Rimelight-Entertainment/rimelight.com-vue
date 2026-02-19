@@ -52,6 +52,14 @@ const navigationItems = computed(() => [
       to: '/franchises/grand-tale/wiki/lore/items'
     },
     {
+      label: 'Objects',
+      to: '/franchises/grand-tale/wiki/lore/objects'
+    },
+    {
+      label: 'Groups',
+      to: '/franchises/grand-tale/wiki/lore/groups'
+    },
+    {
       label: 'Skills',
       to: '/franchises/grand-tale/wiki/lore/skills'
     },
@@ -95,15 +103,15 @@ const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
 </script>
 
 <template>
-  <div class="flex flex-col gap-md p-md">
+  <div class="flex flex-col gap-md px-md">
     <UNavigationMenu :items="navigationItems" orientation="vertical" :ui="{
-      label: 'text-[10px] font-black uppercase tracking-[0.1em]',
-      link: 'text-[11px] text-grand-tale-secondary-500 py-1',
+      label: 'text-white',
+      link: 'text-grand-tale-secondary-500',
     }" class="w-full" />
 
     <!-- Stats or Contribution Info -->
-    <div class="px-4 py-6 bg-grand-tale-primary-900/50 border border-grand-tale-secondary-800/50 rounded-none space-y-4">
-      <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-grand-tale-secondary-500">Wiki Stats</h3>
+    <UCard class="bg-grand-tale-priamry-900 border-grand-tale-secondary-500">
+      <h3 class="text-sm uppercase text-grand-tale-secondary-500">Wiki Stats</h3>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <div class="text-lg font-bold text-white">{{ articleCount?.toLocaleString() ?? 0 }}</div>
@@ -114,6 +122,6 @@ const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
           <div class="text-[9px] text-grand-tale-secondary-100/40 uppercase font-bold">Contributors</div>
         </div>
       </div>
-    </div>
+    </UCard>
   </div>
 </template>

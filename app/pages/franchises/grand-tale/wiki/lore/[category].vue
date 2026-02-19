@@ -18,6 +18,8 @@ const categoryToType: Record<string, string> = {
   'locations': 'Location',
   'species': 'Species',
   'items': 'Item',
+  'objects': 'Object',
+  'groups': 'Group',
   'skills': 'Skill',
   'heroes': 'Hero'
 };
@@ -133,7 +135,7 @@ const pagination = ref({
     <div v-else class="space-y-6">
       <div class="flex items-center gap-4">
         <UInput v-model="globalFilter" icon="lucide:search" placeholder="Filter articles..." class="max-w-xs w-full"
-          variant="outline" color="grand-tale-primary" :ui="{
+          variant="outline" color="neutral" :ui="{
             base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
           }" />
       </div>

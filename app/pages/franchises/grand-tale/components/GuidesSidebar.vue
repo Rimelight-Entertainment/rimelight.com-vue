@@ -63,10 +63,10 @@ const navigationItems = computed(() => [
 </script>
 
 <template>
-    <div class="flex flex-col gap-md p-md">
+    <div class="flex flex-col gap-md px-md">
         <UNavigationMenu :items="navigationItems" orientation="vertical" :ui="{
-            label: 'text-[10px] font-black uppercase tracking-[0.1em]',
-            link: 'text-[11px] text-grand-tale-secondary-500 py-1'
+            label: 'text-white',
+            link: 'text-grand-tale-secondary-500'
         }" class="w-full" />
 
         <!-- Community Tip -->

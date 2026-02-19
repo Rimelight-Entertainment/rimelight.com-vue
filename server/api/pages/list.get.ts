@@ -6,6 +6,7 @@ export default defineEventHandler(async () => {
     .select({
       title: pages.title,
       slug: pages.slug,
+      type: pages.type,
     })
     .from(pages)
     .orderBy(asc(pages.slug));

@@ -55,8 +55,8 @@ const items = computed<NavigationMenuItem[]>(() => markRaw([
       {label: "News", to: "/franchises/grand-tale/news"},
       {label: "About", to: "/franchises/grand-tale/about"},
       {label: "Wiki", to: "/franchises/grand-tale/wiki"},
+      {label: "Guides", to: "/franchises/grand-tale/guides"},
       {label: "Leaderboards", to: "/franchises/grand-tale/leaderboards"},
-      {label: "Support", to: "/franchises/grand-tale/support"},
     ],
   },
   {
@@ -284,7 +284,10 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">Resources</span>
-
+                <div class="grid grid-cols-1 gap-1">
+                  <UButton class="text-black hover:bg-neutral-200" color="neutral" icon="lucide:headset"
+                           label="Support" to="/franchises/grand-tale/support" variant="ghost"/>
+                </div>
               </div>
             </div>
           </template>

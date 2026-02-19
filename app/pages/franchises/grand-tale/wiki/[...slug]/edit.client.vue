@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type Page, type PageType } from "#rimelight-components/types"
+import { type Page, type PageType, type PageVersion } from "#rimelight-components/types"
+import { convertVersionToPage } from "#rimelight-components/utils"
 import { PAGE_MAP as pageDefinitions } from "~/types"
 
 const router = useRouter()
@@ -20,11 +21,18 @@ const isSaving = ref(false)
 const {
   data: page,
   status: pageStatus,
-  error: pageError
+  error: pageError,
+  refresh: refreshPage
 } = useApi<Page>(`/api/pages/find/${lookupSlug.value}`, {
   method: "GET",
   key: `edit-wiki-${slug.value}`,
 })
+
+const { permissions } = useAuth()
+const isAdmin = permissions.admin.canAccess
+
+const currentVersionId = ref<string | null>(null)
+const editorRef = useTemplateRef('editor')
 
 const localPage = ref<Page | null>(null)
 
@@ -40,6 +48,10 @@ const resolvePage = async (id: string) => {
   })
 }
 
+const fetchPages = async () => {
+  return $api<Pick<Page, 'title' | 'slug' | 'type'>[]>('/api/pages/list')
+}
+
 const handleSave = async (updatedPage: Page): Promise<void> => {
   if (!updatedPage.id) return
   isSaving.value = true
@@ -51,11 +63,81 @@ const handleSave = async (updatedPage: Page): Promise<void> => {
     })
 
     toast.add({ color: "success", title: t("toast_save-post_success_title") })
+    
+    // Reset editor history so it's not marked as dirty
+    await nextTick()
+    editorRef.value?.resetHistory()
   } catch (e) {
     toast.add({ color: "error", title: t("toast_save-post_error_title") })
   } finally {
     isSaving.value = false
   }
+}
+
+const handleVersionNavigate = async (version: PageVersion | null) => {
+  if (!version || !version.id) {
+    // Navigate back to live version
+    localPage.value = JSON.parse(JSON.stringify(page.value))
+    currentVersionId.value = null
+    await nextTick()
+    editorRef.value?.resetHistory()
+    return
+  }
+
+  try {
+    const versionData = await $api<PageVersion>(`/api/pages/versions/${version.id}`)
+    
+    // Use the utility to ensure proper Page structure
+    const newPage = convertVersionToPage(versionData)
+    
+    // Sync with definition immediately so the UI doesn't see unhydrated data
+    const definition = (pageDefinitions as any)[newPage.type]
+    if (definition) {
+      syncPageWithDefinition(newPage, definition)
+    }
+    
+    localPage.value = newPage
+    currentVersionId.value = version.id
+    
+    // Reset history so it starts clean from this version
+    await nextTick()
+    editorRef.value?.resetHistory()
+  } catch (e) {
+    console.error("Failed to load version:", e)
+    toast.add({ color: 'error', title: 'Failed to load version' })
+  }
+}
+
+const handleVersionApproved = async (version: PageVersion) => {
+  // If we were viewing this version, or it was just approved to live, 
+  // we should refresh the page data
+  await refreshPage()
+  
+  // If we were viewing this version, go back to live (which is now this version)
+  if (currentVersionId.value === version.id) {
+    currentVersionId.value = null
+    localPage.value = JSON.parse(JSON.stringify(page.value))
+    await nextTick()
+    editorRef.value?.resetHistory()
+  }
+}
+
+const handleVersionRejected = async (version: PageVersion) => {
+  // If we were viewing the version that was just rejected, go back to live
+  if (currentVersionId.value === version.id) {
+    currentVersionId.value = null
+    localPage.value = JSON.parse(JSON.stringify(page.value))
+    await nextTick()
+    editorRef.value?.resetHistory()
+  }
+}
+
+const handleVersionReverted = async (version: PageVersion) => {
+  await refreshPage()
+  currentVersionId.value = null
+  localPage.value = JSON.parse(JSON.stringify(page.value))
+  await nextTick()
+  editorRef.value?.resetHistory()
 }
 
 const handlePublish = async (updatedPage: Page): Promise<void> => {
@@ -123,9 +205,23 @@ useHead({
   }" redirect="/franchises/grand-tale/wiki" />
 
   <template v-else-if="localPage && localPage.id">
-    <RCPageEditor v-model="localPage" :is-saving="isSaving" :page-definitions="pageDefinitions"
-      :resolve-page="resolvePage" :on-delete-page="handleDelete" @save="handleSave"
-      @publish="handlePublish" />
+    <RCPageEditor 
+      ref="editor"
+      v-model="localPage" 
+      v-model:current-version-id="currentVersionId"
+      :is-saving="isSaving" 
+      :is-admin="isAdmin"
+      :page-definitions="pageDefinitions"
+      :resolve-page="resolvePage" 
+      :on-fetch-pages="fetchPages" 
+      :on-delete-page="handleDelete" 
+      @save="handleSave"
+      @publish="handlePublish" 
+      @version-navigate="handleVersionNavigate"
+      @version-approved="handleVersionApproved"
+      @version-rejected="handleVersionRejected"
+      @version-reverted="handleVersionReverted"
+    />
   </template>
 </template>
 

@@ -87,8 +87,23 @@ export const CHARACTER_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         name: { defaultValue: { en: "" }, label: { en: "Name" }, type: "text" },
-        title: { defaultValue: { en: "" }, label: { en: "Social Title" }, type: "text" },
+        title: { defaultValue: { en: "" }, label: { en: "Title" }, type: "text" },
         aliases: { defaultValue: [], label: { en: "Aliases" }, type: "text-array" },
+        pronouns: {
+          defaultValue: { en: "Unknown" },
+          label: { en: "Pronouns" },
+          type: "enum",
+          options: [
+            { en: "He/Him" },
+            { en: "She/Her" },
+            { en: "They/Them" },
+            { en: "He/They" },
+            { en: "She/They" },
+            { en: "Other" },
+            { en: "Unknown" }
+          ],
+        },
+        flavourText: { defaultValue: { en: "" }, label: { en: "Flavour Text" }, type: "text" },
       },
     },
     characteristics: {
@@ -114,6 +129,59 @@ export const CHARACTER_DEFINITION = definePageDefinition({
         },
         height: { defaultValue: 0, label: { en: "Height" }, type: "number" },
         weight: { defaultValue: 0, label: { en: "Weight" }, type: "number" },
+        dateOfBirth: { defaultValue: { en: "" }, label: { en: "Date of Birth" }, type: "text" },
+        placeOfBirth: { defaultValue: { en: "" }, label: { en: "Place of Birth" }, type: "text" },
+        dateOfDeath: { defaultValue: { en: "" }, label: { en: "Date of Death" }, type: "text" },
+        placeOfDeath: { defaultValue: { en: "" }, label: { en: "Place of Death" }, type: "text" },
+      },
+    },
+    inventory: {
+      label: { en: "Inventory & Assets" },
+      defaultOpen: false,
+      fields: {
+        equipment: {
+          defaultValue: [],
+          label: { en: "Equipment" },
+          type: "page-array",
+          allowedPageTypes: ["Object"]
+        },
+        pets: {
+          defaultValue: [],
+          label: { en: "Pets" },
+          type: "page-array",
+          allowedPageTypes: ["Character"]
+        },
+        mounts: {
+          defaultValue: [],
+          label: { en: "Mounts" },
+          type: "page-array",
+          allowedPageTypes: ["Character"]
+        },
+      },
+    },
+    affiliations: {
+      label: { en: "Affiliations" },
+      defaultOpen: false,
+      fields: {
+        currentAffiliations: {
+          defaultValue: [],
+          label: { en: "Current Affiliations" },
+          type: "page-array",
+          allowedPageTypes: ["Group"]
+        },
+        formerAffiliations: {
+          defaultValue: [],
+          label: { en: "Former Affiliations" },
+          type: "page-array",
+          allowedPageTypes: ["Group"]
+        },
+      },
+    },
+    other: {
+      label: { en: "Other" },
+      defaultOpen: false,
+      fields: {
+        favouriteFood: { defaultValue: { en: "" }, label: { en: "Favourite Food" }, type: "text" },
       },
     },
   },
@@ -198,6 +266,47 @@ export const ITEM_DEFINITION = definePageDefinition({
   },
 });
 
+export const OBJECT_DEFINITION = definePageDefinition({
+  typeLabelKey: "page.type.object",
+  properties: {
+    details: {
+      label: { en: "Object Details" },
+      defaultOpen: true,
+      fields: {
+        category: {
+          defaultValue: { en: "Miscellaneous" },
+          label: { en: "Category" },
+          type: "text"
+        }
+      }
+    }
+  }
+});
+
+export const GROUP_DEFINITION = definePageDefinition({
+  typeLabelKey: "page.type.group",
+  properties: {
+    details: {
+      label: { en: "Group Details" },
+      defaultOpen: true,
+      fields: {
+        leader: {
+          defaultValue: "",
+          label: { en: "Leader" },
+          type: "page",
+          allowedPageTypes: ["Character"]
+        },
+        headquarters: {
+          defaultValue: "",
+          label: { en: "Headquarters" },
+          type: "page",
+          allowedPageTypes: ["Location"]
+        }
+      }
+    }
+  }
+});
+
 export const HERO_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.hero",
   properties: {
@@ -270,6 +379,8 @@ declare global {
     Character: typeof CHARACTER_DEFINITION.properties;
     Skill: typeof SKILL_DEFINITION.properties;
     Item: typeof ITEM_DEFINITION.properties;
+    Object: typeof OBJECT_DEFINITION.properties;
+    Group: typeof GROUP_DEFINITION.properties;
     Card: typeof CARD_DEFINITION.properties;
     Hero: typeof HERO_DEFINITION.properties;
   }
@@ -284,6 +395,8 @@ export const PAGE_MAP = {
   Character: CHARACTER_DEFINITION,
   Skill: SKILL_DEFINITION,
   Item: ITEM_DEFINITION,
+  Object: OBJECT_DEFINITION,
+  Group: GROUP_DEFINITION,
   Card: CARD_DEFINITION,
   Hero: HERO_DEFINITION,
 };

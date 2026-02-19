@@ -178,5 +178,17 @@
   "careers_apply_button": "Apply Now",
   "account_profile": "Profile",
   "account_support": "Support",
-  "account_settings": "Settings"
+  "account_settings": "Settings",
+  "page.type.character": "Character",
+  "page.type.species": "Species",
+  "page.type.location": "Location",
+  "page.type.item": "Item",
+  "page.type.object": "Object",
+  "page.type.group": "Group",
+  "page.type.skill": "Skill",
+  "page.type.patchNote": "Patch Note",
+  "page.type.blogPost": "Blog Post",
+  "page.type.document": "Document",
+  "page.type.hero": "Hero",
+  "page.type.card": "Card"
 }
