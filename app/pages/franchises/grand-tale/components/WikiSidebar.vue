@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 const { t } = useI18n();
 
 const navigationItems = computed(() => [
@@ -110,7 +110,7 @@ const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
     }" class="w-full" />
 
     <!-- Stats or Contribution Info -->
-    <UCard class="bg-grand-tale-priamry-900 border-grand-tale-secondary-500">
+    <UCard class="bg-grand-tale-primary-900 border-grand-tale-secondary-500">
       <h3 class="text-sm uppercase text-grand-tale-secondary-500">Wiki Stats</h3>
       <div class="grid grid-cols-2 gap-4">
         <div>
@@ -125,3 +125,4 @@ const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
     </UCard>
   </div>
 </template>
+
