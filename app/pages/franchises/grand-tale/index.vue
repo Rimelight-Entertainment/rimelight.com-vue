@@ -19,7 +19,7 @@ useSeoMeta({
     <section class="relative min-h-[60vh] flex items-center overflow-hidden border-b border-grand-tale-secondary-800/30">
       <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-gradient-to-b from-grand-tale-primary-950/50 via-grand-tale-primary-950 to-grand-tale-primary-900" />
-        <NuxtImg 
+        <NuxtImg
           src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop"
           alt="Grand Tale Hero"
           class="w-full h-full object-cover opacity-30 mix-blend-overlay"
@@ -39,8 +39,8 @@ useSeoMeta({
             Grand Tale is the next generation open-world RPG from Rimelight Entertainment. Explore a living world shaped by player agency and emergent storytelling.
           </p>
           <div class="flex gap-4 pt-4">
-            <UButton size="xl" color="grand-tale-primary" class="font-bold px-8">Play Now</UButton>
-            <UButton size="xl" variant="outline" color="grand-tale-secondary" class="font-bold px-8">Watch Trailer</UButton>
+            <UButton size="xl" color="grandTalePrimary" class="font-bold px-8">Play Now</UButton>
+            <UButton size="xl" variant="outline" color="grandTaleSecondary" class="font-bold px-8">Watch Trailer</UButton>
           </div>
         </div>
       </UContainer>

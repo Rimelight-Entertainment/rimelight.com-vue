@@ -86,8 +86,8 @@ export default defineAppConfig({
       ideation: "ideation",
       source: "source",
       neutral: "zinc",
-      "grand-tale-primary": "grand-tale-primary",
-      "grand-tale-secondary": "grand-tale-secondary",
+      grandTalePrimary: "grand-tale-primary",
+      grandTaleSecondary: "grand-tale-secondary"
     },
     icons: {
       close: "lucide:x",

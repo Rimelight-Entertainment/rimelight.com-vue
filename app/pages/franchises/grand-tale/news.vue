@@ -44,7 +44,7 @@ const newsItems = [
         <div class="grid grid-cols-1 gap-12">
           <article v-for="(item, index) in newsItems" :key="index" class="group flex flex-col md:flex-row gap-8 items-start border-b border-grand-tale-secondary-800/30 pb-12 last:border-0">
             <div class="w-full md:w-1/3 aspect-video bg-grand-tale-primary-900 overflow-hidden border border-grand-tale-secondary-800/50">
-              <NuxtImg 
+              <NuxtImg
                 :src="item.image"
                 :alt="item.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 group-hover:opacity-100"
@@ -61,7 +61,7 @@ const newsItems = [
               <p class="text-grand-tale-secondary-100/60 leading-relaxed line-clamp-3">
                 {{ item.excerpt }}
               </p>
-              <UButton variant="link" color="grand-tale-secondary" class="p-0">Read Transmission</UButton>
+              <UButton variant="link" color="grandTaleSecondary" class="p-0">Read Transmission</UButton>
             </div>
           </article>
         </div>

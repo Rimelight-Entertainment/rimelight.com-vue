@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 definePageMeta({
     layout: 'guides'
 });
@@ -42,7 +42,7 @@ useHead({
                         <p class="text-grand-tale-secondary-100/60 leading-relaxed">Master the basics of combat, exploration,
                             and the Soulstone system.</p>
                     </div>
-                    <UButton variant="link" color="grand-tale-secondary" icon="lucide:arrow-right" trailing
+                    <UButton variant="link" color="grandTaleSecondary" icon="lucide:arrow-right" trailing
                         class="px-0 font-black uppercase tracking-widest text-xs">Explore Basics</UButton>
                 </div>
             </UCard>
@@ -60,7 +60,7 @@ useHead({
                         <p class="text-grand-tale-secondary-100/60 leading-relaxed">In-depth analysis of hero abilities and
                             optimal equipment synergies.</p>
                     </div>
-                    <UButton variant="link" color="grand-tale-secondary" icon="lucide:arrow-right" trailing
+                    <UButton variant="link" color="grandTaleSecondary" icon="lucide:arrow-right" trailing
                         class="px-0 font-black uppercase tracking-widest text-xs">View Builds</UButton>
                 </div>
             </UCard>
@@ -78,7 +78,7 @@ useHead({
                         <p class="text-grand-tale-secondary-100/60 leading-relaxed">Advanced tactics for raids, world bosses,
                             and high-level competitive play.</p>
                     </div>
-                    <UButton variant="link" color="grand-tale-secondary" icon="lucide:arrow-right" trailing
+                    <UButton variant="link" color="grandTaleSecondary" icon="lucide:arrow-right" trailing
                         class="px-0 font-black uppercase tracking-widest text-xs">Master Endgame</UButton>
                 </div>
             </UCard>

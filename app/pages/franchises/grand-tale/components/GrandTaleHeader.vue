@@ -47,7 +47,7 @@ const { bottomOffsets } = useHeaderStack();
 
     <template #collapsed-left>
       <div class="flex items-center px-4">
-        <UButton color="grand-tale-secondary" icon="lucide:menu" variant="ghost" @click="isSlideoverOpen = true" />
+        <UButton color="grandTaleSecondary" icon="lucide:menu" variant="ghost" @click="isSlideoverOpen = true" />
       </div>
     </template>
 
@@ -70,7 +70,7 @@ const { bottomOffsets } = useHeaderStack();
                 <UIcon name="i-lucide-scroll" class="text-grand-tale-secondary-400 size-5" />
                 <span class="font-black text-white uppercase tracking-widest text-sm">Grand Tale</span>
               </div>
-              <UButton color="grand-tale-secondary" icon="lucide:x" variant="ghost" @click="isSlideoverOpen = false" />
+              <UButton color="grandTaleSecondary" icon="lucide:x" variant="ghost" @click="isSlideoverOpen = false" />
             </template>
             <template #body>
               <div class="flex flex-col gap-4">

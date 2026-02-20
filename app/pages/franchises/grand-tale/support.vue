@@ -26,7 +26,7 @@ useHead({
               </div>
             </template>
             <p class="text-sm text-grand-tale-secondary-100/60 mb-6">Found something broken? Let us know so we can fix it for everyone.</p>
-            <UButton block color="grand-tale-primary">Submit Report</UButton>
+            <UButton block color="grandTalePrimary">Submit Report</UButton>
           </UCard>
 
           <UCard class="bg-grand-tale-primary-800/20 border-grand-tale-secondary-700/50">
@@ -37,7 +37,7 @@ useHead({
               </div>
             </template>
             <p class="text-sm text-grand-tale-secondary-100/60 mb-6">Lost access to your account? We'll help you get back into the game.</p>
-            <UButton block variant="outline" color="grand-tale-secondary">Start Recovery</UButton>
+            <UButton block variant="outline" color="grandTaleSecondary">Start Recovery</UButton>
           </UCard>
         </div>
 

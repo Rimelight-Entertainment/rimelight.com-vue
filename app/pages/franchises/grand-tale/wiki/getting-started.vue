@@ -39,7 +39,7 @@ useHead({
           <p class="text-grand-tale-secondary-100/60 text-sm leading-relaxed mb-4">
             Learn the fundamentals of combat, including weapon types, skill rotations, and defensive mechanics.
           </p>
-          <UButton variant="link" color="grand-tale-secondary" class="p-0">Read Guide</UButton>
+          <UButton variant="link" color="grandTaleSecondary" class="p-0">Read Guide</UButton>
         </UCard>
 
         <UCard class="bg-grand-tale-primary-800/10 border-grand-tale-secondary-800/50">
@@ -49,7 +49,7 @@ useHead({
           <p class="text-grand-tale-secondary-100/60 text-sm leading-relaxed mb-4">
             Understand the core mechanic that powers your abilities and connects you to the world.
           </p>
-          <UButton variant="link" color="grand-tale-secondary" class="p-0">Read Guide</UButton>
+          <UButton variant="link" color="grandTaleSecondary" class="p-0">Read Guide</UButton>
         </UCard>
 
         <UCard class="bg-grand-tale-primary-800/10 border-grand-tale-secondary-800/50">
@@ -59,7 +59,7 @@ useHead({
           <p class="text-grand-tale-secondary-100/60 text-sm leading-relaxed mb-4">
             Master fast travel, waypoints, and exploration mechanics to traverse the shattered world.
           </p>
-          <UButton variant="link" color="grand-tale-secondary" class="p-0">Read Guide</UButton>
+          <UButton variant="link" color="grandTaleSecondary" class="p-0">Read Guide</UButton>
         </UCard>
 
         <UCard class="bg-grand-tale-primary-800/10 border-grand-tale-secondary-800/50">
@@ -69,7 +69,7 @@ useHead({
           <p class="text-grand-tale-secondary-100/60 text-sm leading-relaxed mb-4">
             Choose your origin, customize your appearance, and understand starting stats.
           </p>
-          <UButton variant="link" color="grand-tale-secondary" class="p-0">Read Guide</UButton>
+          <UButton variant="link" color="grandTaleSecondary" class="p-0">Read Guide</UButton>
         </UCard>
       </div>
     </section>
@@ -87,8 +87,8 @@ useHead({
           history, mysteries, and interconnected storylines.
         </p>
         <div class="flex gap-4">
-          <UButton color="grand-tale-secondary" variant="outline">Timeline of Events</UButton>
-          <UButton color="grand-tale-secondary" variant="outline">The Nine Factions</UButton>
+          <UButton color="grandTaleSecondary" variant="outline">Timeline of Events</UButton>
+          <UButton color="grandTaleSecondary" variant="outline">The Nine Factions</UButton>
         </div>
       </div>
 

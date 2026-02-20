@@ -112,7 +112,7 @@ const rules = [
             <h3 class="text-xl font-bold text-white">Ready to help?</h3>
             <p class="text-grand-tale-secondary-100/60 max-w-lg mx-auto">Join the Wiki Development channel in our Discord to
                 coordinate with other contributors.</p>
-            <UButton color="grand-tale-secondary" icon="ic:baseline-discord">Join Discord</UButton>
+            <UButton color="grandTaleSecondary" icon="ic:baseline-discord">Join Discord</UButton>
         </section>
     </div>
 </template>

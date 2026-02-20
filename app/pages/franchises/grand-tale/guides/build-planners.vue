@@ -36,7 +36,7 @@ useHead({
                 <p class="text-grand-tale-primary-100/60 text-sm mb-6">
                     Start from scratch with a Level 1 hero and map out their entire progression path to Level 100.
                 </p>
-                <UButton color="grand-tale-primary" block>Create New Build</UButton>
+                <UButton color="grandTalePrimary" block>Create New Build</UButton>
             </UCard>
 
             <UCard class="bg-grand-tale-primary-800/10 border-grand-tale-primary-800/50">
@@ -49,7 +49,7 @@ useHead({
                 <p class="text-grand-tale-primary-100/60 text-sm mb-6">
                     Access and edit your previously saved builds or share them with the community.
                 </p>
-                <UButton color="grand-tale-primary" variant="outline" block>View Saved Builds</UButton>
+                <UButton color="grandTalePrimary" variant="outline" block>View Saved Builds</UButton>
             </UCard>
         </section>
 

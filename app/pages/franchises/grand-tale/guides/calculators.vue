@@ -68,7 +68,7 @@ const calculators = [
         <UCard class="bg-grand-tale-primary-800/10 border-grand-tale-primary-800/50 border-dashed">
             <div class="text-center py-6 space-y-2">
                 <p class="text-grand-tale-primary-100/40 text-sm">Have a complex formula suggestion?</p>
-                <UButton variant="link" color="grand-tale-primary">Submit Calculation Request</UButton>
+                <UButton variant="link" color="grandTalePrimary">Submit Calculation Request</UButton>
             </div>
         </UCard>
     </div>
