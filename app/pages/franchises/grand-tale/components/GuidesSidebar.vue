@@ -68,14 +68,5 @@ const navigationItems = computed(() => [
             label: 'text-white',
             link: 'text-grand-tale-secondary-500'
         }" class="w-full" />
-
-        <!-- Community Tip -->
-        <div class="px-4 py-6 bg-grand-tale-primary-900/50 border border-grand-tale-secondary-800/50 rounded-none space-y-4">
-            <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-grand-tale-secondary-500 text-center">Pro Tip</h3>
-            <p class="text-xs text-grand-tale-secondary-100/60 leading-relaxed text-center italic">
-                "Elemental syncing is key in Void Raids. Always check your team's Soulstone synergy before entering."
-            </p>
-            <UButton block size="xs" color="grand-tale-secondary" variant="ghost" class="text-[10px] font-bold">Share a Tip</UButton>
-        </div>
     </div>
 </template>

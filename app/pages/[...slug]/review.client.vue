@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PAGE_MAP as pageDefinitions } from "~/types"
 const route = useRoute()
+const versionId = computed(() => route.query.version as string)
 
 const slug = computed(() => {
   const s = route.params.slug
@@ -10,13 +11,14 @@ const slug = computed(() => {
 const lookupPath = computed(() => slug.value)
 </script>
 <template>
-  <RCPageEditView
+  <RCPageReviewView
     :page-definitions="pageDefinitions"
     :lookup-path="lookupPath"
-    :cache-key="`catch-all-${slug.value}`"
+    :version-id="versionId"
+    :cache-key-base="`catch-all-${slug.value}`"
     :live-url-builder="() => `/${slug.value}`"
-    :review-url-builder="(s, versionId) => `/${slug.value}/review?version=${versionId}`"
-    back-url="/"
+    :edit-url-builder="() => `/${slug.value}/edit`"
+    :review-url-builder="(s, v) => `/${slug.value}/review?version=${v}`"
     :error-redirect-params="{ redirect: '/', label: 'Return Home', message: 'The requested page could not be located.' }"
   />
 </template>

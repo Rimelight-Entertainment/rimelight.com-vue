@@ -2,6 +2,7 @@
 import { PAGE_MAP as pageDefinitions } from "~/types"
 definePageMeta({ layout: 'wiki' })
 const route = useRoute()
+const versionId = computed(() => route.query.version as string)
 
 const slug = computed(() => {
   const s = route.params.slug
@@ -11,13 +12,14 @@ const slug = computed(() => {
 const lookupPath = computed(() => `franchises/grand-tale/wiki/${slug.value}`)
 </script>
 <template>
-  <RCPageEditView
+  <RCPageReviewView
     :page-definitions="pageDefinitions"
     :lookup-path="lookupPath"
-    :cache-key="`wiki-${slug.value}`"
+    :version-id="versionId"
+    :cache-key-base="`wiki-${slug.value}`"
     :live-url-builder="() => `/franchises/grand-tale/wiki/${slug.value}`"
-    :review-url-builder="(s, versionId) => `/franchises/grand-tale/wiki/${slug.value}/review?version=${versionId}`"
-    back-url="/franchises/grand-tale/wiki"
+    :edit-url-builder="() => `/franchises/grand-tale/wiki/${slug.value}/edit`"
+    :review-url-builder="(s, v) => `/franchises/grand-tale/wiki/${slug.value}/review?version=${v}`"
     :error-redirect-params="{ redirect: '/franchises/grand-tale/wiki', label: 'Back to Wiki', message: 'The requested wiki page could not be located.' }"
   />
 </template>
