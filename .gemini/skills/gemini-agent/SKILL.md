@@ -25,21 +25,25 @@ This skill helps configure the Gemini agent with project-specific settings and r
 ## Configuration Steps
 
 ### 1. Global Rules
+
 - Place global rules in `~/.gemini/GEMINI.md`
 - These apply across all workspaces
 - Include general coding standards and practices
 
 ### 2. Workspace Rules
+
 - Place workspace rules in `.gemini/rules/` directory
 - These apply to the specific project
 - Include project-specific conventions
 
 ### 3. Workflows
+
 - Create workflow files in `.gemini/workflows/` directory
 - Use markdown format with YAML frontmatter
 - Define step-by-step processes for common tasks
 
 ### 4. Skills
+
 - Create skill directories in `.gemini/skills/` directory
 - Each skill needs a SKILL.md file with instructions
 - Include any additional resources needed by the skill

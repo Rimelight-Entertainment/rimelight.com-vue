@@ -1,6 +1,6 @@
-import {existsSync} from "node:fs";
-import {resolve} from "node:path";
-import {fileURLToPath} from "node:url";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri";
 
@@ -12,36 +12,36 @@ export default defineNuxtConfig({
   extends: [
     [
       isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
-      {install: true},
+      { install: true },
     ],
   ],
   compatibilityDate: "2026-02-13",
   $env: {
     development: {
-      devtools: {enabled: true},
-      devServer: {host: "127.0.0.1", port: 3000},
-      typescript: {typeCheck: false},
-      site: {indexable: false},
+      devtools: { enabled: true },
+      devServer: { host: "127.0.0.1", port: 3000 },
+      typescript: { typeCheck: false },
+      site: { indexable: false },
     },
     testing: {
-      devtools: {enabled: false},
+      devtools: { enabled: false },
     },
     staging: {
-      devtools: {enabled: true},
-      site: {url: "https://staging.rimelight.com", indexable: false},
+      devtools: { enabled: true },
+      site: { url: "https://staging.rimelight.com", indexable: false },
       nitro: {
         sourceMap: true,
       },
     },
     production: {
-      devtools: {enabled: false},
-      typescript: {typeCheck: false},
+      devtools: { enabled: false },
+      typescript: { typeCheck: false },
       nitro: {
         compressPublicAssets: true,
         minify: true,
       },
       // Switch to true on release
-      site: {url: "https://rimelight.com", indexable: false},
+      site: { url: "https://rimelight.com", indexable: false },
       robots: {
         blockAiBots: true,
         blockNonSeoBots: true,
@@ -102,13 +102,13 @@ export default defineNuxtConfig({
     "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
     ...(isLocalLayer
       ? {
-        "#rimelight-components/types": resolve(localLayerPath, "app/types"),
-        "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
-        "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
-        "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
-        "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
-        "rimelight-components": localLayerPath,
-      }
+          "#rimelight-components/types": resolve(localLayerPath, "app/types"),
+          "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
+          "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
+          "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
+          "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
+          "rimelight-components": localLayerPath,
+        }
       : {}),
   },
   vite: {
@@ -131,11 +131,11 @@ export default defineNuxtConfig({
     preset: isTauri ? "node" : "cloudflare_module",
     ...(!isTauri
       ? {
-        cloudflare: {
-          deployConfig: true,
-          nodeCompat: true,
-        },
-      }
+          cloudflare: {
+            deployConfig: true,
+            nodeCompat: true,
+          },
+        }
       : {}),
     experimental: {
       websocket: true,
@@ -156,24 +156,24 @@ export default defineNuxtConfig({
     },
     routeRules: {
       //"/": { prerender: true },
-      "/documents/**": {isr: 3600},
-      "/blog/**": {isr: 3600},
-      "/internal/**": {ssr: false},
+      "/documents/**": { isr: 3600 },
+      "/blog/**": { isr: 3600 },
+      "/internal/**": { ssr: false },
     },
   },
   ...(!isTauri
     ? {
-      site: {
-        url: "https://rimelight.com",
-        name: "Rimelight Entertainment",
-        indexable: false,
-      },
-      robots: {
-        blockAiBots: false,
-        blockNonSeoBots: false,
-        disallow: ["/internal"],
-      },
-    }
+        site: {
+          url: "https://rimelight.com",
+          name: "Rimelight Entertainment",
+          indexable: false,
+        },
+        robots: {
+          blockAiBots: false,
+          blockNonSeoBots: false,
+          disallow: ["/internal"],
+        },
+      }
     : {}),
   css: ["~/assets/css/main.css"],
   components: [

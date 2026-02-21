@@ -63,23 +63,31 @@ const cookie = useCookie<CookieConsent>("cookie-consent", {
 });
 
 const createCookieDescription = () => {
-  return h('div', { class: 'text-sm text-muted mt-1' }, [
+  return h("div", { class: "text-sm text-muted mt-1" }, [
     "This website uses ",
-    h('span', [
-      h(ULink, {
-        href: "https://en.wikipedia.org/wiki/HTTP_COOKIE",
-        class: "text-primary",
-        target: "_blank",
-      }, { default: () => "cookies" })
+    h("span", [
+      h(
+        ULink,
+        {
+          href: "https://en.wikipedia.org/wiki/HTTP_COOKIE",
+          class: "text-primary",
+          target: "_blank",
+        },
+        { default: () => "cookies" },
+      ),
     ]),
     " to enhance your browsing experience. ",
-    h('br'),
+    h("br"),
     "By continuing to use our site, you agree to our ",
-    h('span', [
-      h(ULink, {
-        href: "/documents/policies/cookie-policy/",
-        class: "text-primary",
-      }, { default: () => "Cookie Policy" })
+    h("span", [
+      h(
+        ULink,
+        {
+          href: "/documents/policies/cookie-policy/",
+          class: "text-primary",
+        },
+        { default: () => "Cookie Policy" },
+      ),
     ]),
     ".",
   ]);

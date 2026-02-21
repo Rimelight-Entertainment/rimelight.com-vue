@@ -64,7 +64,7 @@ function onSubmit() {
         <UButton
           class="-ms-1.5"
           color="neutral"
-          icon="i-lucide-x"
+          icon="lucide:x"
           variant="ghost"
           @click="emits('close')"
         />
@@ -72,15 +72,15 @@ function onSubmit() {
 
       <template #right>
         <UTooltip text="Archive">
-          <UButton color="neutral" icon="i-lucide-inbox" variant="ghost" />
+          <UButton color="neutral" icon="lucide:inbox" variant="ghost" />
         </UTooltip>
 
         <UTooltip text="Reply">
-          <UButton color="neutral" icon="i-lucide-reply" variant="ghost" />
+          <UButton color="neutral" icon="lucide:reply" variant="ghost" />
         </UTooltip>
 
         <UDropdownMenu :items="dropdownItems">
-          <UButton color="neutral" icon="i-lucide-ellipsis-vertical" variant="ghost" />
+          <UButton color="neutral" icon="lucide:ellipsis-vertical" variant="ghost" />
         </UDropdownMenu>
       </template>
     </UDashboardNavbar>
@@ -119,7 +119,7 @@ function onSubmit() {
         variant="subtle"
       >
         <template #header>
-          <UIcon class="size-5" name="i-lucide-reply" />
+          <UIcon class="size-5" name="lucide:reply" />
 
           <span class="truncate text-sm">
             Reply to {{ mail.from.name }} ({{ mail.from.email }})
@@ -142,7 +142,7 @@ function onSubmit() {
 
           <div class="flex items-center justify-between">
             <UTooltip text="Attach file">
-              <UButton color="neutral" icon="i-lucide-paperclip" variant="ghost" />
+              <UButton color="neutral" icon="lucide:paperclip" variant="ghost" />
             </UTooltip>
 
             <div class="flex items-center justify-end gap-2">
@@ -150,7 +150,7 @@ function onSubmit() {
               <UButton
                 :loading="loading"
                 color="neutral"
-                icon="i-lucide-send"
+                icon="lucide:send"
                 label="Send"
                 type="submit"
               />

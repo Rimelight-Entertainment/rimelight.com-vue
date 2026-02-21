@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-const [{ data: organizationsCount }, { data: teamsCount }, { data: usersCount }, { data: sessionsCount }] = await Promise.all([
+const [
+  { data: organizationsCount },
+  { data: teamsCount },
+  { data: usersCount },
+  { data: sessionsCount },
+] = await Promise.all([
   useApi<number>("/api/admin/organizations/count"),
   useApi<number>("/api/admin/teams/count"),
   useApi<number>("/api/admin/users/count"),

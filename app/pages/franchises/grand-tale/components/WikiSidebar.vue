@@ -4,110 +4,115 @@ const { t } = useI18n();
 const navigationItems = computed(() => [
   [
     {
-      label: 'Wiki Explorer',
-      type: 'label' as const
+      label: "Wiki Explorer",
+      type: "label" as const,
     },
     {
-      label: 'Getting Started',
-      to: '/franchises/grand-tale/wiki/getting-started'
+      label: "Getting Started",
+      to: "/franchises/grand-tale/wiki/getting-started",
     },
     {
-      label: 'Contribution Guide',
-      to: '/franchises/grand-tale/wiki/contribution-guide'
-    }
+      label: "Contribution Guide",
+      to: "/franchises/grand-tale/wiki/contribution-guide",
+    },
   ],
   [
     {
-      label: 'Tales',
-      type: 'label' as const
+      label: "Tales",
+      type: "label" as const,
     },
     {
-      label: 'Chronology',
-      to: '/franchises/grand-tale/wiki/tales/chronology'
+      label: "Chronology",
+      to: "/franchises/grand-tale/wiki/tales/chronology",
     },
     {
-      label: 'World Lore',
-      to: '/franchises/grand-tale/wiki/tales/world-lore'
-    }
+      label: "World Lore",
+      to: "/franchises/grand-tale/wiki/tales/world-lore",
+    },
   ],
   [
     {
-      label: 'Lore',
-      type: 'label' as const
+      label: "Lore",
+      type: "label" as const,
     },
     {
-      label: 'Characters',
-      to: '/franchises/grand-tale/wiki/lore/characters'
+      label: "Characters",
+      to: "/franchises/grand-tale/wiki/lore/characters",
     },
     {
-      label: 'Locations',
-      to: '/franchises/grand-tale/wiki/lore/locations'
+      label: "Locations",
+      to: "/franchises/grand-tale/wiki/lore/locations",
     },
     {
-      label: 'Species',
-      to: '/franchises/grand-tale/wiki/lore/species'
+      label: "Species",
+      to: "/franchises/grand-tale/wiki/lore/species",
     },
     {
-      label: 'Items',
-      to: '/franchises/grand-tale/wiki/lore/items'
+      label: "Items",
+      to: "/franchises/grand-tale/wiki/lore/items",
     },
     {
-      label: 'Objects',
-      to: '/franchises/grand-tale/wiki/lore/objects'
+      label: "Objects",
+      to: "/franchises/grand-tale/wiki/lore/objects",
     },
     {
-      label: 'Groups',
-      to: '/franchises/grand-tale/wiki/lore/groups'
+      label: "Groups",
+      to: "/franchises/grand-tale/wiki/lore/groups",
     },
     {
-      label: 'Skills',
-      to: '/franchises/grand-tale/wiki/lore/skills'
+      label: "Skills",
+      to: "/franchises/grand-tale/wiki/lore/skills",
     },
     {
-      label: 'Heroes',
-      to: '/franchises/grand-tale/wiki/lore/heroes'
-    }
+      label: "Heroes",
+      to: "/franchises/grand-tale/wiki/lore/heroes",
+    },
   ],
   [
     {
-      label: 'Mechanics & Systems',
-      type: 'label' as const
+      label: "Mechanics & Systems",
+      type: "label" as const,
     },
     {
-      label: 'Combat Fundamentals',
-      to: '/franchises/grand-tale/wiki/mechanics/combat'
+      label: "Combat Fundamentals",
+      to: "/franchises/grand-tale/wiki/mechanics/combat",
     },
     {
-      label: 'Soulstone Resonance',
-      to: '/franchises/grand-tale/wiki/mechanics/soulstone'
+      label: "Soulstone Resonance",
+      to: "/franchises/grand-tale/wiki/mechanics/soulstone",
     },
     {
-      label: 'Damage Formulas',
-      to: '/franchises/grand-tale/wiki/mechanics/damage'
-    }
+      label: "Damage Formulas",
+      to: "/franchises/grand-tale/wiki/mechanics/damage",
+    },
   ],
   [
     {
-      label: 'Community',
-      type: 'label' as const
+      label: "Community",
+      type: "label" as const,
     },
     {
-      label: 'Contribute',
-      to: '#'
-    }
-  ]
+      label: "Contribute",
+      to: "#",
+    },
+  ],
 ]);
-const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
-  query: { slugPrefix: 'franchises/grand-tale/wiki' }
+const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
+  query: { slugPrefix: "franchises/grand-tale/wiki" },
 });
 </script>
 
 <template>
   <div class="flex flex-col gap-md px-md">
-    <UNavigationMenu :items="navigationItems" orientation="vertical" :ui="{
-      label: 'text-white',
-      link: 'text-grand-tale-secondary-500',
-    }" class="w-full" />
+    <UNavigationMenu
+      :items="navigationItems"
+      orientation="vertical"
+      :ui="{
+        label: 'text-white',
+        link: 'text-grand-tale-secondary-500',
+      }"
+      class="w-full"
+    />
 
     <UCard class="bg-grand-tale-primary-900 border-grand-tale-secondary-500">
       <h3 class="text-sm uppercase text-grand-tale-secondary-500">Wiki Stats</h3>
@@ -124,4 +129,3 @@ const { data: articleCount } = await useApi<number>(() => '/api/pages/count', {
     </UCard>
   </div>
 </template>
-

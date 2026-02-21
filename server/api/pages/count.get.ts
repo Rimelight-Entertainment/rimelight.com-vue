@@ -6,9 +6,9 @@ export default defineEventHandler(async (event) => {
   const slugPrefix = query.slugPrefix as string;
 
   let where = and(isNull(pages.deletedAt));
-  
+
   if (slugPrefix) {
-    const sanitizedPrefix = slugPrefix.startsWith('/') ? slugPrefix.slice(1) : slugPrefix;
+    const sanitizedPrefix = slugPrefix.startsWith("/") ? slugPrefix.slice(1) : slugPrefix;
     where = and(where, ilike(pages.slug, `${sanitizedPrefix}%`));
   }
 

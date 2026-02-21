@@ -23,7 +23,10 @@ export default defineEventHandler(async (event) => {
     }
 
     if (version.status !== "pending") {
-      throw createError({ statusCode: 400, statusMessage: "Only pending versions can be rejected" });
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Only pending versions can be rejected",
+      });
     }
 
     // Mark the version as rejected

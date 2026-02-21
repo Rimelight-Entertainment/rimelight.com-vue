@@ -7,8 +7,12 @@ const { totalHeight } = useHeaderStack();
     <slot name="banner">
       <ClientOnly>
         <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
-          <UBanner :ui="{ icon: 'text-white', title: 'text-white' }" class="bg-primary-500" icon="lucide:construction"
-            title="This website is currently under development. You may see placeholder or incomplete content." />
+          <UBanner
+            :ui="{ icon: 'text-white', title: 'text-white' }"
+            class="bg-primary-500"
+            icon="lucide:construction"
+            title="This website is currently under development. You may see placeholder or incomplete content."
+          />
         </RCHeaderLayer>
       </ClientOnly>
     </slot>

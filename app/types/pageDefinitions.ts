@@ -1,7 +1,10 @@
-import { BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION, DOCUMENT_DEFINITION } from "rimelight-components/types"
-import { definePageDefinition } from "#rimelight-components/utils"
+import {
+  BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION,
+  DOCUMENT_DEFINITION,
+} from "rimelight-components/types";
+import { definePageDefinition } from "#rimelight-components/utils";
 
-export { DOCUMENT_DEFINITION }
+export { DOCUMENT_DEFINITION };
 
 export const BLOG_POST_DEFINITION = definePageDefinition({
   ...BASE_BLOG_POST_DEFINITION,
@@ -13,16 +16,12 @@ export const BLOG_POST_DEFINITION = definePageDefinition({
         ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields,
         category: {
           ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields["category"]!,
-          options: [
-            { en: "Company News" },
-            { en: "Development Log" },
-            { en: "New Release" },
-          ]
-        }
-      }
-    }
-  }
-})
+          options: [{ en: "Company News" }, { en: "Development Log" }, { en: "New Release" }],
+        },
+      },
+    },
+  },
+});
 
 export const PATCH_NOTE_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.patchNote",
@@ -100,7 +99,7 @@ export const CHARACTER_DEFINITION = definePageDefinition({
             { en: "He/They" },
             { en: "She/They" },
             { en: "Other" },
-            { en: "Unknown" }
+            { en: "Unknown" },
           ],
         },
         flavourText: { defaultValue: { en: "" }, label: { en: "Flavour Text" }, type: "text" },
@@ -120,12 +119,7 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: { en: "Unknown" },
           label: { en: "Sex" },
           type: "enum",
-          options: [
-            { en: "Male" },
-            { en: "Female" },
-            { en: "Other" },
-            { en: "Unknown" }
-          ],
+          options: [{ en: "Male" }, { en: "Female" }, { en: "Other" }, { en: "Unknown" }],
         },
         height: { defaultValue: 0, label: { en: "Height" }, type: "number" },
         weight: { defaultValue: 0, label: { en: "Weight" }, type: "number" },
@@ -143,19 +137,19 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: [],
           label: { en: "Equipment" },
           type: "page-array",
-          allowedPageTypes: ["Object"]
+          allowedPageTypes: ["Object"],
         },
         pets: {
           defaultValue: [],
           label: { en: "Pets" },
           type: "page-array",
-          allowedPageTypes: ["Character"]
+          allowedPageTypes: ["Character"],
         },
         mounts: {
           defaultValue: [],
           label: { en: "Mounts" },
           type: "page-array",
-          allowedPageTypes: ["Character"]
+          allowedPageTypes: ["Character"],
         },
       },
     },
@@ -167,13 +161,13 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: [],
           label: { en: "Current Affiliations" },
           type: "page-array",
-          allowedPageTypes: ["Group"]
+          allowedPageTypes: ["Group"],
         },
         formerAffiliations: {
           defaultValue: [],
           label: { en: "Former Affiliations" },
           type: "page-array",
-          allowedPageTypes: ["Group"]
+          allowedPageTypes: ["Group"],
         },
       },
     },
@@ -220,12 +214,7 @@ export const SKILL_DEFINITION = definePageDefinition({
           defaultValue: { en: "Physical" },
           label: { en: "Damage Type" },
           type: "enum",
-          options: [
-            { en: "Physical" },
-            { en: "Magic" },
-            { en: "True" },
-            { en: "None" }
-          ],
+          options: [{ en: "Physical" }, { en: "Magic" }, { en: "True" }, { en: "None" }],
         },
       },
     },
@@ -248,7 +237,7 @@ export const ITEM_DEFINITION = definePageDefinition({
             { en: "Uncommon" },
             { en: "Rare" },
             { en: "Epic" },
-            { en: "Legendary" }
+            { en: "Legendary" },
           ],
         },
         price: { defaultValue: 100, label: { en: "Gold Price" }, type: "number" },
@@ -256,10 +245,7 @@ export const ITEM_DEFINITION = definePageDefinition({
           defaultValue: { en: "No" },
           label: { en: "Quest Item" },
           type: "enum",
-          options: [
-            { en: "Yes" },
-            { en: "No" }
-          ],
+          options: [{ en: "Yes" }, { en: "No" }],
         },
       },
     },
@@ -276,11 +262,11 @@ export const OBJECT_DEFINITION = definePageDefinition({
         category: {
           defaultValue: { en: "Miscellaneous" },
           label: { en: "Category" },
-          type: "text"
-        }
-      }
-    }
-  }
+          type: "text",
+        },
+      },
+    },
+  },
 });
 
 export const GROUP_DEFINITION = definePageDefinition({
@@ -294,17 +280,17 @@ export const GROUP_DEFINITION = definePageDefinition({
           defaultValue: "",
           label: { en: "Leader" },
           type: "page",
-          allowedPageTypes: ["Character"]
+          allowedPageTypes: ["Character"],
         },
         headquarters: {
           defaultValue: "",
           label: { en: "Headquarters" },
           type: "page",
-          allowedPageTypes: ["Location"]
-        }
-      }
-    }
-  }
+          allowedPageTypes: ["Location"],
+        },
+      },
+    },
+  },
 });
 
 export const HERO_DEFINITION = definePageDefinition({
@@ -318,23 +304,14 @@ export const HERO_DEFINITION = definePageDefinition({
           defaultValue: { en: "Warrior" },
           label: { en: "Class" },
           type: "enum",
-          options: [
-            { en: "Warrior" },
-            { en: "Mage" },
-            { en: "Rogue" },
-            { en: "Paladin" }
-          ],
+          options: [{ en: "Warrior" }, { en: "Mage" }, { en: "Rogue" }, { en: "Paladin" }],
         },
         difficulty: { defaultValue: 1, label: { en: "Difficulty" }, type: "number" },
         primaryRole: {
           defaultValue: { en: "Tank" },
           label: { en: "Primary Role" },
           type: "enum",
-          options: [
-            { en: "Tank" },
-            { en: "DPS" },
-            { en: "Support" }
-          ],
+          options: [{ en: "Tank" }, { en: "DPS" }, { en: "Support" }],
         },
       },
     },

@@ -25,7 +25,7 @@ onMounted(() => {
   registerAction({
     id: "focus-timer-action",
     label: "New Focus Timer",
-    icon: "i-lucide-timer",
+    icon: "lucide:timer",
     group: 0,
     onSelect: () => openTool("focusTimer"),
   });
@@ -43,7 +43,7 @@ onMounted(() => {
   registerAction({
     id: "action-new-todo",
     label: "New To-do",
-    icon: "i-lucide-check-circle-2",
+    icon: "lucide:check-circle-2",
     group: 1,
     onSelect: () => {
       isTodoModalOpen.value = true;
@@ -220,7 +220,13 @@ const groups = computed(() => [
 
     <template #sidebar-footer-actions>
       <div class="flex flex-row gap-xs">
-        <UButton color="neutral" icon="lucide:cog" size="sm" to="/dashboard/settings" variant="soft" />
+        <UButton
+          color="neutral"
+          icon="lucide:cog"
+          size="sm"
+          to="/dashboard/settings"
+          variant="soft"
+        />
       </div>
 
       <div class="flex flex-row gap-xs">
@@ -231,7 +237,13 @@ const groups = computed(() => [
           to="/dashboard/help"
           variant="soft"
         />
-        <UButton color="neutral" icon="lucide:bug" size="sm" to="/dashboard/report-issue" variant="soft" />
+        <UButton
+          color="neutral"
+          icon="lucide:bug"
+          size="sm"
+          to="/dashboard/report-issue"
+          variant="soft"
+        />
       </div>
     </template>
 

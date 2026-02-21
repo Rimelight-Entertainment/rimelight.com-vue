@@ -1,5 +1,4 @@
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <NuxtLayout name="default">
@@ -12,7 +11,10 @@
     </template>
 
     <template #main>
-      <UMain :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-grand-tale-primary-900 min-h-screen">
+      <UMain
+        :style="{ paddingTop: 'var(--total-header-offset)' }"
+        class="bg-grand-tale-primary-900 min-h-screen"
+      >
         <slot />
       </UMain>
     </template>

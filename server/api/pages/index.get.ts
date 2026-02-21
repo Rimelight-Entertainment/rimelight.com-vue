@@ -53,9 +53,12 @@ export default defineEventHandler(async (event) => {
 
   // 4. Build Order By
   const orderFn = orderDirection === "asc" ? asc : desc;
-  const orderByColumn = orderByField === "title" ? pages.title :
-    orderByField === "createdAt" ? pages.createdAt :
-      pages.postedAt;
+  const orderByColumn =
+    orderByField === "title"
+      ? pages.title
+      : orderByField === "createdAt"
+        ? pages.createdAt
+        : pages.postedAt;
 
   try {
     const results = await db.query.pages.findMany({

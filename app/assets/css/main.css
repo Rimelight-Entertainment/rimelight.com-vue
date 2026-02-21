@@ -196,7 +196,6 @@
 
   /* endregion */
 
-
   /* region Grand Tale */
   /* region Primary */
   --color-grand-tale-primary-50: oklch(1 0 0);
@@ -225,7 +224,6 @@
   --color-grand-tale-secondary-900: oklch(0.2209 0.0379 75.04);
   --color-grand-tale-secondary-950: oklch(0 0 0);
   /* endregion */
-
 
   /* endregion */
 }

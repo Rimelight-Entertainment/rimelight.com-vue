@@ -1,10 +1,10 @@
 export default defineNuxtRouteMiddleware(async (to, _from) => {
   const { session, status } = useAuth();
 
-  if (status.value === 'pending') {
+  if (status.value === "pending") {
     await new Promise<void>((resolve) => {
       const stop = watch(status, (val) => {
-        if (val !== 'pending') {
+        if (val !== "pending") {
           stop();
           resolve();
         }
