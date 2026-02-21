@@ -11,40 +11,44 @@ const availableLocales = computed(() => {
 
 const columns = computed<FooterColumn[]>(() => [
   {
-    label: t("footer_resources_title"),
+    label: t("app.footer.links.resources.label"),
     children: [
       {
-        label: t("footer_branding_label"),
+        label: t("app.footer.links.resources.content.branding"),
         to: "/branding",
       },
       {
-        label: t("footer_visitor_count_label"),
+        label: t("app.footer.links.resources.content.visitors"),
         to: "/visitors",
       },
+      {
+        label: "API",
+        to: "/api",
+      }
     ],
   },
   {
-    label: t("footer_documents_title"),
+    label: t("app.footer.links.documents.label"),
     children: [
       {
-        label: t("footer_privacy_policy_label"),
+        label: t("app.footer.links.documents.content.privacyPolicy"),
         to: "/documents/policies/privacy-policy",
       },
       {
-        label: t("footer_cookie_policy_label"),
+        label: t("app.footer.links.documents.content.cookiePolicy"),
         to: "/documents/policies/cookie-policy",
       },
       {
-        label: t("footer_terms_of_service_label"),
+        label: t("app.footer.links.documents.content.termsOfService"),
         to: "/documents/policies/term-of-service",
       },
       {
-        label: t("footer_code_of_conduct_label"),
+        label: t("app.footer.links.documents.content.codeOfConduct"),
         to: "/documents/policies/code-of-conduct",
       },
       {
-        label: t("footer_other_documents_label"),
-        to: "/documents/other",
+        label: t("app.footer.links.documents.content.otherDocuments"),
+        to: "/documents",
       },
     ],
   },
@@ -81,7 +85,7 @@ onMounted(() => {
 <template>
   <RCFooter :contain="false" class="bg-black z-50 border-t-2 border-primary-500">
     <template #left>
-      <RCNewsletterSignup class="max-w-64" />
+      <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-white', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" class="max-w-64" />
       <div class="flex flex-col items-center gap-xs lg:items-start">
         <RCLogo class="h-6 w-auto" variant="type" />
         <p class="text-sm text-white">Tell your story.</p>

@@ -2,6 +2,58 @@
   "error": {
     "retry": "Try Again"
   },
+  "app": {
+    "header": {
+      "links": {
+        "community": {
+          "label": "Community",
+          "content": {
+            "discord": "Discord",
+            "twitter": "Twitter",
+            "instagram": "Instagram"
+          }
+        },
+        "company": {
+          "label": "Company",
+          "content": {
+            "about": "About Us",
+            "blog": "Blog",
+            "careers": "Careers"
+          }
+        },
+        "contact": "Contact"
+      }
+    },
+    "footer": {
+      "links": {
+        "resources": {
+          "label": "Resources",
+          "content": {
+            "branding": "Branding",
+            "visitors": "Visitor Count"
+          }
+        },
+        "documents": {
+          "label": "Documents",
+          "content": {
+            "privacyPolicy": "Privacy Policy",
+            "cookiePolicy": "Cookie Policy",
+            "termsOfService": "Terms of Service",
+            "codeOfConduct": "Code of Conduct",
+            "otherDocuments": "Other Documents"
+          }
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Get the latest news and updates from us. Unsubscribe at any time.",
+      "placeholder": "email{'@'}domain.com",
+      "submit": "Subscribe",
+      "success": "Thank you for subscribing! Check your inbox for a confirmation email.",
+      "error": "Failed to subscribe. Please try again later."
+    }
+  },
   "pages": {
     "home": {
       "meta": {
@@ -13,20 +65,51 @@
           "title": "We are Rimelight Entertainment",
           "description": "We are creators of Grand Tale.",
           "actions": {
-            "join_us": "Join Us",
-            "learn_more": "Learn More"
+            "joinUs": "Join Us",
+            "learnMore": "Learn More"
+          }
+        },
+        "company": {
+          "title": "Pushing the boundaries of {interactive}",
+          "description": "Founded in 2023, Rimelight Entertainment is independent and player-focused. We don't just create games; we create living, breathing worlds that respect your time and intelligence.",
+          "stats": {
+            "titles": {
+              "label": "Titles in Development"
+            },
+            "creators": {
+              "label": "Global Creators"
+            }
+          }
+        },
+        "projects": {
+          "title": "Our Projects",
+          "tags": {
+            "franchise": "Franchise",
+            "fantasy": "Fantasy",
+            "social": "Social"
+          },
+          "content": {
+            "grandTale": {
+              "description": "A high-fantasy social life-sim game which hosts sub-games of multiple genres."
+            }
+          },
+          "actions": {
+            "discover": "Discover"
           }
         },
         "news": {
           "title": "Latest News",
-          "description": "Read our latest news, posts, and project updates."
+          "description": "Read our latest news, posts, and project updates.",
+          "actions": {
+            "viewAll": "View All News"
+          }
         },
         "cta": {
           "title": "Ready to play?",
           "description": "Join us and let's tell our story together.",
           "actions": {
-            "create_account": "Create Account",
-            "explore_careers": "Explore Careers"
+            "createAccount": "Create Account",
+            "exploreCareers": "Explore Careers"
           }
         }
       }

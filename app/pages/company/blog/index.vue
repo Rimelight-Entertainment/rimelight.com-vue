@@ -49,7 +49,7 @@ useSeoMeta({
         <template #description>
           <div class="flex flex-col gap-md">
             {{ t('pages.blog.meta.description') }}
-            <RCNewsletterSignup />
+            <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-black', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" />
           </div>
         </template>
         <template #links>

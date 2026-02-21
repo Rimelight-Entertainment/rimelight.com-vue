@@ -32,7 +32,7 @@ useSeoMeta({
 const heroLinks = ref<ButtonProps[]>([
   {
     color: "primary",
-    label: t("home_hero_actions_01"),
+    label: t("pages.home.sections.hero.actions.joinUs"),
     to: "/auth/sign-up",
     class: "text-white bg-primary-500 hover:bg-primary-600",
   },
@@ -40,7 +40,7 @@ const heroLinks = ref<ButtonProps[]>([
     color: "neutral",
     variant: "outline",
     trailingIcon: "lucide:arrow-right",
-    label: t("home_hero_actions_02"),
+    label: t("pages.home.sections.hero.actions.learnMore"),
     to: "/company/about",
     class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
   },
@@ -48,9 +48,9 @@ const heroLinks = ref<ButtonProps[]>([
 
 const featuredProjects = [
   {
-    tags: ["Franchise", "Fantasy", "Social"],
+    tags: ["franchise", "fantasy", "social"],
     title: "Grand Tale",
-    description: "A high-fantasy social life-sim game which hosts sub-games of multiple genres.",
+    description: t('pages.home.sections.projects.content.grandTale.description'),
     image: "/images/placeholders/placeholder_home_projects_grand-tale.png",
     to: "/franchises/grand-tale",
   },
@@ -59,14 +59,14 @@ const featuredProjects = [
 const ctaLinks = ref<ButtonProps[]>([
   {
     color: "primary",
-    label: t("home_cta_actions_01"),
+    label: t("pages.home.sections.cta.actions.createAccount"),
     to: "/auth/sign-up",
     class: "text-white bg-primary-500 hover:bg-primary-600",
   },
   {
     variant: "outline",
     color: "neutral",
-    label: t("home_cta_actions_02"),
+    label: t("pages.home.sections.cta.actions.exploreCareers"),
     to: "/company/careers",
     class: "text-black ring-black bg-transparent hover:bg-black hover:text-white",
   },
@@ -108,13 +108,13 @@ const ctaLinks = ref<ButtonProps[]>([
     <div class="absolute inset-0 -z-10 bg-black/30" />
 
     <UPageHero
-      :description="t('home_hero_description')"
       :links="heroLinks"
-      :title="t('home_hero_title')"
-      :ui="{ title: 'text-white', description: 'text-neutral-300' }"
-      class="relative z-0"
+      :title="t('pages.home.sections.hero.title')"
+      :description="t('pages.home.sections.hero.description')"
       orientation="vertical"
       reverse
+      :ui="{ title: 'text-white', description: 'text-neutral-300' }"
+      class="relative z-0"
     >
       <div class="flex h-full w-full items-center justify-center">
         <div class="pointer-events-none">
@@ -142,12 +142,11 @@ const ctaLinks = ref<ButtonProps[]>([
       orientation="horizontal"
     >
       <template #title>
-        Pushing the boundaries of <span class="text-primary-500">interactive media</span>
+        {{ t('pages.home.sections.company.title', { interactive: 'interactive media' }) }}
       </template>
 
       <template #description>
-        Founded in 2023, Rimelight Entertainment is independent and player-focused. We don't just
-        create games; we create living, breathing worlds that respect your time and intelligence.
+        {{ t('pages.home.sections.company.description') }}
       </template>
 
       <template #body>
@@ -155,12 +154,12 @@ const ctaLinks = ref<ButtonProps[]>([
           <div>
             <div class="text-4xl font-bold text-white">3+</div>
             <div class="text-sm text-neutral-500 uppercase tracking-widest">
-              Titles in Development
+              {{ t('pages.home.sections.company.stats.titles.label') }}
             </div>
           </div>
           <div>
             <div class="text-4xl font-bold text-white">50+</div>
-            <div class="text-sm text-neutral-500 uppercase tracking-widest">Global Creators</div>
+            <div class="text-sm text-neutral-500 uppercase tracking-widest">{{ t('pages.home.sections.company.stats.creators.label') }}</div>
           </div>
         </div>
       </template>
@@ -222,7 +221,7 @@ const ctaLinks = ref<ButtonProps[]>([
                 <UBadge
                   v-for="tag in project.tags"
                   :key="tag"
-                  :label="tag"
+                  :label="t(tag)"
                   class="text-white font-bold uppercase tracking-wider bg-primary-500"
                   color="primary"
                   variant="solid"
@@ -237,7 +236,7 @@ const ctaLinks = ref<ButtonProps[]>([
               <UButton
                 :to="project.to"
                 class="font-bold uppercase tracking-widest -ml-2"
-                label="Discover"
+                :label="t('pages.home.sections.projects.actions.discover')"
                 trailing-icon="lucide:arrow-right"
                 variant="link"
               />
@@ -260,8 +259,8 @@ const ctaLinks = ref<ButtonProps[]>([
     <div class="absolute inset-0 -z-10 bg-black/80" />
 
     <UPageSection
-      :description="t('home_news_description')"
-      :title="t('home_news_title')"
+      :description="t('pages.home.sections.news.description')"
+      :title="t('pages.home.sections.news.title')"
       :ui="{ title: 'text-white' }"
     >
       <UBlogPosts v-if="latestPosts?.length" class="grid md:grid-cols-2 lg:grid-cols-3">
@@ -300,7 +299,7 @@ const ctaLinks = ref<ButtonProps[]>([
           trailing-icon="lucide:arrow-right"
           variant="link"
         >
-          View All News
+          {{ t('pages.home.sections.news.actions.viewAll') }}
         </UButton>
       </div>
     </UPageSection>
@@ -316,13 +315,15 @@ const ctaLinks = ref<ButtonProps[]>([
     </div>
 
     <UPageCTA
-      :description="t('home_cta_description')"
       :links="ctaLinks"
-      :title="t('home_cta_title')"
+      :title="t('pages.home.sections.cta.title')"
+      :description="t('pages.home.sections.cta.description')"
       :ui="{ title: 'text-black', description: 'text-black' }"
       variant="naked"
     />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
