@@ -52,6 +52,18 @@ async function onChange() {
   // Do something with data
   console.log(state);
 }
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

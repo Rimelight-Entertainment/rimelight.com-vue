@@ -33,6 +33,18 @@ const stats = computed(() => [
     icon: "lucide:activity",
   },
 ]);
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

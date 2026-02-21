@@ -71,6 +71,18 @@ const ctaLinks = ref<ButtonProps[]>([
     class: "text-black ring-black bg-transparent hover:bg-black hover:text-white",
   },
 ]);
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

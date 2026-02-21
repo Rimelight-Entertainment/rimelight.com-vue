@@ -57,6 +57,18 @@ onMounted(() => {
     console.error("Canvas element 'globe' is not available on mount.");
   }
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

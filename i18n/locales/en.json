@@ -1,194 +1,107 @@
 {
-  "placeholder": "Placeholder",
-  "newsletter_field_label": "Subscribe to our Newsletter",
-  "newsletter_description": "Stay updated on new posts and updates. Unsubscribe at any time.",
-  "newsletter_placeholder": "email{'@'}domain.com",
-  "newsletter_button_label": "Subscribe",
-  "footer_resources_title": "Resources",
-  "footer_branding_label": "Branding",
-  "footer_visitor_count_label": "Visitor Count",
-  "footer_documents_title": "Documents",
-  "footer_privacy_policy_label": "Privacy Policy",
-  "footer_cookie_policy_label": "Cookie Policy",
-  "footer_terms_of_service_label": "Terms of Service",
-  "footer_code_of_conduct_label": "Code of Conduct",
-  "footer_other_documents_label": "Other Documents",
-  "placeholder_name": "John Doe",
-  "placeholder_first-name": "John",
-  "placeholder_last-name": "Doe",
-  "placeholder_username": "johndoe",
-  "placeholder_email": "address{'@'}domain.com",
-  "navigation_previous": "Previous",
-  "navigation_next": "Next",
-  "table_of_contents": "On this page",
-  "posted_at": "Posted At",
-  "updated_at": "Updated At",
-  "prompt_cancel": "Cancel",
-  "prompt_confirm": "Confirm",
-  "projects": "Projects",
-  "music": "Music",
-  "blog": "Blog",
-  "about": "About",
-  "contact": "Contact",
-  "auth_sign-up": "Sign Up",
-  "auth_sign-in": "Sign In",
-  "auth_sign-in_email_help": "Forgot your email?",
-  "auth_sign-in_password_help": "Forgot your password?",
-  "auth_sign-out": "Sign Out",
-  "auth_email_invalid": "Invalid email address.",
-  "auth_password_min_length": "Password must be at least 8 characters long.",
-  "auth_sign_in_failed_title": "Authentication Failed",
-  "auth_sign_in_failed_description": "Invalid email or password. Please check your details and try again.",
-  "auth_sign_in_success_title": "Sign In successful.",
-  "auth_sign_in_success_description": "Welcome back {name}!",
-  "auth_connection_error_title": "Connection Error",
-  "auth_connection_error_description": "A network error occurred. Please try again later.",
-  "auth_no_account": "Don't have an account?",
-  "auth_sign_up_link": "Sign up",
-  "auth_email_label": "Email",
-  "auth_password_label": "Password",
-  "auth_password_description": "Enter your password.",
-  "auth_remember_me": "Remember Me",
-  "auth_sign_in_button": "Sign In",
-  "auth_terms_agreement": "By signing in, you agree to our",
-  "auth_terms_link": "Terms of Service",
-  "auth_username_length_error": "Username must be between 2 and 24 characters long.",
-  "auth_username_no_spaces": "Username cannot contain spaces.",
-  "auth_username_format_error": "Username can only contain letters, numbers, periods (.), and underscores (_).",
-  "auth_firstname_length_error": "First name must be between 2 and 24 characters long.",
-  "auth_lastname_length_error": "Last name must be between 2 and 24 characters long.",
-  "auth_password_length_error": "Password must be between 8 and 24 characters long.",
-  "auth_passwords_mismatch": "Passwords do not match.",
-  "auth_password_contains_username": "Password should not contain the username.",
-  "auth_terms_required": "You must agree to the terms of service.",
-  "auth_password_req_length": "At least 8 characters",
-  "auth_password_req_number": "At least 1 number",
-  "auth_password_req_lowercase": "At least 1 lowercase letter",
-  "auth_password_req_uppercase": "At least 1 uppercase letter",
-  "auth_password_req_special": "At least 1 special character (e.g., !{'@'}#$%^&*)",
-  "auth_stepper_identity": "Identity",
-  "auth_stepper_security": "Security",
-  "auth_stepper_preferences": "Preferences",
-  "auth_validation_error_title": "Validation Error",
-  "auth_validation_error_description": "Please correct the errors before proceeding.",
-  "auth_account_creation_success_title": "Account creation successful.",
-  "auth_account_creation_success_description": "Welcome to Rimelight Entertainment!",
-  "auth_sign_up_failed_title": "Failed to sign up.",
-  "auth_sign_up_failed_description": "Please check your details and try again.",
-  "auth_have_account": "Already have an account?",
-  "auth_sign_in_link": "Sign In",
-  "auth_email_help": "This will be used for signing in.",
-  "auth_username_label": "Username",
-  "auth_username_description": "Enter a username.",
-  "auth_firstname_label": "First Name",
-  "auth_firstname_description": "Enter your first name.",
-  "auth_lastname_label": "Last Name",
-  "auth_lastname_description": "Enter your last name.",
-  "auth_password_requirements_title": "The password must contain:",
-  "auth_password_confirmation_label": "Password Confirmation",
-  "auth_password_confirmation_description": "Please repeat your password.",
-  "auth_terms_agreement_signup": "I have read and agree to the",
-  "auth_newsletter_label": "Subscribe to our Newsletter.",
-  "auth_newsletter_description": "Unsubscribe at any time.",
-  "auth_sign_up_button": "Sign Up",
-  "auth_details_changeable": "All these details may be changed later in your account settings.",
-  "callout_info_title": "Note",
-  "callout_info_tooltip": "This callout is used for general notes.",
-  "callout_success_title": "Tip",
-  "callout_success_tooltip": "This callout is used for tips and useful information.",
-  "callout_warning_title": "Warning",
-  "callout_warning_tooltip": "This callout is used for important information.",
-  "callout_error_title": "Danger",
-  "callout_error_tooltip": "This callout is used for critical information and prohibitions.",
-  "callout_commentary_title": "Commentary",
-  "callout_commentary_tooltip": "This callout is used for developer commentary.",
-  "callout_ideation_title": "Ideation",
-  "callout_ideation_tooltip": "This alert is used for ideas and brainstorming.",
-  "callout_source_title": "Creator's Remarks",
-  "callout_source_tooltip": "This alert is used for direct commentary of the author.",
-  "blog_type_post": "Blog Post",
-  "blog_type_personal-story": "Personal Story",
-  "blog_type_development-log": "Development Log",
-  "blog_status_error": "Error loading blog posts.",
-  "blog_status_error_message": "Failed to fetch posts: {errorMessage}. Please try again later.",
-  "blog_navigation_label": "Blog Posts",
-  "project_type_website": "Website",
-  "project_type_game": "Game",
-  "project_type_design-study": "Design Study",
-  "project_type_technology": "Technology",
-  "project_navigation_label": "projects",
-  "project_overview_title": "Overview",
-  "project_resume_title": "Resume",
-  "project_projects_title": "Projects",
-  "page_branding_title": "Branding",
-  "page_branding_description": "The assets used across our brand, as well as their usage guidelines.",
-  "page_branding_constants_font-weights": "Weights",
-  "page_branding_section_typography_title": "Typography",
-  "page_branding_section_typography_description": "The fonts used across our brand.",
-  "page_branding_section_typography_paragraph_01": "This section covers approved typefaces, and some helpful usage tips.",
-  "page_branding_section_typography_paragraph_02": "Any typeface not referenced in this section is considered unauthorized for use.",
-  "page_projects_title": "projects",
-  "page_projects_description": "A collection of our projects.",
-  "page_music_title": "music",
-  "page_music_section_playlists_title": "Playlists",
-  "page_music_section_mixes_title": "DJ Mixes",
-  "page_blog_title": "blog",
-  "page_blog_description": "Read our latest blog posts and project updates.",
-  "home_meta_title": "Home",
-  "home_hero_title": "TELL YOUR STORY",
-  "home_hero_description": "We are Rimelight Entertainment, creators of Grand Tale.",
-  "home_hero_actions_01": "Join Us",
-  "home_hero_actions_02": "Learn More",
-  "home_news_title": "Latest Stories",
-  "home_news_description": "Stay up to date with the latest company news.",
-  "home_cta_title": "Ready to play?",
-  "home_cta_description": "Join us and let's tell our story together.",
-  "home_cta_actions_01": "Create Account",
-  "home_cta_actions_02": "Explore Careers",
-  "home_feature_game_developer_title": "Game Development",
-  "home_feature_game_developer_desc": "Creating massive multiplayer titles and immersive single-player experiences using Unreal Engine and next-gen tech.",
-  "home_feature_web_developer_title": "Interactive Experiences",
-  "home_feature_web_developer_desc": "Building robust web platforms and community hubs to support our gaming ecosystems.",
-  "home_feature_narrative_writer_title": "Narrative Design",
-  "home_feature_narrative_writer_desc": "Weaving complex storylines and lore that breathe life into our worlds.",
-  "about_hero_title": "Our Story",
-  "about_hero_description": "We are a collective of dreamers, creators, and storytellers building the next generation of entertainment.",
-  "about_mission_title": "Our Mission",
-  "about_mission_description": "To create immersive experiences that inspire, connect, and entertain players around the globe.",
-  "about_values_title": "Our Values",
-  "about_team_title": "Leadership",
-  "about_join_us_title": "Join Our Journey",
-  "about_join_us_description": "Be a part of something extraordinary.",
-  "careers_hero_title": "Careers at Rimelight",
-  "careers_hero_description": "Join us in crafting the future of interactive entertainment.",
-  "careers_culture_title": "Life at Rimelight",
-  "careers_culture_description": "We foster a culture of creativity, collaboration, and continuous learning.",
-  "careers_benefits_title": "Perks & Benefits",
-  "careers_benefits_health_title": "Health & Wellness",
-  "careers_benefits_health_desc": "Comprehensive medical, dental, and vision coverage.",
-  "careers_benefits_time_title": "Flexible Time Off",
-  "careers_benefits_time_desc": "Generous vacation policy and flexible work hours.",
-  "careers_benefits_development_title": "Professional Development",
-  "careers_benefits_development_desc": "Stipends for courses, conferences, and books.",
-  "careers_benefits_gear_title": "Top-Tier Gear",
-  "careers_benefits_gear_desc": "Latest hardware and software to do your best work.",
-  "careers_offices_title": "Our Offices",
-  "careers_open_positions_title": "Open Positions",
-  "careers_no_positions": "No open positions at the moment. Check back later!",
-  "careers_apply_button": "Apply Now",
-  "account_profile": "Profile",
-  "account_support": "Support",
-  "account_settings": "Settings",
-  "page.type.character": "Character",
-  "page.type.species": "Species",
-  "page.type.location": "Location",
-  "page.type.item": "Item",
-  "page.type.object": "Object",
-  "page.type.group": "Group",
-  "page.type.skill": "Skill",
-  "page.type.patchNote": "Patch Note",
-  "page.type.blogPost": "Blog Post",
-  "page.type.document": "Document",
-  "page.type.hero": "Hero",
-  "page.type.card": "Card"
+  "error": {
+    "retry": "Try Again"
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "Home",
+        "description": "Tell your story."
+      },
+      "sections": {
+        "hero": {
+          "title": "We are Rimelight Entertainment",
+          "description": "We are creators of Grand Tale.",
+          "actions": {
+            "join_us": "Join Us",
+            "learn_more": "Learn More"
+          }
+        },
+        "news": {
+          "title": "Latest News",
+          "description": "Read our latest news, posts, and project updates."
+        },
+        "cta": {
+          "title": "Ready to play?",
+          "description": "Join us and let's tell our story together.",
+          "actions": {
+            "create_account": "Create Account",
+            "explore_careers": "Explore Careers"
+          }
+        }
+      }
+    },
+    "blog": {
+      "meta": {
+        "title": "Blog",
+        "description": "Read our latest news, posts, and project updates.",
+        "RSS": "Rimelight Entertainment Blog RSS Feed"
+      },
+      "actions": {
+        "rss": "RSS Feed",
+        "create_post": {
+          "label": "Create Post",
+          "success": {
+            "title": "Post created successfully",
+            "description": "You can now edit your post."
+          },
+          "error": {
+            "title": "Failed to create post",
+            "description": "Please check your connection and try again later."
+          },
+          "modal": {
+            "title": "Create Post",
+            "description": "Create a new Blog Post.",
+            "fields": {
+              "title": {
+                "title": "Post Title",
+                "placeholder": "Enter a title for your post"
+              },
+              "slug": {
+                "title": "Post Slug",
+                "placeholder": "post-slug",
+                "help": "The URL-friendly name of the post."
+              },
+              "actions": {
+                "cancel": "Cancel",
+                "submit": "Create Post"
+              }
+            }
+          }
+        }
+      },
+      "drafts": {
+        "title": "Drafts",
+        "description": "These posts have currently not been published.",
+        "error": {
+          "title": "Failed to load drafts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No drafts yet.",
+          "description": "Create your first post to get started.",
+          "actions": {
+            "create": "Create Post"
+          }
+        }
+      },
+      "posts": {
+        "title": "Posts",
+        "description": "Our latest posts, including blog posts, press releases, and more.",
+        "error": {
+          "title": "Failed to load posts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No posts yet",
+          "description": "Create your first post to get started.",
+          "actions": {
+            "create": "Create Post"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the posts."
+      }
+    }
+  }
 }

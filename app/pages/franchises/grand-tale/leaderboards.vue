@@ -14,6 +14,18 @@ const leaders = [
   { rank: 4, name: "JainaProud", soul: "Archmage", level: 96, power: 11900 },
   { rank: 5, name: "ThrallWarchief", soul: "Shaman", level: 95, power: 11800 },
 ];
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

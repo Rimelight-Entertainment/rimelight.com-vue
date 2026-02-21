@@ -33,6 +33,18 @@ const calculators = [
       "Estimate materials gathered per hour based on your current tool tier and gathering efficiency stats.",
   },
 ];
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

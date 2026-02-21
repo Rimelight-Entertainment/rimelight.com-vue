@@ -28,6 +28,18 @@ const rules = [
     description: "Only upload high-quality screenshots and ensure they are properly categorized.",
   },
 ];
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

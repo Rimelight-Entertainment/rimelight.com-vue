@@ -11,6 +11,18 @@ watch(todoRefreshTrigger, () => {
   refreshTodos();
   refreshArchivedTodos();
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

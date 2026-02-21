@@ -12,6 +12,18 @@ const slug = computed(() => {
 });
 
 const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`);
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

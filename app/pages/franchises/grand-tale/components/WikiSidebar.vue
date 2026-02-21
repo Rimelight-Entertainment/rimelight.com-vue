@@ -100,6 +100,30 @@ const navigationItems = computed(() => [
 const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
   query: { slugPrefix: "franchises/grand-tale/wiki" },
 });
+
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

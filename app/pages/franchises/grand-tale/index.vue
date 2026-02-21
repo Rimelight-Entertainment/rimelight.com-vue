@@ -12,6 +12,18 @@ useSeoMeta({
   description:
     "Experience Grand Tale, an epic journey through a shattered world where every choice resonates through eternity.",
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

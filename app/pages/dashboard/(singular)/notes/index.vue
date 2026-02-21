@@ -72,6 +72,18 @@ const openEditModal = (note: Note) => {
 const handleNoteSaved = () => {
   refreshNotes();
 };
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

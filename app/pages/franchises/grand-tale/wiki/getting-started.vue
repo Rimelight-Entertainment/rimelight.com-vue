@@ -6,6 +6,18 @@ definePageMeta({
 useHead({
   title: "Getting Started | Grand Tale Wiki",
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

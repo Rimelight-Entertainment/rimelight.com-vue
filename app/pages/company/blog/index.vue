@@ -1,299 +1,130 @@
 <script lang="ts" setup>
-import { type Page, type PageType } from "#rimelight-components/types";
+import { useBlogIndex } from "rimelight-components/composables";
 
-const appConfig = useAppConfig();
-const { session, permissions } = useAuth();
+/* region State */
+const { permissions } = useAuth();
 const { t, locale } = useI18n();
 const toast = useToast();
 
-const INITIAL_LIMIT = 10;
-const NEXT_LIMIT = 9;
-
-const allDrafts = ref<Page[]>([]);
-const currentDraftsOffset = ref(0);
-const hasMoreDrafts = ref(true);
-const ui = reactive({
-  isFetchingMoreDrafts: false,
-  isFetchingMorePosts: false,
-  hasLoadedNextDraftsPage: false,
-  hasLoadedNextPostsPage: false,
-  isCreateModalOpen: false,
-  isCreating: false,
-});
-
-const allPosts = ref<Page[]>([]);
-const currentPostsOffset = ref(0);
-const hasMorePosts = ref(true);
-// Pagination state moved to ui
-
-/**
- * Generic fetcher for any page type
- */
-const fetchPages = async (
-  type: PageType,
-  status: "draft" | "published",
-  limit: number,
-  offset: number,
-) => {
-  try {
-    return await $api<Page[]>("/api/pages", {
-      query: { type, status, limit, offset },
-      timeout: 10000, // Prevent infinite hanging
-    });
-  } catch (e) {
-    console.error(`Failed to fetch ${status} pages:`, e);
-    throw e;
-  }
-};
-
-const fetchDraftsPage = (limit: number, offset: number) =>
-  fetchPages("BlogPost", "draft", limit, offset);
-
-const fetchPostsPage = (limit: number, offset: number) =>
-  fetchPages("BlogPost", "published", limit, offset);
-
-const { status: initialDraftsStatus, refresh: refreshDrafts } = useLazyAsyncData(
-  "initial-blog-drafts",
-  async () => {
-    try {
-      const newDrafts = await fetchDraftsPage(INITIAL_LIMIT, 0);
-
-      if (newDrafts) {
-        allDrafts.value = [...newDrafts]; // Reset/Set initial
-        currentDraftsOffset.value = newDrafts.length;
-        hasMoreDrafts.value = newDrafts.length === INITIAL_LIMIT;
-      }
-    } catch (e) {
-      console.error("Failed to load initial drafts:", e);
-      throw e;
-    }
-  },
-  {
-    server: false,
-    immediate:
-      session.value?.user?.role === "owner" ||
-      session.value?.user?.role === "member" ||
-      session.value?.user?.role === "employee",
-  },
-);
-
-watch(
-  () => session.value?.user?.role,
-  (newRole) => {
-    if (newRole === "owner" || newRole === "member" || newRole === "employee") {
-      refreshDrafts();
-    }
-  },
-);
-
-const { status: initialPostsStatus, refresh: refreshPosts } = useLazyAsyncData(
-  "initial-blog-posts",
-  async () => {
-    try {
-      const newPosts = await fetchPostsPage(INITIAL_LIMIT, 0);
-
-      if (newPosts) {
-        allPosts.value = [...newPosts];
-        currentPostsOffset.value = newPosts.length;
-        hasMorePosts.value = newPosts.length === INITIAL_LIMIT;
-      }
-    } catch (e) {
-      console.error("Failed to load initial posts:", e);
-      throw e;
-    }
-  },
-  { server: false, immediate: true },
-);
-
-const loadNextDraftsPage = async () => {
-  if (!hasMoreDrafts.value || ui.isFetchingMoreDrafts) return;
-
-  ui.isFetchingMoreDrafts = true;
-
-  const newDrafts = await fetchDraftsPage(NEXT_LIMIT, currentDraftsOffset.value);
-
-  if (newDrafts && newDrafts.length > 0) {
-    allDrafts.value.push(...newDrafts);
-    currentDraftsOffset.value += newDrafts.length;
-    hasMoreDrafts.value = newDrafts.length === NEXT_LIMIT;
-  } else {
-    hasMoreDrafts.value = false;
-  }
-
-  ui.hasLoadedNextDraftsPage = true;
-  ui.isFetchingMoreDrafts = false;
-};
-
-const loadNextPostsPage = async () => {
-  if (!hasMorePosts.value || ui.isFetchingMorePosts) return;
-
-  ui.isFetchingMorePosts = true;
-
-  const newPosts = await fetchPostsPage(NEXT_LIMIT, currentPostsOffset.value);
-
-  if (newPosts && newPosts.length > 0) {
-    allPosts.value.push(...newPosts);
-    currentPostsOffset.value += newPosts.length;
-    hasMorePosts.value = newPosts.length === NEXT_LIMIT;
-  } else {
-    hasMorePosts.value = false;
-  }
-
-  ui.hasLoadedNextPostsPage = true;
-  ui.isFetchingMorePosts = false;
-};
-
-const formatDate = (date: string | Date) => {
-  return useDateFormat(date, "DD/MM/YYYY").value;
-};
-
-// Create state moved to ui
-const newPostState = reactive({
-  title: "",
-  slug: "",
-});
-
-const handleCreateSubmit = async () => {
-  ui.isCreating = true;
-  try {
-    const createdPage = await $api<Page>("/api/pages", {
-      method: "POST",
-      body: {
-        type: "BlogPost",
-        slug: newPostState.slug,
-        title: { [locale.value]: newPostState.title },
-        description: { [locale.value]: "" },
-        content: {
-          properties: {},
-          blocks: [],
-        },
-      },
-    });
-
-    toast.add({ color: "success", title: t("toast_create_success") });
-    ui.isCreateModalOpen = false;
-    await navigateTo(`/company/blog/${createdPage.slug}/edit`);
-  } catch (e: any) {
+const blog = useBlogIndex({
+  onToast: (options) => {
     toast.add({
-      color: "error",
-      title: t("toast_create_error"),
-      description: e.message || "Failed to create post",
+      color: options.color,
+      title: options.title,
+      description: options.description,
     });
-  } finally {
-    ui.isCreating = false;
-  }
-};
-
-const slugify = (str: string) =>
-  str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/-$/, "")
-    .replace(/^-/, "");
-
-watch(
-  () => newPostState.title,
-  (newTitle, oldTitle) => {
-    const oldGeneratedSlug = slugify(oldTitle || "");
-    if (!newPostState.slug || newPostState.slug === oldGeneratedSlug) {
-      newPostState.slug = slugify(newTitle);
-    }
   },
-);
-
-const links = computed(() => {
-  return [
-    {
-      icon: "lucide:rss",
-      label: "RSS",
-      to: "/company/blog/rss.xml",
-      target: "_blank",
-    },
-  ];
 });
+/* endregion */
 
+/* region Meta */
 useHead({
-  title: "me.blog",
+  title: t("pages.blog.meta.title"),
   link: [
     {
       rel: "alternate",
       type: "application/atom+xml",
-      title: "idantity.me Blog RSS",
-      href: "https://idantity.me/blog/rss.xml",
+      title: t("pages.blog.meta.rss"),
+      href: "https://rimelight.com/company/blog/rss.xml",
     },
   ],
 });
 
 useSeoMeta({
-  title: "me.blog",
-  ogTitle: "me.blog",
-  description: `Read the latest blog posts from the ${appConfig.title} Blog.`,
-  ogDescription: `Read the latest blog posts from the ${appConfig.title} Blog.`,
+  title: t("pages.blog.meta.title"),
+  ogTitle: t("pages.blog.meta.title"),
+  description: t("pages.blog.meta.description"),
+  ogDescription: t("pages.blog.meta.description"),
 });
+/* endregion */
 </script>
 
 <template>
-  <UContainer>
-    <UPage>
-      <template #left>
-        <UPageAside></UPageAside>
-      </template>
-      <UPageHeader :links="links" :title="t('page_blog_title')">
+  <UPage>
+    <UContainer>
+      <UPageHeader :title="t('pages.blog.meta.title')" :ui="{
+        title: 'text-black',
+        description: 'text-neutral-500',
+      }">
         <template #description>
           <div class="flex flex-col gap-md">
-            {{ t("page_blog_description") }}
+            {{ t('pages.blog.meta.description') }}
             <RCNewsletterSignup />
           </div>
         </template>
         <template #links>
           <UButton
+            icon="lucide:rss"
+            :label="t('pages.blog.actions.rss')"
+            to="/company/blog/rss.xml"
+            :ui="{
+              base: 'text-white bg-primary-500 hover:bg-primary-600'
+            }"
+          />
+          <UButton
             v-if="permissions.blog.canCreate.value"
-            :onClick="
-              () => {
-                ui.isCreateModalOpen = true;
-              }
-            "
             icon="lucide:plus"
-            label="Create Post"
-            size="sm"
+            :label="t('pages.blog.actions.create_post.label')"
+            @click="blog.isCreateModalOpen.value = true"
+            :ui="{
+              base: 'text-white bg-primary-500 hover:bg-primary-600'
+            }"
           />
         </template>
       </UPageHeader>
       <UPageBody>
+        <!-- Drafts -->
         <div
-          v-if="
-            session &&
-            (session.user?.role === 'employee' ||
-              session.user?.role === 'owner' ||
-              session.user?.role === 'member') &&
-            initialDraftsStatus === 'pending' &&
-            !allDrafts.length
-          "
+          v-if="blog.isAuthorizedForDrafts && blog.drafts.initialStatus.value === 'pending' && !blog.drafts.allPages.value.length"
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
           <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
         </div>
-        <div v-else-if="initialDraftsStatus === 'error'" class="py-8 text-center text-error-500">
-          <UIcon class="w-8 h-8 mx-auto mb-2" name="lucide:alert-circle" />
-          <p>Failed to load drafts. Please check your connection.</p>
-          <UButton label="Try Again" size="sm" variant="ghost" @click="() => refreshDrafts()" />
-        </div>
+
+        <UAlert
+          v-else-if="blog.isAuthorizedForDrafts && blog.drafts.initialStatus.value === 'error'"
+          color="error"
+          variant="subtle"
+          icon="lucide:alert-circle"
+          :title="t('pages.blog.drafts.error.title')"
+          :description="t('pages.blog.drafts.error.description')"
+          :actions="[
+            {
+              label: t('error.retry'),
+              color: 'primary',
+              variant: 'solid',
+              icon: 'lucide:rotate-ccw',
+              onClick: () => {
+                blog.drafts.refresh()
+              }
+            }
+          ]"
+        />
+
         <RCSection
-          v-else-if="
-            session &&
-            (session.user?.role === 'employee' ||
-              session.user?.role === 'owner' ||
-              session.user?.role === 'member')
-          "
+          v-else-if="blog.isAuthorizedForDrafts"
           :level="2"
-          description="These posts have currently not been published."
-          title="Drafts"
+          :title="t('pages.blog.drafts.title')"
+          :description="t('pages.blog.drafts.description')"
+          :rc="{
+            title: 'text-black',
+            description: 'text-neutral-500',
+          }"
         >
-          <UBlogPosts v-if="allDrafts.length" class="md:grid-cols-2 lg:grid-cols-3">
+          <UBlogPosts v-if="blog.drafts.allPages.value.length" class="md:grid-cols-2 lg:grid-cols-3">
             <UBlogPost
-              v-for="(post, index) in allDrafts"
+              v-for="(post, index) in blog.drafts.allPages.value"
               :key="post.slug"
+              variant="naked"
+              :image="{
+                src: post.banner?.src,
+                alt: post.banner?.alt,
+                width: index === 0 ? 672 : 437,
+                height: index === 0 ? 378 : 246,
+              }"
+              :title="getLocalizedContent(post.title, locale)"
+              :description="getLocalizedContent(post.description, locale)"
               :authors="[]"
               :badge="{
                 label: t(post.type),
@@ -301,159 +132,221 @@ useSeoMeta({
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0',
               }"
-              :class="[index === 0 && 'col-span-full']"
-              :date="post.postedAt ? formatDate(post.postedAt) : ''"
-              :description="getLocalizedContent(post.description, locale)"
-              :image="{
-                src: post.banner?.src,
-                alt: post.banner?.alt,
-                width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246,
-              }"
+              :date="post.postedAt ? useDateFormat(post.postedAt, 'DD/MM/YYYY').value : ''"
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
-              :title="getLocalizedContent(post.title, locale)"
               :to="`/company/blog/${post.slug}/edit`"
-              :ui="{ image: 'object-center object-contain' }"
-              variant="subtle"
-            />
-          </UBlogPosts>
-          <div
-            v-if="hasMoreDrafts && allDrafts.length > 0"
-            class="col-span-full flex justify-center py-8"
-          >
-            <UButton
-              :disabled="ui.isFetchingMoreDrafts"
-              :loading="ui.isFetchingMoreDrafts"
-              color="primary"
-              icon="lucide:arrow-down"
-              label="Load More Drafts"
-              size="lg"
-              variant="solid"
-              @click="loadNextDraftsPage"
-            />
-          </div>
-          <USeparator
-            v-else-if="allDrafts.length > 0 && !hasMoreDrafts && ui.hasLoadedNextDraftsPage"
-            :ui="{ label: 'text-muted' }"
-            class="py-12"
-            label="You've reached the end of the drafts."
-          />
-        </RCSection>
-        <div
-          v-if="initialPostsStatus === 'pending' && !allPosts.length"
-          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-        >
-          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
-          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
-        </div>
-        <div v-else-if="initialPostsStatus === 'error'" class="py-8 text-center text-error-500">
-          <UIcon class="w-8 h-8 mx-auto mb-2" name="lucide:alert-circle" />
-          <p>Failed to load posts. Please check your connection.</p>
-          <UButton label="Try Again" size="sm" variant="ghost" @click="() => refreshPosts()" />
-        </div>
-        <RCSection v-else :level="2" title="Posts">
-          <UBlogPosts v-if="allPosts.length" class="md:grid-cols-2 lg:grid-cols-3">
-            <UBlogPost
-              v-for="(post, index) in allPosts"
-              :key="post.slug"
-              :authors="[]"
-              :badge="{
-                label: t(post.type),
-                color: 'primary',
-                variant: 'outline',
-                class: 'rounded-none p-0 ring-0',
-              }"
+              :ui="{
+                image: 'object-center object-contain',
+                badge: 'text-primary-500',
+                date: 'text-neutral-500',
+                title: 'text-black',
+                description: 'text-neutral-500'
+               }"
               :class="[index === 0 && 'col-span-full']"
-              :date="post.postedAt ? formatDate(post.postedAt) : ''"
-              :description="getLocalizedContent(post.description, locale)"
-              :image="{
-                src: post.banner?.src,
-                alt: post.banner?.alt,
-                width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246,
-              }"
-              :orientation="index === 0 ? 'horizontal' : 'vertical'"
-              :title="getLocalizedContent(post.title, locale)"
-              :to="`/company/blog/${post.slug}`"
-              :ui="{ image: 'object-center object-contain' }"
-              variant="subtle"
             />
           </UBlogPosts>
+
           <UEmpty
             v-else-if="permissions.blog.canCreate.value"
+            variant="naked"
+            icon="lucide:pen-tool"
+            :title="t('pages.blog.drafts.empty.title')"
+            :description="t('pages.blog.drafts.empty.description')"
             :actions="[
               {
-                label: t('blog_empty_create_action', 'Create first post'),
+                label: t('pages.blog.drafts.empty.actions.create'),
                 color: 'primary',
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  ui.isCreateModalOpen = true;
+                  blog.isCreateModalOpen.value = true
                 },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
               },
             ]"
-            :description="
-              t('blog_empty_description', 'Be the first to share something with the world!')
-            "
-            :title="t('blog_empty_title', 'No blog posts yet')"
-            class="py-12"
-            icon="lucide:pen-tool"
+            :ui="{
+              title: 'text-black',
+              description: 'text-neutral-500'
+            }"
           />
+
           <div
-            v-if="hasMorePosts && allPosts.length > 0"
+            v-if="blog.drafts.hasMore.value && blog.drafts.allPages.value.length > 0"
             class="col-span-full flex justify-center py-8"
           >
             <UButton
-              :disabled="ui.isFetchingMorePosts"
-              :loading="ui.isFetchingMorePosts"
+              :disabled="blog.drafts.isFetchingMore.value"
+              :loading="blog.drafts.isFetchingMore.value"
               color="primary"
               icon="lucide:arrow-down"
-              label="Load More Posts"
+              :label="t('pages.blog.load_more')"
               size="lg"
               variant="solid"
-              @click="loadNextPostsPage"
+              @click="blog.drafts.loadNextPage"
             />
           </div>
           <USeparator
-            v-else-if="allPosts.length > 0 && !hasMorePosts && ui.hasLoadedNextPostsPage"
+            v-else-if="blog.drafts.allPages.value.length > 0 && !blog.drafts.hasMore.value && blog.drafts.hasLoadedNextPage.value"
             :ui="{ label: 'text-muted' }"
             class="py-12"
-            label="You've reached the end of the posts."
+            :label="t('pages.blog.end_of_list', { list: t('common.drafts') })"
+          />
+        </RCSection>
+
+        <!-- Posts -->
+        <div
+          v-if="blog.posts.initialStatus.value === 'pending' && !blog.posts.allPages.value.length"
+          class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
+          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
+        </div>
+
+        <UAlert
+          v-else-if="blog.posts.initialStatus.value === 'error'"
+          color="error"
+          variant="subtle"
+          icon="lucide:alert-circle"
+          :title="t('pages.blog.posts.error.title')"
+          :description="t('pages.blog.posts.error.description')"
+          :actions="[
+            {
+              label: t('error.retry'),
+              color: 'primary',
+              variant: 'solid',
+              icon: 'lucide:rotate-ccw',
+              onClick: () => {
+                blog.posts.refresh()
+              }
+            }
+          ]"
+        />
+
+        <RCSection
+          v-else
+          :level="2"
+          :title="t('pages.blog.posts.title')"
+          :description="t('pages.blog.posts.description')"
+          :rc="{
+            title: 'text-black',
+            description: 'text-neutral-500',
+          }"
+        >
+          <UBlogPosts v-if="blog.posts.allPages.value.length" class="md:grid-cols-2 lg:grid-cols-3">
+            <UBlogPost
+              v-for="(post, index) in blog.posts.allPages.value"
+              :key="post.slug"
+              variant="naked"
+              :image="{
+                src: post.banner?.src,
+                alt: post.banner?.alt,
+                width: index === 0 ? 672 : 437,
+                height: index === 0 ? 378 : 246,
+              }"
+              :title="getLocalizedContent(post.title, locale)"
+              :description="getLocalizedContent(post.description, locale)"
+              :authors="[]"
+              :badge="{
+                label: t(post.type),
+                color: 'primary',
+                variant: 'outline',
+                class: 'rounded-none p-0 ring-0',
+              }"
+              :date="post.postedAt ? useDateFormat(post.postedAt, 'DD/MM/YYYY').value : ''"
+              :orientation="index === 0 ? 'horizontal' : 'vertical'"
+              :to="`/company/blog/${post.slug}/edit`"
+              :ui="{
+                image: 'object-center object-contain',
+                badge: 'text-primary-500',
+                date: 'text-neutral-500',
+                title: 'text-black',
+                description: 'text-neutral-500'
+               }"
+              :class="[index === 0 && 'col-span-full']"
+            />
+          </UBlogPosts>
+
+          <UEmpty
+            v-else-if="permissions.blog.canCreate.value"
+            variant="naked"
+            icon="lucide:pen-tool"
+            :title="t('pages.blog.posts.empty.title')"
+            :description="t('pages.drafts.posts.empty.description')"
+            :actions="[
+              {
+                label: t('pages.blog.posts.empty.actions.create'),
+                color: 'primary',
+                variant: 'solid',
+                icon: 'lucide:plus',
+                onClick: () => {
+                  blog.isCreateModalOpen.value = true
+                },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
+              },
+            ]"
+            :ui="{
+              title: 'text-black',
+              description: 'text-neutral-500'
+            }"
+          />
+
+          <div
+            v-if="blog.posts.hasMore.value && blog.posts.allPages.value.length > 0"
+            class="col-span-full flex justify-center py-8"
+          >
+            <UButton
+              :disabled="blog.posts.isFetchingMore.value"
+              :loading="blog.posts.isFetchingMore.value"
+              color="primary"
+              icon="lucide:arrow-down"
+              :label="t('pages.blog.posts.load_more')"
+              size="lg"
+              variant="solid"
+              @click="blog.posts.loadNextPage"
+            />
+          </div>
+          <USeparator
+            v-else-if="blog.posts.allPages.value.length > 0 && !blog.posts.hasMore.value && blog.posts.hasLoadedNextPage.value"
+            :ui="{ label: 'text-muted' }"
+            class="py-12"
+            :label="t('pages.blog.posts.end_of_list')"
           />
         </RCSection>
       </UPageBody>
-    </UPage>
+    </UContainer>
+  </UPage>
 
-    <!-- Create Post Modal -->
-    <UModal v-model:open="ui.isCreateModalOpen" title="Create New Blog Post">
-      <template #body>
-        <div class="space-y-4">
-          <UFormField label="Title" required>
-            <UInput v-model="newPostState.title" autofocus placeholder="My Awesome Post" />
-          </UFormField>
-          <UFormField help="The URL-friendly name of the post" label="Slug" required>
-            <UInput v-model="newPostState.slug" placeholder="my-awesome-post" />
-          </UFormField>
-        </div>
-      </template>
-      <template #footer>
-        <div class="flex justify-end gap-2">
-          <UButton
-            color="neutral"
-            label="Cancel"
-            variant="ghost"
-            @click="ui.isCreateModalOpen = false"
-          />
-          <UButton
-            :loading="ui.isCreating"
-            color="primary"
-            label="Create"
-            @click="handleCreateSubmit"
-          />
-        </div>
-      </template>
-    </UModal>
-  </UContainer>
+  <!-- Create Post Modal -->
+  <UModal :open="blog.isCreateModalOpen.value" @update:open="blog.isCreateModalOpen.value = $event" :title="t('pages.blog.actions.create_post.modal.title')">
+    <template #body>
+      <div class="flex flex-col gap-sm">
+        <UFormField :label="t('pages.blog.actions.create_post.modal.fields.title.title')" required>
+          <UInput v-model="blog.newPostState.title" autofocus :placeholder="t('pages.blog.actions.create_post.modal.fields.title.placeholder')" />
+        </UFormField>
+        <UFormField :label="t('pages.blog.actions.create_post.modal.fields.slug.title')" :help="t('pages.blog.actions.create_post.modal.fields.slug.help')" required>
+          <UInput v-model="blog.newPostState.slug" :placeholder="t('pages.blog.actions.create_post.modal.fields.slug.placeholder')" />
+        </UFormField>
+      </div>
+    </template>
+    <template #footer>
+      <div class="flex justify-between gap-sm">
+        <UButton
+          color="error"
+          :label="t('pages.blog.actions.create_post.modal.actions.cancel')"
+          variant="ghost"
+          @click="blog.isCreateModalOpen.value = false"
+        />
+        <UButton
+          :loading="blog.isCreating.value"
+          color="primary"
+          :label="t('pages.blog.actions.create_post.modal.actions.submit')"
+          @click="blog.handleCreateSubmit"
+        />
+      </div>
+    </template>
+  </UModal>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

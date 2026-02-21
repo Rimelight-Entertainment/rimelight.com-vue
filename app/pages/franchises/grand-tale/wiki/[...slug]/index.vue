@@ -14,6 +14,18 @@ const slug = computed(() => {
 
 const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`);
 const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin");
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

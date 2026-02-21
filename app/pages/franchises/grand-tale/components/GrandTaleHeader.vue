@@ -16,6 +16,30 @@ const isSlideoverOpen = ref(false);
 
 const layerId = inject<string>("header_layer_id", "grand-tale-header");
 const { bottomOffsets } = useHeaderStack();
+
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

@@ -14,6 +14,18 @@ useSeoMeta({
   description: `Branding guidelines and assets for ${appConfig.title}.`,
   ogDescription: `Branding guidelines and assets for ${appConfig.title}.`,
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

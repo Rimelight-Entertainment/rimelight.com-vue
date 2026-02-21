@@ -4,6 +4,18 @@ const { t } = useI18n();
 useHead({
   title: t("about_hero_title"),
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

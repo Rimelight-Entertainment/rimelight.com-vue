@@ -6,6 +6,18 @@ const { permissions } = useAuth();
 const isAdmin = permissions.admin.canAccess;
 
 const slug = computed(() => route.params.slug as string);
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

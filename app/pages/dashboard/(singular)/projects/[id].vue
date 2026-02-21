@@ -221,6 +221,18 @@ async function deleteField(id: string) {
     toast.add({ title: "Error deleting field", color: "error" });
   }
 }
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

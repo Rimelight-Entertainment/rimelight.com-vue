@@ -52,6 +52,30 @@ const columns = computed<FooterColumn[]>(() => [
 onMounted(() => {
   console.log("AppFooter mounted on client");
 });
+
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

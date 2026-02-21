@@ -7,6 +7,18 @@ const isAdmin = permissions?.admin?.canAccess ?? true;
 
 const slug = computed(() => route.params.slug as string);
 const lookupSlug = computed(() => `documents/${slug.value}`);
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>
