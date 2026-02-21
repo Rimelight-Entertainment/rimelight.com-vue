@@ -175,7 +175,12 @@ export const CHARACTER_DEFINITION = definePageDefinition({
       label: { en: "Other" },
       defaultOpen: false,
       fields: {
-        favouriteFood: { defaultValue: { en: "" }, label: { en: "Favourite Food" }, type: "text" },
+        favouriteFood: {
+          defaultValue: { en: "" },
+          label: { en: "Favourite Food" },
+          type: "page",
+          allowedPageTypes: ["Object"],
+        },
       },
     },
   },

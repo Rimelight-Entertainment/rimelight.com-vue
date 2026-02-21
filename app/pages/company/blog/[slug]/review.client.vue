@@ -5,22 +5,16 @@ const route = useRoute();
 const { permissions } = useAuth();
 const isAdmin = permissions.admin.canAccess;
 
-const slugParam = route.params.slug;
-const slug = computed(() => {
-  if (!slugParam) return "";
-  return Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
-});
-
+const slug = computed(() => route.params.slug as string);
 const versionId = computed(() => route.query.version as string);
-const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`);
 </script>
 
 <template>
   <RCPageReviewView
-    :lookup-path="lookupSlug"
+    :lookup-path="slug"
     :version-id="versionId"
     :page-definitions="pageDefinitions"
-    base-url="/franchises/grand-tale/wiki"
+    base-url="/company/blog"
     :is-admin="isAdmin"
   />
 </template>
