@@ -59,6 +59,16 @@ onMounted(() => {
       isCreatePageModalOpen.value = true;
     },
   });
+
+  registerAction({
+    id: "action-assets",
+    label: "Assets",
+    icon: "lucide:folder-open",
+    group: 1,
+    onSelect: () => {
+      isAssetModalOpen.value = true;
+    },
+  });
 });
 
 onUnmounted(() => {
@@ -67,6 +77,7 @@ onUnmounted(() => {
   unregisterAction("action-new-note");
   unregisterAction("action-new-todo");
   unregisterAction("action-new-page");
+  unregisterAction("action-assets");
 });
 
 watch([focusTimer.isRunning], ([timer]) => {
@@ -78,6 +89,8 @@ const { triggerRefresh } = useNotes();
 
 const isTodoModalOpen = ref(false);
 const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos();
+
+const isAssetModalOpen = ref(false);
 
 const isCreatePageModalOpen = ref(false);
 const isCreatingPage = ref(false);
@@ -286,6 +299,7 @@ const groups = computed(() => [
           </div>
         </template>
       </UModal>
+      <RCAssetManagerModal v-model:open="isAssetModalOpen" />
     </template>
   </RCBaseDashboardLayout>
 </template>
