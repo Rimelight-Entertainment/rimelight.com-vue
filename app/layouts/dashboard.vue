@@ -60,15 +60,21 @@ onMounted(() => {
     },
   });
 
-  registerAction({
-    id: "action-assets",
-    label: "Assets",
-    icon: "lucide:folder-open",
-    group: 1,
-    onSelect: () => {
-      isAssetModalOpen.value = true;
-    },
-  });
+  watch(permissions.assets.canView, (canView) => {
+    if (canView) {
+      registerAction({
+        id: "action-assets",
+        label: "Assets",
+        icon: "lucide:folder-open",
+        group: 1,
+        onSelect: () => {
+          isAssetModalOpen.value = true;
+        },
+      });
+    } else {
+      unregisterAction("action-assets");
+    }
+  }, { immediate: true });
 });
 
 onUnmounted(() => {
@@ -131,7 +137,7 @@ const handleQuickTodoSave = async () => {
 
 const open = ref(false);
 
-const { user } = useAuth();
+const { user, permissions } = useAuth();
 
 const links = computed<NavigationMenuItem[][]>(() => [
   markRaw([
