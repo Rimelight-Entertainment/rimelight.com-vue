@@ -2,7 +2,6 @@
 const route = useRoute();
 const { user } = useAuth();
 const slug = computed(() => route.params.slug as string);
-const lookupSlug = computed(() => `documents/${slug.value}`);
 const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin");
 
 /* region State */
@@ -20,7 +19,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
 
 <template>
   <RCPageLiveView
-    :lookup-path="lookupSlug"
+    :lookup-path="slug"
     :cache-key="`document-view-${slug}`"
     base-url="/documents"
     :can-edit="canEdit"
