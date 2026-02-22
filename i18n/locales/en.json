@@ -123,7 +123,7 @@
             },
             "side": {
               "title": "Assistance",
-              "order_status": "Order Status",
+              "orders": "Orders",
               "customer_support": "Customer Support"
             }
           }
@@ -292,6 +292,78 @@
         "end_of_list": "You've reached the end of the posts."
       }
     },
+    "documents": {
+      "meta": {
+        "title": "Documents",
+        "description": "View our formal documents, policies, and guidelines."
+      },
+      "actions": {
+        "create_document": {
+          "label": "Create Document",
+          "success": {
+            "title": "Document created successfully",
+            "description": "You can now edit your document."
+          },
+          "error": {
+            "title": "Failed to create document",
+            "description": "Please check your connection and try again later."
+          },
+          "modal": {
+            "title": "Create Document",
+            "description": "Create a new Document.",
+            "fields": {
+              "title": {
+                "title": "Document Title",
+                "placeholder": "Enter a title for your document"
+              },
+              "slug": {
+                "title": "Document Slug",
+                "placeholder": "document-slug",
+                "help": "The URL-friendly name of the document."
+              }
+            },
+            "actions": {
+              "cancel": "Cancel",
+              "submit": "Create Document"
+            }
+          }
+        }
+      },
+      "drafts": {
+        "title": "Drafts",
+        "description": "These documents have currently not been published.",
+        "error": {
+          "title": "Failed to load drafts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No drafts yet.",
+          "description": "Create your first document to get started.",
+          "actions": {
+            "create": "Create Document"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the drafts."
+      },
+      "documents": {
+        "title": "Documents",
+        "description": "Our official documents and policies.",
+        "error": {
+          "title": "Failed to load documents",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No documents yet",
+          "description": "Create your first document to get started.",
+          "actions": {
+            "create": "Create Document"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the documents."
+      }
+    },
     "forums": {
       "rimelight": {
         "meta": {
@@ -315,6 +387,15 @@
           "description": "Join us at Lightcon, our annual community event."
         },
         "welcome": "Welcome to Lightcon! Join us for our annual community celebration featuring announcements, panels, and exclusive reveals."
+      }
+    },
+    "store": {
+      "meta": {
+        "title": "Store",
+        "description": "Shop for digital goods and merchandise."
+      },
+      "header": {
+        "cart": "Cart"
       }
     }
   }

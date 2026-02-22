@@ -26,7 +26,8 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "strapi": "cd strapi && bun run dev"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",

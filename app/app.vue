@@ -83,7 +83,7 @@ const createCookieDescription = () => {
       h(
         ULink,
         {
-          href: "/documents/policies/cookie-policy/",
+          href: "/documents/cookie-policy/",
           class: "text-primary",
         },
         { default: () => "Cookie Policy" },

@@ -1,5 +1,24 @@
 <script lang="ts" setup>
-const route = useRoute();
+/* region Props */
+
+/* endregion */
+
+/* region Emits */
+
+/* endregion */
+
+/* region Slots */
+
+/* endregion */
+
+/* region Styles */
+
+/* endregion */
+
+/* region State */
+const { t } = useI18n()
+const layerId = inject<string>("header_layer_id", "grand-tale-header")
+const { bottomOffsets } = useHeaderStack()
 
 const links = computed(() => [
   { label: "Home", to: "/franchises/grand-tale" },
@@ -8,37 +27,24 @@ const links = computed(() => [
   { label: "Wiki", to: "/franchises/grand-tale/wiki" },
   { label: "Guides", to: "/franchises/grand-tale/guides" },
   { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
-]);
+])
 
-const rightLinks = computed(() => [{ label: "Support", to: "/franchises/grand-tale/support" }]);
+const rightLinks = computed(() => [{ label: "Support", to: "/franchises/grand-tale/support" }])
 
-const isSlideoverOpen = ref(false);
+const isSlideoverOpen = ref(false)
 
-const layerId = inject<string>("header_layer_id", "grand-tale-header");
-const { bottomOffsets } = useHeaderStack();
-
-/* region Props */
-/* endregion */
-
-/* region Emits */
-/* endregion */
-
-/* region Slots */
-/* endregion */
-
-/* region Styles */
-/* endregion */
-
-/* region State */
 /* endregion */
 
 /* region Meta */
+
 /* endregion */
 
 /* region Lifecycle */
+
 /* endregion */
 
 /* region Logic */
+
 /* endregion */
 </script>
 
@@ -55,7 +61,6 @@ const { bottomOffsets } = useHeaderStack();
             >Grand Tale</span
           >
         </div>
-        <div class="h-4 w-px bg-white/10" />
         <UNavigationMenu
           :items="links"
           variant="link"

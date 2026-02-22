@@ -6,7 +6,7 @@ const { permissions } = useAuth();
 const isAdmin = permissions?.admin?.canAccess ?? true;
 
 const slug = computed(() => route.params.slug as string);
-const lookupSlug = computed(() => `documents/${slug.value}`);
+const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin");
 
 /* region State */
 /* endregion */
@@ -23,7 +23,7 @@ const lookupSlug = computed(() => `documents/${slug.value}`);
 
 <template>
   <RCPageReviewView
-    :lookup-path="lookupSlug"
+    :lookup-path="slug"
     :cache-key="`document-review-${slug}`"
     :page-definitions="pageDefinitions"
     base-url="/documents"

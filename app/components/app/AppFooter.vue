@@ -32,19 +32,19 @@ const columns = computed<FooterColumn[]>(() => [
     children: [
       {
         label: t("app.footer.links.documents.content.privacyPolicy"),
-        to: "/documents/policies/privacy-policy",
+        to: "/documents/privacy-policy",
       },
       {
         label: t("app.footer.links.documents.content.cookiePolicy"),
-        to: "/documents/policies/cookie-policy",
+        to: "/documents/cookie-policy",
       },
       {
         label: t("app.footer.links.documents.content.termsOfService"),
-        to: "/documents/policies/term-of-service",
+        to: "/documents/term-of-service",
       },
       {
         label: t("app.footer.links.documents.content.codeOfConduct"),
-        to: "/documents/policies/code-of-conduct",
+        to: "/documents/code-of-conduct",
       },
       {
         label: t("app.footer.links.documents.content.otherDocuments"),
@@ -52,10 +52,7 @@ const columns = computed<FooterColumn[]>(() => [
       },
     ],
   },
-]);
-onMounted(() => {
-  console.log("AppFooter mounted on client");
-});
+])
 
 /* region Props */
 /* endregion */

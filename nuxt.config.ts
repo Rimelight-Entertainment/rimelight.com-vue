@@ -58,6 +58,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
+      strapiApiBase: process.env.NUXT_PUBLIC_STRAPI_API_BASE || "http://localhost:1337",
       isTauri,
     },
   },
@@ -85,6 +86,19 @@ export default defineNuxtConfig({
           rel: "icon",
           type: "image/svg+xml",
           href: "/favicon.svg",
+        },
+        { rel: "preconnect", href: "https://app.snipcart.com" },
+        { rel: "preconnect", href: "https://cdn.snipcart.com" },
+        {
+          rel: "stylesheet",
+          href: "https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.css",
+        },
+      ],
+      script: [
+        {
+          src: "https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.js",
+          async: true,
+          defer: true,
         },
       ],
     },
@@ -158,7 +172,16 @@ export default defineNuxtConfig({
       //"/": { prerender: true },
       "/documents/**": { isr: 3600 },
       "/blog/**": { isr: 3600 },
-      "/internal/**": { ssr: false },
+      "/dashboard/**": {
+        ssr: false,
+        appLayout: "dashboard",
+      },
+      "/store/**": {
+        appLayout: "store",
+      },
+      "/franchises/grand-tale": {
+        appLayout: "grand-tale",
+      },
     },
   },
   ...(!isTauri
