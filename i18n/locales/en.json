@@ -1,27 +1,133 @@
 {
   "error": {
-    "retry": "Try Again"
+    "retry": "Try Again",
+    "clear": "Go Back Home"
   },
   "app": {
     "header": {
       "links": {
+        "grand_tale": {
+          "label": "Grand Tale",
+          "content": {
+            "main": {
+              "title": "Explore",
+              "home": "Home",
+              "news": "News",
+              "about": "About",
+              "wiki": "Wiki",
+              "guides": "Guides",
+              "leaderboards": "Leaderboards"
+            },
+            "side": {
+              "title": "Resources",
+              "support": "Support"
+            }
+          }
+        },
         "community": {
           "label": "Community",
           "content": {
-            "discord": "Discord",
-            "twitter": "Twitter",
-            "instagram": "Instagram"
+            "forums": {
+              "heading": "Forums",
+              "rimelight": "Rimelight Forums",
+              "grand_tale": "Grand Tale Forums"
+            },
+            "events": {
+              "heading": "Events",
+              "lightcon": "Lightcon"
+            },
+            "side": {
+              "title": "Socials",
+              "instagram": "Instagram",
+              "discord": "Discord",
+              "spotify": "Spotify"
+            }
           }
         },
         "company": {
           "label": "Company",
           "content": {
-            "about": "About Us",
-            "blog": "Blog",
-            "careers": "Careers"
+            "main": {
+              "about": {
+                "heading": "About",
+                "overview": "Overview",
+                "history": "Our History",
+                "mission": "Mission & Values",
+                "leadership": "Leadership Team"
+              },
+              "studio": {
+                "heading": "Studio",
+                "projects": "Our Projects",
+                "technology": "Technology",
+                "partnerships": "Partnerships"
+              },
+              "news": {
+                "heading": "News & Media",
+                "blog": "Blog",
+                "press": "Press Releases",
+                "media_kit": "Media Kit"
+              },
+              "careers": {
+                "heading": "Careers",
+                "openings": "Job Openings",
+                "culture": "Life at Rimelight",
+                "benefits": "Benefits",
+                "internships": "Internships"
+              },
+              "investors": {
+                "heading": "Investors",
+                "overview": "Investor Overview",
+                "financials": "Financial Reports",
+                "governance": "Governance"
+              }
+            },
+            "side": {
+              "resources": {
+                "title": "Resources",
+                "api": "API",
+                "branding": "Branding",
+                "press": "Press Kit",
+                "legal": "Legal"
+              },
+              "socials": {
+                "title": "Socials",
+                "linkedin": "LinkedIn",
+                "github": "GitHub"
+              },
+              "contact": {
+                "title": "Contact",
+                "email": "Email Us",
+                "inquiries": "Business Inquiries",
+                "support": "Support"
+              }
+            }
           }
         },
-        "contact": "Contact"
+        "store": {
+          "label": "Store",
+          "content": {
+            "main": {
+              "title": "Shop",
+              "digital_goods": {
+                "heading": "Digital Goods",
+                "sparks": "Sparks"
+              },
+              "merchandise": {
+                "heading": "Merchandise",
+                "apparel": "Apparel",
+                "pins": "Pins & Patches",
+                "plushies": "Plushies",
+                "posters": "Posters & Art Prints",
+                "accessories": "Accessories"
+              }
+            },
+            "side": {
+              "title": "Assistance",
+              "order_status": "Order Status",
+              "customer_support": "Customer Support"
+            }
+          }
+        }
       }
     },
     "footer": {
@@ -184,6 +290,31 @@
         },
         "load_more": "Load More",
         "end_of_list": "You've reached the end of the posts."
+      }
+    },
+    "forums": {
+      "rimelight": {
+        "meta": {
+          "title": "Rimelight Forums",
+          "description": "Join the Rimelight community discussions."
+        },
+        "welcome": "Welcome to the Rimelight Forums. Connect with fellow community members and discuss all things Rimelight."
+      },
+      "grand_tale": {
+        "meta": {
+          "title": "Grand Tale Forums",
+          "description": "Discuss Grand Tale with the community."
+        },
+        "welcome": "Welcome to the Grand Tale Forums. Share strategies, stories, and connect with other players."
+      }
+    },
+    "events": {
+      "lightcon": {
+        "meta": {
+          "title": "Lightcon",
+          "description": "Join us at Lightcon, our annual community event."
+        },
+        "welcome": "Welcome to Lightcon! Join us for our annual community celebration featuring announcements, panels, and exclusive reveals."
       }
     }
   }

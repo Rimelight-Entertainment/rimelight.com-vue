@@ -54,61 +54,171 @@ type menuItem = NavigationMenuItem & DropdownMenuItem;
 const items = computed<NavigationMenuItem[]>(() =>
   markRaw([
     {
-      label: "Grand Tale",
+      label: t('app.header.links.grand_tale.label'),
       active: route.path.startsWith("/franchises/grand-tale"),
       slot: "grand-tale" as const,
       children: [
-        { label: "Home", to: "/franchises/grand-tale" },
-        { label: "News", to: "/franchises/grand-tale/news" },
-        { label: "About", to: "/franchises/grand-tale/about" },
-        { label: "Wiki", to: "/franchises/grand-tale/wiki" },
-        { label: "Guides", to: "/franchises/grand-tale/guides" },
-        { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
+        { label: t('app.header.links.grand_tale.content.main.home'), to: "/franchises/grand-tale" },
+        { label: t('app.header.links.grand_tale.content.main.news'), to: "/franchises/grand-tale/news" },
+        { label: t('app.header.links.grand_tale.content.main.about'), to: "/franchises/grand-tale/about" },
+        { label: t('app.header.links.grand_tale.content.main.wiki'), to: "/franchises/grand-tale/wiki" },
+        { label: t('app.header.links.grand_tale.content.main.guides'), to: "/franchises/grand-tale/guides" },
+        { label: t('app.header.links.grand_tale.content.main.leaderboards'), to: "/franchises/grand-tale/leaderboards" },
       ],
     },
     {
-      label: "Community",
+      label: t('app.header.links.community.label'),
       to: "/community",
       active: route.path.startsWith("/community"),
       slot: "community" as const,
       children: [
         {
-          label: "Forums",
-          to: "/forums",
-          active: route.path.startsWith("/forums"),
+          label: t('app.header.links.community.content.main.forums.heading'),
+          children: [
+            {
+              label: t('app.header.links.community.content.main.forums.rimelight'),
+              to: "/forums/rimelight",
+              active: route.path.startsWith("/forums/rimelight"),
+            },
+            {
+              label: t('app.header.links.community.content.main.forums.grand_tale'),
+              to: "/forums/grand-tale",
+              active: route.path.startsWith("/forums/grand-tale"),
+            },
+          ],
         },
         {
-          label: "Events",
-          to: "/events",
-          active: route.path.startsWith("/events"),
+          label: t('app.header.links.community.content.main.events.heading'),
+          children: [
+            {
+              label: t('app.header.links.community.content.main.events.lightcon'),
+              to: "/events/lightcon",
+              active: route.path.startsWith("/events/lightcon"),
+            },
+          ],
         },
       ],
     },
     {
-      label: "Company",
+      label: t('app.header.links.company.label'),
       to: "/company",
       active: route.path.startsWith("/company"),
       slot: "company" as const,
       children: [
         {
-          label: "About Us",
-          to: "/company/about",
-          active: route.path.startsWith("/company/about"),
+          label: t('app.header.links.company.content.main.about.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.about.overview'),
+              to: "/company/about",
+              active: route.path.startsWith("/company/about"),
+            },
+            {
+              label: t('app.header.links.company.content.main.about.history'),
+              to: "/company/about/history",
+              active: route.path.startsWith("/company/about/history"),
+            },
+            {
+              label: t('app.header.links.company.content.main.about.mission'),
+              to: "/company/about/mission",
+              active: route.path.startsWith("/company/about/mission"),
+            },
+            {
+              label: t('app.header.links.company.content.main.about.leadership'),
+              to: "/company/about/leadership",
+              active: route.path.startsWith("/company/about/leadership"),
+            },
+          ],
         },
         {
-          label: "Blog",
-          to: "/company/blog",
-          active: route.path.startsWith("/company/blog"),
+          label: t('app.header.links.company.content.main.studio.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.studio.projects'),
+              to: "/company/studio/projects",
+              active: route.path.startsWith("/company/studio/projects"),
+            },
+            {
+              label: t('app.header.links.company.content.main.studio.technology'),
+              to: "/company/studio/technology",
+              active: route.path.startsWith("/company/studio/technology"),
+            },
+            {
+              label: t('app.header.links.company.content.main.studio.partnerships'),
+              to: "/company/studio/partnerships",
+              active: route.path.startsWith("/company/studio/partnerships"),
+            },
+          ],
         },
         {
-          label: "Careers",
-          to: "/company/careers",
-          active: route.path.startsWith("/company/careers"),
+          label: t('app.header.links.company.content.main.news.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.news.blog'),
+              to: "/company/blog",
+              active: route.path.startsWith("/company/blog"),
+            },
+            {
+              label: t('app.header.links.company.content.main.news.press'),
+              to: "/company/press",
+              active: route.path.startsWith("/company/press"),
+            },
+            {
+              label: t('app.header.links.company.content.main.news.media_kit'),
+              to: "/company/media-kit",
+              active: route.path.startsWith("/company/media-kit"),
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.company.content.main.careers.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.careers.openings'),
+              to: "/company/careers",
+              active: route.path.startsWith("/company/careers"),
+            },
+            {
+              label: t('app.header.links.company.content.main.careers.culture'),
+              to: "/company/careers/culture",
+              active: route.path.startsWith("/company/careers/culture"),
+            },
+            {
+              label: t('app.header.links.company.content.main.careers.benefits'),
+              to: "/company/careers/benefits",
+              active: route.path.startsWith("/company/careers/benefits"),
+            },
+            {
+              label: t('app.header.links.company.content.main.careers.internships'),
+              to: "/company/careers/internships",
+              active: route.path.startsWith("/company/careers/internships"),
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.company.content.main.investors.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.investors.overview'),
+              to: "/company/investors",
+              active: route.path.startsWith("/company/investors"),
+            },
+            {
+              label: t('app.header.links.company.content.main.investors.financials'),
+              to: "/company/investors/financials",
+              active: route.path.startsWith("/company/investors/financials"),
+            },
+            {
+              label: t('app.header.links.company.content.main.investors.governance'),
+              to: "/company/investors/governance",
+              active: route.path.startsWith("/company/investors/governance"),
+            },
+          ],
         },
       ],
     },
     {
-      label: "Store",
+      label: t('app.header.links.store.label'),
       to: "/store",
       active: route.path.startsWith("/store"),
       slot: "store" as const,
@@ -312,33 +422,35 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                    >Explore</span
-                  >
-                  <div class="grid grid-cols-1 gap-1">
-                    <UButton
-                      v-for="child in (item as any).children"
-                      :key="child.label"
-                      :label="child.label"
-                      :to="child.to"
-                      class="text-black hover:bg-neutral-200"
-                      color="neutral"
-                      variant="ghost"
-                    />
+                  <div class="grid grid-cols-2 gap-1">
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.grand_tale.content.main.title') }}</span
+                      >
+                      <UButton
+                        v-for="child in (item as any).children"
+                        :key="child.label"
+                        :label="child.label"
+                        :to="child.to"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >Resources</span
+                  >{{ t('app.header.links.grand_tale.content.side.title') }}</span
                 >
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="lucide:headset"
-                    label="Support"
+                    :label="t('app.header.links.grand_tale.content.side.support')"
                     to="/franchises/grand-tale/support"
                     variant="ghost"
                   />
@@ -363,33 +475,52 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                    >Connect</span
-                  >
-                  <div class="grid grid-cols-1 gap-1">
-                    <UButton
-                      v-for="child in (item as any).children"
-                      :key="child.label"
-                      :label="child.label"
-                      :to="child.to"
-                      class="text-black hover:bg-neutral-200"
-                      color="neutral"
-                      variant="ghost"
-                    />
+                  <div class="grid grid-cols-2 gap-1">
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.community.content.forums.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.community.content.forums.rimelight')"
+                        to="/forums/rimelight"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.community.content.forums.grand_tale')"
+                        to="/forums/grand-tale"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.community.content.events.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.community.content.events.lightcon')"
+                        to="/events/lightcon"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >Socials</span
+                  >{{ t('app.header.links.community.content.side.title') }}</span
                 >
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:instagram"
-                    label="Instagram"
+                    :label="t('app.header.links.community.content.side.instagram')"
                     to="https://www.instagram.com/"
                     variant="ghost"
                   />
@@ -397,7 +528,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="ic:baseline-discord"
-                    label="Discord"
+                    :label="t('app.header.links.community.content.side.discord')"
                     to="https://discord.com/"
                     variant="ghost"
                   />
@@ -405,7 +536,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:spotify"
-                    label="Spotify"
+                    :label="t('app.header.links.community.content.side.spotify')"
                     to="https://spotify.com/"
                     variant="ghost"
                   />
@@ -430,46 +561,202 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                    >Studio</span
-                  >
-                  <div class="grid grid-cols-1 gap-1">
-                    <UButton
-                      v-for="child in (item as any).children"
-                      :key="child.label"
-                      :label="child.label"
-                      :to="child.to"
-                      class="text-black hover:bg-neutral-200"
-                      color="neutral"
-                      variant="ghost"
-                    />
+                  <div class="grid grid-cols-3 gap-1">
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.company.content.main.about.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.company.content.main.about.overview')"
+                        to="/company/about"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.about.history')"
+                        to="/company/about/history"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.about.mission')"
+                        to="/company/about/mission"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.about.leadership')"
+                        to="/company/about/leadership"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.company.content.main.studio.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.company.content.main.studio.projects')"
+                        to="/company/studio/projects"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.studio.technology')"
+                        to="/company/studio/technology"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.studio.partnerships')"
+                        to="/company/studio/partnerships"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.company.content.main.news.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.company.content.main.news.blog')"
+                        to="/company/blog"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.news.press')"
+                        to="/company/press"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.news.media_kit')"
+                        to="/company/media-kit"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.company.content.main.careers.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.company.content.main.careers.openings')"
+                        to="/company/careers"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.careers.culture')"
+                        to="/company/careers/culture"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.careers.benefits')"
+                        to="/company/careers/benefits"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.careers.internships')"
+                        to="/company/careers/internships"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.company.content.main.investors.heading') }}</span
+                      >
+                      <UButton
+                        :label="t('app.header.links.company.content.main.investors.overview')"
+                        to="/company/investors"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.investors.financials')"
+                        to="/company/investors/financials"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.links.company.content.main.investors.governance')"
+                        to="/company/investors/governance"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        variant="ghost"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">
-                  Contact
+                  {{ t('app.header.links.company.content.side.resources.title') }}
                 </span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
-                    icon="lucide:mail"
-                    label="Email Us"
-                    to="mailto:contact@rimelight.com"
+                    icon="lucide:code"
+                    :label="t('app.header.links.company.content.side.resources.api')"
+                    to="/api"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:palette"
+                    :label="t('app.header.links.company.content.side.resources.branding')"
+                    to="/branding"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:newspaper"
+                    :label="t('app.header.links.company.content.side.resources.press')"
+                    to="/company/press"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:shield"
+                    :label="t('app.header.links.company.content.side.resources.legal')"
+                    to="/documents"
                     variant="ghost"
                   />
                 </div>
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">
-                  Socials
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2">
+                  {{ t('app.header.links.company.content.side.socials.title') }}
                 </span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:linkedin"
-                    label="LinkedIn"
+                    :label="t('app.header.links.company.content.side.socials.linkedin')"
                     to=""
                     variant="ghost"
                   />
@@ -477,8 +764,37 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="mdi:github"
-                    label="GitHub"
+                    :label="t('app.header.links.company.content.side.socials.github')"
                     to="https://github.com/Rimelight-Entertainment"
+                    variant="ghost"
+                  />
+                </div>
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2">
+                  {{ t('app.header.links.company.content.side.contact.title') }}
+                </span>
+                <div class="grid grid-cols-1 gap-1">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:mail"
+                    :label="t('app.header.links.company.content.side.contact.email')"
+                    to="mailto:contact@rimelight.com"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:briefcase"
+                    :label="t('app.header.links.company.content.side.contact.inquiries')"
+                    to="/company/contact"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:headset"
+                    :label="t('app.header.links.company.content.side.contact.support')"
+                    to="/support"
                     variant="ghost"
                   />
                 </div>
@@ -502,38 +818,73 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                    >Category</span
-                  >
-                  <div class="grid grid-cols-1 gap-1">
-                    <UButton
-                      class="text-black hover:bg-neutral-200"
-                      color="neutral"
-                      label="Merchandise"
-                      to="/store/merch"
-                      variant="ghost"
-                    />
-                    <UButton
-                      class="text-black hover:bg-neutral-200"
-                      color="neutral"
-                      label="Digital Goods"
-                      to="/store/digital"
-                      variant="ghost"
-                    />
+                  <div class="grid grid-cols-2 gap-1">
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.store.content.main.digital_goods.heading') }}</span
+                      >
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.digital_goods.sparks')"
+                        to="/store/digital"
+                        variant="ghost"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t('app.header.links.store.content.main.merchandise.heading') }}</span
+                      >
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.merchandise.apparel')"
+                        to="/store/merch/apparel"
+                        variant="ghost"
+                      />
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.merchandise.pins')"
+                        to="/store/merch/pins"
+                        variant="ghost"
+                      />
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.merchandise.plushies')"
+                        to="/store/merch/plushies"
+                        variant="ghost"
+                      />
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.merchandise.posters')"
+                        to="/store/merch/posters"
+                        variant="ghost"
+                      />
+                      <UButton
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        :label="t('app.header.links.store.content.main.merchandise.accessories')"
+                        to="/store/merch/accessories"
+                        variant="ghost"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >Assistance</span
+                  >{{ t('app.header.links.store.content.side.title') }}</span
                 >
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="lucide:shopping-bag"
-                    label="Order Status"
+                    :label="t('app.header.links.store.content.side.order_status')"
                     to="/store/orders"
                     variant="ghost"
                   />
@@ -541,7 +892,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
                     icon="lucide:headset"
-                    label="Customer Support"
+                    :label="t('app.header.links.store.content.side.customer_support')"
                     to="/franchises/grand-tale/support"
                     variant="ghost"
                   />

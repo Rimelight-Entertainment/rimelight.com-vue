@@ -4,7 +4,7 @@ const { t } = useI18n();
 const navigationItems = computed(() => [
   [
     {
-      label: "Wiki Explorer",
+      label: "Wiki",
       type: "label" as const,
     },
     {
@@ -72,31 +72,10 @@ const navigationItems = computed(() => [
     {
       label: "Mechanics & Systems",
       type: "label" as const,
-    },
-    {
-      label: "Combat Fundamentals",
-      to: "/franchises/grand-tale/wiki/mechanics/combat",
-    },
-    {
-      label: "Soulstone Resonance",
-      to: "/franchises/grand-tale/wiki/mechanics/soulstone",
-    },
-    {
-      label: "Damage Formulas",
-      to: "/franchises/grand-tale/wiki/mechanics/damage",
-    },
+    }
   ],
-  [
-    {
-      label: "Community",
-      type: "label" as const,
-    },
-    {
-      label: "Contribute",
-      to: "#",
-    },
-  ],
-]);
+])
+
 const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
   query: { slugPrefix: "franchises/grand-tale/wiki" },
 });
