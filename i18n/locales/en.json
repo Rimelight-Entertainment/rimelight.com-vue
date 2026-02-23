@@ -128,6 +128,20 @@
             }
           }
         }
+      },
+      "actions": {
+        "signUp": "Sign Up",
+        "signIn": "Sign In"
+      },
+      "user": {
+        "status": {
+          "placeholder": "Set a custom status..."
+        },
+        "dashboard": "Dashboard",
+        "profile": "Profile",
+        "support": "Support",
+        "settings": "Settings",
+        "signOut": "Sign Out"
       }
     },
     "footer": {
@@ -216,6 +230,68 @@
           "actions": {
             "createAccount": "Create Account",
             "exploreCareers": "Explore Careers"
+          }
+        }
+      }
+    },
+    "franchises": {
+      "grandTale": {
+        "home": {
+          "sections": {
+            "hero": {
+              "title": "May the story never end!",
+              "description": "Grand Tale is the next generation open-world RPG from Rimelight Entertainment. Explore a living world shaped by player agency and emergent storytelling.",
+              "actions": {
+                "playNow": "Play Now",
+                "watchTrailer": "Watch Trailer"
+              }
+            },
+            "about": {
+              "title": "About Grand Tale",
+              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "actions": {
+                "learnMore": "Learn More"
+              }
+            }
+          }
+        },
+        "about": {
+          "meta": {
+            "title": "About Grand Tale"
+          },
+          "sections": {
+            "hero": {
+              "title": "About Grand Tale",
+              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "actions": {
+                "learnMore": "Learn More"
+              }
+            },
+            "story": {
+              "title": "The story so far...",
+              "description": ", where they find the Ohrn, a mysterious artifact with powers over life itself. the group set out to form the Grand Tale and live the greatest story ever told.",
+              "actions": {}
+            },
+            "features": {
+              "title": "Features",
+              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "features": {
+              }
+            },
+            "specifications": {
+              "title": "Specifications",
+              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
+            },
+            "faq": {
+              "title": "Frequently Asked Questions",
+              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "questions": {
+                "q1": {
+                  "question": "What is Grand Tale?",
+                  "answer": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
+                }
+              }
+            }
           }
         }
       }

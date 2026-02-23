@@ -396,13 +396,13 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
           :ui="{
             viewportWrapper:
               'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
-            viewport: 'rounded-none',
+            viewport: 'rounded-none ring-0',
             link: [
               'text-white transition-colors duration-200',
               'hover:text-primary-400',
               'data-[state=open]:text-primary-400',
               'aria-[current]:text-primary-400',
-            ],
+            ]
           }"
           variant="link"
         >
@@ -959,7 +959,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                             src: session?.user.image ?? '',
                             alt: session?.user.name ?? '',
                           }"
-                          :description="session?.user.status ?? 'Set a custom status...'"
+                          :description="session?.user.status ?? t('app.header.user.status.placeholder')"
                           :ui="{
                             name: 'text-left text-black',
                             description: 'text-left text-neutral-500',
@@ -974,7 +974,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                           </template>
                         </UUser>
                         <UButton
-                          :label="t('dashboard')"
+                          :label="t('app.header.user.dashboard')"
                           class="text-black hover:bg-neutral-200"
                           color="neutral"
                           leading-icon="lucide:layout-dashboard"
@@ -982,7 +982,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                           variant="ghost"
                         />
                         <UButton
-                          :label="t('account_profile')"
+                          :label="t('app.header.user.profile')"
                           class="text-black hover:bg-neutral-200"
                           color="neutral"
                           leading-icon="lucide:user"
@@ -991,14 +991,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       </div>
                     <div class="flex flex-col gap-1 bg-neutral-100 p-sm">
                       <UButton
-                        :label="t('account_support')"
+                        :label="t('app.header.user.support')"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         leading-icon="lucide:headset"
                         variant="ghost"
                       />
                       <UButton
-                        :label="t('account_settings')"
+                        :label="t('app.header.user.settings')"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         leading-icon="lucide:cog"
@@ -1006,7 +1006,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                         variant="ghost"
                       />
                       <UButton
-                        :label="t('auth_sign-out')"
+                        :label="t('app.header.user.signOut')"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         leading-icon="lucide:log-out"

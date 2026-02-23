@@ -141,7 +141,7 @@ export default defineAppConfig({
     },
     dropdownMenu: {
       slots: {
-        content: "rounded-none",
+        content: "rounded-none ring-0",
       },
     },
     selectMenu: {
@@ -193,6 +193,7 @@ export default defineAppConfig({
     navigationMenu: {
       slots: {
         separator: "my-2",
+        viewport: "ring-0",
       },
       variants: {
         active: {
