@@ -60,21 +60,6 @@ onMounted(() => {
     },
   });
 
-  watch(permissions.assets.canView, (canView) => {
-    if (canView) {
-      registerAction({
-        id: "action-assets",
-        label: "Assets",
-        icon: "lucide:folder-open",
-        group: 1,
-        onSelect: () => {
-          isAssetModalOpen.value = true;
-        },
-      });
-    } else {
-      unregisterAction("action-assets");
-    }
-  }, { immediate: true });
 });
 
 onUnmounted(() => {
@@ -83,7 +68,6 @@ onUnmounted(() => {
   unregisterAction("action-new-note");
   unregisterAction("action-new-todo");
   unregisterAction("action-new-page");
-  unregisterAction("action-assets");
 });
 
 watch([focusTimer.isRunning], ([timer]) => {
@@ -203,6 +187,18 @@ const links = computed<NavigationMenuItem[][]>(() => [
         open.value = false;
       },
     },
+    ...(permissions.assets.canView.value
+      ? [
+          {
+            label: "Assets",
+            icon: "lucide:folder-open",
+            onSelect: () => {
+              open.value = false;
+              isAssetModalOpen.value = true;
+            },
+          },
+        ]
+      : []),
   ]),
 ]);
 
