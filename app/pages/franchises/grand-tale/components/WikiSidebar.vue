@@ -44,6 +44,36 @@ const navigationItems = computed(() => [
   ],
   [
     {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.title'),
+      type: "label" as const,
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.timeline'),
+      to: "/franchises/grand-tale/wiki/lore/timeline",
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.characters'),
+      to: "/franchises/grand-tale/wiki/lore/characters",
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.locations'),
+      to: "/franchises/grand-tale/wiki/lore/locations",
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.species'),
+      to: "/franchises/grand-tale/wiki/lore/species",
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.objects'),
+      to: "/franchises/grand-tale/wiki/lore/objects",
+    },
+    {
+      label: t('pages.franchises.grandTale.wiki.sidebar.lore.groups'),
+      to: "/franchises/grand-tale/wiki/lore/groups",
+    },
+  ],
+  [
+    {
       label: t('pages.franchises.grandTale.wiki.sidebar.game.title'),
       type: "label" as const,
     },
@@ -108,33 +138,21 @@ const navigationItems = computed(() => [
   ],
   [
     {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.title'),
+      label: t('pages.franchises.grandTale.wiki.sidebar.series.title'),
       type: "label" as const,
     },
     {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.timeline'),
-      to: "/franchises/grand-tale/wiki/lore/timeline",
+      label: t('pages.franchises.grandTale.wiki.sidebar.series.children_of_the_light'),
+      to: "/franchises/grand-tale/wiki/series/children-of-the-light",
     },
     {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.characters'),
-      to: "/franchises/grand-tale/wiki/lore/characters",
+      label: t('pages.franchises.grandTale.wiki.sidebar.series.grand_academy'),
+      to: "/franchises/grand-tale/wiki/series/grand-academy",
     },
     {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.locations'),
-      to: "/franchises/grand-tale/wiki/lore/locations",
-    },
-    {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.species'),
-      to: "/franchises/grand-tale/wiki/lore/species",
-    },
-    {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.objects'),
-      to: "/franchises/grand-tale/wiki/lore/objects",
-    },
-    {
-      label: t('pages.franchises.grandTale.wiki.sidebar.lore.groups'),
-      to: "/franchises/grand-tale/wiki/lore/groups",
-    },
+      label: t('pages.franchises.grandTale.wiki.sidebar.series.goldy_adventures'),
+      to: "/franchises/grand-tale/wiki/series/goldy-adventures",
+    }
   ],
   [
     {
@@ -165,8 +183,13 @@ const navigationItems = computed(() => [
       :items="navigationItems"
       orientation="vertical"
       :ui="{
-        label: 'text-white',
-        link: 'text-grand-tale-secondary-500',
+        label: 'text-white px-2.5 py-1.5 mt-2 font-bold uppercase text-[10px] tracking-widest opacity-60',
+        link: [
+          'text-grand-tale-secondary-400 px-2.5 py-1.5 transition-all duration-200',
+          'hover:text-white hover:before:bg-grand-tale-secondary-400',
+          'aria-[current]:text-white aria-[current]:before:bg-grand-tale-secondary-400'
+        ],
+        separator: 'bg-grand-tale-secondary-300'
       }"
       class="w-full"
     />

@@ -74,7 +74,7 @@ const items = computed<NavigationMenuItem[]>(() =>
           label: t('app.header.links.grand_tale.content.main.series.heading'),
           children: [
             { label: t('app.header.links.grand_tale.content.main.series.children_of_the_light'), to: "/franchises/grand-tale/series/children-of-the-light" },
-            { label: t('app.header.links.grand_tale.content.main.series.grand_university'), to: "/franchises/grand-tale/series/grand-university" },
+            { label: t('app.header.links.grand_tale.content.main.series.grand_academy'), to: "/franchises/grand-tale/series/grand-academy" },
             { label: t('app.header.links.grand_tale.content.main.series.goldy_adventures'), to: "/franchises/grand-tale/series/goldy-adventures" },
           ],
         },

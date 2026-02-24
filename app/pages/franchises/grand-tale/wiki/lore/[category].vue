@@ -22,6 +22,7 @@ const categoryToType: Record<string, string> = {
   groups: "Group",
   skills: "Skill",
   heroes: "Hero",
+  series: "Series",
 };
 
 const pageType = categoryToType[category] || "Character";

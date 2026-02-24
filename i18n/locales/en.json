@@ -21,7 +21,7 @@
               "series": {
                 "heading": "Series",
                 "children_of_the_light": "Children of the Light",
-                "grand_university": "Grand University",
+                "grand_academy": "Grand Academy",
                 "goldy_adventures": "Goldy Adventures"
               },
               "books": {
@@ -425,6 +425,12 @@
                 "seafaring": "Seafaring"
               },
               "settings": "Settings"
+            },
+            "series": {
+              "title": "Series",
+              "children_of_the_light": "Children of the Light",
+              "grand_academy": "Grand Academy",
+              "goldy_adventures": "Goldy Adventures"
             },
             "lore": {
               "title": "Lore",
