@@ -13,8 +13,8 @@ import {
   user as userRole,
   createRestrictedSet,
   normalizeUsername,
-  createGenerateUniqueTag,
 } from "rimelight-components/auth";
+import { createGenerateUniqueTag } from "rimelight-components/auth/utils";
 
 const ac = createAccessControl(statement);
 

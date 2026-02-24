@@ -2,7 +2,7 @@
 import { PAGE_MAP as pageDefinitions } from "~/types";
 
 const route = useRoute();
-const { permissions } = useAuth();
+const { user, permissions } = useAuth();
 const isAdmin = permissions?.admin?.canAccess ?? true;
 
 const slug = computed(() => route.params.slug as string);
