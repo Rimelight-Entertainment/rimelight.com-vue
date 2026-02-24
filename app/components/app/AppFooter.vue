@@ -2,12 +2,26 @@
 import type { FooterColumn } from "@nuxt/ui";
 import * as uiLocales from "@nuxt/ui/locale";
 
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
+/* region State */
+
 const appConfig = useAppConfig();
 const { t, locale, setLocale, locales: i18nLocales } = useI18n();
 
 const availableLocales = computed(() => {
   return i18nLocales.value.map((l) => (uiLocales as any)[l.code]).filter(Boolean);
-});
+})
 
 const columns = computed<FooterColumn[]>(() => [
   {
@@ -53,20 +67,6 @@ const columns = computed<FooterColumn[]>(() => [
     ],
   },
 ])
-
-/* region Props */
-/* endregion */
-
-/* region Emits */
-/* endregion */
-
-/* region Slots */
-/* endregion */
-
-/* region Styles */
-/* endregion */
-
-/* region State */
 /* endregion */
 
 /* region Meta */

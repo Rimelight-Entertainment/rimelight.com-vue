@@ -1,16 +1,38 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: "grand-tale",
-});
-
-useHead({
-  title: "About Grand Tale",
-});
+import type { AccordionItem } from '@nuxt/ui'
 
 /* region State */
+const { t, tm, rt } = useI18n()
+
+const faqGroups = computed(() => {
+  const groups = tm('pages.franchises.grandTale.about.sections.faq.groups') as any
+  return Object.entries(groups).map(([key, group]: [string, any]) => ({
+    label: rt(group.title),
+    questions: Object.entries(group)
+      .filter(([k]) => k.startsWith('q'))
+      .map(([, q]: [string, any]) => ({
+        label: rt(q.question),
+        content: rt(q.answer)
+      }))
+  }))
+})
+
+const specificationPlatforms = computed(() => {
+  const platforms = tm('pages.franchises.grandTale.about.sections.specifications.platforms') as any
+  return Object.entries(platforms).map(([key, platform]: [string, any]) => ({
+    label: rt(platform.label),
+    specs: platform.specs.map((s: any) => ({
+      label: rt(s.label),
+      value: rt(s.value)
+    }))
+  }))
+})
 /* endregion */
 
 /* region Meta */
+useHead({
+  title: t('pages.franchises.grandTale.about.meta.title')
+})
 /* endregion */
 
 /* region Lifecycle */
@@ -21,40 +43,100 @@ useHead({
 </script>
 
 <template>
-  <div class="py-20">
-    <UContainer>
-      <div class="max-w-4xl mx-auto space-y-12">
-        <div class="space-y-4">
-          <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white">
-            About the Vision
-          </h1>
-          <div class="h-1 w-20 bg-grand-tale-primary-500" />
-        </div>
+  <UPage>
+    <UPageHero
+      :title="t('pages.franchises.grandTale.about.sections.hero.title')"
+      :description="t('pages.franchises.grandTale.about.sections.hero.description')"
+    />
+    <UPageSection
+      :title="t('pages.franchises.grandTale.about.sections.story.title')"
+      :description="t('pages.franchises.grandTale.about.sections.story.description')"
+    />
+    <UPageSection
+      :title="t('pages.franchises.grandTale.about.sections.characters.title')"
+      :description="t('pages.franchises.grandTale.about.sections.characters.description')"
+    >
+      <UTabs>
 
-        <div class="prose prose-invert prose-grand-tale-secondary max-w-none">
-          <p class="text-xl text-grand-tale-secondary-100/80 leading-relaxed">
-            Grand Tale began as a dream to create a world where players aren't just participants,
-            but architects of their own legend.
-          </p>
-          <p class="text-grand-tale-secondary-100/60 leading-relaxed">
-            Our team at Rimelight Entertainment has spent years developing the proprietary
-            <i>TaleEngine</i>, designed specifically to handle complex branching narratives and
-            persistent world states at scale.
-          </p>
+      </UTabs>
+    </UPageSection>
+    <UPageSection
+      :title="t('pages.franchises.grandTale.about.sections.specifications.title')"
+      :description="t('pages.franchises.grandTale.about.sections.specifications.description')"
+    >
+      <UTabs
+        :items="specificationPlatforms"
+        variant="link"
+        class="max-w-3xl mx-auto"
+        :ui="{
+          list: 'justify-center border-b border-default-200 mb-8',
+          trigger: 'px-8 py-3 text-base'
+        }"
+      >
+        <template #content="{ item }">
+          <div class="space-y-4 px-4 pb-8">
+            <div
+              v-for="spec in item.specs"
+              :key="spec.label"
+              class="flex flex-col sm:flex-row sm:justify-between border-b border-default-100 pb-4 last:border-0"
+            >
+              <span class="text-muted font-medium">{{ spec.label }}</span>
+              <span class="text-highlighted">{{ spec.value }}</span>
+            </div>
+          </div>
+        </template>
+      </UTabs>
+    </UPageSection>
 
-          <h2 class="text-2xl font-bold text-white uppercase mt-12 mb-6">Built for Players</h2>
-          <p class="text-grand-tale-secondary-100/60 leading-relaxed">
-            We believe in transparency and community-driven development. Grand Tale is being built
-            in the open, with regular updates and feedback loops with our alpha testers.
-          </p>
+    <UPageSection
+      :title="t('pages.franchises.grandTale.about.sections.media.title')"
+      :description="t('pages.franchises.grandTale.about.sections.media.description')"
+    >
+    </UPageSection>
 
-          <NuxtImg
-            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2671&auto=format&fit=crop"
-            alt="Development team"
-            class="w-full aspect-video object-cover rounded-none border border-grand-tale-secondary-800/50 my-12"
-          />
-        </div>
+    <UPageSection
+      :title="t('pages.franchises.grandTale.about.sections.faq.title')"
+      :description="t('pages.franchises.grandTale.about.sections.faq.description')"
+    >
+      <UAccordion
+        :items="faqGroups"
+        type="multiple"
+        class="max-w-3xl mx-auto mb-12"
+        :ui="{
+          trigger: 'text-lg font-bold text-highlighted py-4',
+          body: 'pt-0 pb-4'
+        }"
+      >
+        <template #body="{ item }">
+          <div class="pl-4 border-l border-default-200 ml-1">
+            <UAccordion
+              :items="item.questions"
+              type="multiple"
+              :ui="{
+                trigger: 'text-base font-medium text-highlighted py-3',
+                body: 'text-base text-muted'
+              }"
+            />
+          </div>
+        </template>
+      </UAccordion>
+
+      <div class="max-w-3xl mx-auto text-center">
+        <i18n-t
+          keypath="pages.franchises.grandTale.about.sections.faq.footer"
+          tag="span"
+          class="text-muted text-sm"
+        >
+          <template #link>
+            <NuxtLink
+              to="/franchises/grand-tale/forums"
+              class="text-grand-tale-secondary-500 font-semibold underline underline-offset-4 hover:text-primary transition-colors"
+            >
+              {{ t('app.header.links.community.content.forums.grand_tale') }}
+            </NuxtLink>
+          </template>
+        </i18n-t>
       </div>
-    </UContainer>
-  </div>
+    </UPageSection>
+  </UPage>
 </template>

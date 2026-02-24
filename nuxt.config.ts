@@ -179,7 +179,7 @@ export default defineNuxtConfig({
       "/store/**": {
         appLayout: "store",
       },
-      "/franchises/grand-tale": {
+      "/franchises/grand-tale/**": {
         appLayout: "grand-tale",
       },
     },

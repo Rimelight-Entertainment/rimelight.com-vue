@@ -1,41 +1,150 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "grand-tale",
-});
+})
 
+import type { ButtonProps } from "@nuxt/ui";
+
+/* region State */
+const { t } = useI18n()
+
+const heroLinks = ref<ButtonProps[]>([
+  {
+    size: "xl",
+    color: "grandTaleSecondary",
+    label: t("pages.franchises.grandTale.home.sections.hero.actions.playNow"),
+    to: "/franchises/grand-tale/download",
+    ui: {
+      base: "px-8 py-4 text-2xl font-black",
+    },
+    class: "uppercase transition-transform duration-300 hover:scale-110 text-white font-bold bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-600",
+  }
+])
+
+const overviewLinks = ref<ButtonProps[]>([
+  {
+    color: "grandTaleSecondary",
+    label: t("pages.franchises.grandTale.home.sections.overview.actions.learnMore"),
+    to: "/franchises/grand-tale/about",
+    class: "text-white bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-500",
+  },
+  {
+    color: "neutral",
+    variant: "outline",
+    trailingIcon: "lucide:arrow-right",
+    label: t("pages.franchises.grandTale.home.sections.overview.actions.watchTrailer"),
+    to: "/company/about",
+    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
+  },
+])
+
+const heroVideo = useTemplateRef<HTMLVideoElement>("heroVideo")
+const LOOP_START = 193 // Seconds
+const LOOP_END = 250 // Seconds
+const isPaused = ref(false)
+/* endregion */
+
+/* region Meta */
 useHead({
-  title: "Grand Tale | Home",
-});
+  title: "Grand Tale | Home"
+})
 
 useSeoMeta({
   title: "Grand Tale - An Epic RPG Journey",
   description:
-    "Experience Grand Tale, an epic journey through a shattered world where every choice resonates through eternity.",
-});
-
-/* region State */
-/* endregion */
-
-/* region Meta */
+    "Experience Grand Tale, an epic journey through a shattered world where every choice resonates through eternity."
+})
 /* endregion */
 
 /* region Lifecycle */
 /* endregion */
 
 /* region Logic */
+const onVideoTimeUpdate = (event: Event) => {
+  const video = event.currentTarget as HTMLVideoElement
+  if (video.currentTime >= LOOP_END) {
+    video.currentTime = LOOP_START
+  }
+}
+
+const onVideoLoadedMetadata = (event: Event) => {
+  const video = event.currentTarget as HTMLVideoElement
+  video.currentTime = LOOP_START
+}
+
+const onVideoEnded = (event: Event) => {
+  const video = event.currentTarget as HTMLVideoElement
+  video.currentTime = LOOP_START
+  video.play()
+  isPaused.value = false
+}
+
+const togglePlayback = () => {
+  if (!heroVideo.value) return
+
+  if (heroVideo.value.paused) {
+    heroVideo.value.play()
+    isPaused.value = false
+  } else {
+    heroVideo.value.pause()
+    isPaused.value = true
+  }
+}
 /* endregion */
 </script>
 
 <template>
   <div>
-    <!-- Hero Section for Grand Tale -->
-    <section
-      class="relative min-h-[60vh] flex items-center overflow-hidden border-b border-grand-tale-secondary-800/30"
-    >
-      <div class="absolute inset-0 z-0">
-        <div
-          class="absolute inset-0 bg-gradient-to-b from-grand-tale-primary-950/50 via-grand-tale-primary-950 to-grand-tale-primary-900"
+    <div class="relative overflow-hidden isolate">
+      <div class="absolute inset-0 -z-20 overflow-hidden">
+        <video
+          ref="heroVideo"
+          autoplay
+          class="h-full w-full min-h-full min-w-full object-cover scale-[1.35]"
+          muted
+          playsinline
+          @timeupdate="onVideoTimeUpdate"
+          @loadedmetadata="onVideoLoadedMetadata"
+          @ended="onVideoEnded"
+        >
+          <source :src="`https://cdn.rimelight.com/Videos/grandTale_home_hero_bg.mp4#t=${LOOP_START}`" type="video/mp4"/>
+        </video>
+      </div>
+
+      <div class="absolute inset-0 -z-10 bg-black/20" />
+      <div class="absolute inset-x-0 bottom-0 h-1/2 -z-10 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+      <div class="absolute inset-x-0 bottom-0 h-64 -z-10 backdrop-blur-xl pointer-events-none" style="mask-image: linear-gradient(to top, black, transparent); -webkit-mask-image: linear-gradient(to top, black, transparent);" />
+
+      <UPageHero
+        :links="heroLinks"
+        :title="t('pages.franchises.grandTale.home.sections.hero.title')"
+        :description="t('pages.franchises.grandTale.home.sections.hero.description')"
+        orientation="vertical"
+        reverse
+        :ui="{ title: 'text-white', description: 'text-neutral-300' }"
+        class="relative z-10"
+      >
+        <div class="flex h-full w-full items-center justify-center relative z-20">
+          <div class="pointer-events-none">
+            <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logotype.png" class="h-80 w-full -my-24" />
+          </div>
+        </div>
+      </UPageHero>
+
+      <div class="absolute bottom-8 left-8 z-50">
+        <UButton
+          :icon="isPaused ? 'lucide:play' : 'lucide:pause'"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          class="rounded-full bg-black/10 hover:bg-black/30 text-white/30 hover:text-white backdrop-blur-xs transition-all ring-1 ring-white/10"
+          @click="togglePlayback"
         />
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden isolate">
+      <div class="absolute inset-0 -z-20">
         <NuxtImg
           src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop"
           alt="Grand Tale Hero"
@@ -43,31 +152,42 @@ useSeoMeta({
           loading="eager"
         />
       </div>
+      <div class="absolute inset-0 -z-10 bg-black/93" />
 
-      <UContainer class="relative z-10 py-20">
-        <div class="max-w-3xl space-y-6">
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 bg-grand-tale-primary-500/10 border border-grand-tale-secondary-500/20 text-grand-tale-secondary-400 text-xs font-bold uppercase tracking-widest"
-          >
-            Now in Closed Alpha
+      <UPageSection
+        :title="t('pages.franchises.grandTale.home.sections.overview.title')"
+        :description="t('pages.franchises.grandTale.home.sections.overview.description')"
+        :links="overviewLinks"
+        :ui="{
+        title: 'font-bold uppercase leading-tight',
+        description: 'text-neutral-400',
+      }"
+        orientation="horizontal"
+      >
+        <template #body>
+          <div class="grid grid-cols-2 gap-lg">
+            <div>
+              <div class="text-4xl font-bold text-white">3+</div>
+              <div class="text-sm text-neutral-500 uppercase tracking-widest">
+                {{ t('pages.home.sections.company.stats.titles.label') }}
+              </div>
+            </div>
+            <div>
+              <div class="text-4xl font-bold text-white">50+</div>
+              <div class="text-sm text-neutral-500 uppercase tracking-widest">{{ t('pages.home.sections.company.stats.creators.label') }}</div>
+            </div>
           </div>
-          <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
-            Your Story <br />
-            <span class="text-grand-tale-secondary-500">Unwritten</span>
-          </h1>
-          <p class="text-xl text-grand-tale-secondary-100/70 max-w-xl font-light leading-relaxed">
-            Grand Tale is the next generation open-world RPG from Rimelight Entertainment. Explore a
-            living world shaped by player agency and emergent storytelling.
-          </p>
-          <div class="flex gap-4 pt-4">
-            <UButton size="xl" color="grandTalePrimary" class="font-bold px-8">Play Now</UButton>
-            <UButton size="xl" variant="outline" color="grandTaleSecondary" class="font-bold px-8"
-              >Watch Trailer</UButton
-            >
-          </div>
-        </div>
-      </UContainer>
-    </section>
+        </template>
+
+        <ScriptYouTubePlayer
+          above-the-fold
+          trigger="immediate"
+          thumbnail-size="maxresdefault"
+          video-id="QdXl3QtutQI"
+          class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
+        />
+      </UPageSection>
+    </div>
 
     <!-- Content Sections -->
     <section class="py-20">

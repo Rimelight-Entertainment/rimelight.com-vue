@@ -246,9 +246,9 @@
                 "watchTrailer": "Watch Trailer"
               }
             },
-            "about": {
+            "overview": {
               "title": "About Grand Tale",
-              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "description": "Grand Tale is a high-fantasy media franchise built around it's flagship game, the titular 'Grand Tale'.",
               "actions": {
                 "learnMore": "Learn More"
               }
@@ -280,17 +280,81 @@
             },
             "specifications": {
               "title": "Specifications",
-              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
+              "description": "Grand Tale is available for download in the following platforms.",
+              "platforms": {
+                "windows": {
+                  "label": "Windows",
+                  "specs": [
+                    { "label": "OS", "value": "Windows 10/11 64-bit" },
+                    { "label": "CPU", "value": "Intel Core i5-8400 / AMD Ryzen 5 2600" },
+                    { "label": "GPU", "value": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580" },
+                    { "label": "RAM", "value": "16 GB" },
+                    { "label": "Storage", "value": "50 GB (SSD Recommended)" }
+                  ]
+                },
+                "android": {
+                  "label": "Android",
+                  "specs": [
+                    { "label": "OS", "value": "Android 10.0 or higher" },
+                    { "label": "CPU", "value": "Snapdragon 845 / Kirin 980 or better" },
+                    { "label": "GPU", "value": "Adreno 630 / Mali-G76 MP10 or better" },
+                    { "label": "RAM", "value": "8 GB" },
+                    { "label": "Storage", "value": "15 GB" }
+                  ]
+                }
+              }
             },
             "faq": {
               "title": "Frequently Asked Questions",
               "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
-              "questions": {
-                "q1": {
-                  "question": "What is Grand Tale?",
-                  "answer": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
+              "groups": {
+                "general": {
+                  "title": "General",
+                  "q1": {
+                    "question": "What is Grand Tale?",
+                    "answer": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
+                  },
+                  "q2": {
+                    "question": "When will Grand Tale be released?",
+                    "answer": "Grand Tale is currently in active development. Stay tuned to our news section for release date announcements."
+                  },
+                  "q3": {
+                    "question": "On which platforms will Grand Tale be available?",
+                    "answer": "We are targeting a multi-platform release including PC and major consoles."
+                  }
+                },
+                "gameplay": {
+                  "title": "Gameplay",
+                  "q1": {
+                    "question": "What can I do in Grand Tale?",
+                    "answer": "You can explore a vast open world, engage in various sub-games across different genres, build your own home, and socialize with players worldwide."
+                  },
+                  "q2": {
+                    "question": "Is there a multiplayer mode?",
+                    "answer": "Yes! Grand Tale is a social experience at its core, featuring persistent multiplayer environments and collaborative activities."
+                  },
+                  "q3": {
+                    "question": "Can I customize my character?",
+                    "answer": "Extensively. Our deep character creator allows you to define your look, while our progression system lets you define your playstyle."
+                  }
+                },
+                "technical": {
+                  "title": "Technical",
+                  "q1": {
+                    "question": "What are the system requirements?",
+                    "answer": "System requirements will be finalized closer to release. We aim to support a wide range of hardware."
+                  },
+                  "q2": {
+                    "question": "Does Grand Tale support controllers?",
+                    "answer": "Yes, Grand Tale will feature full controller support on all platforms."
+                  },
+                  "q3": {
+                    "question": "How do I report a bug?",
+                    "answer": "During our testing phases, you can report bugs through our official discord or the support section of our website."
+                  }
                 }
-              }
+              },
+              "footer": "Have a question that isn't covered in this FAQ? Check out our {link}."
             }
           }
         }

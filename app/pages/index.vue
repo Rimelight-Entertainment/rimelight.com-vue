@@ -12,22 +12,22 @@ const { data: latestPosts, status: postsStatus } = useLazyAsyncData(
       timeout: 10000,
     }),
   { server: false },
-);
+)
 
 const formatDate = (date: string | Date) => {
   return useDateFormat(date, "DD/MM/YYYY").value;
-};
+}
 
 useHead({
-  title: "Rimelight Entertainment",
-});
+  title: "Rimelight Entertainment | Home",
+})
 
 useSeoMeta({
   title: "Rimelight Entertainment",
   ogTitle: "Rimelight Entertainment",
-  description: "Creating worlds beyond imagination.",
-  ogDescription: "Creating worlds beyond imagination.",
-});
+  description: "Tell your story.",
+  ogDescription: "Tell your story.",
+})
 
 const heroLinks = ref<ButtonProps[]>([
   {
@@ -44,7 +44,7 @@ const heroLinks = ref<ButtonProps[]>([
     to: "/company/about",
     class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
   },
-]);
+])
 
 const featuredProjects = [
   {

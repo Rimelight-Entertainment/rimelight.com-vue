@@ -55,12 +55,7 @@ const isSlideoverOpen = ref(false)
   >
     <template #left>
       <div class="flex flex-row items-center gap-md">
-        <div class="flex items-center gap-2">
-          <UIcon name="lucide:scroll" class="text-grand-tale-secondary-400 size-5" />
-          <span class="font-black text-white uppercase tracking-widest text-sm whitespace-nowrap"
-            >Grand Tale</span
-          >
-        </div>
+        <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png" class="size-10"/>
         <UNavigationMenu
           :items="links"
           variant="link"
@@ -86,6 +81,7 @@ const isSlideoverOpen = ref(false)
         <UButton
           variant="solid"
           label="Play Now"
+          to="/franchises/grand-tale/download"
           class="bg-grand-tale-secondary-400 text-white hover:bg-grand-tale-secondary-600"
         />
       </div>
