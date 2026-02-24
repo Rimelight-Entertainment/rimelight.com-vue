@@ -26,11 +26,6 @@ const { t } = useI18n();
       <div class="mt-8 rounded-2xl bg-neutral-900/50 p-8 backdrop-blur-xl ring-1 ring-white/10">
         <ClientOnly>
           <RCAuthSignInForm />
-          <template #placeholder>
-            <div class="flex h-[300px] items-center justify-center">
-              <RCLogo class="h-8 animate-pulse opacity-20" variant="mark" />
-            </div>
-          </template>
         </ClientOnly>
       </div>
 
