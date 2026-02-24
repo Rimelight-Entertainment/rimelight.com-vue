@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useAuth } from "#imports";
-
 useHead({
   title: "Under Construction",
 });

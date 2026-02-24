@@ -2,9 +2,9 @@ import { getAuthClient } from "../../auth/auth-client";
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const config = useRuntimeConfig();
-  const authClient = getAuthClient(config.public.apiBase);
 
-  nuxtApp.provide("authClient", authClient);
+  // Provide the auth client (server returns the built-in stub, client returns the real one)
+  nuxtApp.provide("authClient", getAuthClient(config.public.apiBase));
 
   if (import.meta.server) {
     try {
