@@ -43,6 +43,7 @@ export const auth = betterAuth({
     },
     cookiePrefix: "better-auth",
     useSecureCookies: true,
+    trustedOrigins: ["http://127.0.0.1:3000", "http://localhost:3000"],
   },
   emailAndPassword: {
     enabled: true,

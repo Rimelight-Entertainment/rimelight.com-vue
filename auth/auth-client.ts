@@ -25,4 +25,8 @@ export const getAuthClient = (baseURL?: string) => {
   return _authClient;
 };
 
-// No top-level calls here!
+// Removed the Proxy back to explicit export to avoid "ce" null errors.
+// Components should use useAuth() or getAuthClient() directly.
+export const authClient = null as any;
+
+export type ClientSession = any;

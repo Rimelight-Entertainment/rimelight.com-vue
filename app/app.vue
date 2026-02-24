@@ -5,6 +5,7 @@ import { PiniaColadaDevtools } from "@pinia/colada-devtools";
 import { useFavicon } from "@vueuse/core";
 
 const { locale } = useI18n();
+const { session } = useAuth();
 const currentLocale = computed(() => {
   return (locales as any)[locale.value] || locales.en;
 });
@@ -175,9 +176,11 @@ useSeoMeta({
     </NuxtLayout>
     <ClientOnly>
       <RCConfirmModal />
-      <RCNotificationsSlideover />
-      <RCFloatingActionsOverlay />
-      <RCFloatingToolsOverlay />
+      <template v-if="session">
+        <RCNotificationsSlideover />
+        <RCFloatingActionsOverlay />
+        <RCFloatingToolsOverlay />
+      </template>
       <PiniaColadaDevtools />
     </ClientOnly>
   </UApp>
