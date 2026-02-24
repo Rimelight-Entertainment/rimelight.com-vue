@@ -36,7 +36,13 @@
             "side": {
               "title": "Resources",
               "download": "Download",
-              "support": "Support"
+              "support": "Support",
+              "socials": {
+                "title": "Socials",
+                "discord": "Discord",
+                "youtube": "YouTube",
+                "instagram": "Instagram"
+              }
             }
           }
         },
@@ -373,6 +379,63 @@
               },
               "footer": "Have a question that isn't covered in this FAQ? Check out our {link}."
             }
+          }
+        },
+        "wiki": {
+          "sidebar": {
+            "wiki": "Wiki",
+            "getting_started": "Getting Started",
+            "contribution_guide": "Contribution Guide",
+            "game": {
+              "title": "Game",
+              "tales": {
+                "title": "Tales",
+                "tale_mmo": {
+                  "title": "Tale MMO",
+                  "heroes": "Heroes"
+                },
+                "tale_moba": "Tale MOBA",
+                "tale_ccg": {
+                  "title": "Tale CCG",
+                  "cards": "Cards"
+                },
+                "tale_rts": "Tale RTS",
+                "tale_platform": "Tale Platformer",
+                "tale_chess": "Tale Chess",
+                "tale_td": "Tale TD"
+              },
+              "items": "Items",
+              "quests": {
+                "title": "Quests",
+                "character_quest": "Character Quests",
+                "growth_quest": "Growth Quests",
+                "guide_quest": "Guide Quests",
+                "relationship_quest": "Relationship Quests",
+                "story_quest": "Story Quests"
+              },
+              "skills": {
+                "title": "Skills",
+                "alchemy": "Alchemy",
+                "archaeology": "Archaeology",
+                "artistry": "Artistry",
+                "crafting": "Crafting",
+                "cultivation": "Cultivation",
+                "foraging": "Foraging",
+                "runology": "Runology",
+                "seafaring": "Seafaring"
+              },
+              "settings": "Settings"
+            },
+            "lore": {
+              "title": "Lore",
+              "timeline": "Timeline",
+              "characters": "Characters",
+              "locations": "Locations",
+              "species": "Species",
+              "objects": "Objects",
+              "groups": "Groups"
+            },
+            "mechanics_systems": "Mechanics & Systems"
           }
         }
       }

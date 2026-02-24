@@ -528,6 +528,36 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                 </div>
+
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2"
+                  >{{ t('app.header.links.grand_tale.content.side.socials.title') }}</span
+                >
+                <div class="grid grid-cols-1 gap-1">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="ic:baseline-discord"
+                    :label="t('app.header.links.grand_tale.content.side.socials.discord')"
+                    to="https://discord.com/"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:youtube"
+                    :label="t('app.header.links.grand_tale.content.side.socials.youtube')"
+                    to="https://youtube.com/"
+                    variant="ghost"
+                  />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="mdi:instagram"
+                    :label="t('app.header.links.grand_tale.content.side.socials.instagram')"
+                    to="https://instagram.com/"
+                    variant="ghost"
+                  />
+                </div>
               </div>
             </div>
           </template>

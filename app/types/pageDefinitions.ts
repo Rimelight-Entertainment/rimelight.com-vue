@@ -381,4 +381,7 @@ export const PAGE_MAP = {
   Group: GROUP_DEFINITION,
   Card: CARD_DEFINITION,
   Hero: HERO_DEFINITION,
+  Tale: definePageDefinition({ typeLabelKey: "page.type.tale", properties: {} }),
+  Episode: definePageDefinition({ typeLabelKey: "page.type.episode", properties: {} }),
+  Default: definePageDefinition({ typeLabelKey: "page.type.default", properties: {} }),
 };

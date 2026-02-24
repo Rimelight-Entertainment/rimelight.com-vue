@@ -1,8 +1,9 @@
 import { PAGE_MAP } from "#types";
-import { eq } from "drizzle-orm";
+import { eq, or, and, isNull } from "drizzle-orm";
 import { type Page } from "rimelight-components/types";
 import { syncPageWithDefinition } from "rimelight-components/utils";
 import { db, pages } from "#server/db";
+import { getUserSession } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, "slug");
@@ -17,11 +18,33 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  console.log("[find/slug] Querying database for slug:", slug);
+  // Robust slug normalization
+  const normalizedSlug = slug.replace(/^\//, "");
+
+  console.log("[find/slug] Querying database for slug:", normalizedSlug);
+
+  let session = null;
+  try {
+    session = await getUserSession(event);
+  } catch (error) {
+    // Session optional
+  }
+
+  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member" || session?.user?.role === "admin";
 
   let pageRecord;
   try {
-    [pageRecord] = await db.select().from(pages).where(eq(pages.slug, slug)).limit(1);
+    [pageRecord] = await db
+      .select()
+      .from(pages)
+      .where(
+        and(
+          or(eq(pages.slug, normalizedSlug), eq(pages.slug, `/${normalizedSlug}`)),
+          isNull(pages.deletedAt)
+        )
+      )
+      .limit(1);
+
     console.log("[find/slug] Query completed. Found:", !!pageRecord);
   } catch (error) {
     console.error("[find/slug] Database error:", error);
@@ -33,8 +56,13 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!pageRecord) {
-    console.log("[find/slug] Page not found for slug:", slug);
+    console.log("[find/slug] Page not found for slug:", normalizedSlug);
     throw createError({ statusCode: 404, statusMessage: "Page not found" });
+  }
+
+  // Security check
+  if (!pageRecord.postedAt && !isAuthorized) {
+    throw createError({ statusCode: 403, statusMessage: "This page is not yet published." });
   }
 
   const type = pageRecord.type;
