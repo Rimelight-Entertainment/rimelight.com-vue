@@ -26,6 +26,7 @@ const links = computed(() => [
   { label: "About", to: "/franchises/grand-tale/about" },
   { label: "Wiki", to: "/franchises/grand-tale/wiki" },
   { label: "Guides", to: "/franchises/grand-tale/guides" },
+  { label: "Forums", to: "/franchises/grand-tale/forums" },
   { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
 ])
 

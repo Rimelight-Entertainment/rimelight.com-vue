@@ -16,6 +16,7 @@
               "about": "About",
               "wiki": "Wiki",
               "guides": "Guides",
+              "forums": "Forums",
               "leaderboards": "Leaderboards"
             },
             "side": {
@@ -48,37 +49,19 @@
           "label": "Company",
           "content": {
             "main": {
-              "about": {
-                "heading": "About",
-                "overview": "Overview",
-                "history": "Our History",
-                "mission": "Mission & Values",
-                "leadership": "Leadership Team"
-              },
               "studio": {
                 "heading": "Studio",
-                "projects": "Our Projects",
-                "technology": "Technology",
+                "about_us": "About Us",
                 "partnerships": "Partnerships"
-              },
-              "news": {
-                "heading": "News & Media",
-                "blog": "Blog",
-                "press": "Press Releases",
-                "media_kit": "Media Kit"
               },
               "careers": {
                 "heading": "Careers",
-                "openings": "Job Openings",
-                "culture": "Life at Rimelight",
-                "benefits": "Benefits",
-                "internships": "Internships"
+                "life": "Life at Rimelight",
+                "jobs": "Jobs & Internships"
               },
-              "investors": {
-                "heading": "Investors",
-                "overview": "Investor Overview",
-                "financials": "Financial Reports",
-                "governance": "Governance"
+              "news": {
+                "heading": "News & Media",
+                "blog": "Blog"
               }
             },
             "side": {
@@ -86,7 +69,6 @@
                 "title": "Resources",
                 "api": "API",
                 "branding": "Branding",
-                "press": "Press Kit",
                 "legal": "Legal"
               },
               "socials": {
@@ -112,13 +94,38 @@
                 "heading": "Digital Goods",
                 "sparks": "Sparks"
               },
-              "merchandise": {
-                "heading": "Merchandise",
-                "apparel": "Apparel",
-                "pins": "Pins & Patches",
-                "plushies": "Plushies",
-                "posters": "Posters & Art Prints",
-                "accessories": "Accessories"
+              "deals": {
+                "heading": "Deals",
+                "new_releases": "New Releases",
+                "sales": "Sales",
+                "bundles": "Bundles"
+              },
+              "clothing": {
+                "heading": "Clothing",
+                "headwear": "Headwear",
+                "tops": "Tops",
+                "bottoms": "Bottoms"
+              },
+              "accessories": {
+                "heading": "Accessories",
+                "jewelry": "Jewelry",
+                "pins_patches": "Pins & Patches",
+                "keychains": "Keychains"
+              },
+              "apparel": {
+                "heading": "Apparel",
+                "bottles_mugs": "Bottles & Mugs"
+              },
+              "collectibles": {
+                "heading": "Collectibles",
+                "figurines": "Figurines",
+                "plushies": "Plushies"
+              },
+              "art": {
+                "heading": "Art",
+                "posters_prints": "Posters & Prints",
+                "comics_books": "Comics & Books",
+                "physical_games": "Physical Games"
               }
             },
             "side": {

@@ -63,6 +63,7 @@ const items = computed<NavigationMenuItem[]>(() =>
         { label: t('app.header.links.grand_tale.content.main.about'), to: "/franchises/grand-tale/about" },
         { label: t('app.header.links.grand_tale.content.main.wiki'), to: "/franchises/grand-tale/wiki" },
         { label: t('app.header.links.grand_tale.content.main.guides'), to: "/franchises/grand-tale/guides" },
+        { label: t('app.header.links.grand_tale.content.main.forums'), to: "/franchises/grand-tale/forums" },
         { label: t('app.header.links.grand_tale.content.main.leaderboards'), to: "/franchises/grand-tale/leaderboards" },
       ],
     },
@@ -106,47 +107,32 @@ const items = computed<NavigationMenuItem[]>(() =>
       slot: "company" as const,
       children: [
         {
-          label: t('app.header.links.company.content.main.about.heading'),
-          children: [
-            {
-              label: t('app.header.links.company.content.main.about.overview'),
-              to: "/company/about",
-              active: route.path.startsWith("/company/about"),
-            },
-            {
-              label: t('app.header.links.company.content.main.about.history'),
-              to: "/company/about/history",
-              active: route.path.startsWith("/company/about/history"),
-            },
-            {
-              label: t('app.header.links.company.content.main.about.mission'),
-              to: "/company/about/mission",
-              active: route.path.startsWith("/company/about/mission"),
-            },
-            {
-              label: t('app.header.links.company.content.main.about.leadership'),
-              to: "/company/about/leadership",
-              active: route.path.startsWith("/company/about/leadership"),
-            },
-          ],
-        },
-        {
           label: t('app.header.links.company.content.main.studio.heading'),
           children: [
             {
-              label: t('app.header.links.company.content.main.studio.projects'),
-              to: "/company/studio/projects",
-              active: route.path.startsWith("/company/studio/projects"),
-            },
-            {
-              label: t('app.header.links.company.content.main.studio.technology'),
-              to: "/company/studio/technology",
-              active: route.path.startsWith("/company/studio/technology"),
+              label: t('app.header.links.company.content.main.studio.about_us'),
+              to: "/company/about",
+              active: route.path.startsWith("/company/about"),
             },
             {
               label: t('app.header.links.company.content.main.studio.partnerships'),
               to: "/company/studio/partnerships",
               active: route.path.startsWith("/company/studio/partnerships"),
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.company.content.main.careers.heading'),
+          children: [
+            {
+              label: t('app.header.links.company.content.main.careers.life'),
+              to: "/company/careers/culture",
+              active: route.path.startsWith("/company/careers/culture"),
+            },
+            {
+              label: t('app.header.links.company.content.main.careers.jobs'),
+              to: "/company/careers",
+              active: route.path.startsWith("/company/careers"),
             },
           ],
         },
@@ -158,63 +144,9 @@ const items = computed<NavigationMenuItem[]>(() =>
               to: "/company/blog",
               active: route.path.startsWith("/company/blog"),
             },
-            {
-              label: t('app.header.links.company.content.main.news.press'),
-              to: "/company/press",
-              active: route.path.startsWith("/company/press"),
-            },
-            {
-              label: t('app.header.links.company.content.main.news.media_kit'),
-              to: "/company/media-kit",
-              active: route.path.startsWith("/company/media-kit"),
-            },
           ],
         },
-        {
-          label: t('app.header.links.company.content.main.careers.heading'),
-          children: [
-            {
-              label: t('app.header.links.company.content.main.careers.openings'),
-              to: "/company/careers",
-              active: route.path.startsWith("/company/careers"),
-            },
-            {
-              label: t('app.header.links.company.content.main.careers.culture'),
-              to: "/company/careers/culture",
-              active: route.path.startsWith("/company/careers/culture"),
-            },
-            {
-              label: t('app.header.links.company.content.main.careers.benefits'),
-              to: "/company/careers/benefits",
-              active: route.path.startsWith("/company/careers/benefits"),
-            },
-            {
-              label: t('app.header.links.company.content.main.careers.internships'),
-              to: "/company/careers/internships",
-              active: route.path.startsWith("/company/careers/internships"),
-            },
-          ],
-        },
-        {
-          label: t('app.header.links.company.content.main.investors.heading'),
-          children: [
-            {
-              label: t('app.header.links.company.content.main.investors.overview'),
-              to: "/company/investors",
-              active: route.path.startsWith("/company/investors"),
-            },
-            {
-              label: t('app.header.links.company.content.main.investors.financials'),
-              to: "/company/investors/financials",
-              active: route.path.startsWith("/company/investors/financials"),
-            },
-            {
-              label: t('app.header.links.company.content.main.investors.governance'),
-              to: "/company/investors/governance",
-              active: route.path.startsWith("/company/investors/governance"),
-            },
-          ],
-        },
+
       ],
     },
     {
@@ -222,6 +154,102 @@ const items = computed<NavigationMenuItem[]>(() =>
       to: "/store",
       active: route.path.startsWith("/store"),
       slot: "store" as const,
+      children: [
+        {
+          label: t('app.header.links.store.content.main.digital_goods.heading'),
+          to: "/store/digital",
+        },
+        {
+          label: t('app.header.links.store.content.main.deals.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.deals.new_releases'),
+              to: "/store/deals/new",
+            },
+            {
+              label: t('app.header.links.store.content.main.deals.sales'),
+              to: "/store/deals/sales",
+            },
+            {
+              label: t('app.header.links.store.content.main.deals.bundles'),
+              to: "/store/deals/bundles",
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.store.content.main.clothing.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.clothing.headwear'),
+              to: "/store/clothing/headwear",
+            },
+            {
+              label: t('app.header.links.store.content.main.clothing.tops'),
+              to: "/store/clothing/tops",
+            },
+            {
+              label: t('app.header.links.store.content.main.clothing.bottoms'),
+              to: "/store/clothing/bottoms",
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.store.content.main.accessories.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.accessories.jewelry'),
+              to: "/store/accessories/jewelry",
+            },
+            {
+              label: t('app.header.links.store.content.main.accessories.pins_patches'),
+              to: "/store/merch/pins",
+            },
+            {
+              label: t('app.header.links.store.content.main.accessories.keychains'),
+              to: "/store/accessories/keychains",
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.store.content.main.apparel.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.apparel.bottles_mugs'),
+              to: "/store/apparel/bottles-mugs",
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.store.content.main.collectibles.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.collectibles.figurines_statues'),
+              to: "/store/collectibles/figurines",
+            },
+            {
+              label: t('app.header.links.store.content.main.collectibles.plushies'),
+              to: "/store/merch/plushies",
+            },
+          ],
+        },
+        {
+          label: t('app.header.links.store.content.main.art.heading'),
+          children: [
+            {
+              label: t('app.header.links.store.content.main.art.posters_prints'),
+              to: "/store/merch/posters",
+            },
+            {
+              label: t('app.header.links.store.content.main.art.comics_books'),
+              to: "/store/art/books",
+            },
+            {
+              label: t('app.header.links.store.content.main.art.physical_games'),
+              to: "/store/art/games",
+            },
+          ],
+        },
+      ],
     },
   ]),
 );
@@ -414,13 +442,6 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   src="/images/placeholders/placeholder_header_grand-tale.jpg"
                 />
 
-                <USeparator
-                  :ui="{ border: 'border-neutral-200' }"
-                  class="hidden lg:block h-full"
-                  orientation="vertical"
-                />
-                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
-
                 <div class="flex flex-col gap-sm flex-2">
                   <div class="grid grid-cols-2 gap-1">
                     <div class="flex flex-col gap-1">
@@ -466,13 +487,6 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   class="h-32 lg:h-full w-full lg:w-auto object-cover lg:max-w-80 shrink-0"
                   src="/images/placeholders/placeholder_header_community.jpg"
                 />
-
-                <USeparator
-                  :ui="{ border: 'border-neutral-200' }"
-                  class="hidden lg:block h-full"
-                  orientation="vertical"
-                />
-                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
 
                 <div class="flex flex-col gap-sm flex-2">
                   <div class="grid grid-cols-2 gap-1">
@@ -553,62 +567,15 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   src="/images/placeholders/placeholder_header_company.jpg"
                 />
 
-                <USeparator
-                  :ui="{ border: 'border-neutral-200' }"
-                  class="hidden lg:block h-full"
-                  orientation="vertical"
-                />
-                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
-
                 <div class="flex flex-col gap-sm flex-2">
                   <div class="grid grid-cols-3 gap-1">
-                    <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.about.heading') }}</span
-                      >
-                      <UButton
-                        :label="t('app.header.links.company.content.main.about.overview')"
-                        to="/company/about"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.about.history')"
-                        to="/company/about/history"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.about.mission')"
-                        to="/company/about/mission"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.about.leadership')"
-                        to="/company/about/leadership"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                    </div>
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
                         >{{ t('app.header.links.company.content.main.studio.heading') }}</span
                       >
                       <UButton
-                        :label="t('app.header.links.company.content.main.studio.projects')"
-                        to="/company/studio/projects"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.studio.technology')"
-                        to="/company/studio/technology"
+                        :label="t('app.header.links.company.content.main.studio.about_us')"
+                        to="/company/about"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         variant="ghost"
@@ -623,58 +590,18 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     </div>
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.news.heading') }}</span
-                      >
-                      <UButton
-                        :label="t('app.header.links.company.content.main.news.blog')"
-                        to="/company/blog"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.news.press')"
-                        to="/company/press"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.news.media_kit')"
-                        to="/company/media-kit"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
                         >{{ t('app.header.links.company.content.main.careers.heading') }}</span
                       >
                       <UButton
-                        :label="t('app.header.links.company.content.main.careers.openings')"
-                        to="/company/careers"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.careers.culture')"
+                        :label="t('app.header.links.company.content.main.careers.life')"
                         to="/company/careers/culture"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         variant="ghost"
                       />
                       <UButton
-                        :label="t('app.header.links.company.content.main.careers.benefits')"
-                        to="/company/careers/benefits"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.careers.internships')"
-                        to="/company/careers/internships"
+                        :label="t('app.header.links.company.content.main.careers.jobs')"
+                        to="/company/careers"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         variant="ghost"
@@ -682,25 +609,11 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     </div>
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.investors.heading') }}</span
+                        >{{ t('app.header.links.company.content.main.news.heading') }}</span
                       >
                       <UButton
-                        :label="t('app.header.links.company.content.main.investors.overview')"
-                        to="/company/investors"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.investors.financials')"
-                        to="/company/investors/financials"
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        variant="ghost"
-                      />
-                      <UButton
-                        :label="t('app.header.links.company.content.main.investors.governance')"
-                        to="/company/investors/governance"
+                        :label="t('app.header.links.company.content.main.news.blog')"
+                        to="/company/blog"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         variant="ghost"
@@ -729,14 +642,6 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     icon="lucide:palette"
                     :label="t('app.header.links.company.content.side.resources.branding')"
                     to="/branding"
-                    variant="ghost"
-                  />
-                  <UButton
-                    class="text-black hover:bg-neutral-200"
-                    color="neutral"
-                    icon="lucide:newspaper"
-                    :label="t('app.header.links.company.content.side.resources.press')"
-                    to="/company/press"
                     variant="ghost"
                   />
                   <UButton
@@ -810,66 +715,172 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   src="/images/placeholders/placeholder_header_store.jpg"
                 />
 
-                <USeparator
-                  :ui="{ border: 'border-neutral-200' }"
-                  class="hidden lg:block h-full"
-                  orientation="vertical"
-                />
-                <USeparator :ui="{ border: 'border-neutral-200' }" class="lg:hidden w-full" />
-
                 <div class="flex flex-col gap-sm flex-2">
-                  <div class="grid grid-cols-2 gap-1">
-                    <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.store.content.main.digital_goods.heading') }}</span
-                      >
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.digital_goods.sparks')"
-                        to="/store/digital"
-                        variant="ghost"
-                      />
+                  <div class="grid grid-cols-3 gap-xl gap-y-4">
+                    <!-- Column 1 -->
+                    <div class="flex flex-col gap-lg">
+                      <!-- Deals -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.deals.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.deals.new_releases')"
+                          to="/store/deals/new"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.deals.sales')"
+                          to="/store/deals/sales"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.deals.bundles')"
+                          to="/store/deals/bundles"
+                          variant="ghost"
+                        />
+                      </div>
+                      <!-- Digital Goods -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.digital_goods.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.digital_goods.sparks')"
+                          to="/store/digital"
+                          variant="ghost"
+                        />
+                      </div>
+                      <!-- Clothing -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.clothing.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.clothing.headwear')"
+                          to="/store/clothing/headwear"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.clothing.tops')"
+                          to="/store/clothing/tops"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.clothing.bottoms')"
+                          to="/store/clothing/bottoms"
+                          variant="ghost"
+                        />
+                      </div>
                     </div>
-                    <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.store.content.main.merchandise.heading') }}</span
-                      >
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.merchandise.apparel')"
-                        to="/store/merch/apparel"
-                        variant="ghost"
-                      />
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.merchandise.pins')"
-                        to="/store/merch/pins"
-                        variant="ghost"
-                      />
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.merchandise.plushies')"
-                        to="/store/merch/plushies"
-                        variant="ghost"
-                      />
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.merchandise.posters')"
-                        to="/store/merch/posters"
-                        variant="ghost"
-                      />
-                      <UButton
-                        class="text-black hover:bg-neutral-200"
-                        color="neutral"
-                        :label="t('app.header.links.store.content.main.merchandise.accessories')"
-                        to="/store/merch/accessories"
-                        variant="ghost"
-                      />
+
+                    <!-- Column 2 -->
+                    <div class="flex flex-col gap-lg">
+                      <!-- Accessories -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.accessories.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.accessories.jewelry')"
+                          to="/store/accessories/jewelry"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.accessories.pins_patches')"
+                          to="/store/merch/pins"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.accessories.keychains')"
+                          to="/store/accessories/keychains"
+                          variant="ghost"
+                        />
+                      </div>
+                      <!-- Apparel -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.apparel.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.apparel.bottles_mugs')"
+                          to="/store/apparel/bottles-mugs"
+                          variant="ghost"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="flex flex-col gap-lg">
+                      <!-- Collectibles -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.collectibles.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.collectibles.figurines')"
+                          to="/store/collectibles/figurines"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.collectibles.plushies')"
+                          to="/store/merch/plushies"
+                          variant="ghost"
+                        />
+                      </div>
+                      <!-- Art -->
+                      <div class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t('app.header.links.store.content.main.art.heading') }}</span
+                        >
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.art.posters_prints')"
+                          to="/store/merch/posters"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.art.comics_books')"
+                          to="/store/art/books"
+                          variant="ghost"
+                        />
+                        <UButton
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          :label="t('app.header.links.store.content.main.art.physical_games')"
+                          to="/store/art/games"
+                          variant="ghost"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -903,7 +914,6 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
         </UNavigationMenu>
       </div>
     </template>
-    <template #center></template>
     <template #right>
       <div class="flex flex-row gap-sm">
         <ClientOnly>
