@@ -80,7 +80,7 @@ const columns = computed<FooterColumn[]>(() => [
 </script>
 
 <template>
-  <RCFooter :contain="false" class="bg-black z-50 border-t-2 border-primary-500">
+  <RCFooter :contain="false" :rc="{ center: 'lg:items-start' }" class="bg-black z-50 border-t-2 border-primary-500">
     <template #left>
       <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-white', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" class="max-w-64" />
       <div class="flex flex-col items-center gap-xs lg:items-start">
