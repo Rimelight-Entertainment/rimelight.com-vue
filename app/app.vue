@@ -8,8 +8,8 @@ const { locale } = useI18n();
 const currentLocale = computed(() => {
   return (locales as any)[locale.value] || locales.en;
 });
-const lang = computed(() => currentLocale.value.code);
-const dir = computed(() => currentLocale.value.dir);
+const lang = computed(() => currentLocale.value?.code || "en");
+const dir = computed(() => (currentLocale.value as any)?.dir || "ltr");
 
 const colorMode = useColorMode();
 

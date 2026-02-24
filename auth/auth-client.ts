@@ -5,29 +5,19 @@ import type { AccessControl } from "better-auth/plugins/access";
 import { statement } from "rimelight-components/auth/statements";
 import { ac, owner, admin, member, user } from "rimelight-components/auth/permissions";
 
-// We don't initialize the client here to avoid SSR issues with top-level Vue hook calls.
-// Instead, we export a factory or initialize it on demand.
-
-let _authClient: ReturnType<typeof createAuthClient> | null = null;
+let _authClient: any = null;
 
 export const getAuthClient = (baseURL?: string) => {
-  if (!_authClient) {
+  if (!_authClient && import.meta.client) {
     _authClient = createAuthClient({
       baseURL,
       plugins: [
-        inferAdditionalFields<any>(), // Use any here to avoid circular dependency with server-side auth type if needed, or pass correctly
+        inferAdditionalFields<any>(),
         adminClient(),
         organizationClient({
           ac: ac as AccessControl<typeof statement>,
-          roles: {
-            owner,
-            admin,
-            member,
-            user,
-          },
-          teams: {
-            enabled: true,
-          },
+          roles: { owner, admin, member, user },
+          teams: { enabled: true },
         }),
       ],
     });
@@ -35,7 +25,4 @@ export const getAuthClient = (baseURL?: string) => {
   return _authClient;
 };
 
-// For backward compatibility while we refactor, but it's discouraged to use this directly on SSR
-export const authClient = getAuthClient();
-
-export type ClientSession = typeof authClient.$Infer.Session;
+// No top-level calls here!
