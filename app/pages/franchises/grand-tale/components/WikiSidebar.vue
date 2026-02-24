@@ -76,33 +76,6 @@ const navigationItems = computed(() => [
   ],
 ])
 
-const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
-  query: { slugPrefix: "franchises/grand-tale/wiki" },
-});
-
-/* region Props */
-/* endregion */
-
-/* region Emits */
-/* endregion */
-
-/* region Slots */
-/* endregion */
-
-/* region Styles */
-/* endregion */
-
-/* region State */
-/* endregion */
-
-/* region Meta */
-/* endregion */
-
-/* region Lifecycle */
-/* endregion */
-
-/* region Logic */
-/* endregion */
 </script>
 
 <template>
@@ -116,19 +89,5 @@ const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
       }"
       class="w-full"
     />
-
-    <UCard class="bg-grand-tale-primary-900 border-grand-tale-secondary-500">
-      <h3 class="text-sm uppercase text-grand-tale-secondary-500">Wiki Stats</h3>
-      <div class="grid grid-cols-2 gap-sm">
-        <div>
-          <div class="text-lg font-bold text-white">{{ articleCount?.toLocaleString() ?? 0 }}</div>
-          <div class="text-xs text-grand-tale-secondary-100 uppercase font-bold">Articles</div>
-        </div>
-        <div>
-          <div class="text-lg font-bold text-white">52</div>
-          <div class="text-xs text-grand-tale-secondary-100 uppercase font-bold">Contributors</div>
-        </div>
-      </div>
-    </UCard>
   </div>
 </template>

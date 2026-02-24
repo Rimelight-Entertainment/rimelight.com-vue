@@ -21,7 +21,6 @@ const layerId = inject<string>("header_layer_id", "grand-tale-header")
 const { bottomOffsets } = useHeaderStack()
 
 const links = computed(() => [
-  { label: "Home", to: "/franchises/grand-tale" },
   { label: "News", to: "/franchises/grand-tale/news" },
   { label: "About", to: "/franchises/grand-tale/about" },
   { label: "Wiki", to: "/franchises/grand-tale/wiki" },
@@ -56,7 +55,9 @@ const isSlideoverOpen = ref(false)
   >
     <template #left>
       <div class="flex flex-row items-center gap-md">
-        <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png" class="size-10"/>
+        <NuxtLink to="/franchises/grand-tale">
+          <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png" class="size-10"/>
+        </NuxtLink>
         <UNavigationMenu
           :items="links"
           variant="link"

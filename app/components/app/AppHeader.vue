@@ -58,13 +58,38 @@ const items = computed<NavigationMenuItem[]>(() =>
       active: route.path.startsWith("/franchises/grand-tale"),
       slot: "grand-tale" as const,
       children: [
-        { label: t('app.header.links.grand_tale.content.main.home'), to: "/franchises/grand-tale" },
-        { label: t('app.header.links.grand_tale.content.main.news'), to: "/franchises/grand-tale/news" },
-        { label: t('app.header.links.grand_tale.content.main.about'), to: "/franchises/grand-tale/about" },
-        { label: t('app.header.links.grand_tale.content.main.wiki'), to: "/franchises/grand-tale/wiki" },
-        { label: t('app.header.links.grand_tale.content.main.guides'), to: "/franchises/grand-tale/guides" },
-        { label: t('app.header.links.grand_tale.content.main.forums'), to: "/franchises/grand-tale/forums" },
-        { label: t('app.header.links.grand_tale.content.main.leaderboards'), to: "/franchises/grand-tale/leaderboards" },
+        {
+          label: t('app.header.links.grand_tale.content.main.title'),
+          children: [
+
+            { label: t('app.header.links.grand_tale.content.main.news'), to: "/franchises/grand-tale/news" },
+            { label: t('app.header.links.grand_tale.content.main.about'), to: "/franchises/grand-tale/about" },
+            { label: t('app.header.links.grand_tale.content.main.wiki'), to: "/franchises/grand-tale/wiki" },
+            { label: t('app.header.links.grand_tale.content.main.guides'), to: "/franchises/grand-tale/guides" },
+            { label: t('app.header.links.grand_tale.content.main.forums'), to: "/franchises/grand-tale/forums" },
+            { label: t('app.header.links.grand_tale.content.main.leaderboards'), to: "/franchises/grand-tale/leaderboards" },
+          ],
+        },
+        {
+          label: t('app.header.links.grand_tale.content.main.series.heading'),
+          children: [
+            { label: t('app.header.links.grand_tale.content.main.series.children_of_the_light'), to: "/franchises/grand-tale/series/children-of-the-light" },
+            { label: t('app.header.links.grand_tale.content.main.series.grand_university'), to: "/franchises/grand-tale/series/grand-university" },
+            { label: t('app.header.links.grand_tale.content.main.series.goldy_adventures'), to: "/franchises/grand-tale/series/goldy-adventures" },
+          ],
+        },
+        {
+          label: t('app.header.links.grand_tale.content.main.books.heading'),
+          children: [
+            { label: t('app.header.links.grand_tale.content.main.books.first_tale'), to: "/franchises/grand-tale/books/the-first-tale" },
+          ],
+        },
+        {
+          label: t('app.header.links.grand_tale.content.main.comics.heading'),
+          children: [
+            { label: t('app.header.links.grand_tale.content.main.comics.ori_friends'), to: "/franchises/grand-tale/comics/ori-and-friends" },
+          ],
+        },
       ],
     },
     {
@@ -443,13 +468,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 />
 
                 <div class="flex flex-col gap-sm flex-2">
-                  <div class="grid grid-cols-2 gap-1">
+                  <div class="grid grid-cols-2 gap-xl gap-y-4">
+                    <!-- Column 1 -->
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.grand_tale.content.main.title') }}</span
+                        >{{ (item as any).children[0].label }}</span
                       >
                       <UButton
-                        v-for="child in (item as any).children"
+                        v-for="child in (item as any).children[0].children"
                         :key="child.label"
                         :label="child.label"
                         :to="child.to"
@@ -457,6 +483,24 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                         color="neutral"
                         variant="ghost"
                       />
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="flex flex-col gap-lg">
+                      <div v-for="category in (item as any).children.slice(1)" :key="category.label" class="flex flex-col gap-1">
+                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ category.label }}</span
+                        >
+                        <UButton
+                          v-for="child in category.children"
+                          :key="child.label"
+                          :label="child.label"
+                          :to="child.to"
+                          class="text-black hover:bg-neutral-200"
+                          color="neutral"
+                          variant="ghost"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -467,6 +511,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   >{{ t('app.header.links.grand_tale.content.side.title') }}</span
                 >
                 <div class="grid grid-cols-1 gap-1">
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:download"
+                    :label="t('app.header.links.grand_tale.content.side.download')"
+                    to="/franchises/grand-tale/download"
+                    variant="ghost"
+                  />
                   <UButton
                     class="text-black hover:bg-neutral-200"
                     color="neutral"
@@ -652,6 +704,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     to="/documents"
                     variant="ghost"
                   />
+                  <UButton
+                    class="text-black hover:bg-neutral-200"
+                    color="neutral"
+                    icon="lucide:mail"
+                    :label="t('app.header.links.company.content.side.resources.contact')"
+                    to="/company/contact"
+                    variant="ghost"
+                  />
                 </div>
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2">
                   {{ t('app.header.links.company.content.side.socials.title') }}
@@ -671,35 +731,6 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     icon="mdi:github"
                     :label="t('app.header.links.company.content.side.socials.github')"
                     to="https://github.com/Rimelight-Entertainment"
-                    variant="ghost"
-                  />
-                </div>
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2">
-                  {{ t('app.header.links.company.content.side.contact.title') }}
-                </span>
-                <div class="grid grid-cols-1 gap-1">
-                  <UButton
-                    class="text-black hover:bg-neutral-200"
-                    color="neutral"
-                    icon="lucide:mail"
-                    :label="t('app.header.links.company.content.side.contact.email')"
-                    to="mailto:contact@rimelight.com"
-                    variant="ghost"
-                  />
-                  <UButton
-                    class="text-black hover:bg-neutral-200"
-                    color="neutral"
-                    icon="lucide:briefcase"
-                    :label="t('app.header.links.company.content.side.contact.inquiries')"
-                    to="/company/contact"
-                    variant="ghost"
-                  />
-                  <UButton
-                    class="text-black hover:bg-neutral-200"
-                    color="neutral"
-                    icon="lucide:headset"
-                    :label="t('app.header.links.company.content.side.contact.support')"
-                    to="/support"
                     variant="ghost"
                   />
                 </div>

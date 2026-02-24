@@ -10,17 +10,32 @@
           "label": "Grand Tale",
           "content": {
             "main": {
-              "title": "Explore",
+              "title": "Game",
               "home": "Home",
               "news": "News",
               "about": "About",
               "wiki": "Wiki",
               "guides": "Guides",
               "forums": "Forums",
-              "leaderboards": "Leaderboards"
+              "leaderboards": "Leaderboards",
+              "series": {
+                "heading": "Series",
+                "children_of_the_light": "Children of the Light",
+                "grand_university": "Grand University",
+                "goldy_adventures": "Goldy Adventures"
+              },
+              "books": {
+                "heading": "Books",
+                "first_tale": "The First Tale"
+              },
+              "comics": {
+                "heading": "Comics",
+                "ori_friends": "Ori & Friends"
+              }
             },
             "side": {
               "title": "Resources",
+              "download": "Download",
               "support": "Support"
             }
           }
@@ -69,18 +84,13 @@
                 "title": "Resources",
                 "api": "API",
                 "branding": "Branding",
-                "legal": "Legal"
+                "legal": "Legal",
+                "contact": "Contact"
               },
               "socials": {
                 "title": "Socials",
                 "linkedin": "LinkedIn",
                 "github": "GitHub"
-              },
-              "contact": {
-                "title": "Contact",
-                "email": "Email Us",
-                "inquiries": "Business Inquiries",
-                "support": "Support"
               }
             }
           }

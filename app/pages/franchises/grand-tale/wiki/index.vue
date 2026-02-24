@@ -16,8 +16,9 @@ useHead({
 /* region Lifecycle */
 /* endregion */
 
-/* region Logic */
-/* endregion */
+const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
+  query: { slugPrefix: "franchises/grand-tale/wiki" },
+});
 </script>
 
 <template>
@@ -38,21 +39,40 @@ useHead({
         documentation on everything from the smallest shards of Soulstone to the legendary figures
         who shaped history.
       </p>
-      <div
-        class="bg-grand-tale-primary-950/50 border border-grand-tale-secondary-800/50 p-6 flex gap-4 max-w-xl"
-      >
-        <UInput
-          icon="lucide:search"
-          placeholder="Search the library..."
-          size="xl"
-          class="flex-1"
-          color="neutral"
-          variant="outline"
-          :ui="{
-            base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
-          }"
-        />
-        <UButton color="neutral" icon="lucide:arrow-right" size="xl" />
+      <div class="flex flex-col md:flex-row gap-6 items-start lg:items-center">
+        <div
+          class="bg-grand-tale-primary-950/50 border border-grand-tale-secondary-800/50 p-6 flex gap-4 w-full max-w-xl"
+        >
+          <UInput
+            icon="lucide:search"
+            placeholder="Search the library..."
+            size="xl"
+            class="flex-1"
+            color="neutral"
+            variant="outline"
+            :ui="{
+              base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
+            }"
+          />
+          <UButton color="neutral" icon="lucide:arrow-right" size="xl" />
+        </div>
+
+        <div class="flex gap-12 px-6">
+          <div>
+            <div class="text-3xl font-black text-white leading-none">
+              {{ articleCount?.toLocaleString() ?? 0 }}
+            </div>
+            <div class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1">
+              Articles
+            </div>
+          </div>
+          <div>
+            <div class="text-3xl font-black text-white leading-none">52</div>
+            <div class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1">
+              Contributors
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
