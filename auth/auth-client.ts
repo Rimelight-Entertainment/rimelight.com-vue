@@ -7,8 +7,21 @@ import { ac, owner, admin, member, user } from "rimelight-components/auth/permis
 
 let _authClient: any = null;
 
+/**
+ * A safe, no-op auth client for server-side rendering.
+ * Prevents "null" member access while ensuring no reactive hooks are called.
+ */
+const stubClient = {
+  getSession: async () => ({ data: null, error: null }),
+  organization: {
+     checkRolePermission: () => false
+  }
+} as any;
+
 export const getAuthClient = (baseURL?: string) => {
-  if (!_authClient && import.meta.client) {
+  if (import.meta.server) return stubClient;
+  
+  if (!_authClient) {
     _authClient = createAuthClient({
       baseURL,
       plugins: [
@@ -25,8 +38,7 @@ export const getAuthClient = (baseURL?: string) => {
   return _authClient;
 };
 
-// Removed the Proxy back to explicit export to avoid "ce" null errors.
-// Components should use useAuth() or getAuthClient() directly.
-export const authClient = null as any;
+// Deprecated export, but kept for compatibility as a direct link to the client if available
+export const authClient = import.meta.client ? _authClient : stubClient;
 
 export type ClientSession = any;

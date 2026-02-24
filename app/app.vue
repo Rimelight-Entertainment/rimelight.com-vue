@@ -21,7 +21,9 @@ const color = computed(() => {
 const icon = import.meta.client ? useFavicon() : undefined;
 
 const router = useRouter();
-const { isNotificationsSlideoverOpen } = useDashboard();
+// Moved to a more specific scope if possible, or left top-level but with safer implementation
+const dashboard = useDashboard();
+const { isNotificationsSlideoverOpen } = dashboard;
 
 function alertMode() {
   if (icon) icon.value = "/favicon-alert.svg";

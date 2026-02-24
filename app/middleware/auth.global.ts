@@ -8,10 +8,12 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
   // 2. Wait for session if pending (SSR safe via useAsyncData)
   if (status.value === "pending" && promise) {
     try {
-      // useAsyncData return object is awaitable/thenable in Nuxt 3/4
+      // Nuxt 3/4 useAsyncData results are awaitable
       await promise;
     } catch (e) {
-      console.error("[Auth Middleware] Session fetch failed:", e);
+      if (import.meta.server) {
+        console.error("[SSR Auth Middleware] Session fetch crash:", e);
+      }
     }
   }
 

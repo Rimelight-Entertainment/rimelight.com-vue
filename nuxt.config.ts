@@ -169,7 +169,6 @@ export default defineNuxtConfig({
       //crawlLinks: true
     },
     routeRules: {
-      //"/": { prerender: true },
       "/documents/**": { isr: 3600 },
       "/blog/**": { isr: 3600 },
       "/dashboard/**": {
