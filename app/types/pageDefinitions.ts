@@ -3,6 +3,7 @@ import {
   DOCUMENT_DEFINITION,
 } from "rimelight-components/types";
 import { definePageDefinition } from "#rimelight-components/utils";
+import { v7 as uuidv7 } from "uuid";
 
 export { DOCUMENT_DEFINITION };
 
@@ -186,19 +187,19 @@ export const CHARACTER_DEFINITION = definePageDefinition({
   },
   initialBlocks: () => [
     {
-      id: "appearance",
+      id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Appearance", children: [] },
       isTemplated: true,
     },
     {
-      id: "abilities",
+      id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Abilities", children: [] },
       isTemplated: true,
     },
     {
-      id: "history",
+      id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "History", children: [] },
       isTemplated: true,
@@ -331,13 +332,13 @@ export const HERO_DEFINITION = definePageDefinition({
   },
   initialBlocks: () => [
     {
-      id: "playstyle",
+      id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Playstyle", children: [] },
       isTemplated: true,
     },
     {
-      id: "lore",
+      id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Background Lore", children: [] },
       isTemplated: true,
@@ -349,6 +350,33 @@ export const CARD_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.card",
   properties: {},
   initialBlocks: () => [],
+});
+
+export const SERIES_DEFINITION = definePageDefinition({
+  typeLabelKey: "page.type.series",
+  properties: {
+    details: {
+      label: { en: "Details" },
+      defaultOpen: true,
+      fields: {
+        genre: { defaultValue: { en: "Fantasy" }, label: { en: "Genre" }, type: "text" },
+        status: {
+          defaultValue: { en: "In Development" },
+          label: { en: "Status" },
+          type: "enum",
+          options: [{ en: "In Development" }, { en: "Ongoing" }, { en: "Completed" }, { en: "Cancelled" }],
+        },
+      },
+    },
+  },
+  initialBlocks: () => [
+    {
+      id: uuidv7(),
+      type: "SectionBlock",
+      props: { level: 2, title: "Overview", children: [] },
+      isTemplated: true,
+    },
+  ],
 });
 
 declare global {
@@ -365,6 +393,7 @@ declare global {
     Group: typeof GROUP_DEFINITION.properties;
     Card: typeof CARD_DEFINITION.properties;
     Hero: typeof HERO_DEFINITION.properties;
+    Series: typeof SERIES_DEFINITION.properties;
   }
 }
 
@@ -381,6 +410,7 @@ export const PAGE_MAP = {
   Group: GROUP_DEFINITION,
   Card: CARD_DEFINITION,
   Hero: HERO_DEFINITION,
+  Series: SERIES_DEFINITION,
   Tale: definePageDefinition({ typeLabelKey: "page.type.tale", properties: {} }),
   Episode: definePageDefinition({ typeLabelKey: "page.type.episode", properties: {} }),
   Default: definePageDefinition({ typeLabelKey: "page.type.default", properties: {} }),
