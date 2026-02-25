@@ -9,46 +9,63 @@ const localLayerPath = resolve(currentDir, "../rimelight-components");
 const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
+  compatibilityDate: "2026-02-13",
+  future: {
+    compatibilityVersion: 5,
+  },
+
   extends: [
     [
       isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
       { install: true },
     ],
   ],
-  compatibilityDate: "2026-02-13",
-  $env: {
-    development: {
-      devtools: { enabled: true },
-      devServer: { host: "127.0.0.1", port: 3000 },
-      typescript: { typeCheck: false },
-      site: { indexable: false },
+
+  modules: [
+    "@pinia/nuxt",
+    "@pinia/colada-nuxt",
+    "@nuxt/a11y",
+    "@nuxt/scripts",
+    ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
+  ],
+
+  ignore: ["**/src-tauri/**"],
+
+  $development: {
+    devtools: { enabled: true },
+    // Change to true in case the issue gets resolved: https://github.com/fi3ework/vite-plugin-checker/issues/557
+    typescript: { typeCheck: false },
+    a11y: {
+      enabled: true,
+      defaultHighlight: false,
+      logIssues: false,
     },
-    testing: {
-      devtools: { enabled: false },
+    site: { indexable: false },
+  },
+
+  $test: {
+    devtools: { enabled: true },
+  },
+
+  $production: {
+    devtools: { enabled: false },
+    typescript: { typeCheck: false },
+    nitro: {
+      compressPublicAssets: true,
+      minify: true,
     },
-    staging: {
-      devtools: { enabled: true },
-      site: { url: "https://staging.rimelight.com", indexable: false },
-      nitro: {
-        sourceMap: true,
-      },
+    // Switch to true on release
+    site: { url: "https://rimelight.com", indexable: false },
+    robots: {
+      blockAiBots: true,
+      blockNonSeoBots: true,
+      disallow: ["/dashboard"],
     },
-    production: {
-      devtools: { enabled: false },
-      typescript: { typeCheck: false },
-      nitro: {
-        compressPublicAssets: true,
-        minify: true,
-      },
-      // Switch to true on release
-      site: { url: "https://rimelight.com", indexable: false },
-      robots: {
-        blockAiBots: true,
-        blockNonSeoBots: true,
-        disallow: ["/internal"],
-      },
+    a11y: {
+      enabled: false,
     },
   },
+
   ssr: !isTauri,
   router: {
     options: {
@@ -90,12 +107,6 @@ export default defineNuxtConfig({
     },
     viewTransition: true,
   },
-  modules: [
-    "@pinia/nuxt",
-    "@pinia/colada-nuxt",
-    "@nuxt/scripts",
-    ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
-  ],
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
@@ -126,7 +137,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  ignore: ["**/src-tauri/**"],
+
   nitro: {
     preset: isTauri ? "node" : "cloudflare_module",
     ...(!isTauri
@@ -183,7 +194,6 @@ export default defineNuxtConfig({
         },
       }
     : {}),
-  css: ["~/assets/css/main.css"],
   components: [
     {
       path: "~/components",
@@ -197,33 +207,7 @@ export default defineNuxtConfig({
       prefix: "RL",
     },
   ],
-  pages: {
-    pattern: ["**/*.vue", "!**/components/**"],
-  },
 
-  icon: {
-    class: "icon",
-    size: "24px",
-    customCollections: [
-      {
-        prefix: "first-party",
-        dir: "./app/assets/icons/first-party",
-        normalizeIconName: false,
-      },
-      {
-        prefix: "third-party",
-        dir: "./app/assets/icons/third-party",
-        normalizeIconName: false,
-      },
-    ],
-  },
-  image: {
-    format: ["webp"],
-    provider: "cloudflare",
-    cloudflare: {
-      baseURL: "https://cdn.rimelight.com",
-    },
-  },
   i18n: {
     strategy: "prefix_except_default",
     defaultLocale: "en",
@@ -258,11 +242,11 @@ export default defineNuxtConfig({
       //  name: "한국어",
       //  file: "ko.json"
       //},
-      //{
-      //  code: "pt",
-      //  name: "Português",
-      //  file: "pt.json"
-      //}
+      {
+        code: "pt",
+        name: "Português",
+        file: "pt.json",
+      },
       //{
       //  code: "ro",
       //  name: "Română",
@@ -275,7 +259,49 @@ export default defineNuxtConfig({
       //}
     ],
   },
-  future: {
-    compatibilityVersion: 5,
+
+  css: ["~/assets/css/main.css"],
+
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+      prefix: "RL",
+    },
+    {
+      path: "~/pages",
+      pattern: "**/components/**",
+      pathPrefix: false,
+      prefix: "RL",
+    },
+  ],
+
+  pages: {
+    pattern: ["**/*.vue", "!**/components/**"],
+  },
+
+  image: {
+    format: ["webp"],
+    provider: "cloudflare",
+    cloudflare: {
+      baseURL: "https://cdn.rimelight.com",
+    },
+  },
+
+  icon: {
+    class: "icon",
+    size: "24px",
+    customCollections: [
+      {
+        prefix: "first-party",
+        dir: "./app/assets/icons/first-party",
+        normalizeIconName: false,
+      },
+      {
+        prefix: "third-party",
+        dir: "./app/assets/icons/third-party",
+        normalizeIconName: false,
+      },
+    ],
   },
 });
