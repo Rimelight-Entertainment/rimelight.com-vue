@@ -96,10 +96,6 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
   ],
-  medusa: {
-    url: process.env.MEDUSA_URL || "http://localhost:9000",
-    // We can also add more config here if needed
-  },
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
