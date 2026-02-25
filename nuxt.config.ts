@@ -94,7 +94,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia/colada-nuxt",
     "@nuxt/scripts",
-    "@nuxtjs/medusa",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
   ],
   medusa: {
