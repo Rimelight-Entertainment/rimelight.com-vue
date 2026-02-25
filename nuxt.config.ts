@@ -58,7 +58,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
-      strapiApiBase: process.env.NUXT_PUBLIC_STRAPI_API_BASE || "http://localhost:1337",
       isTauri,
     },
   },
@@ -87,19 +86,6 @@ export default defineNuxtConfig({
           type: "image/svg+xml",
           href: "/favicon.svg",
         },
-        { rel: "preconnect", href: "https://app.snipcart.com" },
-        { rel: "preconnect", href: "https://cdn.snipcart.com" },
-        {
-          rel: "stylesheet",
-          href: "https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.css",
-        },
-      ],
-      script: [
-        {
-          src: "https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.js",
-          async: true,
-          defer: true,
-        },
       ],
     },
     viewTransition: true,
@@ -108,8 +94,13 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia/colada-nuxt",
     "@nuxt/scripts",
+    "@nuxtjs/medusa",
     ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
   ],
+  medusa: {
+    url: process.env.MEDUSA_URL || "http://localhost:9000",
+    // We can also add more config here if needed
+  },
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
