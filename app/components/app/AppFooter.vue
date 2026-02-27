@@ -54,7 +54,7 @@ const columns = computed<FooterColumn[]>(() => [
       },
       {
         label: t("app.footer.links.documents.content.termsOfService"),
-        to: "/documents/term-of-service",
+        to: "/documents/terms-of-service",
       },
       {
         label: t("app.footer.links.documents.content.codeOfConduct"),

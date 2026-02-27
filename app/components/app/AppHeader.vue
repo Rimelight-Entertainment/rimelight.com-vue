@@ -55,6 +55,7 @@ const items = computed<NavigationMenuItem[]>(() =>
   markRaw([
     {
       label: t('app.header.links.grand_tale.label'),
+      to: "/franchises/grand-tale",
       active: route.path.startsWith("/franchises/grand-tale"),
       slot: "grand-tale" as const,
       children: [
