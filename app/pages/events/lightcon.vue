@@ -11,6 +11,18 @@ useSeoMeta({
   description: t('pages.events.lightcon.meta.description'),
   ogDescription: t('pages.events.lightcon.meta.description'),
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

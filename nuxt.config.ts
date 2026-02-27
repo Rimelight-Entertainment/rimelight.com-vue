@@ -194,19 +194,6 @@ export default defineNuxtConfig({
         },
       }
     : {}),
-  components: [
-    {
-      path: "~/components",
-      pathPrefix: false,
-      prefix: "RL",
-    },
-    {
-      path: "~/pages",
-      pattern: "**/components/**",
-      pathPrefix: false,
-      prefix: "RL",
-    },
-  ],
 
   i18n: {
     strategy: "prefix_except_default",

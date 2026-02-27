@@ -1,4 +1,16 @@
 <script setup lang="ts">
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
 /* region State */
 const { t } = useI18n()
 const layerId = inject<string>("header_layer_id", "store-header")
@@ -13,6 +25,16 @@ const links = computed(() => [
   { label: "Forums", to: "/franchises/grand-tale/forums" },
   { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
 ])
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

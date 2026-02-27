@@ -14,11 +14,13 @@ useHead({
 /* endregion */
 
 /* region Lifecycle */
-/* endregion */
-
 const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
   query: { slugPrefix: "franchises/grand-tale/wiki" },
 });
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

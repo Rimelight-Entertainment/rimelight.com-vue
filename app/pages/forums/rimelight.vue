@@ -11,6 +11,18 @@ useSeoMeta({
   description: t('pages.forums.rimelight.meta.description'),
   ogDescription: t('pages.forums.rimelight.meta.description'),
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

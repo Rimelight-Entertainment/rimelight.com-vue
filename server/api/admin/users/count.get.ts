@@ -1,4 +1,4 @@
-import { count, eq } from "drizzle-orm";
+import { count } from "drizzle-orm";
 import { requireAdminOrOwner } from "#server/utils/session";
 import { db, user } from "#server/db";
 

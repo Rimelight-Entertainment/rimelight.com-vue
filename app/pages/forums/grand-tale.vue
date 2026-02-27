@@ -11,6 +11,18 @@ useSeoMeta({
   description: t('pages.forums.grand_tale.meta.description'),
   ogDescription: t('pages.forums.grand_tale.meta.description'),
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

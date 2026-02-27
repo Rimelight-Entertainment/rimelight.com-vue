@@ -48,6 +48,18 @@ useSeoMeta({
   title: () => product.value?.title || "Product",
   description: () => product.value?.description || "",
 });
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

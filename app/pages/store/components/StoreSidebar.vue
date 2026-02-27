@@ -11,6 +11,30 @@ const supportLinks = [
   { label: 'Refunds & Returns', to: '/store/returns' },
   { label: 'Contact Support', to: '/support' },
 ];
+
+/* region Props */
+/* endregion */
+
+/* region Emits */
+/* endregion */
+
+/* region Slots */
+/* endregion */
+
+/* region Styles */
+/* endregion */
+
+/* region State */
+/* endregion */
+
+/* region Meta */
+/* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

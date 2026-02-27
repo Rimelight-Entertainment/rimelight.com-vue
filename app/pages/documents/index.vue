@@ -29,6 +29,12 @@ useSeoMeta({
   ogDescription: t("pages.documents.meta.description"),
 });
 /* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

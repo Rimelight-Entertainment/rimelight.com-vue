@@ -37,6 +37,12 @@ useSeoMeta({
   ogDescription: t("pages.blog.meta.description"),
 });
 /* endregion */
+
+/* region Lifecycle */
+/* endregion */
+
+/* region Logic */
+/* endregion */
 </script>
 
 <template>

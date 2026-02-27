@@ -9,7 +9,11 @@ export interface InboxMailProps {
 
 const { mail } = defineProps<InboxMailProps>();
 
-const emits = defineEmits(["close"]);
+export interface InboxMailEmits {
+  // TODO: Define emits here
+}
+
+const emit = defineEmits<InboxMailEmits>()
 
 const dropdownItems = [
   [
