@@ -3,6 +3,7 @@ import { type Page } from "#rimelight-components/types";
 import type { ButtonProps } from "@nuxt/ui";
 
 const { t, locale } = useI18n();
+const { origin } = useRequestURL();
 
 const { data: latestPosts, status: postsStatus } = useLazyAsyncData(
   "latest-blog-posts",
@@ -164,13 +165,23 @@ const ctaLinks = ref<ButtonProps[]>([
         </div>
       </template>
 
-      <ScriptYouTubePlayer
-        above-the-fold
-        trigger="immediate"
-        thumbnail-size="maxresdefault"
-        video-id="uH1Hw6SDI1M"
-        class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
-      />
+      <ClientOnly>
+        <ScriptYouTubePlayer
+          above-the-fold
+          trigger="immediate"
+          thumbnail-size="maxresdefault"
+          video-id="uH1Hw6SDI1M"
+          class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
+          :params="{
+            origin: origin
+          }"
+        />
+        <template #fallback>
+          <div class="aspect-video relative overflow-hidden rounded-xl shadow-2xl bg-neutral-900 animate-pulse flex items-center justify-center">
+            <UIcon name="i-lucide:play" class="size-12 text-neutral-700" />
+          </div>
+        </template>
+      </ClientOnly>
     </UPageSection>
   </div>
 
@@ -221,7 +232,7 @@ const ctaLinks = ref<ButtonProps[]>([
                 <UBadge
                   v-for="tag in project.tags"
                   :key="tag"
-                  :label="t(tag)"
+                  :label="t('pages.home.sections.projects.tags.' + tag)"
                   class="text-white font-bold uppercase tracking-wider bg-primary-500"
                   color="primary"
                   variant="solid"
@@ -234,8 +245,7 @@ const ctaLinks = ref<ButtonProps[]>([
                 {{ project.description }}
               </p>
               <UButton
-                :to="project.to"
-                class="font-bold uppercase tracking-widest -ml-2"
+                class="font-bold uppercase tracking-widest -ml-2 pointer-events-none"
                 :label="t('pages.home.sections.projects.actions.discover')"
                 trailing-icon="lucide:arrow-right"
                 variant="link"
@@ -263,34 +273,42 @@ const ctaLinks = ref<ButtonProps[]>([
       :title="t('pages.home.sections.news.title')"
       :ui="{ title: 'text-white' }"
     >
-      <UBlogPosts v-if="latestPosts?.length" class="grid md:grid-cols-2 lg:grid-cols-3">
-        <UBlogPost
-          v-for="post in latestPosts"
-          :key="post.slug"
-          :authors="[]"
-          :badge="{
-            label: t(post.type),
-            color: 'primary',
-            variant: 'outline',
-            class: 'rounded-none p-0 ring-0',
-          }"
-          :date="post.postedAt ? formatDate(post.postedAt) : ''"
-          :description="getLocalizedContent(post.description, locale)"
-          :image="{
-            src: post.banner?.src,
-            alt: post.banner?.alt,
-          }"
-          :title="getLocalizedContent(post.title, locale)"
-          :to="`/company/blog/${post.slug}`"
-          :ui="{ image: 'object-center object-contain', title: 'text-black' }"
-          class="bg-white"
-          variant="soft"
-        />
-      </UBlogPosts>
+      <ClientOnly>
+        <UBlogPosts v-if="latestPosts?.length" class="grid md:grid-cols-2 lg:grid-cols-3">
+          <UBlogPost
+            v-for="post in latestPosts"
+            :key="post.slug"
+            :authors="[]"
+            :badge="{
+              label: t('common.types.' + post.type),
+              color: 'primary',
+              variant: 'outline',
+              class: 'rounded-none p-0 ring-0',
+            }"
+            :date="post.postedAt ? formatDate(post.postedAt) : ''"
+            :description="getLocalizedContent(post.description, locale)"
+            :image="{
+              src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
+              alt: post.banner?.alt,
+            }"
+            :title="getLocalizedContent(post.title, locale)"
+            :to="`/company/blog/${post.slug}`"
+            :ui="{ image: 'object-center object-cover', title: 'text-black' }"
+            class="bg-white"
+            variant="soft"
+          />
+        </UBlogPosts>
 
-      <div v-else-if="postsStatus === 'pending'" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
-      </div>
+        <div v-else-if="postsStatus === 'pending'" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
+        </div>
+
+        <template #fallback>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <USkeleton v-for="i in 3" :key="i" class="h-96 rounded-none" />
+          </div>
+        </template>
+      </ClientOnly>
 
       <div v-if="latestPosts?.length" class="flex justify-center mt-12">
         <UButton

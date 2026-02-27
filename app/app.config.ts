@@ -108,40 +108,19 @@ export default defineAppConfig({
         help: "text-xs",
       },
     },
-    input: {
-      slots: {
-        base: "rounded-none",
-      },
-    },
     checkbox: {
       slots: {
-        base: "rounded-none",
         description: "text-sm",
-      },
-    },
-    card: {
-      slots: {
-        root: "rounded-none",
-      },
-    },
-    alert: {
-      slots: {
-        root: "rounded-none",
       },
     },
     toast: {
       slots: {
-        root: "rounded-none",
-      },
-    },
-    tooltip: {
-      slots: {
-        content: "rounded-none",
+        root: "bg-black border-none ring-0",
       },
     },
     dropdownMenu: {
       slots: {
-        content: "rounded-none ring-0",
+        content: "ring-0",
       },
     },
     selectMenu: {
@@ -151,16 +130,21 @@ export default defineAppConfig({
     },
     popover: {
       slots: {
-        content: "rounded-none ring-0",
+        content: "ring-0",
       },
     },
     modal: {
       variants: {
         fullscreen: {
           false: {
-            content: "rounded-none ring-0 bg-muted divide-none",
+            content: "ring-0 bg-muted divide-none",
           },
         },
+      },
+    },
+    slideover: {
+      slots: {
+        content: "bg-black",
       },
     },
     banner: {

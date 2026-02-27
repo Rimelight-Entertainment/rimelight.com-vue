@@ -73,28 +73,27 @@ const items = computed<NavigationMenuItem[]>(() =>
         {
           label: t('app.header.links.grand_tale.content.main.series.heading'),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.series.children_of_the_light'), to: "/franchises/grand-tale/series/children-of-the-light" },
-            { label: t('app.header.links.grand_tale.content.main.series.grand_academy'), to: "/franchises/grand-tale/series/grand-academy" },
-            { label: t('app.header.links.grand_tale.content.main.series.goldy_adventures'), to: "/franchises/grand-tale/series/goldy-adventures" },
+            { label: t('app.header.links.grand_tale.content.main.series.children_of_the_light'), to: "/franchises/grand-tale/wiki/series/children-of-the-light" },
+            { label: t('app.header.links.grand_tale.content.main.series.grand_academy'), to: "/franchises/grand-tale/wiki/series/grand-academy" },
+            { label: t('app.header.links.grand_tale.content.main.series.goldy_adventures'), to: "/franchises/grand-tale/wiki/series/goldy-adventures" },
           ],
         },
         {
           label: t('app.header.links.grand_tale.content.main.books.heading'),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.books.first_tale'), to: "/franchises/grand-tale/books/the-first-tale" },
+            { label: t('app.header.links.grand_tale.content.main.books.first_tale'), to: "/franchises/grand-tale/wiki/books/the-first-tale" },
           ],
         },
         {
           label: t('app.header.links.grand_tale.content.main.comics.heading'),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.comics.ori_friends'), to: "/franchises/grand-tale/comics/ori-and-friends" },
+            { label: t('app.header.links.grand_tale.content.main.comics.ori_friends'), to: "/franchises/grand-tale/wiki/comics/ori-and-friends" },
           ],
         },
       ],
     },
     {
       label: t('app.header.links.community.label'),
-      to: "/community",
       active: route.path.startsWith("/community"),
       slot: "community" as const,
       children: [
@@ -574,17 +573,17 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   <div class="grid grid-cols-2 gap-1">
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.community.content.forums.heading') }}</span
+                        >{{ t('app.header.links.community.content.main.forums.heading') }}</span
                       >
                       <UButton
-                        :label="t('app.header.links.community.content.forums.rimelight')"
+                        :label="t('app.header.links.community.content.main.forums.rimelight')"
                         to="/forums/rimelight"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
                         variant="ghost"
                       />
                       <UButton
-                        :label="t('app.header.links.community.content.forums.grand_tale')"
+                        :label="t('app.header.links.community.content.main.forums.grand_tale')"
                         to="/forums/grand-tale"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
@@ -593,10 +592,10 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     </div>
                     <div class="flex flex-col gap-1">
                       <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.community.content.events.heading') }}</span
+                        >{{ t('app.header.links.community.content.main.events.heading') }}</span
                       >
                       <UButton
-                        :label="t('app.header.links.community.content.events.lightcon')"
+                        :label="t('app.header.links.community.content.main.events.lightcon')"
                         to="/events/lightcon"
                         class="text-black hover:bg-neutral-200"
                         color="neutral"
@@ -903,7 +902,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                         <UButton
                           class="text-black hover:bg-neutral-200"
                           color="neutral"
-                          :label="t('app.header.links.store.content.main.collectibles.figurines')"
+                          :label="t('app.header.links.store.content.main.collectibles.figurines_statues')"
                           to="/store/collectibles/figurines"
                           variant="ghost"
                         />

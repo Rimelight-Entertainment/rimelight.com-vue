@@ -1,7 +1,29 @@
 {
+  "BlogPost": "Blog Post",
+  "PressRelease": "Press Release",
   "error": {
     "retry": "Try Again",
     "clear": "Go Back Home"
+  },
+  "common": {
+    "types": {
+      "BlogPost": "Blog Post",
+      "Document": "Document",
+      "PatchNote": "Patch Note",
+      "Location": "Location",
+      "Species": "Species",
+      "Character": "Character",
+      "Skill": "Skill",
+      "Item": "Item",
+      "Object": "Object",
+      "Group": "Group",
+      "Card": "Card",
+      "Hero": "Hero",
+      "Series": "Series",
+      "Tale": "Tale",
+      "Episode": "Episode",
+      "Default": "Default"
+    }
   },
   "app": {
     "header": {
@@ -49,14 +71,16 @@
         "community": {
           "label": "Community",
           "content": {
-            "forums": {
-              "heading": "Forums",
-              "rimelight": "Rimelight Forums",
-              "grand_tale": "Grand Tale Forums"
-            },
-            "events": {
-              "heading": "Events",
-              "lightcon": "Lightcon"
+            "main": {
+              "forums": {
+                "heading": "Forums",
+                "rimelight": "Rimelight Forums",
+                "grand_tale": "Grand Tale Forums"
+              },
+              "events": {
+                "heading": "Events",
+                "lightcon": "Lightcon"
+              }
             },
             "side": {
               "title": "Socials",
@@ -134,7 +158,7 @@
               },
               "collectibles": {
                 "heading": "Collectibles",
-                "figurines": "Figurines",
+                "figurines_statues": "Figurines & Statues",
                 "plushies": "Plushies"
               },
               "art": {

@@ -1,4 +1,24 @@
 {
+  "common": {
+    "types": {
+      "BlogPost": "Artigo de Blog",
+      "Document": "Documento",
+      "PatchNote": "Nota de Atualização",
+      "Location": "Localização",
+      "Species": "Espécie",
+      "Character": "Personagem",
+      "Skill": "Habilidade",
+      "Item": "Item",
+      "Object": "Objeto",
+      "Group": "Grupo",
+      "Card": "Carta",
+      "Hero": "Herói",
+      "Series": "Série",
+      "Tale": "Conto",
+      "Episode": "Episódio",
+      "Default": "Padrão"
+    }
+  },
   "placeholder": "Espaço Reservado",
   "newsletter_field_label": "Inscreva-se na nossa Newsletter",
   "newsletter_description": "Fique atualizado sobre novos posts e novidades. Cancele a inscrição a qualquer momento.",
@@ -9,6 +29,77 @@
   "footer_visitor_count_label": "Contagem de Visitantes",
   "footer_documents_title": "Documentos",
   "footer_privacy_policy_label": "Política de Privacidade",
+  "app": {
+    "header": {
+      "links": {
+        "community": {
+          "label": "Comunidade",
+          "content": {
+            "main": {
+              "forums": {
+                "heading": "Fóruns",
+                "rimelight": "Fóruns Rimelight",
+                "grand_tale": "Fóruns Grand Tale"
+              },
+              "events": {
+                "heading": "Eventos",
+                "lightcon": "Lightcon"
+              }
+            }
+          }
+        },
+        "store": {
+          "label": "Loja",
+          "content": {
+            "main": {
+              "deals": {
+                "heading": "Ofertas",
+                "new_releases": "Novos Lançamentos",
+                "sales": "Promoções",
+                "bundles": "Pacotes"
+              },
+              "digital_goods": {
+                "heading": "Bens Digitais",
+                "sparks": "Sparks"
+              },
+              "clothing": {
+                "heading": "Roupas",
+                "headwear": "Acessórios de Cabeça",
+                "tops": "Partes de Cima",
+                "bottoms": "Partes de Baixo"
+              },
+              "accessories": {
+                "heading": "Acessórios",
+                "jewelry": "Joias",
+                "pins_patches": "Pins e Patches",
+                "keychains": "Chaveiros"
+              },
+              "apparel": {
+                "heading": "Vestuário",
+                "bottles_mugs": "Garrafas e Canecas"
+              },
+              "collectibles": {
+                "heading": "Colecionáveis",
+                "figurines_statues": "Estátuas e Bonecos",
+                "plushies": "Pelúcias"
+              },
+              "art": {
+                "heading": "Arte",
+                "posters_prints": "Posters e Impressões",
+                "comics_books": "Quadrinhos e Livros",
+                "physical_games": "Jogos Físicos"
+              }
+            },
+            "side": {
+              "title": "Suporte",
+              "orders": "Pedidos",
+              "customer_support": "Atendimento ao Cliente"
+            }
+          }
+        }
+      }
+    }
+  },
   "footer_cookie_policy_label": "Política de Cookies",
   "footer_terms_of_service_label": "Termos de Serviço",
   "footer_code_of_conduct_label": "Código de Conduta",

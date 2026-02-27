@@ -124,7 +124,7 @@ useSeoMeta({
               :key="post.slug"
               variant="naked"
               :image="{
-                src: post.banner?.src,
+                src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246,
@@ -133,7 +133,7 @@ useSeoMeta({
               :description="getLocalizedContent(post.description, locale)"
               :authors="[]"
               :badge="{
-                label: t(post.type),
+                label: t('common.types.' + post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0',
@@ -142,7 +142,7 @@ useSeoMeta({
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
               :to="`/company/blog/${post.slug}/edit`"
               :ui="{
-                image: 'object-center object-contain',
+                image: 'object-center object-cover',
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
@@ -244,7 +244,7 @@ useSeoMeta({
               :key="post.slug"
               variant="naked"
               :image="{
-                src: post.banner?.src,
+                src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246,
@@ -253,7 +253,7 @@ useSeoMeta({
               :description="getLocalizedContent(post.description, locale)"
               :authors="[]"
               :badge="{
-                label: t(post.type),
+                label: t('common.types.' + post.type),
                 color: 'primary',
                 variant: 'outline',
                 class: 'rounded-none p-0 ring-0',
@@ -262,7 +262,7 @@ useSeoMeta({
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
               :to="`/company/blog/${post.slug}/edit`"
               :ui="{
-                image: 'object-center object-contain',
+                image: 'object-center object-cover',
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
