@@ -5,7 +5,7 @@ import type { AccordionItem } from '@nuxt/ui'
 const { t, tm, rt } = useI18n()
 
 const faqGroups = computed(() => {
-  const groups = tm('pages.franchises.grandTale.about.sections.faq.groups') as any
+  const groups = tm(('pages.franchises.grandTale.about.sections.faq.' + 'groups') as any) as any
   return Object.entries(groups).map(([key, group]: [string, any]) => ({
     label: rt(group.title),
     questions: Object.entries(group)
@@ -18,7 +18,7 @@ const faqGroups = computed(() => {
 })
 
 const specificationPlatforms = computed(() => {
-  const platforms = tm('pages.franchises.grandTale.about.sections.specifications.platforms') as any
+  const platforms = tm(('pages.franchises.grandTale.about.sections.specifications.' + 'platforms') as any) as any
   return Object.entries(platforms).map(([key, platform]: [string, any]) => ({
     label: rt(platform.label),
     specs: platform.specs.map((s: any) => ({
