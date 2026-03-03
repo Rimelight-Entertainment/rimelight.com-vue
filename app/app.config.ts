@@ -2,24 +2,28 @@ export default defineAppConfig({
   title: "Rimelight Entertainment",
   description: "Tell your story.",
   cdn: "https://cdn.rimelight.com",
-  logomark: "first-party:logomark-white",
-  logotype: "first-party:logotype-white",
   rimelightComponents: {
     logos: {
-      mark: {
-        light: "first-party:logomark-white",
-        dark: "first-party:logomark-white",
+      logomark: {
+        black: "logos:RIMELIGHT_LOGOMARK_BLACK",
+        white: "logos:RIMELIGHT_LOGOMARK_WHITE",
+        color: "logos:RIMELIGHT_LOGOMARK_COLOR",
       },
-      type: {
-        light: "first-party:logotype-white",
-        dark: "first-party:logotype-white",
+      logotype: {
+        black: "logos:RIMELIGHT_LOGOTYPE_BLACK",
+        white: "logos:RIMELIGHT_LOGOTYPE_WHITE",
+        color: "logos:RIMELIGHT_LOGOTYPE_COLOR",
       },
-      classic: {
-        light: "i-first-party:logo-classic-black",
-        dark: "i-first-party:logo-classic-white",
+      combomark_horizontal: {
+        black: "logos:RIMELIGHT_COMBOMARK_HORIZONTAL_BLACK",
+        white: "logos:RIMELIGHT_COMBOMARK_HORIZONTAL_WHITE",
+        color: "logos:RIMELIGHT_COMBOMARK_HORIZONTAL_COLOR",
       },
-      symbol: "i-lucide:sparkles",
-      monochrome: "i-first-party:logomark-white",
+      combomark_vertical: {
+        black: "logos:RIMELIGHT_COMBOMARK_VERTICAL_BLACK",
+        white: "logos:RIMELIGHT_COMBOMARK_VERTICAL_WHITE",
+        color: "logos:RIMELIGHT_COMBOMARK_VERTICAL_COLOR",
+      },
     },
     auth: {
       adminEmailDomain: "@rimelight.com",
