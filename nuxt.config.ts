@@ -21,68 +21,79 @@ export default defineNuxtConfig({
     ],
   ],
 
-  modules: [
-    "@pinia/nuxt",
-    "@pinia/colada-nuxt",
-    "@nuxt/a11y",
-    "@nuxt/scripts",
-    ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image", "nuxt-security"] : []),
-  ],
+  modules: [],
 
   ignore: ["**/src-tauri/**"],
 
   $development: {
-    devtools: { enabled: true },
-    // Change to true in case the issue gets resolved: https://github.com/fi3ework/vite-plugin-checker/issues/557
-    typescript: { typeCheck: false },
-    a11y: {
-      enabled: true,
-      defaultHighlight: false,
-      logIssues: false,
-    },
     site: { indexable: false },
   },
 
-  $test: {
-    devtools: { enabled: true },
-  },
-
   $production: {
-    devtools: { enabled: false },
-    typescript: { typeCheck: false },
     nitro: {
-      compressPublicAssets: true,
-      minify: true,
+      scheduledTasks: {
+        // Daily at midnight
+        "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
+      },
+      routeRules: {
+        "/documents/**": { isr: 3600 },
+        "/blog/**": { isr: 3600 },
+        "/dashboard/**": {
+          ssr: false,
+          appLayout: "dashboard",
+        },
+        "/store/**": {
+          appLayout: "store",
+        },
+        "/franchises/grand-tale/**": {
+          appLayout: "grand-tale",
+        },
+      },
     },
-    // Switch to true on release
-    site: { url: "https://rimelight.com", indexable: false },
-    robots: {
-      blockAiBots: true,
-      blockNonSeoBots: true,
-      disallow: ["/dashboard"],
-    },
-    a11y: {
-      enabled: false,
+    site: {
+      url: "https://rimelight.com",
+      // Switch to true on release
+      indexable: false
+    }
+  },
+
+  vite: {
+    envPrefix: ["TAURI_"],
+    server: {
+      watch: {
+        ignored: ["**/src-tauri/**"],
+      },
     },
   },
 
-  ssr: !isTauri,
-  router: {
-    options: {
-      hashMode: isTauri,
-    },
+  alias: {
+    "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
+    "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
+    "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
+    ...(isLocalLayer
+      ? {
+        "#rimelight-components/types": resolve(localLayerPath, "app/types"),
+        "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
+        "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
+        "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
+        "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
+        "rimelight-components": localLayerPath,
+      }
+      : {}),
   },
+
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
       isTauri,
     },
   },
+
   app: {
     baseURL: isTauri ? "" : "/",
     head: {
       title: "Rimelight Entertainment",
-      titleTemplate: "%s | rimelight.com",
+      titleTemplate: "%s | Rimelight Entertainment",
       meta: [
         {
           name: "description",
@@ -97,149 +108,23 @@ export default defineNuxtConfig({
           content: "Rimelight Entertainment",
         },
       ],
-      link: [
-        {
-          rel: "icon",
-          type: "image/svg+xml",
-          href: "/favicon.svg",
-        },
-      ],
-    },
-    viewTransition: true,
-  },
-  alias: {
-    "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
-    "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
-    "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
-    ...(isLocalLayer
-      ? {
-          "#rimelight-components/types": resolve(localLayerPath, "app/types"),
-          "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
-          "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
-          "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
-          "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
-          "rimelight-components": localLayerPath,
-        }
-      : {}),
-  },
-  vite: {
-    clearScreen: false,
-    envPrefix: ["VITE_", "TAURI_"],
-    server: {
-      strictPort: true,
-      hmr: {
-        protocol: "ws",
-        host: "127.0.0.1",
-        port: 3000,
-      },
-      watch: {
-        ignored: ["**/src-tauri/**"],
-      },
     },
   },
 
-  nitro: {
-    preset: isTauri ? "node" : "cloudflare_module",
-    ...(!isTauri
-      ? {
-          cloudflare: {
-            deployConfig: true,
-            nodeCompat: true,
-          },
-        }
-      : {}),
-    experimental: {
-      websocket: true,
-      tasks: true,
-    },
-    scheduledTasks: {
-      // Run every 5 minutes
-      // '*/5 * * * *': ['cache:cleanup'],
-
-      // Daily at midnight
-      "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
-
-      // Weekly on Sunday at 2 AM
-      // '0 2 * * 0': ['db:optimize']
-    },
-    prerender: {
-      //crawlLinks: true
-    },
-    routeRules: {
-      "/documents/**": { isr: 3600 },
-      "/blog/**": { isr: 3600 },
-      "/dashboard/**": {
-        ssr: false,
-        appLayout: "dashboard",
-      },
-      "/store/**": {
-        appLayout: "store",
-      },
-      "/franchises/grand-tale/**": {
-        appLayout: "grand-tale",
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        "img-src": [
+          "https://cdn.rimelight.com",
+        ],
+        "connect-src": [
+          "https://cdn.rimelight.com",
+        ],
       },
     },
   },
-  ...(!isTauri
-    ? {
-        security: {
-          ssg: {
-            meta: false,
-            exportToPresets: false,
-          },
-          headers: {
-            contentSecurityPolicy: {
-              "img-src": [
-                "'self'",
-                "data:",
-                "blob:",
-                "https://cdn.rimelight.com",
-                "https://via.placeholder.com",
-                "https://ui.nuxt.com",
-              ],
-              "script-src": ["'self'", "'unsafe-inline'", "'wasm-unsafe-eval'"],
-              "script-src-attr": ["'none'"],
-              "connect-src": [
-                "'self'",
-                "https://cdn.rimelight.com",
-                "https://api.iconify.design",
-                "https://api.unisvg.com",
-                "https://api.simplesvg.com",
-              ],
-              "font-src": ["'self'", "https://fonts.gstatic.com"],
-              "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-              "frame-ancestors": ["'self'"],
-              "form-action": ["'self'"],
-              "require-trusted-types-for": "'script'",
-            },
-            strictTransportSecurity: {
-              maxAge: 31536000,
-              includeSubdomains: true,
-              preload: true,
-            },
-            crossOriginOpenerPolicy: "same-origin",
-            referrerPolicy: "strict-origin-when-cross-origin",
-            xFrameOptions: "SAMEORIGIN",
-            xContentTypeOptions: "nosniff",
-          },
-        },
-        site: {
-          url: "https://rimelight.com",
-          name: "Rimelight Entertainment",
-          indexable: false,
-        },
-        robots: {
-          blockAiBots: false,
-          blockNonSeoBots: false,
-          disallow: ["/internal"],
-        },
-      }
-    : {}),
 
   i18n: {
-    strategy: "prefix_except_default",
-    defaultLocale: "en",
-    langDir: "locales",
     locales: [
       //{
       //  code: "ar",
@@ -305,37 +190,39 @@ export default defineNuxtConfig({
     },
   ],
 
-  pages: {
-    pattern: ["**/*.vue", "!**/components/**"],
+  fonts: {
+    families: [],
+  },
+
+  icon: {
+    customCollections: [],
   },
 
   image: {
-    format: ["webp"],
-    provider: "cloudflare",
     cloudflare: {
       baseURL: "https://cdn.rimelight.com",
     },
   },
 
-  icon: {
-    class: "icon",
-    size: "24px",
-    customCollections: [
-      {
-        prefix: "first-party",
-        dir: "./app/assets/icons/first-party",
-        normalizeIconName: false,
-      },
-      {
-        prefix: "logos",
-        dir: "./app/assets/icons/first-party/logos",
-        normalizeIconName: false,
-      },
-      {
-        prefix: "third-party",
-        dir: "./app/assets/icons/third-party",
-        normalizeIconName: false,
-      },
-    ],
+  studio: {
+    repository: {
+      owner: "Rimelight-Entertainment",
+      repo: "rimelight.com",
+    },
   },
+
+  llms: {
+    domain: "https://rimelight.com",
+    title: "Rimelight Entertainment",
+    description: "Tell your story.",
+  },
+
+  ui: {
+    theme: {
+      colors: [
+        "grandTalePrimary",
+        "grandTaleSecondary",
+      ]
+    }
+  }
 });

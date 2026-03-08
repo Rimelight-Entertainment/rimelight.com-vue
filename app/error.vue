@@ -27,7 +27,7 @@ useSeoMeta({
             class="text-white bg-primary-500 hover:bg-primary-600"
             @click="() => clearError({ redirect: '/' })"
           >
-            {{ t('error.clear') }}
+            {{ t("error.clear") }}
           </UButton>
         </template>
       </UError>

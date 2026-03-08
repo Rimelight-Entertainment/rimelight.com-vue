@@ -48,14 +48,26 @@ useSeoMeta({
 <template>
   <UPage>
     <UContainer>
-      <UPageHeader :title="t('pages.blog.meta.title')" :ui="{
-        title: 'text-black',
-        description: 'text-neutral-500',
-      }">
+      <UPageHeader
+        :title="t('pages.blog.meta.title')"
+        :ui="{
+          title: 'text-black',
+          description: 'text-neutral-500',
+        }"
+      >
         <template #description>
           <div class="flex flex-col gap-md">
-            {{ t('pages.blog.meta.description') }}
-            <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-black', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" />
+            {{ t("pages.blog.meta.description") }}
+            <RCNewsletterSignup
+              :title="t('app.newsletter.title')"
+              :description="t('app.newsletter.description')"
+              :submit="t('app.newsletter.submit')"
+              :rc="{
+                label: 'text-black',
+                description: 'text-neutral-500',
+                button: 'text-white bg-primary-500 hover:bg-primary-600',
+              }"
+            />
           </div>
         </template>
         <template #links>
@@ -64,7 +76,7 @@ useSeoMeta({
             :label="t('pages.blog.actions.rss')"
             to="/company/blog/rss.xml"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600'
+              base: 'text-white bg-primary-500 hover:bg-primary-600',
             }"
           />
           <UButton
@@ -73,7 +85,7 @@ useSeoMeta({
             :label="t('pages.blog.actions.create_post.label')"
             @click="blog.isCreateModalOpen.value = true"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600'
+              base: 'text-white bg-primary-500 hover:bg-primary-600',
             }"
           />
         </template>
@@ -81,7 +93,11 @@ useSeoMeta({
       <UPageBody>
         <!-- Drafts -->
         <div
-          v-if="blog.isAuthorizedForDrafts && blog.drafts.initialStatus.value === 'pending' && !blog.drafts.allPages.value.length"
+          v-if="
+            blog.isAuthorizedForDrafts &&
+            blog.drafts.initialStatus.value === 'pending' &&
+            !blog.drafts.allPages.value.length
+          "
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
@@ -102,9 +118,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                blog.drafts.refresh()
-              }
-            }
+                blog.drafts.refresh();
+              },
+            },
           ]"
         />
 
@@ -118,13 +134,18 @@ useSeoMeta({
             description: 'text-neutral-500',
           }"
         >
-          <UBlogPosts v-if="blog.drafts.allPages.value.length" class="md:grid-cols-2 lg:grid-cols-3">
+          <UBlogPosts
+            v-if="blog.drafts.allPages.value.length"
+            class="md:grid-cols-2 lg:grid-cols-3"
+          >
             <UBlogPost
               v-for="(post, index) in blog.drafts.allPages.value"
               :key="post.slug"
               variant="naked"
               :image="{
-                src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
+                src:
+                  post.banner?.src ||
+                  '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246,
@@ -146,8 +167,8 @@ useSeoMeta({
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
-                description: 'text-neutral-500'
-               }"
+                description: 'text-neutral-500',
+              }"
               :class="[index === 0 && 'col-span-full']"
             />
           </UBlogPosts>
@@ -165,14 +186,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  blog.isCreateModalOpen.value = true
+                  blog.isCreateModalOpen.value = true;
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600'
+                class: 'text-white bg-primary-500 hover:bg-primary-600',
               },
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500'
+              description: 'text-neutral-500',
             }"
           />
 
@@ -192,7 +213,11 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="blog.drafts.allPages.value.length > 0 && !blog.drafts.hasMore.value && blog.drafts.hasLoadedNextPage.value"
+            v-else-if="
+              blog.drafts.allPages.value.length > 0 &&
+              !blog.drafts.hasMore.value &&
+              blog.drafts.hasLoadedNextPage.value
+            "
             :ui="{ label: 'text-muted' }"
             class="py-12"
             :label="t('pages.blog.end_of_list', { list: t('common.drafts') })"
@@ -222,9 +247,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                blog.posts.refresh()
-              }
-            }
+                blog.posts.refresh();
+              },
+            },
           ]"
         />
 
@@ -244,7 +269,9 @@ useSeoMeta({
               :key="post.slug"
               variant="naked"
               :image="{
-                src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
+                src:
+                  post.banner?.src ||
+                  '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
                 height: index === 0 ? 378 : 246,
@@ -266,8 +293,8 @@ useSeoMeta({
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
-                description: 'text-neutral-500'
-               }"
+                description: 'text-neutral-500',
+              }"
               :class="[index === 0 && 'col-span-full']"
             />
           </UBlogPosts>
@@ -285,14 +312,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  blog.isCreateModalOpen.value = true
+                  blog.isCreateModalOpen.value = true;
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600'
+                class: 'text-white bg-primary-500 hover:bg-primary-600',
               },
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500'
+              description: 'text-neutral-500',
             }"
           />
 
@@ -312,7 +339,11 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="blog.posts.allPages.value.length > 0 && !blog.posts.hasMore.value && blog.posts.hasLoadedNextPage.value"
+            v-else-if="
+              blog.posts.allPages.value.length > 0 &&
+              !blog.posts.hasMore.value &&
+              blog.posts.hasLoadedNextPage.value
+            "
             :ui="{ label: 'text-muted' }"
             class="py-12"
             :label="t('pages.blog.posts.end_of_list')"
@@ -323,14 +354,29 @@ useSeoMeta({
   </UPage>
 
   <!-- Create Post Modal -->
-  <UModal :open="blog.isCreateModalOpen.value" @update:open="blog.isCreateModalOpen.value = $event" :title="t('pages.blog.actions.create_post.modal.title')">
+  <UModal
+    :open="blog.isCreateModalOpen.value"
+    @update:open="blog.isCreateModalOpen.value = $event"
+    :title="t('pages.blog.actions.create_post.modal.title')"
+  >
     <template #body>
       <div class="flex flex-col gap-sm">
         <UFormField :label="t('pages.blog.actions.create_post.modal.fields.title.title')" required>
-          <UInput v-model="blog.newPostState.title" autofocus :placeholder="t('pages.blog.actions.create_post.modal.fields.title.placeholder')" />
+          <UInput
+            v-model="blog.newPostState.title"
+            autofocus
+            :placeholder="t('pages.blog.actions.create_post.modal.fields.title.placeholder')"
+          />
         </UFormField>
-        <UFormField :label="t('pages.blog.actions.create_post.modal.fields.slug.title')" :help="t('pages.blog.actions.create_post.modal.fields.slug.help')" required>
-          <UInput v-model="blog.newPostState.slug" :placeholder="t('pages.blog.actions.create_post.modal.fields.slug.placeholder')" />
+        <UFormField
+          :label="t('pages.blog.actions.create_post.modal.fields.slug.title')"
+          :help="t('pages.blog.actions.create_post.modal.fields.slug.help')"
+          required
+        >
+          <UInput
+            v-model="blog.newPostState.slug"
+            :placeholder="t('pages.blog.actions.create_post.modal.fields.slug.placeholder')"
+          />
         </UFormField>
       </div>
     </template>
@@ -353,6 +399,4 @@ useSeoMeta({
   </UModal>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

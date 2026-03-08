@@ -10,10 +10,10 @@ export interface InboxMailProps {
 const { mail } = defineProps<InboxMailProps>();
 
 export interface InboxMailEmits {
-  // TODO: Define emits here
+  close: [];
 }
 
-const emit = defineEmits<InboxMailEmits>()
+const emit = defineEmits<InboxMailEmits>();
 
 const dropdownItems = [
   [
@@ -94,7 +94,7 @@ function onSubmit() {
           color="neutral"
           icon="lucide:x"
           variant="ghost"
-          @click="emits('close')"
+          @click="emit('close')"
         />
       </template>
 

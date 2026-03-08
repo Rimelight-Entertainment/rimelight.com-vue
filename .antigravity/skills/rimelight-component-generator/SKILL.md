@@ -28,44 +28,44 @@ All components should follow this structure:
 
 ```vue
 <script setup lang="ts">
-import { tv } from "~/internal/tv"
-import { useRC } from "~/composables"
+import { tv } from "~/internal/tv";
+import { useRC } from "~/composables";
 
 // Define interfaces for props, emits, and slots
 export interface ComponentNameProps {
   // Define props with proper typing
   rc?: {
-    root?: string
+    root?: string;
     // Add other class props as needed
-  }
+  };
 }
 
-const { rc: rcProp } = defineProps<ComponentNameProps>()
+const { rc: rcProp } = defineProps<ComponentNameProps>();
 
 export interface ComponentNameEmits {
   // Define emits with proper typing
 }
 
-const emit = defineEmits<ComponentNameEmits>()
+const emit = defineEmits<ComponentNameEmits>();
 
 export interface ComponentNameSlots {
   // Define slots with proper typing
-  default: (props: {}) => any
+  default: (props: {}) => any;
 }
 
-const slots = defineSlots<ComponentNameSlots>()
+const slots = defineSlots<ComponentNameSlots>();
 
 // Use responsive classes composable
-const { rc } = useRC('ComponentName', rcProp)
+const { rc } = useRC("ComponentName", rcProp);
 
 // Define styles using tv (tailwind-variants)
 const componentStyles = tv({
   slots: {
-    root: "default-classes"
-  }
-})
+    root: "default-classes",
+  },
+});
 
-const { root } = componentStyles()
+const { root } = componentStyles();
 </script>
 
 <template>

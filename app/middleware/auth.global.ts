@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, _from) => {
   // 1. Static skip for high-performance early exit
   const skipPaths = ["/construction", "/auth", "/api/auth"];
-  if (skipPaths.some(p => to.path.startsWith(p))) return;
+  if (skipPaths.some((p) => to.path.startsWith(p))) return;
 
   const { session, status, promise } = useAuth();
 
@@ -19,11 +19,11 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
   // 3. Authenticated logic
   if (session.value) {
-     // Don't allow access to construction/sign-in if already logged in
-     if (to.path === "/construction" || to.path === "/auth/sign-in") {
-       return navigateTo("/");
-     }
-     return;
+    // Don't allow access to construction/sign-in if already logged in
+    if (to.path === "/construction" || to.path === "/auth/sign-in") {
+      return navigateTo("/");
+    }
+    return;
   }
 
   // 4. Unauthenticated logic

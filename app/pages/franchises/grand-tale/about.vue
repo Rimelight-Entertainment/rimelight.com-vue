@@ -1,38 +1,40 @@
 <script setup lang="ts">
-import type { AccordionItem } from '@nuxt/ui'
+import type { AccordionItem } from "@nuxt/ui";
 
 /* region State */
-const { t, tm, rt } = useI18n()
+const { t, tm, rt } = useI18n();
 
 const faqGroups = computed(() => {
-  const groups = tm(('pages.franchises.grandTale.about.sections.faq.' + 'groups') as any) as any
+  const groups = tm(("pages.franchises.grandTale.about.sections.faq." + "groups") as any) as any;
   return Object.entries(groups).map(([key, group]: [string, any]) => ({
     label: rt(group.title),
     questions: Object.entries(group)
-      .filter(([k]) => k.startsWith('q'))
+      .filter(([k]) => k.startsWith("q"))
       .map(([, q]: [string, any]) => ({
         label: rt(q.question),
-        content: rt(q.answer)
-      }))
-  }))
-})
+        content: rt(q.answer),
+      })),
+  }));
+});
 
 const specificationPlatforms = computed(() => {
-  const platforms = tm(('pages.franchises.grandTale.about.sections.specifications.' + 'platforms') as any) as any
+  const platforms = tm(
+    ("pages.franchises.grandTale.about.sections.specifications." + "platforms") as any,
+  ) as any;
   return Object.entries(platforms).map(([key, platform]: [string, any]) => ({
     label: rt(platform.label),
     specs: platform.specs.map((s: any) => ({
       label: rt(s.label),
-      value: rt(s.value)
-    }))
-  }))
-})
+      value: rt(s.value),
+    })),
+  }));
+});
 /* endregion */
 
 /* region Meta */
 useHead({
-  title: t('pages.franchises.grandTale.about.meta.title')
-})
+  title: t("pages.franchises.grandTale.about.meta.title"),
+});
 /* endregion */
 
 /* region Lifecycle */
@@ -56,9 +58,7 @@ useHead({
       :title="t('pages.franchises.grandTale.about.sections.characters.title')"
       :description="t('pages.franchises.grandTale.about.sections.characters.description')"
     >
-      <UTabs>
-
-      </UTabs>
+      <UTabs> </UTabs>
     </UPageSection>
     <UPageSection
       :title="t('pages.franchises.grandTale.about.sections.specifications.title')"
@@ -70,7 +70,7 @@ useHead({
         class="max-w-3xl mx-auto"
         :ui="{
           list: 'justify-center border-b border-default-200 mb-8',
-          trigger: 'px-8 py-3 text-base'
+          trigger: 'px-8 py-3 text-base',
         }"
       >
         <template #content="{ item }">
@@ -104,7 +104,7 @@ useHead({
         class="max-w-3xl mx-auto mb-12"
         :ui="{
           trigger: 'text-lg font-bold text-highlighted py-4',
-          body: 'pt-0 pb-4'
+          body: 'pt-0 pb-4',
         }"
       >
         <template #body="{ item }">
@@ -114,7 +114,7 @@ useHead({
               type="multiple"
               :ui="{
                 trigger: 'text-base font-medium text-highlighted py-3',
-                body: 'text-base text-muted'
+                body: 'text-base text-muted',
               }"
             />
           </div>
@@ -132,7 +132,7 @@ useHead({
               to="/franchises/grand-tale/forums"
               class="text-grand-tale-secondary-500 font-semibold underline underline-offset-4 hover:text-primary transition-colors"
             >
-              {{ t('app.header.links.community.content.forums.grand_tale') }}
+              {{ t("app.header.links.community.content.forums.grand_tale") }}
             </NuxtLink>
           </template>
         </i18n-t>

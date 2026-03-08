@@ -1,16 +1,16 @@
 <script setup lang="ts">
 /* region State */
-const { t } = useI18n()
+const { t } = useI18n();
 /* endregion */
 
 /* region Meta */
 useHead({
   title: "Under Construction",
-})
+});
 
 definePageMeta({
   layout: "blank",
-})
+});
 /* endregion */
 
 /* region Lifecycle */
@@ -28,9 +28,7 @@ definePageMeta({
         <h1 class="text-3xl font-bold text-white sm:text-4xl">
           THIS WEBSITE IS CURRENTLY IN CONSTRUCTION
         </h1>
-        <p class="text-neutral-400">
-          Please sign in if you have access.
-        </p>
+        <p class="text-neutral-400">Please sign in if you have access.</p>
       </div>
 
       <UCard class="bg-black">
@@ -41,9 +39,10 @@ definePageMeta({
             :rc="{
               label: 'text-white',
               description: 'text-neutral-500',
-              rememberCheckboxIndicator: 'data-[state=checked]:bg-primary-500 data-[state=checked]:text-white',
+              rememberCheckboxIndicator:
+                'data-[state=checked]:bg-primary-500 data-[state=checked]:text-white',
               rememberText: 'text-white',
-              submit: 'text-white bg-primary-500 hover:bg-primary-600'
+              submit: 'text-white bg-primary-500 hover:bg-primary-600',
             }"
           />
         </ClientOnly>

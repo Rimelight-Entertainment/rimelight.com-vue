@@ -64,13 +64,17 @@ const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
             <div class="text-3xl font-black text-white leading-none">
               {{ articleCount?.toLocaleString() ?? 0 }}
             </div>
-            <div class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1">
+            <div
+              class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1"
+            >
               Articles
             </div>
           </div>
           <div>
             <div class="text-3xl font-black text-white leading-none">52</div>
-            <div class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1">
+            <div
+              class="text-xs text-grand-tale-secondary-400 uppercase font-black tracking-widest mt-1"
+            >
               Contributors
             </div>
           </div>

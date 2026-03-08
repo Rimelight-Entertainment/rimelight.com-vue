@@ -13,22 +13,22 @@ const { data: latestPosts, status: postsStatus } = useLazyAsyncData(
       timeout: 10000,
     }),
   { server: false },
-)
+);
 
 const formatDate = (date: string | Date) => {
   return useDateFormat(date, "DD/MM/YYYY").value;
-}
+};
 
 useHead({
   title: "Rimelight Entertainment | Home",
-})
+});
 
 useSeoMeta({
   title: "Rimelight Entertainment",
   ogTitle: "Rimelight Entertainment",
   description: "Tell your story.",
   ogDescription: "Tell your story.",
-})
+});
 
 const heroLinks = ref<ButtonProps[]>([
   {
@@ -45,13 +45,13 @@ const heroLinks = ref<ButtonProps[]>([
     to: "/company/about",
     class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
   },
-])
+]);
 
 const featuredProjects = [
   {
     tags: ["franchise", "fantasy", "social"],
     title: "Grand Tale",
-    description: t('pages.home.sections.projects.content.grandTale.description'),
+    description: t("pages.home.sections.projects.content.grandTale.description"),
     image: "/images/placeholders/placeholder_home_projects_grand-tale.png",
     to: "/franchises/grand-tale",
   },
@@ -143,11 +143,11 @@ const ctaLinks = ref<ButtonProps[]>([
       orientation="horizontal"
     >
       <template #title>
-        {{ t('pages.home.sections.company.title', { interactive: 'interactive media' }) }}
+        {{ t("pages.home.sections.company.title", { interactive: "interactive media" }) }}
       </template>
 
       <template #description>
-        {{ t('pages.home.sections.company.description') }}
+        {{ t("pages.home.sections.company.description") }}
       </template>
 
       <template #body>
@@ -155,12 +155,14 @@ const ctaLinks = ref<ButtonProps[]>([
           <div>
             <div class="text-4xl font-bold text-white">3+</div>
             <div class="text-sm text-neutral-500 uppercase tracking-widest">
-              {{ t('pages.home.sections.company.stats.titles.label') }}
+              {{ t("pages.home.sections.company.stats.titles.label") }}
             </div>
           </div>
           <div>
             <div class="text-4xl font-bold text-white">50+</div>
-            <div class="text-sm text-neutral-500 uppercase tracking-widest">{{ t('pages.home.sections.company.stats.creators.label') }}</div>
+            <div class="text-sm text-neutral-500 uppercase tracking-widest">
+              {{ t("pages.home.sections.company.stats.creators.label") }}
+            </div>
           </div>
         </div>
       </template>
@@ -173,11 +175,13 @@ const ctaLinks = ref<ButtonProps[]>([
           video-id="uH1Hw6SDI1M"
           class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
           :params="{
-            origin: origin
+            origin: origin,
           }"
         />
         <template #fallback>
-          <div class="aspect-video relative overflow-hidden rounded-xl shadow-2xl bg-neutral-900 animate-pulse flex items-center justify-center">
+          <div
+            class="aspect-video relative overflow-hidden rounded-xl shadow-2xl bg-neutral-900 animate-pulse flex items-center justify-center"
+          >
             <UIcon name="i-lucide:play" class="size-12 text-neutral-700" />
           </div>
         </template>
@@ -288,7 +292,8 @@ const ctaLinks = ref<ButtonProps[]>([
             :date="post.postedAt ? formatDate(post.postedAt) : ''"
             :description="getLocalizedContent(post.description, locale)"
             :image="{
-              src: post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
+              src:
+                post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
               alt: post.banner?.alt,
             }"
             :title="getLocalizedContent(post.title, locale)"
@@ -317,7 +322,7 @@ const ctaLinks = ref<ButtonProps[]>([
           trailing-icon="lucide:arrow-right"
           variant="link"
         >
-          {{ t('pages.home.sections.news.actions.viewAll') }}
+          {{ t("pages.home.sections.news.actions.viewAll") }}
         </UButton>
       </div>
     </UPageSection>
@@ -342,6 +347,4 @@ const ctaLinks = ref<ButtonProps[]>([
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

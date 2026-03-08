@@ -55,7 +55,7 @@ useSeoMeta({
             :label="t('pages.documents.actions.create_document.label')"
             @click="docIndex.isCreateModalOpen.value = true"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600'
+              base: 'text-white bg-primary-500 hover:bg-primary-600',
             }"
           />
         </template>
@@ -63,7 +63,11 @@ useSeoMeta({
       <UPageBody>
         <!-- Drafts -->
         <div
-          v-if="docIndex.isAuthorizedForDrafts && docIndex.drafts.initialStatus.value === 'pending' && !docIndex.drafts.allPages.value.length"
+          v-if="
+            docIndex.isAuthorizedForDrafts &&
+            docIndex.drafts.initialStatus.value === 'pending' &&
+            !docIndex.drafts.allPages.value.length
+          "
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
@@ -71,7 +75,9 @@ useSeoMeta({
         </div>
 
         <UAlert
-          v-else-if="docIndex.isAuthorizedForDrafts && docIndex.drafts.initialStatus.value === 'error'"
+          v-else-if="
+            docIndex.isAuthorizedForDrafts && docIndex.drafts.initialStatus.value === 'error'
+          "
           color="error"
           variant="subtle"
           icon="lucide:alert-circle"
@@ -84,9 +90,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                docIndex.drafts.refresh()
-              }
-            }
+                docIndex.drafts.refresh();
+              },
+            },
           ]"
         />
 
@@ -100,18 +106,16 @@ useSeoMeta({
             description: 'text-neutral-500',
           }"
         >
-
           <div v-if="docIndex.drafts.allPages.value.length" class="flex flex-col gap-md">
-            <div
-              v-for="(doc, index) in docIndex.drafts.allPages.value"
-              :key="doc.slug"
-            >
-              <NuxtLink
-                :to="`/documents/${doc.slug}/edit`"
-              >
+            <div v-for="(doc, index) in docIndex.drafts.allPages.value" :key="doc.slug">
+              <NuxtLink :to="`/documents/${doc.slug}/edit`">
                 <div class="flex flex-col gap-xs">
-                  <span class="text-primary-500 hover:text-primary-600">{{ getLocalizedContent(doc.title, locale) }}</span>
-                  <span class="text-sm text-neutral-500">{{ doc.updatedAt ? useDateFormat(doc.updatedAt, 'DD/MM/YYYY').value : '' }}</span>
+                  <span class="text-primary-500 hover:text-primary-600">{{
+                    getLocalizedContent(doc.title, locale)
+                  }}</span>
+                  <span class="text-sm text-neutral-500">{{
+                    doc.updatedAt ? useDateFormat(doc.updatedAt, "DD/MM/YYYY").value : ""
+                  }}</span>
                 </div>
               </NuxtLink>
             </div>
@@ -130,14 +134,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  docIndex.isCreateModalOpen.value = true
+                  docIndex.isCreateModalOpen.value = true;
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600'
+                class: 'text-white bg-primary-500 hover:bg-primary-600',
               },
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500'
+              description: 'text-neutral-500',
             }"
           />
 
@@ -157,7 +161,11 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="docIndex.drafts.allPages.value.length > 0 && !docIndex.drafts.hasMore.value && docIndex.drafts.hasLoadedNextPage.value"
+            v-else-if="
+              docIndex.drafts.allPages.value.length > 0 &&
+              !docIndex.drafts.hasMore.value &&
+              docIndex.drafts.hasLoadedNextPage.value
+            "
             :ui="{ label: 'text-muted' }"
             class="py-12"
             :label="t('pages.documents.end_of_list')"
@@ -166,7 +174,10 @@ useSeoMeta({
 
         <!-- Documents -->
         <div
-          v-if="docIndex.documents.initialStatus.value === 'pending' && !docIndex.documents.allPages.value.length"
+          v-if="
+            docIndex.documents.initialStatus.value === 'pending' &&
+            !docIndex.documents.allPages.value.length
+          "
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <USkeleton class="col-span-full h-64 rounded-none md:h-80 lg:h-96" />
@@ -187,9 +198,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                docIndex.documents.refresh()
-              }
-            }
+                docIndex.documents.refresh();
+              },
+            },
           ]"
         />
 
@@ -204,16 +215,15 @@ useSeoMeta({
           }"
         >
           <div v-if="docIndex.documents.allPages.value.length" class="flex flex-col gap-md">
-            <div
-              v-for="(doc, index) in docIndex.documents.allPages.value"
-              :key="doc.slug"
-            >
-              <NuxtLink
-                :to="`/documents/${doc.slug}/edit`"
-              >
+            <div v-for="(doc, index) in docIndex.documents.allPages.value" :key="doc.slug">
+              <NuxtLink :to="`/documents/${doc.slug}/edit`">
                 <div class="flex flex-col gap-xs">
-                  <span class="text-primary-500 hover:text-primary-600">{{ getLocalizedContent(doc.title, locale) }}</span>
-                  <span class="text-sm text-neutral-500">{{ doc.updatedAt ? useDateFormat(doc.updatedAt, 'DD/MM/YYYY').value : '' }}</span>
+                  <span class="text-primary-500 hover:text-primary-600">{{
+                    getLocalizedContent(doc.title, locale)
+                  }}</span>
+                  <span class="text-sm text-neutral-500">{{
+                    doc.updatedAt ? useDateFormat(doc.updatedAt, "DD/MM/YYYY").value : ""
+                  }}</span>
                 </div>
               </NuxtLink>
             </div>
@@ -232,14 +242,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  docIndex.isCreateModalOpen.value = true
+                  docIndex.isCreateModalOpen.value = true;
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600'
+                class: 'text-white bg-primary-500 hover:bg-primary-600',
               },
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500'
+              description: 'text-neutral-500',
             }"
           />
 
@@ -259,7 +269,11 @@ useSeoMeta({
             />
           </div>
           <USeparator
-            v-else-if="docIndex.documents.allPages.value.length > 0 && !docIndex.documents.hasMore.value && docIndex.documents.hasLoadedNextPage.value"
+            v-else-if="
+              docIndex.documents.allPages.value.length > 0 &&
+              !docIndex.documents.hasMore.value &&
+              docIndex.documents.hasLoadedNextPage.value
+            "
             :ui="{ label: 'text-muted' }"
             class="py-12"
             :label="t('pages.documents.documents.end_of_list')"
@@ -270,14 +284,36 @@ useSeoMeta({
   </UPage>
 
   <!-- Create Document Modal -->
-  <UModal :open="docIndex.isCreateModalOpen.value" @update:open="docIndex.isCreateModalOpen.value = $event" :title="t('pages.documents.actions.create_document.modal.title')">
+  <UModal
+    :open="docIndex.isCreateModalOpen.value"
+    @update:open="docIndex.isCreateModalOpen.value = $event"
+    :title="t('pages.documents.actions.create_document.modal.title')"
+  >
     <template #body>
       <div class="flex flex-col gap-sm">
-        <UFormField :label="t('pages.documents.actions.create_document.modal.fields.title.title')" required>
-          <UInput v-model="docIndex.newDocumentState.title" autofocus :placeholder="t('pages.documents.actions.create_document.modal.fields.title.placeholder')" />
+        <UFormField
+          :label="t('pages.documents.actions.create_document.modal.fields.title.title')"
+          required
+        >
+          <UInput
+            v-model="docIndex.newDocumentState.title"
+            autofocus
+            :placeholder="
+              t('pages.documents.actions.create_document.modal.fields.title.placeholder')
+            "
+          />
         </UFormField>
-        <UFormField :label="t('pages.documents.actions.create_document.modal.fields.slug.title')" :help="t('pages.documents.actions.create_document.modal.fields.slug.help')" required>
-          <UInput v-model="docIndex.newDocumentState.slug" :placeholder="t('pages.documents.actions.create_document.modal.fields.slug.placeholder')" />
+        <UFormField
+          :label="t('pages.documents.actions.create_document.modal.fields.slug.title')"
+          :help="t('pages.documents.actions.create_document.modal.fields.slug.help')"
+          required
+        >
+          <UInput
+            v-model="docIndex.newDocumentState.slug"
+            :placeholder="
+              t('pages.documents.actions.create_document.modal.fields.slug.placeholder')
+            "
+          />
         </UFormField>
       </div>
     </template>
@@ -300,6 +336,4 @@ useSeoMeta({
   </UModal>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

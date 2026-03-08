@@ -12,9 +12,9 @@
 /* endregion */
 
 /* region State */
-const { t } = useI18n()
-const layerId = inject<string>("header_layer_id", "store-header")
-const { bottomOffsets } = useHeaderStack()
+const { t } = useI18n();
+const layerId = inject<string>("header_layer_id", "store-header");
+const { bottomOffsets } = useHeaderStack();
 
 const links = computed(() => [
   { label: "Home", to: "/franchises/grand-tale" },
@@ -24,7 +24,7 @@ const links = computed(() => [
   { label: "Guides", to: "/franchises/grand-tale/guides" },
   { label: "Forums", to: "/franchises/grand-tale/forums" },
   { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
-])
+]);
 /* endregion */
 
 /* region Meta */
@@ -41,7 +41,12 @@ const links = computed(() => [
   <RCHeader :contain="false" class="bg-white border-b border-black">
     <template #left>
       <div class="flex flex-row items-center gap-md">
-        <UButton variant="link" :label="t('pages.store.meta.title')" to="/store" class="text-sm font-black tracking-widest uppercase text-black hover:text-primary-500"/>
+        <UButton
+          variant="link"
+          :label="t('pages.store.meta.title')"
+          to="/store"
+          class="text-sm font-black tracking-widest uppercase text-black hover:text-primary-500"
+        />
         <UNavigationMenu
           :items="links"
           variant="link"

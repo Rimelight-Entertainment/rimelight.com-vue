@@ -30,7 +30,10 @@ export default defineEventHandler(async (event) => {
     // Session optional
   }
 
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member" || session?.user?.role === "admin";
+  const isAuthorized =
+    session?.user?.role === "owner" ||
+    session?.user?.role === "member" ||
+    session?.user?.role === "admin";
 
   let pageRecord;
   try {
@@ -40,8 +43,8 @@ export default defineEventHandler(async (event) => {
       .where(
         and(
           or(eq(pages.slug, normalizedSlug), eq(pages.slug, `/${normalizedSlug}`)),
-          isNull(pages.deletedAt)
-        )
+          isNull(pages.deletedAt),
+        ),
       )
       .limit(1);
 

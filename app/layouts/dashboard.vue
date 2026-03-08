@@ -59,7 +59,6 @@ onMounted(() => {
       isCreatePageModalOpen.value = true;
     },
   });
-
 });
 
 onUnmounted(() => {

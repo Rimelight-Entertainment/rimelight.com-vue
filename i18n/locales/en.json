@@ -1,280 +1,255 @@
 {
   "error": {
-    "retry": "Try Again",
-    "clear": "Go Back Home"
+    "retry": "",
+    "clear": ""
   },
   "common": {
     "types": {
-      "BlogPost": "Blog Post",
-      "Document": "Document",
-      "PatchNote": "Patch Note",
-      "Location": "Location",
-      "Species": "Species",
-      "Character": "Character",
-      "Skill": "Skill",
-      "Item": "Item",
-      "Object": "Object",
-      "Group": "Group",
-      "Card": "Card",
-      "Hero": "Hero",
-      "Series": "Series",
-      "Tale": "Tale",
-      "Episode": "Episode",
-      "Default": "Default"
-    }
+      "": ""
+    },
+    "drafts": ""
   },
   "app": {
     "header": {
       "links": {
         "grand_tale": {
-          "label": "Grand Tale",
+          "label": "",
           "content": {
             "main": {
-              "title": "Game",
-              "home": "Home",
-              "news": "News",
-              "about": "About",
-              "wiki": "Wiki",
-              "guides": "Guides",
-              "forums": "Forums",
-              "leaderboards": "Leaderboards",
+              "title": "",
+              "news": "",
+              "about": "",
+              "wiki": "",
+              "guides": "",
+              "forums": "",
+              "leaderboards": "",
               "series": {
-                "heading": "Series",
-                "children_of_the_light": "Children of the Light",
-                "grand_academy": "Grand Academy",
-                "goldy_adventures": "Goldy Adventures"
+                "heading": "",
+                "children_of_the_light": "",
+                "grand_academy": "",
+                "goldy_adventures": ""
               },
               "books": {
-                "heading": "Books",
-                "first_tale": "The First Tale"
+                "heading": "",
+                "first_tale": ""
               },
               "comics": {
-                "heading": "Comics",
-                "ori_friends": "Ori & Friends"
+                "heading": "",
+                "ori_friends": ""
               }
             },
             "side": {
-              "title": "Resources",
-              "download": "Download",
-              "support": "Support",
+              "title": "",
+              "download": "",
+              "support": "",
               "socials": {
-                "title": "Socials",
-                "discord": "Discord",
-                "youtube": "YouTube",
-                "instagram": "Instagram"
+                "title": "",
+                "discord": "",
+                "youtube": "",
+                "instagram": ""
               }
             }
           }
         },
         "community": {
-          "label": "Community",
+          "label": "",
           "content": {
             "main": {
               "forums": {
-                "heading": "Forums",
-                "rimelight": "Rimelight Forums",
-                "grand_tale": "Grand Tale Forums"
+                "heading": "",
+                "rimelight": "",
+                "grand_tale": ""
               },
               "events": {
-                "heading": "Events",
-                "lightcon": "Lightcon"
+                "heading": "",
+                "lightcon": ""
               }
             },
             "side": {
-              "title": "Socials",
-              "instagram": "Instagram",
-              "discord": "Discord",
-              "spotify": "Spotify"
+              "title": "",
+              "instagram": "",
+              "discord": "",
+              "spotify": ""
+            },
+            "forums": {
+              "grand_tale": ""
             }
           }
         },
         "company": {
-          "label": "Company",
+          "label": "",
           "content": {
             "main": {
               "studio": {
-                "heading": "Studio",
-                "about_us": "About Us",
-                "partnerships": "Partnerships"
+                "heading": "",
+                "about_us": "",
+                "partnerships": ""
               },
               "careers": {
-                "heading": "Careers",
-                "life": "Life at Rimelight",
-                "jobs": "Jobs & Internships"
+                "heading": "",
+                "life": "",
+                "jobs": ""
               },
               "news": {
-                "heading": "News & Media",
-                "blog": "Blog"
+                "heading": "",
+                "blog": ""
               }
             },
             "side": {
               "resources": {
-                "title": "Resources",
-                "api": "API",
-                "branding": "Branding",
-                "legal": "Legal",
-                "contact": "Contact"
+                "title": "",
+                "api": "",
+                "branding": "",
+                "legal": "",
+                "contact": ""
               },
               "socials": {
-                "title": "Socials",
-                "linkedin": "LinkedIn",
-                "github": "GitHub"
+                "title": "",
+                "linkedin": "",
+                "github": ""
               }
             }
           }
         },
         "store": {
-          "label": "Store",
+          "label": "",
           "content": {
             "main": {
-              "title": "Shop",
               "digital_goods": {
-                "heading": "Digital Goods",
-                "sparks": "Sparks"
+                "heading": "",
+                "sparks": ""
               },
               "deals": {
-                "heading": "Deals",
-                "new_releases": "New Releases",
-                "sales": "Sales",
-                "bundles": "Bundles"
+                "heading": "",
+                "new_releases": "",
+                "sales": "",
+                "bundles": ""
               },
               "clothing": {
-                "heading": "Clothing",
-                "headwear": "Headwear",
-                "tops": "Tops",
-                "bottoms": "Bottoms"
+                "heading": "",
+                "headwear": "",
+                "tops": "",
+                "bottoms": ""
               },
               "accessories": {
-                "heading": "Accessories",
-                "jewelry": "Jewelry",
-                "pins_patches": "Pins & Patches",
-                "keychains": "Keychains"
+                "heading": "",
+                "jewelry": "",
+                "pins_patches": "",
+                "keychains": ""
               },
               "apparel": {
-                "heading": "Apparel",
-                "bottles_mugs": "Bottles & Mugs"
+                "heading": "",
+                "bottles_mugs": ""
               },
               "collectibles": {
-                "heading": "Collectibles",
-                "figurines_statues": "Figurines & Statues",
-                "plushies": "Plushies"
+                "heading": "",
+                "figurines_statues": "",
+                "plushies": ""
               },
               "art": {
-                "heading": "Art",
-                "posters_prints": "Posters & Prints",
-                "comics_books": "Comics & Books",
-                "physical_games": "Physical Games"
+                "heading": "",
+                "posters_prints": "",
+                "comics_books": "",
+                "physical_games": ""
               }
             },
             "side": {
-              "title": "Assistance",
-              "orders": "Orders",
-              "customer_support": "Customer Support"
+              "title": "",
+              "orders": "",
+              "customer_support": ""
             }
           }
         }
       },
-      "actions": {
-        "signUp": "Sign Up",
-        "signIn": "Sign In"
-      },
+      "actions": {},
       "user": {
         "status": {
-          "placeholder": "Set a custom status..."
+          "placeholder": ""
         },
-        "dashboard": "Dashboard",
-        "profile": "Profile",
-        "support": "Support",
-        "settings": "Settings",
-        "signOut": "Sign Out"
+        "dashboard": "",
+        "profile": "",
+        "support": "",
+        "settings": "",
+        "signOut": ""
       }
     },
     "footer": {
       "links": {
         "resources": {
-          "label": "Resources",
+          "label": "",
           "content": {
-            "branding": "Branding",
-            "visitors": "Visitor Count"
+            "branding": "",
+            "visitors": ""
           }
         },
         "documents": {
-          "label": "Documents",
+          "label": "",
           "content": {
-            "privacyPolicy": "Privacy Policy",
-            "cookiePolicy": "Cookie Policy",
-            "termsOfService": "Terms of Service",
-            "codeOfConduct": "Code of Conduct",
-            "otherDocuments": "Other Documents"
+            "privacyPolicy": "",
+            "cookiePolicy": "",
+            "termsOfService": "",
+            "codeOfConduct": "",
+            "otherDocuments": ""
           }
         }
       }
     },
     "newsletter": {
-      "title": "Subscribe to our newsletter",
-      "description": "Get the latest news and updates from us. Unsubscribe at any time.",
-      "placeholder": "email{'@'}domain.com",
-      "submit": "Subscribe",
-      "success": "Thank you for subscribing! Check your inbox for a confirmation email.",
-      "error": "Failed to subscribe. Please try again later."
+      "title": "",
+      "description": "",
+      "submit": ""
     }
   },
   "pages": {
     "home": {
-      "meta": {
-        "title": "Home",
-        "description": "Tell your story."
-      },
+      "meta": {},
       "sections": {
         "hero": {
-          "title": "We are Rimelight Entertainment",
-          "description": "We are creators of Grand Tale.",
+          "title": "",
+          "description": "",
           "actions": {
-            "joinUs": "Join Us",
-            "learnMore": "Learn More"
+            "joinUs": "",
+            "learnMore": ""
           }
         },
         "company": {
-          "title": "Pushing the boundaries of {interactive}",
-          "description": "Founded in 2023, Rimelight Entertainment is independent and player-focused. We don't just create games; we create living, breathing worlds that respect your time and intelligence.",
+          "title": "",
+          "description": "",
           "stats": {
             "titles": {
-              "label": "Titles in Development"
+              "label": ""
             },
             "creators": {
-              "label": "Global Creators"
+              "label": ""
             }
           }
         },
         "projects": {
-          "title": "Our Projects",
           "tags": {
-            "franchise": "Franchise",
-            "fantasy": "Fantasy",
-            "social": "Social"
+            "": ""
           },
           "content": {
             "grandTale": {
-              "description": "A high-fantasy social life-sim game which hosts sub-games of multiple genres."
+              "description": ""
             }
           },
           "actions": {
-            "discover": "Discover"
+            "discover": ""
           }
         },
         "news": {
-          "title": "Latest News",
-          "description": "Read our latest news, posts, and project updates.",
+          "title": "",
+          "description": "",
           "actions": {
-            "viewAll": "View All News"
+            "viewAll": ""
           }
         },
         "cta": {
-          "title": "Ready to play?",
-          "description": "Join us and let's tell our story together.",
+          "title": "",
+          "description": "",
           "actions": {
-            "createAccount": "Create Account",
-            "exploreCareers": "Explore Careers"
+            "createAccount": "",
+            "exploreCareers": ""
           }
         }
       }
@@ -284,367 +259,349 @@
         "home": {
           "sections": {
             "hero": {
-              "title": "May the story never end!",
-              "description": "Grand Tale is the next generation open-world RPG from Rimelight Entertainment. Explore a living world shaped by player agency and emergent storytelling.",
+              "title": "",
+              "description": "",
               "actions": {
-                "playNow": "Play Now",
-                "watchTrailer": "Watch Trailer"
+                "playNow": ""
               }
             },
             "overview": {
-              "title": "About Grand Tale",
-              "description": "Grand Tale is a high-fantasy media franchise built around it's flagship game, the titular 'Grand Tale'.",
+              "title": "",
+              "description": "",
               "actions": {
-                "learnMore": "Learn More"
+                "learnMore": "",
+                "watchTrailer": ""
               }
             }
           }
         },
         "about": {
           "meta": {
-            "title": "About Grand Tale"
+            "title": ""
           },
           "sections": {
             "hero": {
-              "title": "About Grand Tale",
-              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
-              "actions": {
-                "learnMore": "Learn More"
-              }
-            },
-            "story": {
-              "title": "The story so far...",
-              "description": ", where they find the Ohrn, a mysterious artifact with powers over life itself. the group set out to form the Grand Tale and live the greatest story ever told.",
+              "title": "",
+              "description": "",
               "actions": {}
             },
-            "features": {
-              "title": "Features",
-              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
-              "features": {
-              }
+            "story": {
+              "title": "",
+              "description": ""
             },
+            "features": {},
             "specifications": {
-              "title": "Specifications",
-              "description": "Grand Tale is available for download in the following platforms.",
+              "title": "",
+              "description": "",
               "platforms": {
                 "windows": {
-                  "label": "Windows",
-                  "specs": [
-                    { "label": "OS", "value": "Windows 10/11 64-bit" },
-                    { "label": "CPU", "value": "Intel Core i5-8400 / AMD Ryzen 5 2600" },
-                    { "label": "GPU", "value": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580" },
-                    { "label": "RAM", "value": "16 GB" },
-                    { "label": "Storage", "value": "50 GB (SSD Recommended)" }
-                  ]
+                  "specs": [{}, {}, {}, {}, {}]
                 },
                 "android": {
-                  "label": "Android",
-                  "specs": [
-                    { "label": "OS", "value": "Android 10.0 or higher" },
-                    { "label": "CPU", "value": "Snapdragon 845 / Kirin 980 or better" },
-                    { "label": "GPU", "value": "Adreno 630 / Mali-G76 MP10 or better" },
-                    { "label": "RAM", "value": "8 GB" },
-                    { "label": "Storage", "value": "15 GB" }
-                  ]
+                  "specs": [{}, {}, {}, {}, {}]
                 }
               }
             },
             "faq": {
-              "title": "Frequently Asked Questions",
-              "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
+              "title": "",
+              "description": "",
               "groups": {
                 "general": {
-                  "title": "General",
-                  "q1": {
-                    "question": "What is Grand Tale?",
-                    "answer": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence."
-                  },
-                  "q2": {
-                    "question": "When will Grand Tale be released?",
-                    "answer": "Grand Tale is currently in active development. Stay tuned to our news section for release date announcements."
-                  },
-                  "q3": {
-                    "question": "On which platforms will Grand Tale be available?",
-                    "answer": "We are targeting a multi-platform release including PC and major consoles."
-                  }
+                  "q1": {},
+                  "q2": {},
+                  "q3": {}
                 },
                 "gameplay": {
-                  "title": "Gameplay",
-                  "q1": {
-                    "question": "What can I do in Grand Tale?",
-                    "answer": "You can explore a vast open world, engage in various sub-games across different genres, build your own home, and socialize with players worldwide."
-                  },
-                  "q2": {
-                    "question": "Is there a multiplayer mode?",
-                    "answer": "Yes! Grand Tale is a social experience at its core, featuring persistent multiplayer environments and collaborative activities."
-                  },
-                  "q3": {
-                    "question": "Can I customize my character?",
-                    "answer": "Extensively. Our deep character creator allows you to define your look, while our progression system lets you define your playstyle."
-                  }
+                  "q1": {},
+                  "q2": {},
+                  "q3": {}
                 },
                 "technical": {
-                  "title": "Technical",
-                  "q1": {
-                    "question": "What are the system requirements?",
-                    "answer": "System requirements will be finalized closer to release. We aim to support a wide range of hardware."
-                  },
-                  "q2": {
-                    "question": "Does Grand Tale support controllers?",
-                    "answer": "Yes, Grand Tale will feature full controller support on all platforms."
-                  },
-                  "q3": {
-                    "question": "How do I report a bug?",
-                    "answer": "During our testing phases, you can report bugs through our official discord or the support section of our website."
-                  }
+                  "q1": {},
+                  "q2": {},
+                  "q3": {}
                 }
               },
-              "footer": "Have a question that isn't covered in this FAQ? Check out our {link}."
+              "footer": ""
+            },
+            "characters": {
+              "title": "",
+              "description": ""
+            },
+            "media": {
+              "title": "",
+              "description": ""
             }
           }
         },
         "wiki": {
           "sidebar": {
-            "wiki": "Wiki",
-            "getting_started": "Getting Started",
-            "contribution_guide": "Contribution Guide",
+            "wiki": "",
+            "getting_started": "",
+            "contribution_guide": "",
             "game": {
-              "title": "Game",
+              "title": "",
               "tales": {
-                "title": "Tales",
+                "title": "",
                 "tale_mmo": {
-                  "title": "Tale MMO",
-                  "heroes": "Heroes"
+                  "title": "",
+                  "heroes": ""
                 },
-                "tale_moba": "Tale MOBA",
+                "tale_moba": "",
                 "tale_ccg": {
-                  "title": "Tale CCG",
-                  "cards": "Cards"
+                  "title": "",
+                  "cards": ""
                 },
-                "tale_rts": "Tale RTS",
-                "tale_platform": "Tale Platformer",
-                "tale_chess": "Tale Chess",
-                "tale_td": "Tale TD"
+                "tale_rts": "",
+                "tale_platform": "",
+                "tale_chess": "",
+                "tale_td": ""
               },
-              "items": "Items",
+              "items": "",
               "quests": {
-                "title": "Quests",
-                "character_quest": "Character Quests",
-                "growth_quest": "Growth Quests",
-                "guide_quest": "Guide Quests",
-                "relationship_quest": "Relationship Quests",
-                "story_quest": "Story Quests"
+                "title": "",
+                "character_quest": "",
+                "growth_quest": "",
+                "guide_quest": "",
+                "relationship_quest": "",
+                "story_quest": ""
               },
               "skills": {
-                "title": "Skills",
-                "alchemy": "Alchemy",
-                "archaeology": "Archaeology",
-                "artistry": "Artistry",
-                "crafting": "Crafting",
-                "cultivation": "Cultivation",
-                "foraging": "Foraging",
-                "runology": "Runology",
-                "seafaring": "Seafaring"
+                "title": "",
+                "alchemy": "",
+                "archaeology": "",
+                "artistry": "",
+                "crafting": "",
+                "cultivation": "",
+                "foraging": "",
+                "runology": "",
+                "seafaring": ""
               },
-              "settings": "Settings"
+              "settings": ""
             },
             "series": {
-              "title": "Series",
-              "children_of_the_light": "Children of the Light",
-              "grand_academy": "Grand Academy",
-              "goldy_adventures": "Goldy Adventures"
+              "title": "",
+              "children_of_the_light": "",
+              "grand_academy": "",
+              "goldy_adventures": ""
             },
             "lore": {
-              "title": "Lore",
-              "timeline": "Timeline",
-              "characters": "Characters",
-              "locations": "Locations",
-              "species": "Species",
-              "objects": "Objects",
-              "groups": "Groups"
+              "title": "",
+              "timeline": "",
+              "characters": "",
+              "locations": "",
+              "species": "",
+              "objects": "",
+              "groups": ""
             },
-            "mechanics_systems": "Mechanics & Systems"
+            "mechanics_systems": ""
           }
         }
       }
     },
     "blog": {
       "meta": {
-        "title": "Blog",
-        "description": "Read our latest news, posts, and project updates.",
-        "RSS": "Rimelight Entertainment Blog RSS Feed"
+        "title": "",
+        "description": "",
+        "rss": ""
       },
       "actions": {
-        "rss": "RSS Feed",
+        "rss": "",
         "create_post": {
-          "label": "Create Post",
-          "success": {
-            "title": "Post created successfully",
-            "description": "You can now edit your post."
-          },
-          "error": {
-            "title": "Failed to create post",
-            "description": "Please check your connection and try again later."
-          },
+          "label": "",
+          "success": {},
+          "error": {},
           "modal": {
-            "title": "Create Post",
-            "description": "Create a new Blog Post.",
+            "title": "",
             "fields": {
               "title": {
-                "title": "Post Title",
-                "placeholder": "Enter a title for your post"
+                "title": "",
+                "placeholder": ""
               },
               "slug": {
-                "title": "Post Slug",
-                "placeholder": "post-slug",
-                "help": "The URL-friendly name of the post."
+                "title": "",
+                "placeholder": "",
+                "help": ""
               },
-              "actions": {
-                "cancel": "Cancel",
-                "submit": "Create Post"
-              }
+              "actions": {}
+            },
+            "actions": {
+              "cancel": "",
+              "submit": ""
             }
           }
         }
       },
       "drafts": {
-        "title": "Drafts",
-        "description": "These posts have currently not been published.",
+        "title": "",
+        "description": "",
         "error": {
-          "title": "Failed to load drafts",
-          "description": "Please check your connection and try again later."
+          "title": "",
+          "description": ""
         },
         "empty": {
-          "title": "No drafts yet.",
-          "description": "Create your first post to get started.",
+          "title": "",
+          "description": "",
           "actions": {
-            "create": "Create Post"
+            "create": ""
           }
         }
       },
       "posts": {
-        "title": "Posts",
-        "description": "Our latest posts, including blog posts, press releases, and more.",
+        "title": "",
+        "description": "",
         "error": {
-          "title": "Failed to load posts",
-          "description": "Please check your connection and try again later."
+          "title": "",
+          "description": ""
         },
         "empty": {
-          "title": "No posts yet",
-          "description": "Create your first post to get started.",
+          "title": "",
           "actions": {
-            "create": "Create Post"
+            "create": ""
           }
         },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the posts."
-      }
+        "load_more": "",
+        "end_of_list": ""
+      },
+      "load_more": "",
+      "end_of_list": ""
     },
     "documents": {
       "meta": {
-        "title": "Documents",
-        "description": "View our formal documents, policies, and guidelines."
+        "title": "",
+        "description": ""
       },
       "actions": {
         "create_document": {
-          "label": "Create Document",
-          "success": {
-            "title": "Document created successfully",
-            "description": "You can now edit your document."
-          },
-          "error": {
-            "title": "Failed to create document",
-            "description": "Please check your connection and try again later."
-          },
+          "label": "",
+          "success": {},
+          "error": {},
           "modal": {
-            "title": "Create Document",
-            "description": "Create a new Document.",
+            "title": "",
             "fields": {
               "title": {
-                "title": "Document Title",
-                "placeholder": "Enter a title for your document"
+                "title": "",
+                "placeholder": ""
               },
               "slug": {
-                "title": "Document Slug",
-                "placeholder": "document-slug",
-                "help": "The URL-friendly name of the document."
+                "title": "",
+                "placeholder": "",
+                "help": ""
               }
             },
             "actions": {
-              "cancel": "Cancel",
-              "submit": "Create Document"
+              "cancel": "",
+              "submit": ""
             }
           }
         }
       },
       "drafts": {
-        "title": "Drafts",
-        "description": "These documents have currently not been published.",
+        "title": "",
+        "description": "",
         "error": {
-          "title": "Failed to load drafts",
-          "description": "Please check your connection and try again later."
+          "title": "",
+          "description": ""
         },
         "empty": {
-          "title": "No drafts yet.",
-          "description": "Create your first document to get started.",
+          "title": "",
+          "description": "",
           "actions": {
-            "create": "Create Document"
+            "create": ""
           }
-        },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the drafts."
+        }
       },
       "documents": {
-        "title": "Documents",
-        "description": "Our official documents and policies.",
+        "title": "",
+        "description": "",
         "error": {
-          "title": "Failed to load documents",
-          "description": "Please check your connection and try again later."
+          "title": "",
+          "description": ""
         },
         "empty": {
-          "title": "No documents yet",
-          "description": "Create your first document to get started.",
+          "title": "",
+          "description": "",
           "actions": {
-            "create": "Create Document"
+            "create": ""
           }
         },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the documents."
-      }
+        "load_more": "",
+        "end_of_list": ""
+      },
+      "load_more": "",
+      "end_of_list": ""
     },
     "forums": {
       "rimelight": {
         "meta": {
-          "title": "Rimelight Forums",
-          "description": "Join the Rimelight community discussions."
+          "title": "",
+          "description": ""
         },
-        "welcome": "Welcome to the Rimelight Forums. Connect with fellow community members and discuss all things Rimelight."
+        "welcome": ""
       },
       "grand_tale": {
         "meta": {
-          "title": "Grand Tale Forums",
-          "description": "Discuss Grand Tale with the community."
+          "title": "",
+          "description": ""
         },
-        "welcome": "Welcome to the Grand Tale Forums. Share strategies, stories, and connect with other players."
+        "welcome": ""
       }
     },
     "events": {
       "lightcon": {
         "meta": {
-          "title": "Lightcon",
-          "description": "Join us at Lightcon, our annual community event."
+          "title": "",
+          "description": ""
         },
-        "welcome": "Welcome to Lightcon! Join us for our annual community celebration featuring announcements, panels, and exclusive reveals."
+        "welcome": ""
       }
     },
     "store": {
       "meta": {
-        "title": "Store",
-        "description": "Shop for digital goods and merchandise."
+        "title": ""
       },
       "header": {
-        "cart": "Cart"
+        "cart": ""
+      }
+    },
+    "drafts": {
+      "posts": {
+        "empty": {
+          "description": ""
+        }
       }
     }
-  }
+  },
+  "auth_sign-up": "",
+  "auth_sign-in": "",
+  "toast_create_success": "",
+  "toast_create_error": "",
+  "page_branding_description": "",
+  "page_branding_title": "",
+  "page_branding_section_patterns_description": "",
+  "page_branding_section_patterns_heading": "",
+  "about_hero_title": "",
+  "about_hero_description": "",
+  "about_mission_title": "",
+  "about_mission_description": "",
+  "about_values_title": "",
+  "about_team_title": "",
+  "about_join_us_title": "",
+  "about_join_us_description": "",
+  "careers_hero_title": "",
+  "careers_hero_description": "",
+  "careers_culture_title": "",
+  "careers_culture_description": "",
+  "careers_benefits_title": "",
+  "careers_benefits_health_title": "",
+  "careers_benefits_health_desc": "",
+  "careers_benefits_time_title": "",
+  "careers_benefits_time_desc": "",
+  "careers_benefits_development_title": "",
+  "careers_benefits_development_desc": "",
+  "careers_benefits_gear_title": "",
+  "careers_benefits_gear_desc": "",
+  "careers_offices_title": "",
+  "careers_open_positions_title": "",
+  "careers_no_positions": ""
 }

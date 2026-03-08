@@ -16,9 +16,9 @@
 /* endregion */
 
 /* region State */
-const { t } = useI18n()
-const layerId = inject<string>("header_layer_id", "grand-tale-header")
-const { bottomOffsets } = useHeaderStack()
+const { t } = useI18n();
+const layerId = inject<string>("header_layer_id", "grand-tale-header");
+const { bottomOffsets } = useHeaderStack();
 
 const links = computed(() => [
   { label: "News", to: "/franchises/grand-tale/news" },
@@ -27,11 +27,11 @@ const links = computed(() => [
   { label: "Guides", to: "/franchises/grand-tale/guides" },
   { label: "Forums", to: "/franchises/grand-tale/forums" },
   { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
-])
+]);
 
-const rightLinks = computed(() => [{ label: "Support", to: "/franchises/grand-tale/support" }])
+const rightLinks = computed(() => [{ label: "Support", to: "/franchises/grand-tale/support" }]);
 
-const isSlideoverOpen = ref(false)
+const isSlideoverOpen = ref(false);
 
 /* endregion */
 
@@ -56,7 +56,10 @@ const isSlideoverOpen = ref(false)
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <NuxtLink to="/franchises/grand-tale">
-          <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png" class="size-10"/>
+          <NuxtImg
+            src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png"
+            class="size-10"
+          />
         </NuxtLink>
         <UNavigationMenu
           :items="links"
