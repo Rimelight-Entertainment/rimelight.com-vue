@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync": "git submodule update --init --recursive && git -C .rimelight-utilities fetch origin && git -C .rimelight-utilities checkout main && git -C .rimelight-utilities pull origin main && bun ./.rimelight-utilities/scripts/sync.ts && husky && nuxt prepare",
+    "sync": "git submodule update --init --recursive && git -C rimelight-utilities fetch origin && git -C rimelight-utilities checkout main && git -C rimelight-utilities pull origin main && bun ./rimelight-utilities/scripts/sync.ts && husky && nuxt prepare",
     "analyze": "nuxi analyze",
     "version:sync": "bun run scripts/bump-version.ts",
     "build": "bun run version:sync && nuxt build",
