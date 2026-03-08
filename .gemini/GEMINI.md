@@ -1,51 +1,50 @@
-# Global Rules for Rimelight Development (Gemini Version)
+# AI Coding Instructions
 
-## Code Style & Architecture
+> Expert AI coding assistant for a production-grade Nuxt 3 application using Bun, PostgreSQL, and TypeScript.
 
-- Always follow the existing code patterns in the project
-- Maintain consistency with the established architecture
-- Prefer composition over inheritance where possible
-- Follow the DRY (Don't Repeat Yourself) principle
+## Tech Stack
 
-## Naming Conventions
+- **Package Manager:** Bun
+- **Build Tool:** Bun
+- **Runtime:** Node (Development) / Wrangler (Production)
+- **Framework:** Nuxt, Vue
+- **Styling:** Tailwind CSS, Tailwind Variants, Nuxt UI
+- **Language:** TypeScript (Strict)
+- **Database:** PostgreSQL 18, Drizzle ORM (UUIDv7)
+- **Environment:** Windows 11, Powershell, Webstorm IDE
+- **Linting/Formatting:** Oxlint, Oxfmt (ESlint & Prettier-compatible)
 
-- Use camelCase for variable and function names
-- Use PascalCase for component and class names
-- Use UPPER_SNAKE_CASE for constants
-- Use kebab-case for file names
+## Quick Reference
 
-## TypeScript Best Practices
+### Build Commands
 
-- Always provide type annotations for function parameters and return types
-- Use interfaces over types for object shapes
-- Prefer readonly arrays and objects when mutation is not intended
-- Use strict null checks and handle nullable types appropriately
+Always use `bun` to run scripts:
 
-## Vue/Nuxt Specific Guidelines
+- **Check everything:** `bun run check` (types, linting, formatting)
+- **Type check only:** `bun run typecheck`
 
-- Follow Vue Style Guide recommendations
-- Use Composition API with `<script setup>` syntax
-- Organize component props in interfaces
-- Use descriptive names for slots and emits
-- Follow the SFC (Single File Component) structure with proper ordering
+## Environment & Shell
 
-## Testing
+- **OS:** Always assume Windows 11 PowerShell.
+- **Chain Commands:** Always use `;` to chain commands instead of `&&`.
+  - **Correct:** `bun install; bun run dev`
+  - **Incorrect:** `bun install && bun run dev`
 
-- Write unit tests for business logic
-- Use meaningful test descriptions
-- Follow AAA (Arrange, Act, Assert) pattern
-- Mock external dependencies appropriately
+### Critical Patterns
 
-## Performance
+1. **Data Fetching:** Use `useApi` / `$api` (not `useFetch` / `$fetch`)
+2. **Shared State:** Use `useState()` (not `ref()`) in composables
+3. **Component Prefix:** Use `ID` prefix for project-specific components
+4. **IDs:** Always use UUIDv7 for database primary keys
 
-- Optimize for minimal re-renders
-- Use computed properties for derived state
-- Implement proper caching strategies
-- Lazy-load components when appropriate
+## Detailed Rules
 
-## Security
+For comprehensive guidelines, see:
 
-- Sanitize user inputs
-- Validate data at boundaries
-- Follow OWASP security guidelines
-- Never expose sensitive information in client-side code
+- [Workspace Overview](./.gemini/rules/WORKSPACE.md) - Project-specific guidelines and general rules
+- [TypeScript Conventions](./.gemini/rules/typescript-conventions.md) - Strict typing, interfaces, no enums, no classes
+- [Component Architecture](./.gemini/rules/component-architecture.md) - Script setup order, naming, prop patterns
+- [Nuxt Specifics](./.gemini/rules/nuxt-specifics.md) - Composition API, auto-imports, SSR safety, data fetching
+- [UI & Styling](./.gemini/rules/ui-styling.md) - Tailwind 4, Nuxt UI components, theme variables
+- [Data Management](./.gemini/rules/data-management.md) - PostgreSQL, Drizzle ORM, server API patterns
+- [Workflow](./.gemini/rules/workflow.md) - Solution strategy, code delivery, verification steps

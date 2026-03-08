@@ -4,13 +4,15 @@
 
 ## Tech Stack
 
-- **Runtime:** Bun
-- **Framework:** Nuxt 3 (Nightly), Vue 3
-- **Styling:** Tailwind CSS 4, Nuxt UI (v3+), Tailwind Variants
+- **Package Manager:** Bun
+- **Build Tool:** Bun
+- **Runtime:** Node (Development) / Wrangler (Production)
+- **Framework:** Nuxt, Vue
+- **Styling:** Tailwind CSS, Tailwind Variants, Nuxt UI
 - **Language:** TypeScript (Strict)
 - **Database:** PostgreSQL 18, Drizzle ORM (UUIDv7)
-- **Environment:** Windows 11, Webstorm IDE
-- **Linting/Formatting:** Oxlint, Oxfmt (Prettier-compatible)
+- **Environment:** Windows 11, Powershell, Webstorm IDE
+- **Linting/Formatting:** Oxlint, Oxfmt (ESlint & Prettier-compatible)
 
 ## Quick Reference
 
@@ -20,6 +22,13 @@ Always use `bun` to run scripts:
 
 - **Check everything:** `bun run check` (types, linting, formatting)
 - **Type check only:** `bun run typecheck`
+
+## Environment & Shell
+
+- **OS:** Always assume Windows 11 PowerShell.
+- **Chain Commands:** Always use `;` to chain commands instead of `&&`.
+  - **Correct:** `bun install; bun run dev`
+  - **Incorrect:** `bun install && bun run dev`
 
 ### Critical Patterns
 
@@ -32,9 +41,10 @@ Always use `bun` to run scripts:
 
 For comprehensive guidelines, see:
 
-- [TypeScript Conventions](./.agent/rules/typescript-conventions.md) - Strict typing, interfaces, no enums, no classes
-- [Component Architecture](./.agent/rules/component-architecture.md) - Script setup order, naming, prop patterns
-- [Nuxt Specifics](./.agent/rules/nuxt-specifics.md) - Composition API, auto-imports, SSR safety, data fetching
-- [UI & Styling](./.agent/rules/ui-styling.md) - Tailwind 4, Nuxt UI components, theme variables
-- [Data Management](./.agent/rules/data-management.md) - PostgreSQL, Drizzle ORM, server API patterns
-- [Workflow](./.agent/rules/workflow.md) - Solution strategy, code delivery, verification steps
+- [Workspace Overview](./.gemini/rules/WORKSPACE.md) - Project-specific guidelines and general rules
+- [TypeScript Conventions](./.gemini/rules/typescript-conventions.md) - Strict typing, interfaces, no enums, no classes
+- [Component Architecture](./.gemini/rules/component-architecture.md) - Script setup order, naming, prop patterns
+- [Nuxt Specifics](./.gemini/rules/nuxt-specifics.md) - Composition API, auto-imports, SSR safety, data fetching
+- [UI & Styling](./.gemini/rules/ui-styling.md) - Tailwind 4, Nuxt UI components, theme variables
+- [Data Management](./.gemini/rules/data-management.md) - PostgreSQL, Drizzle ORM, server API patterns
+- [Workflow](./.gemini/rules/workflow.md) - Solution strategy, code delivery, verification steps

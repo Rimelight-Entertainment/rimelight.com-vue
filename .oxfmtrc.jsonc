@@ -1,3 +1,12 @@
 {
-  "extends": ["./.rimelight-utilities/.oxfmtrc.json"],
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    ".drizzle/",
+    "src-tauri/",
+    "backups/"
+  ],
+  "allowTrailingCommas": false,
+  "semi": false,
+  "trailingComma": "none",
+  "bracketSpacing": true
 }

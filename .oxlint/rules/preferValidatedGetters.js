@@ -1,38 +1,19 @@
-import { defineRule } from "oxlint";
-
-/**
- * Rule: prefer-validated-getters
- *
- * Rationale:
- * Using getQuery or readBody without validation bypasses type safety and can
- * lead to runtime errors if the input doesn't match expectations.
- * Nuxt provides getValidatedQuery and readValidatedBody to ensure inputs
- * match a schema (e.g., Zod).
- *
- * Incorrect:
- * const query = getQuery(event)
- * const body = await readBody(event)
- *
- * Correct:
- * const query = await getValidatedQuery(event, schema)
- * const body = await readValidatedBody(event, schema)
- */
-export const preferValidatedGetters = defineRule({
+export const preferValidatedGetters = {
   meta: {
     type: "suggestion",
     docs: {
       description:
         "Enforce usage of validated getters (getValidatedQuery, readValidatedBody) in Nuxt event handlers.",
       category: "Best Practices",
-      recommended: true,
+      recommended: true
     },
     schema: [],
     messages: {
       preferValidatedQuery:
         "Use getValidatedQuery(event, schema) instead of getQuery(event) for better type safety.",
       preferValidatedBody:
-        "Use readValidatedBody(event, schema) instead of readBody(event) for better type safety.",
-    },
+        "Use readValidatedBody(event, schema) instead of readBody(event) for better type safety."
+    }
   },
 
   create(context) {
@@ -42,8 +23,8 @@ export const preferValidatedGetters = defineRule({
         if (node.callee.type === "Identifier" && node.callee.name === "getQuery") {
           context.report({
             node,
-            messageId: "preferValidatedQuery",
-          });
+            messageId: "preferValidatedQuery"
+          })
         }
 
         // Handle readBody/getBody -> readValidatedBody
@@ -53,10 +34,10 @@ export const preferValidatedGetters = defineRule({
         ) {
           context.report({
             node,
-            messageId: "preferValidatedBody",
-          });
+            messageId: "preferValidatedBody"
+          })
         }
-      },
-    };
-  },
-});
+      }
+    }
+  }
+}

@@ -1,19 +1,20 @@
-import { definePlugin } from "oxlint";
-import { componentPropsStandard } from "./rules/componentPropsStandard.js";
-import { componentEmitsStandard } from "./rules/componentEmitsStandard.js";
-import { preferValidatedGetters } from "./rules/preferValidatedGetters.js";
-import { iconifyStandardFormat } from "./rules/iconifyStandardFormat.js";
-import { vueSfcStructure } from "./rules/vueSfcStructure.js";
+import { componentPropsStandard } from "./rules/componentPropsStandard.js"
+import { componentEmitsStandard } from "./rules/componentEmitsStandard.js"
+import { preferValidatedGetters } from "./rules/preferValidatedGetters.js"
+import { iconifyStandardFormat } from "./rules/iconifyStandardFormat.js"
+import { vueComponentStructure } from "./rules/vueComponentStructure.js"
+import {vuePageStructure} from "./rules/vuePageStructure.js";
 
-export default definePlugin({
+export default {
   meta: {
-    name: "rimelight",
+    name: "rimelight"
   },
   rules: {
     "component-props-standard": componentPropsStandard,
     "component-emits-standard": componentEmitsStandard,
     "prefer-validated-getters": preferValidatedGetters,
     "iconify-standard-format": iconifyStandardFormat,
-    "vue-sfc-structure": vueSfcStructure,
-  },
-});
+    "vue-component-structure": vueComponentStructure,
+    "vue-page-structure": vuePageStructure
+  }
+}
