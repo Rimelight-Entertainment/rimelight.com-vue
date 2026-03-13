@@ -124,8 +124,10 @@ export default defineNuxtConfig({
   security: {
     headers: {
       contentSecurityPolicy: {
-        "img-src": ["https://cdn.rimelight.com"],
-        "connect-src": ["https://rimelight.com"]
+        "img-src": ["'self'", "data:", "https://cdn.rimelight.com", "https://i.ytimg.com", "https://*.youtube.com"],
+        "connect-src": ["'self'", "https://rimelight.com", "https://*.youtube.com"],
+        "frame-src": ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
+        "script-src": ["'self'", "https:", "'unsafe-inline'", "'strict-dynamic'", "'nonce-{{nonce}}'", "https://www.youtube.com", "https://s.ytimg.com"]
       }
     }
   },
