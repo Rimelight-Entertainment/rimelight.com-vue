@@ -9,11 +9,6 @@ const localLayerPath = resolve(currentDir, "../rimelight-components");
 const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
-  compatibilityDate: "2026-02-13",
-  future: {
-    compatibilityVersion: 5,
-  },
-
   extends: [
     [
       isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
@@ -35,19 +30,19 @@ export default defineNuxtConfig({
         // Daily at midnight
         "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
       },
-      routeRules: {
-        "/documents/**": { isr: 3600 },
-        "/blog/**": { isr: 3600 },
-        "/dashboard/**": {
-          ssr: false,
-          appLayout: "dashboard",
-        },
-        "/store/**": {
-          appLayout: "store",
-        },
-        "/franchises/grand-tale/**": {
-          appLayout: "grand-tale",
-        },
+  routeRules: {
+    "/documents/**": { isr: true },
+    "/blog/**": { isr: true },
+    "/dashboard/**": {
+      ssr: false,
+      appLayout: "dashboard",
+    },
+    "/store/**": {
+      appLayout: "store",
+    },
+    "/franchises/grand-tale/**": {
+      appLayout: "grand-tale",
+    },
       },
     },
     site: {
@@ -108,23 +103,42 @@ export default defineNuxtConfig({
           content: "Rimelight Entertainment",
         },
       ],
+      link: [
+        {
+          rel: "icon",
+          type: "image/svg+xml",
+          href: "/favicon.svg",
+        },
+        {
+          rel: "preconnect",
+          href: "https://cdn.rimelight.com",
+        },
+        {
+          rel: "dns-prefetch",
+          href: "https://cdn.rimelight.com",
+        },
+      ],
     },
   },
 
   security: {
     headers: {
       contentSecurityPolicy: {
-        "img-src": [
-          "https://cdn.rimelight.com",
-        ],
-        "connect-src": [
-          "https://cdn.rimelight.com",
-        ],
-      },
-    },
+        "img-src": ["https://cdn.rimelight.com"],
+        "connect-src": ["https://rimelight.com"]
+      }
+    }
   },
 
   i18n: {
+    strategy: "prefix_except_default",
+    defaultLocale: "en",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      cookieSecure: true,
+      alwaysRedirect: false,
+    },
     locales: [
       //{
       //  code: "ar",
@@ -134,6 +148,7 @@ export default defineNuxtConfig({
       {
         code: "en",
         name: "English",
+        language: "en-US",
         file: "en.json",
       },
       //{
@@ -159,6 +174,7 @@ export default defineNuxtConfig({
       {
         code: "pt",
         name: "Português",
+        language: "pt-BR",
         file: "pt.json",
       },
       //{
@@ -199,6 +215,7 @@ export default defineNuxtConfig({
   },
 
   image: {
+    domains: ["rimelight.com"],
     cloudflare: {
       baseURL: "https://cdn.rimelight.com",
     },
