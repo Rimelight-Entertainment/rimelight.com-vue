@@ -1,5 +1,0 @@
-[install]
-#minimumReleaseAge = 259200 # Seconds = 3 Days
-minimumReleaseAgeExcludes = [
-  "rimelight-components"
-]

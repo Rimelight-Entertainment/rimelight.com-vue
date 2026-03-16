@@ -34,11 +34,16 @@ export const componentEmitsStandard = {
       CallExpression(node) {
         if (node.callee.type !== "Identifier" || node.callee.name !== "defineEmits") return
 
-        // Skip if this line already has a TODO comment referencing this rule
+        // Skip if this line already has a comment referencing this rule
         const sourceCode = context.sourceCode
         const nodeRange = node.range
-        const textBeforeNode = sourceCode.getText().slice(Math.max(0, nodeRange[0] - 200), nodeRange[0])
-        if (textBeforeNode.includes("TODO") && textBeforeNode.includes("component-emits-standard")) {
+        const textBeforeNode = sourceCode
+          .getText()
+          .slice(Math.max(0, nodeRange[0] - 200), nodeRange[0])
+        if (
+          textBeforeNode.includes("TODO") &&
+          textBeforeNode.includes("component-emits-standard")
+        ) {
           return
         }
 
@@ -95,12 +100,16 @@ export const componentEmitsStandard = {
                     if (eventName) {
                       // Successfully extracted event name, convert to tuple syntax
                       const payloadTypes = additionalParams.map((param) => {
-                        if (param.type === "TSParameterProperty" && param.parameter.typeAnnotation) {
+                        if (
+                          param.type === "TSParameterProperty" &&
+                          param.parameter.typeAnnotation
+                        ) {
                           return sourceCode.getText(param.parameter.typeAnnotation.typeAnnotation)
                         }
                         return sourceCode.getText(param)
                       })
-                      const tupleType = payloadTypes.length > 0 ? `[${payloadTypes.join(", ")}]` : "[]"
+                      const tupleType =
+                        payloadTypes.length > 0 ? `[${payloadTypes.join(", ")}]` : "[]"
                       convertedMembers.push(`  ${eventName}: ${tupleType}`)
                     } else {
                       // Can't extract event name, mark as complex
@@ -147,7 +156,7 @@ export const componentEmitsStandard = {
               // If there's a complex signature we couldn't fully convert, keep the original defineEmits
               // functional and add a comment explaining what needs to be done manually
               if (hasComplexSignature) {
-                // Keep original functional, just add interface + TODO comment referencing the rule
+                // Keep original functional, just add interface + comment referencing the rule
                 return fixer.insertTextBefore(
                   targetNode,
                   `${interfaceCode}// TODO: See custom linting rule 'component-emits-standard' for manual conversion\n`

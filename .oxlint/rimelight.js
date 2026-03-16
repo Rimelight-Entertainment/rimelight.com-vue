@@ -1,9 +1,9 @@
-import { componentPropsStandard } from "./rules/componentPropsStandard.js"
 import { componentEmitsStandard } from "./rules/componentEmitsStandard.js"
-import { preferValidatedGetters } from "./rules/preferValidatedGetters.js"
+import { componentPropsStandard } from "./rules/componentPropsStandard.js"
 import { iconifyStandardFormat } from "./rules/iconifyStandardFormat.js"
+import { preferValidatedGetters } from "./rules/preferValidatedGetters.js"
 import { vueComponentStructure } from "./rules/vueComponentStructure.js"
-import {vuePageStructure} from "./rules/vuePageStructure.js";
+import { vuePageStructure } from "./rules/vuePageStructure.js"
 
 export default {
   meta: {

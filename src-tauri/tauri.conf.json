@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "identifier": "com.rimelight.tapp",
   "build": {
-    "beforeDevCommand": "bun dev",
-    "beforeBuildCommand": "bun build:tauri",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build:tauri",
     "devUrl": "http://127.0.0.1:3000",
     "frontendDist": "../dist",
     "removeUnusedCommands": true

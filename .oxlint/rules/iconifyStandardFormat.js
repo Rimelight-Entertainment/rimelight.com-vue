@@ -13,7 +13,7 @@ export const iconifyStandardFormat = {
   },
 
   create(context) {
-    const iconRegex = /^i-([a-z0-9]+)-(.+)$/
+    const iconRegex = /^i-([a-z0-9]+(?:-[a-z0-9]+)?)-([a-z0-9]+(?:-[a-z0-9]+)?)$/
 
     function checkAndFix(node, value) {
       if (typeof value !== "string") return
