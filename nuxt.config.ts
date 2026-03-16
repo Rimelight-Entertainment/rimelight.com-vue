@@ -1,3 +1,4 @@
+import { isCI } from "std-env";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -24,26 +25,30 @@ export default defineNuxtConfig({
     site: { indexable: false },
   },
 
+  $test: {},
+
   $production: {
     nitro: {
       scheduledTasks: {
         // Daily at midnight
         "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
       },
-  routeRules: {
-    "/documents/**": { isr: true },
-    "/blog/**": { isr: true },
-    "/dashboard/**": {
-      ssr: false,
-      appLayout: "dashboard",
-    },
-    "/store/**": {
-      appLayout: "store",
-    },
-    "/franchises/grand-tale/**": {
-      appLayout: "grand-tale",
-    },
+    routeRules: {
+      "/": { prerender: true },
+      "/api/**": { isr: 60 },
+      "/documents/**": { isr: true },
+      "/blog/**": { isr: true },
+      "/dashboard/**": {
+        ssr: false,
+        appLayout: "dashboard",
       },
+      "/store/**": {
+        appLayout: "store",
+      },
+      "/franchises/grand-tale/**": {
+        appLayout: "grand-tale",
+      },
+    },
     },
     site: {
       url: "https://rimelight.com",
@@ -82,6 +87,48 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
       isTauri,
     },
+  },
+
+  pwa: {
+    manifest: {
+      name: "Rimelight Entertainment",
+      short_name: "Rimelight",
+      description: "Tell your story.",
+      theme_color: "#0a0a0a",
+      background_color: "#0a0a0a",
+      icons: [
+        {
+          src: "pwa-64x64.png",
+          sizes: "64x64",
+          type: "image/png"
+        },
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png"
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any"
+        },
+        {
+          src: "maskable-icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable"
+        }
+      ]
+    }
+  },
+
+  htmlValidator: {
+    enabled: !isCI,
+    options: {
+      rules: { "meta-refresh": "off" }
+    },
+    failOnError: true
   },
 
   app: {

@@ -1,10 +1,11 @@
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { defineVitestProject } from "@nuxt/test-utils/config"
-import { playwright } from "@vitest/browser-playwright"
 import { defineConfig } from "vite-plus"
+import { defineVitestProject } from "@nuxt/test-utils/config"
+import { playwright } from "vite-plus/test/browser-playwright"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+const rootDir = fileURLToPath(new URL(".", import.meta.url))
 
 export default defineConfig({
   server: {},
@@ -13,40 +14,54 @@ export default defineConfig({
   test: {
     projects: [
       {
+        resolve: {
+          alias: {
+            "~": resolve(__dirname, "app"),
+            "#shared": resolve(__dirname, "shared"),
+            "#server": resolve(__dirname, "server")
+          }
+        },
         test: {
           name: "unit",
-          include: ["test/unit/*.{test,spec}.ts"],
+          include: ["test/unit/**/*.{test,spec}.ts"],
           environment: "node"
         }
       },
       await defineVitestProject({
         test: {
           name: "nuxt",
-          include: ["test/nuxt/*.{test,spec}.ts"],
+          include: ["test/nuxt/**/*.{test,spec}.ts"],
           environment: "nuxt",
           environmentOptions: {
             nuxt: {
-              rootDir: fileURLToPath(new URL(".", import.meta.url))
+              rootDir: fileURLToPath(new URL(".", import.meta.url)),
+              overrides: {
+                vue: {
+                  runtimeCompiler: true
+                },
+                experimental: {
+                  payloadExtraction: false,
+                  viteEnvironmentApi: false
+                },
+                pwa: {
+                  pwaAssets: { disabled: true }
+                },
+                ogImage: { enabled: false }
+              }
             }
           },
           browser: {
             enabled: true,
             provider: playwright(),
-            instances: [{ browser: "chromium" }]
+            instances: [{ browser: "chromium", headless: true }]
           }
         }
-      }),
-      {
-        test: {
-          name: "e2e",
-          include: ["test/e2e/*.{test,spec}.ts"],
-          environment: "node"
-        }
-      }
+      })
     ],
     coverage: {
       enabled: true,
-      provider: "v8"
+      provider: "v8",
+      exclude: ["**/node_modules/**", "dist/**", ".agent/**", "src-tauri/**"]
     }
   },
   lint: {

@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/@lunariajs/core/config.schema.json",
+  "repository": {
+    "name": "idantitydotme/danielmarchi.dev",
+    "branch": "main",
+    "hosting": "github"
+  },
+  "defaultLocale": {
+    "label": "English",
+    "lang": "en"
+  },
+  "locales": [
+    {
+      "label": "English",
+      "lang": "en"
+    },
+    {
+      "label": "Português",
+      "lang": "pt"
+    }
+  ],
+  "files": [
+    {
+      "location": "**/*.md",
+      "pattern": "@lang/@path",
+      "type": "universal"
+    },
+    {
+      "location": "ui/**/*.{json,yml}",
+      "pattern": "ui/@lang/@path",
+      "type": "dictionary",
+      "optionalKeys": {
+        "ui/nav.json": ["footer", "sidebar"],
+        "ui/ui.yml": ["search"]
+      }
+    }
+  ]
+}
