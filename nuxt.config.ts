@@ -1,9 +1,8 @@
 import { defu } from "defu"
 import { rimelightViteConfig } from "./.rimelight/rimelight.vite"
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
-import { isCI } from "std-env";
 import { isCI } from "std-env";
 
 
@@ -97,40 +96,6 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
       isTauri,
     },
-  },
-
-  pwa: {
-    manifest: {
-      name: "Rimelight Entertainment",
-      short_name: "Rimelight",
-      description: "Tell your story.",
-      theme_color: "#0a0a0a",
-      background_color: "#0a0a0a",
-      icons: [
-        {
-          src: "pwa-64x64.png",
-          sizes: "64x64",
-          type: "image/png"
-        },
-        {
-          src: "pwa-192x192.png",
-          sizes: "192x192",
-          type: "image/png"
-        },
-        {
-          src: "pwa-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any"
-        },
-        {
-          src: "maskable-icon-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "maskable"
-        }
-      ]
-    }
   },
 
   htmlValidator: {
