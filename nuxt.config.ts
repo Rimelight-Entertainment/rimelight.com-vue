@@ -1,14 +1,13 @@
 import { defu } from "defu"
-import { rimelightViteConfig } from "./rimelight.vite"
+import { rimelightViteConfig } from "./.rimelight/rimelight.vite"
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
 import { isCI } from "std-env";
-import { defineVitestProject } from "@nuxt/test-utils/config";
-import { playwright } from "vite-plus/test/browser-playwright";
+import { isCI } from "std-env";
+
 
 const isTauri = process.env.NUXT_APP_TARGET === "tauri";
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
 const localLayerPath = resolve(currentDir, "../rimelight-components");
 const isLocalLayer = existsSync(localLayerPath);
@@ -62,43 +61,19 @@ export default defineNuxtConfig({
   },
 
   vite: defu({
-    clearScreen: false,
     envPrefix: ["TAURI_"],
     server: {
       watch: {
-        ignored: ["**/src-tauri/**"]
-      }
+        ignored: ["**/src-tauri/**"],
+      },
     },
     build: {},
     preview: {},
-    test: {
-      projects: [
-        {
-          resolve: {
-            alias: {
-              "~": resolve(__dirname, "app"),
-              "#shared": resolve(__dirname, "shared"),
-              "#server": resolve(__dirname, "server")
-            }
-          }
-        },
-        await defineVitestProject({
-          test: {
-            environmentOptions: {
-              nuxt: {
-                rootDir: fileURLToPath(new URL(".", import.meta.url))
-              }
-            }
-          }
-        })
-      ]
-    },
-    lint: {
-      jsPlugins: [resolve(__dirname, "./.oxlint/rimelight.js")]
-    },
+    test: {},
+    lint: {},
     run: {},
     pack: {},
-    staged: {}
+    staged: {},
   }, rimelightViteConfig),
 
   alias: {
