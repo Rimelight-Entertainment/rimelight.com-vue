@@ -16,44 +16,53 @@
     "url": "git+https://github.com/Rimelight-Entertainment/rimelight.com.git"
   },
   "scripts": {
-    "analyze": "nuxi analyze",
+    "postinstall": "nuxt prepare",
+    "prepare": "vp config",
+    "analyze": "nuxt analyze",
     "build": "nuxt build --profile=verbose",
-    "build:android": "pnpm version:sync && pnpm generate && pnpm tauri android build --target aarch64 armv7",
-    "build:tauri": "NUXT_PUBLIC_API_BASE=https://rimelight.com NUXT_APP_TARGET=tauri pnpm generate",
+    "build:lunaria": "node ./lunaria/lunaria.ts",
     "dev": "nuxt dev",
-    "dev:tauri": "tauri dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "i18n": "vue-i18n-extract report --vueFiles \"./{app,server,shared,auth,types}/**/*.?(js|vue|ts)\" --languageFiles \"./i18n/locales/*.?(json|yml|yaml|js)\"",
     "i18n:add": "vue-i18n-extract report --vueFiles \"./{app,server,shared,auth,types}/**/*.?(js|vue|ts)\" --languageFiles \"./i18n/locales/*.?(json|yml|yaml|js)\" --add",
     "i18n:remove": "vue-i18n-extract report --vueFiles \"./{app,server,shared,auth,types}/**/*.?(js|vue|ts)\" --languageFiles \"./i18n/locales/*.?(json|yml|yaml|js)\" --remove",
     "i18n:fix": "vue-i18n-extract report --vueFiles \"./{app,server,shared,auth,types}/**/*.?(js|vue|ts)\" --languageFiles \"./i18n/locales/*.?(json|yml|yaml|js)\" --add --remove",
-    "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
-    "db:migrate": "drizzle-kit migrate",
-    "tauri": "tauri"
+    "knip": "knip",
+    "knip:fix": "knip --fix",
+    "tauri": "tauri",
+    "dev:tauri": "tauri dev",
+    "build:android": "pnpm version:sync && pnpm generate && pnpm tauri android build --target aarch64 armv7",
+    "build:tauri": "NUXT_PUBLIC_API_BASE=https://idantity.me NUXT_APP_TARGET=tauri pnpm generate"
   },
   "dependencies": {
-    "cobe": "^0.6.5",
-    "std-env": "^4.0.0"
+    "cobe": "^0.6.5"
   },
   "devDependencies": {
     "@nuxt/a11y": "1.0.0-alpha.1",
-    "@nuxt/devtools": "^3.2.4",
     "@nuxt/hints": "^1.0.0",
-    "@nuxt/test-utils": "^4.0.0",
+    "@nuxt/test-utils": "4.0.0",
     "@tauri-apps/cli": "^2.10.1",
-    "@vitest/coverage-v8": "4.1.0",
+    "@valibot/to-json-schema": "^1.5.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0",
     "@vue/test-utils": "^2.4.6",
-    "changelogen": "^0.6.2",
     "drizzle-kit": "^0.31.10",
     "knip": "^5.87.0",
-    "rimelight-cli": "github:Rimelight-Entertainment/rimelight-cli",
-    "typescript": "^5.9.3",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@0.0.0-gd42e0ca6.20260225-0619",
+    "vite-plus": "latest",
     "vue-i18n-extract": "^2.0.7",
     "vue-tsc": "^3.2.6",
-    "wrangler": "^4.74.0"
+    "wrangler": "^4.75.0"
   },
-  "packageManager": "pnpm@10.32.1"
+  "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "better-sqlite3",
+      "esbuild",
+      "sharp",
+      "vue-demi",
+      "workerd"
+    ]
+  }
 }
