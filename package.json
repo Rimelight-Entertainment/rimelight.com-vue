@@ -17,8 +17,7 @@
   },
   "scripts": {
     "analyze": "nuxi analyze",
-    "build": "pnpm version:sync && nuxt build",
-    "build:web": "pnpm build",
+    "build": "nuxt build --profile=verbose",
     "build:android": "pnpm version:sync && pnpm generate && pnpm tauri android build --target aarch64 armv7",
     "build:tauri": "NUXT_PUBLIC_API_BASE=https://rimelight.com NUXT_APP_TARGET=tauri pnpm generate",
     "dev": "nuxt dev",
@@ -40,20 +39,20 @@
   },
   "devDependencies": {
     "@nuxt/a11y": "1.0.0-alpha.1",
-    "@nuxt/devtools": "^3.2.3",
+    "@nuxt/devtools": "^3.2.4",
     "@nuxt/hints": "^1.0.0",
     "@nuxt/test-utils": "^4.0.0",
     "@tauri-apps/cli": "^2.10.1",
     "@vitest/coverage-v8": "4.1.0",
     "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.6.2",
-    "drizzle-kit": "^0.31.9",
+    "drizzle-kit": "^0.31.10",
     "knip": "^5.87.0",
     "rimelight-cli": "github:Rimelight-Entertainment/rimelight-cli",
     "typescript": "^5.9.3",
     "vitest": "npm:@voidzero-dev/vite-plus-test@0.0.0-gd42e0ca6.20260225-0619",
     "vue-i18n-extract": "^2.0.7",
-    "vue-tsc": "^3.2.5",
+    "vue-tsc": "^3.2.6",
     "wrangler": "^4.74.0"
   },
   "packageManager": "pnpm@10.32.1"

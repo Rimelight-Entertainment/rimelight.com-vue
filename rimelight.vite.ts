@@ -1,13 +1,11 @@
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { defineConfig } from "vite-plus"
 import { defineVitestProject } from "@nuxt/test-utils/config"
 import { playwright } from "vite-plus/test/browser-playwright"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const rootDir = fileURLToPath(new URL(".", import.meta.url))
 
-export default defineConfig({
+export const rimelightViteConfig = {
   server: {},
   build: {},
   preview: {},
@@ -104,4 +102,4 @@ export default defineConfig({
   run: {},
   pack: {},
   staged: {}
-})
+}
