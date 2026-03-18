@@ -1,26 +1,27 @@
-import { readValidatedBody } from "h3";
-import { z } from "zod";
-import { getUserSession } from "#server/utils/session";
-import { db, todo } from "#server/db";
+import * as v from "valibot"
+import { getUserSession } from "#server/utils/session"
+import { db, todo } from "#server/db"
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event);
-  const userId = session?.user?.id;
+  const session = await getUserSession(event)
+  const userId = session?.user?.id
 
   if (!userId) {
     throw createError({
       statusCode: 401,
-      statusMessage: "Unauthorized",
-    });
+      statusMessage: "Unauthorized"
+    })
   }
 
-  const { title, description } = await readValidatedBody(
-    event,
-    z.object({
-      title: z.string().min(1),
-      description: z.string().optional(),
-    }).parse,
-  );
+  const { title, description } = await readValidatedBody(event, (body) =>
+    v.parse(
+      v.object({
+        title: v.pipe(v.string(), v.minLength(1)),
+        description: v.optional(v.string())
+      }),
+      body
+    )
+  )
 
   try {
     const newTodo = await db
@@ -30,16 +31,16 @@ export default defineEventHandler(async (event) => {
         title,
         description,
         completed: false,
-        isArchived: false,
+        isArchived: false
       })
-      .returning();
+      .returning()
 
-    return newTodo[0];
+    return newTodo[0]
   } catch (error) {
-    console.error("Failed to create todo:", error);
+    console.error("Failed to create todo:", error)
     throw createError({
       statusCode: 500,
-      statusMessage: "Internal Server Error",
-    });
+      statusMessage: "Internal Server Error"
+    })
   }
-});
+})

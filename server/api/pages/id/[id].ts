@@ -1,44 +1,43 @@
-import { eq } from "drizzle-orm";
+import { eq } from "drizzle-orm"
+import * as v from "valibot"
+import { getUserSession } from "#server/utils/session"
+import { db, pages, pageVersions } from "#server/db"
 
-import { z } from "zod";
-import { getUserSession } from "#server/utils/session";
-import { db, pages, pageVersions } from "#server/db";
+const localizedSchema = v.record(v.string(), v.any())
 
-const localizedSchema = z.record(z.string(), z.any());
-
-const updatePageVersionSchema = z.object({
-  slug: z.string().optional(),
-  title: z.string().or(localizedSchema).optional(),
-  description: z.string().or(localizedSchema).optional(),
-  tags: z.array(z.string().or(localizedSchema)).optional(),
-  authorIds: z.array(z.string()).optional(),
-  properties: z.record(z.string(), z.any()).optional(),
-  blocks: z.array(z.any()).optional(),
-  postedAt: z.string().or(z.date()).optional(),
-});
+const updatePageVersionSchema = v.object({
+  slug: v.optional(v.string()),
+  title: v.optional(v.union([v.string(), localizedSchema])),
+  description: v.optional(v.union([v.string(), localizedSchema])),
+  tags: v.optional(v.array(v.union([v.string(), localizedSchema]))),
+  authorIds: v.optional(v.array(v.string())),
+  properties: v.optional(v.record(v.string(), v.any())),
+  blocks: v.optional(v.array(v.any())),
+  postedAt: v.optional(v.union([v.string(), v.date()]))
+})
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
-  const body = await readValidatedBody(event, updatePageVersionSchema.parse);
-  const session = await getUserSession(event);
+  const id = getRouterParam(event, "id")
+  const body = await readValidatedBody(event, (body) => v.parse(updatePageVersionSchema, body))
+  const session = await getUserSession(event)
 
   // 1. Validation & Security
-  if (!id) throw createError({ statusCode: 400, statusMessage: "Missing ID" });
+  if (!id) throw createError({ statusCode: 400, statusMessage: "Missing ID" })
 
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member";
+  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member"
   if (!isAuthorized) {
-    throw createError({ statusCode: 403, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 403, statusMessage: "Unauthorized" })
   }
 
   if (!session?.user?.id) {
-    throw createError({ statusCode: 401, statusMessage: "User not authenticated" });
+    throw createError({ statusCode: 401, statusMessage: "User not authenticated" })
   }
 
   // 2. Verify page exists
-  const [existingPage] = await db.select().from(pages).where(eq(pages.id, id)).limit(1);
+  const [existingPage] = await db.select().from(pages).where(eq(pages.id, id)).limit(1)
 
   if (!existingPage) {
-    throw createError({ statusCode: 404, statusMessage: "Page not found" });
+    throw createError({ statusCode: 404, statusMessage: "Page not found" })
   }
 
   // 3. Create a new version instead of directly updating
@@ -53,20 +52,20 @@ export default defineEventHandler(async (event) => {
     authorIds: body.authorIds || [],
     content: {
       properties: body.properties || {},
-      blocks: body.blocks || [],
+      blocks: body.blocks || []
     },
     postedAt: body.postedAt ? new Date(body.postedAt) : null,
-    createdBy: session.user.id,
-  };
+    createdBy: session.user.id
+  }
 
   try {
-    const [newVersion] = await db.insert(pageVersions).values(versionData).returning();
+    const [newVersion] = await db.insert(pageVersions).values(versionData).returning()
 
     if (!newVersion) {
       throw createError({
         statusCode: 500,
-        statusMessage: "Failed to create page version",
-      });
+        statusMessage: "Failed to create page version"
+      })
     }
 
     // Return the version with a message indicating it's pending approval
@@ -74,13 +73,13 @@ export default defineEventHandler(async (event) => {
       ...newVersion,
       blocks: newVersion.content.blocks,
       properties: newVersion.content.properties,
-      message: "Page changes saved as a new version pending approval",
-    };
+      message: "Page changes saved as a new version pending approval"
+    }
   } catch (error: any) {
-    console.error("Version Creation Error:", error);
+    console.error("Version Creation Error:", error)
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to create page version",
-    });
+      statusMessage: error.message || "Failed to create page version"
+    })
   }
-});
+})

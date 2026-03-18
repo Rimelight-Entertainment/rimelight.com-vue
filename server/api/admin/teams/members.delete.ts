@@ -1,28 +1,26 @@
-import { db, teamMember } from "#server/db";
-import { requireAdminOrOwner } from "#server/utils/session";
-import { and, eq } from "drizzle-orm";
+import * as v from "valibot"
+import { and, eq } from "drizzle-orm"
+import { db, teamMember } from "#server/db"
+import { requireAdminOrOwner } from "#server/utils/session"
+
+const schema = v.object({
+  teamId: v.pipe(v.string(), v.uuid()),
+  userId: v.pipe(v.string(), v.uuid())
+})
 
 export default defineEventHandler(async (event) => {
-  await requireAdminOrOwner(event);
+  await requireAdminOrOwner(event)
 
-  const query = getQuery(event);
-  const teamId = query.teamId as string;
-  const userId = query.userId as string;
-
-  if (!teamId || !userId) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Missing required fields: teamId, userId",
-    });
-  }
+  const query = await getValidatedQuery(event, (data) => v.parse(schema, data))
+  const { teamId, userId } = query
 
   try {
     await db
       .delete(teamMember)
-      .where(and(eq(teamMember.teamId, teamId), eq(teamMember.userId, userId)));
+      .where(and(eq(teamMember.teamId, teamId), eq(teamMember.userId, userId)))
   } catch (e: any) {
-    throw e;
+    throw e
   }
 
-  return { success: true };
-});
+  return { success: true }
+})

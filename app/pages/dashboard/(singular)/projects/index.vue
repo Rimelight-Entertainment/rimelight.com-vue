@@ -1,61 +1,61 @@
 <script lang="ts" setup>
-import { format } from "date-fns";
+import { format } from "date-fns"
 
-import { navigateTo } from "#app";
-import { z } from "zod";
+import { navigateTo } from "#app"
+import * as v from "valibot"
 
 definePageMeta({
-  layout: "dashboard",
-});
+  layout: "dashboard"
+})
 
-const toast = useToast();
+const toast = useToast()
 
 // --- State ---
-const isCreateModalOpen = ref(false);
+const isCreateModalOpen = ref(false)
 const createBoardState = ref({
   title: "",
-  description: "",
-});
+  description: ""
+})
 
 // --- Data Fetching ---
 const {
   data: boards,
   refresh: refreshBoards,
-  status,
-} = await useAsyncData<any[]>("projects-boards", () => $api("/api/projects/boards"));
+  status
+} = await useAsyncData<any[]>("projects-boards", () => $api("/api/projects/boards"))
 
 // --- Actions ---
-const createBoardSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().optional(),
-});
+const createBoardSchema = v.object({
+  title: v.pipe(v.string(), v.minLength(1, "Title is required")),
+  description: v.optional(v.string())
+})
 
 async function createBoard() {
   try {
     await $api("/api/projects/boards", {
       method: "POST",
-      body: createBoardState.value,
-    });
-    toast.add({ title: "Board created" });
-    isCreateModalOpen.value = false;
-    createBoardState.value = { title: "", description: "" };
-    refreshBoards();
+      body: createBoardState.value
+    })
+    toast.add({ title: "Board created" })
+    isCreateModalOpen.value = false
+    createBoardState.value = { title: "", description: "" }
+    refreshBoards()
   } catch (err) {
-    toast.add({ title: "Error creating board", color: "error" });
+    toast.add({ title: "Error creating board", color: "error" })
   }
 }
 
 async function deleteBoard(id: string) {
-  if (!confirm("Are you sure you want to delete this board?")) return;
+  if (!confirm("Are you sure you want to delete this board?")) return
 
   try {
     await $api(`/api/projects/boards/${id}`, {
-      method: "DELETE",
-    });
-    toast.add({ title: "Board deleted" });
-    refreshBoards();
+      method: "DELETE"
+    })
+    toast.add({ title: "Board deleted" })
+    refreshBoards()
   } catch (err) {
-    toast.add({ title: "Error deleting board", color: "error" });
+    toast.add({ title: "Error deleting board", color: "error" })
   }
 }
 
@@ -64,17 +64,17 @@ const items = (row: any) => [
     {
       label: "Open",
       icon: "heroicons:arrow-top-right-on-square-20-solid",
-      click: () => navigateTo(`/dashboard/projects/${row.id}`),
-    },
+      click: () => navigateTo(`/dashboard/projects/${row.id}`)
+    }
   ],
   [
     {
       label: "Delete",
       icon: "heroicons:trash-20-solid",
-      click: () => deleteBoard(row.id),
-    },
-  ],
-];
+      click: () => deleteBoard(row.id)
+    }
+  ]
+]
 
 /* region State */
 /* endregion */
