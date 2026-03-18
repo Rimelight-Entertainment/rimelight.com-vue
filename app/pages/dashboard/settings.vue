@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from "#ui/types";
+import type { NavigationMenuItem } from "#ui/types"
 
 definePageMeta({
-  layout: "dashboard",
-});
+  layout: "dashboard"
+})
 
 const links = [
   [
@@ -11,20 +11,20 @@ const links = [
       label: "General",
       icon: "lucide:user",
       to: "/dashboard/settings",
-      exact: true,
+      exact: true
     },
     {
       label: "Notifications",
       icon: "lucide:bell",
-      to: "/dashboard/settings/notifications",
+      to: "/dashboard/settings/notifications"
     },
     {
       label: "Security",
       icon: "lucide:shield",
-      to: "/dashboard/settings/security",
-    },
-  ],
-] satisfies NavigationMenuItem[][];
+      to: "/dashboard/settings/security"
+    }
+  ]
+] satisfies NavigationMenuItem[][]
 
 /* region State */
 /* endregion */

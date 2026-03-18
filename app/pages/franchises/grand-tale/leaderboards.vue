@@ -1,19 +1,19 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "grand-tale",
-});
+  layout: "grand-tale"
+})
 
 useHead({
-  title: "Grand Tale Leaderboards",
-});
+  title: "Grand Tale Leaderboards"
+})
 
 const leaders = [
   { rank: 1, name: "IllidanStormrage", soul: "Voidweaver", level: 99, power: 12500 },
   { rank: 2, name: "SylvanasWind", soul: "Banshee", level: 98, power: 12200 },
   { rank: 3, name: "ArthasMenethil", soul: "Deathknight", level: 97, power: 12100 },
   { rank: 4, name: "JainaProud", soul: "Archmage", level: 96, power: 11900 },
-  { rank: 5, name: "ThrallWarchief", soul: "Shaman", level: 95, power: 11800 },
-];
+  { rank: 5, name: "ThrallWarchief", soul: "Shaman", level: 95, power: 11800 }
+]
 
 /* region State */
 /* endregion */
@@ -44,7 +44,7 @@ const leaders = [
               { label: 'Power Level' },
               { label: 'Speedruns' },
               { label: 'PVP' },
-              { label: 'Guilds' },
+              { label: 'Guilds' }
             ]"
             class="w-full md:w-auto"
           />
@@ -79,7 +79,7 @@ const leaders = [
                           ? 'text-gray-400'
                           : player.rank === 3
                             ? 'text-orange-600'
-                            : 'text-grand-tale-secondary-800',
+                            : 'text-grand-tale-secondary-800'
                     ]"
                     >#{{ player.rank }}</span
                   >

@@ -1,76 +1,76 @@
 <script lang="ts" setup>
-import { authClient } from "~~/auth/auth-client";
+import { authClient } from "~~/auth/auth-client"
 
-import { navigateTo } from "#app";
-import { defaultWindow } from "rimelight-components/utils";
-import type { TableColumn } from "@nuxt/ui";
+import { navigateTo } from "#app"
+import { defaultWindow } from "rimelight-components/utils"
+import type { TableColumn } from "@nuxt/ui"
 
-const { confirm: confirmAction } = useConfirm();
-const toast = useToast();
+const { confirm: confirmAction } = useConfirm()
+const toast = useToast()
 
 definePageMeta({
-  layout: "dashboard",
-});
+  layout: "dashboard"
+})
 
 interface UserTeam {
-  id: string;
-  name: string;
-  organizationId: string;
+  id: string
+  name: string
+  organizationId: string
 }
 
 interface Organization {
-  id: string;
-  name: string;
-  slug: string;
-  role?: string;
-  logo?: string;
-  memberId?: string;
+  id: string
+  name: string
+  slug: string
+  role?: string
+  logo?: string
+  memberId?: string
 }
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
-  image?: string | null;
-  role?: string | null;
-  banned?: boolean | null;
-  organizations?: Organization[];
-  teams?: UserTeam[];
+  id: string
+  name: string
+  email: string
+  image?: string | null
+  role?: string | null
+  banned?: boolean | null
+  organizations?: Organization[]
+  teams?: UserTeam[]
 }
 
 interface Member {
-  user: User;
-  role: string;
-  userId: string;
+  user: User
+  role: string
+  userId: string
 }
 
 interface ListUsersResponse {
-  users: User[];
-  total: number;
+  users: User[]
+  total: number
 }
 
 interface MembersResponse {
-  data: Member[] | null;
-  error: unknown | null;
+  data: Member[] | null
+  error: unknown | null
 }
 
-type UsersDataResult = ListUsersResponse | MembersResponse;
+type UsersDataResult = ListUsersResponse | MembersResponse
 
 const { data: organizations, pending: loadingOrgs } = await useApi<Organization[]>(
-  "/api/admin/organizations",
-);
+  "/api/admin/organizations"
+)
 
-const selectedOrg = ref<Organization | undefined>(undefined);
+const selectedOrg = ref<Organization | undefined>(undefined)
 
-const page = ref(1);
-const limit = 20;
-const search = ref("");
+const page = ref(1)
+const limit = 20
+const search = ref("")
 
 const {
   data: usersData,
   refresh,
   pending: loadingUsers,
-  error: usersError,
+  error: usersError
 } = await useAsyncData<UsersDataResult>(
   "admin-users-list",
   async () => {
@@ -81,112 +81,112 @@ const {
           query: {
             organizationId: selectedOrg.value.id,
             limit,
-            offset: (page.value - 1) * limit,
-          },
-        });
-        return res as MembersResponse;
+            offset: (page.value - 1) * limit
+          }
+        })
+        return res as MembersResponse
       } else {
         // Fetch all users via server API
         return await $fetch<ListUsersResponse>("/api/admin/users", {
           query: {
             limit,
             offset: (page.value - 1) * limit,
-            search: search.value || undefined,
-          },
-        });
+            search: search.value || undefined
+          }
+        })
       }
     } catch (e) {
-      console.error("Failed to fetch users:", e);
-      return null as any;
+      console.error("Failed to fetch users:", e)
+      return null as any
     }
   },
   {
-    watch: [page, search, selectedOrg],
-  },
-);
+    watch: [page, search, selectedOrg]
+  }
+)
 
 interface NormalizedUser {
-  user: User;
-  orgRole: string | null;
-  userId: string;
-  memberId?: string;
-  organizations: Organization[];
-  teams: UserTeam[];
+  user: User
+  orgRole: string | null
+  userId: string
+  memberId?: string
+  organizations: Organization[]
+  teams: UserTeam[]
 }
 
 // Normalize data
 const normalizedUsers = computed<NormalizedUser[]>(() => {
-  const result = usersData.value;
-  if (!result) return [];
+  const result = usersData.value
+  if (!result) return []
 
   if (selectedOrg.value && "data" in result) {
     // It's a list of members from better-auth: { data: Member[], error: ... }
-    const res = result as MembersResponse;
-    const members = res.data || [];
+    const res = result as MembersResponse
+    const members = res.data || []
     return members.map((member: any) => ({
       user: member.user,
       orgRole: member.role,
       userId: member.userId,
       memberId: member.id, // BetterAuth member table ID
       organizations: member.user.organizations || [],
-      teams: member.user.teams || [],
-    }));
+      teams: member.user.teams || []
+    }))
   } else {
     // It's { users, total } from our API
-    const res = result as ListUsersResponse;
-    const users = res.users || (Array.isArray(result) ? result : []);
+    const res = result as ListUsersResponse
+    const users = res.users || (Array.isArray(result) ? result : [])
     return users.map((user: User) => ({
       user,
       orgRole: null,
       userId: user.id,
       memberId: undefined,
       organizations: user.organizations || [],
-      teams: user.teams || [],
-    }));
+      teams: user.teams || []
+    }))
   }
-});
+})
 
 const totalUsers = computed(() => {
-  const result = usersData.value;
-  if (!result) return 0;
-  if (selectedOrg.value) return 100; // better-auth listMembers might not return total easily
-  return (result as ListUsersResponse).total || 0;
-});
+  const result = usersData.value
+  if (!result) return 0
+  if (selectedOrg.value) return 100 // better-auth listMembers might not return total easily
+  return (result as ListUsersResponse).total || 0
+})
 
 const orgOptions = computed<Organization[]>(() => [
   { id: "all", name: "All Users", slug: "all" },
-  ...(organizations.value || []),
-]);
+  ...(organizations.value || [])
+])
 
 const displayOrg = computed({
   get: () => selectedOrg.value || orgOptions.value[0],
   set: (val) => {
     if (!val || val.id === "all") {
-      selectedOrg.value = undefined;
+      selectedOrg.value = undefined
     } else {
-      selectedOrg.value = val;
+      selectedOrg.value = val
     }
-  },
-});
+  }
+})
 
 const columns = computed<TableColumn<NormalizedUser>[]>(() => [
   {
     accessorKey: "user",
     header: "User",
     cell: ({ row }: { row: { original: NormalizedUser } }) => {
-      const user = row.original.user;
+      const user = row.original.user
       return h("div", { class: "flex items-center gap-3" }, [
         h(resolveComponent("UAvatar"), {
           src: user.image || undefined,
           alt: user.name,
-          size: "xs",
+          size: "xs"
         }),
         h("div", { class: "flex flex-col" }, [
           h("span", { class: "text-sm font-medium text-gray-900 dark:text-white" }, user.name),
-          h("span", { class: "text-xs text-gray-500 dark:text-gray-400" }, user.email),
-        ]),
-      ]);
-    },
+          h("span", { class: "text-xs text-gray-500 dark:text-gray-400" }, user.email)
+        ])
+      ])
+    }
   },
   ...(selectedOrg.value
     ? [
@@ -194,44 +194,44 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
           accessorKey: "orgRole",
           header: "Org Role",
           cell: ({ row }: { row: { original: NormalizedUser } }) => {
-            const role = row.original.orgRole;
+            const role = row.original.orgRole
             return h(
               resolveComponent("UBadge"),
               {
                 color: role === "owner" ? "primary" : role === "admin" ? "amber" : "gray",
                 variant: "subtle",
                 size: "xs",
-                class: "capitalize",
+                class: "capitalize"
               },
-              () => role,
-            );
-          },
-        },
+              () => role
+            )
+          }
+        }
       ]
     : []),
   {
     accessorKey: "user.role",
     header: "System Role",
     cell: ({ row }: { row: { original: NormalizedUser } }) => {
-      const role = row.original.user.role;
+      const role = row.original.user.role
       return h(
         resolveComponent("UBadge"),
         {
           color: role === "admin" ? "red" : "gray",
           variant: "subtle",
           size: "xs",
-          class: "capitalize",
+          class: "capitalize"
         },
-        () => role || "user",
-      );
-    },
+        () => role || "user"
+      )
+    }
   },
   {
     accessorKey: "organizations",
     header: "Organizations",
     cell: ({ row }: { row: { original: NormalizedUser } }) => {
-      const orgs = row.original.organizations;
-      if (!orgs?.length) return h("span", { class: "text-xs text-gray-400 italic" }, "None");
+      const orgs = row.original.organizations
+      if (!orgs?.length) return h("span", { class: "text-xs text-gray-400 italic" }, "None")
 
       return h(
         "div",
@@ -244,20 +244,20 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
               variant: "subtle",
               size: "xs",
               color: "neutral",
-              class: "truncate",
+              class: "truncate"
             },
-            () => org.name,
-          ),
-        ),
-      );
-    },
+            () => org.name
+          )
+        )
+      )
+    }
   },
   {
     accessorKey: "teams",
     header: "Teams",
     cell: ({ row }: { row: { original: NormalizedUser } }) => {
-      const teams = row.original.teams;
-      if (!teams?.length) return h("span", { class: "text-xs text-gray-400 italic" }, "None");
+      const teams = row.original.teams
+      if (!teams?.length) return h("span", { class: "text-xs text-gray-400 italic" }, "None")
 
       return h(
         "div",
@@ -270,241 +270,241 @@ const columns = computed<TableColumn<NormalizedUser>[]>(() => [
               variant: "subtle",
               size: "xs",
               color: "neutral",
-              class: "truncate",
+              class: "truncate"
             },
-            () => t.name,
-          ),
-        ),
-      );
-    },
+            () => t.name
+          )
+        )
+      )
+    }
   },
   {
     accessorKey: "user.banned",
     header: "Status",
     cell: ({ row }: { row: { original: NormalizedUser } }) => {
-      const banned = row.original.user.banned;
+      const banned = row.original.user.banned
       return h(
         resolveComponent("UBadge"),
         {
           color: banned ? "red" : "green",
           variant: "subtle",
-          size: "xs",
+          size: "xs"
         },
-        () => (banned ? "Banned" : "Active"),
-      );
-    },
+        () => (banned ? "Banned" : "Active")
+      )
+    }
   },
   {
     id: "actions",
-    header: "Actions",
-  },
-]);
+    header: "Actions"
+  }
+])
 
 // Actions
-const isBanModalOpen = ref(false);
-const selectedUser = ref<any>(null);
-const banReason = ref("");
+const isBanModalOpen = ref(false)
+const selectedUser = ref<any>(null)
+const banReason = ref("")
 
 // Manage User Modal
-const isManageModalOpen = ref(false);
-const userToManage = ref<NormalizedUser | null>(null);
-const { data: allTeams } = await useApi<any[]>("/api/admin/teams", { query: { all: "true" } });
+const isManageModalOpen = ref(false)
+const userToManage = ref<NormalizedUser | null>(null)
+const { data: allTeams } = await useApi<any[]>("/api/admin/teams", { query: { all: "true" } })
 
 const openBanModal = (user: any) => {
-  selectedUser.value = user;
-  isBanModalOpen.value = true;
-};
+  selectedUser.value = user
+  isBanModalOpen.value = true
+}
 
 const openManageModal = (user: any) => {
-  userToManage.value = JSON.parse(JSON.stringify(user)); // Clone for safe local updates
-  isManageModalOpen.value = true;
-};
+  userToManage.value = JSON.parse(JSON.stringify(user)) // Clone for safe local updates
+  isManageModalOpen.value = true
+}
 
 const banUser = async () => {
-  if (!selectedUser.value) return;
+  if (!selectedUser.value) return
 
   const confirmed = await confirmAction({
     title: "Ban User",
     description: `Are you sure you want to ban ${selectedUser.value.user.name}? This will prevent them from accessing the platform.`,
     danger: true,
-    confirmLabel: "Ban User",
-  });
+    confirmLabel: "Ban User"
+  })
 
-  if (!confirmed) return;
+  if (!confirmed) return
 
-  const userId = selectedUser.value.userId || selectedUser.value.user?.id;
+  const userId = selectedUser.value.userId || selectedUser.value.user?.id
 
   const { error } = await authClient.admin.banUser({
     userId: userId,
-    banReason: banReason.value,
-  });
+    banReason: banReason.value
+  })
 
   if (!error) {
-    isBanModalOpen.value = false;
-    toast.add({ title: "User banned", color: "success" });
-    refresh();
+    isBanModalOpen.value = false
+    toast.add({ title: "User banned", color: "success" })
+    refresh()
   } else {
-    toast.add({ title: "Failed to ban user", description: error.message, color: "error" });
+    toast.add({ title: "Failed to ban user", description: error.message, color: "error" })
   }
-};
+}
 
 const unbanUser = async (userId: string) => {
-  const { error } = await authClient.admin.unbanUser({ userId });
-  if (!error) refresh();
-};
+  const { error } = await authClient.admin.unbanUser({ userId })
+  if (!error) refresh()
+}
 
 const impersonateUser = async (userId: string) => {
-  const { error } = await authClient.admin.impersonateUser({ userId });
+  const { error } = await authClient.admin.impersonateUser({ userId })
   if (!error) {
-    navigateTo("/dashboard");
+    navigateTo("/dashboard")
     if (defaultWindow) {
-      defaultWindow.location.reload();
+      defaultWindow.location.reload()
     }
   }
-};
+}
 
 const removeUserFromOrg = async (orgId: string) => {
-  if (!userToManage.value) return;
+  if (!userToManage.value) return
   const confirmed = await confirmAction({
     title: "Remove from Organization",
     description: `Are you sure you want to remove ${userToManage.value.user.name} from this organization?`,
     danger: true,
-    confirmLabel: "Remove",
-  });
-  if (!confirmed) return;
+    confirmLabel: "Remove"
+  })
+  if (!confirmed) return
 
   try {
     await $fetch("/api/admin/organizations/members", {
       method: "DELETE",
-      query: { organizationId: orgId, userId: userToManage.value.userId },
-    });
-    toast.add({ title: "Removed from organization", color: "success" });
-    refresh();
+      query: { organizationId: orgId, userId: userToManage.value.userId }
+    })
+    toast.add({ title: "Removed from organization", color: "success" })
+    refresh()
     if (userToManage.value) {
       userToManage.value.organizations = userToManage.value.organizations.filter(
-        (o: any) => o.id !== orgId,
-      );
+        (o: any) => o.id !== orgId
+      )
     }
   } catch (e: any) {
-    toast.add({ title: "Error", description: e.message, color: "error" });
+    toast.add({ title: "Error", description: e.message, color: "error" })
   }
-};
+}
 
 const removeUserFromTeam = async (teamId: string) => {
-  if (!userToManage.value) return;
+  if (!userToManage.value) return
   const confirmed = await confirmAction({
     title: "Remove from Team",
     description: `Are you sure you want to remove ${userToManage.value.user.name} from this team?`,
     danger: true,
-    confirmLabel: "Remove",
-  });
-  if (!confirmed) return;
+    confirmLabel: "Remove"
+  })
+  if (!confirmed) return
 
   try {
     await $fetch("/api/admin/teams/members", {
       method: "DELETE",
-      query: { teamId, userId: userToManage.value.userId },
-    });
-    toast.add({ title: "Removed from team", color: "success" });
-    refresh();
+      query: { teamId, userId: userToManage.value.userId }
+    })
+    toast.add({ title: "Removed from team", color: "success" })
+    refresh()
     if (userToManage.value) {
-      userToManage.value.teams = userToManage.value.teams.filter((t: any) => t.id !== teamId);
+      userToManage.value.teams = userToManage.value.teams.filter((t: any) => t.id !== teamId)
     }
   } catch (e: any) {
-    toast.add({ title: "Error", description: e.message, color: "error" });
+    toast.add({ title: "Error", description: e.message, color: "error" })
   }
-};
+}
 
 const addToOrgState = reactive({
   org: undefined as Organization | undefined,
-  role: "member",
-});
+  role: "member"
+})
 
-const addToTeamStates = ref<Record<string, UserTeam | undefined>>({});
+const addToTeamStates = ref<Record<string, UserTeam | undefined>>({})
 
 const getTeamsForOrg = (orgId: string) => {
-  return allTeams.value?.filter((t: any) => t.organizationId === orgId) || [];
-};
+  return allTeams.value?.filter((t: any) => t.organizationId === orgId) || []
+}
 
 const addUserToOrg = async () => {
-  if (!userToManage.value || !addToOrgState.org) return;
+  if (!userToManage.value || !addToOrgState.org) return
   try {
     await $fetch("/api/admin/organizations/members", {
       method: "POST",
       body: {
         organizationId: addToOrgState.org.id,
         userId: userToManage.value.userId,
-        role: addToOrgState.role,
-      },
-    });
-    toast.add({ title: "Added to organization", color: "success" });
-    refresh();
+        role: addToOrgState.role
+      }
+    })
+    toast.add({ title: "Added to organization", color: "success" })
+    refresh()
     if (userToManage.value && addToOrgState.org) {
-      const newOrg = { ...addToOrgState.org };
+      const newOrg = { ...addToOrgState.org }
       if (!userToManage.value.organizations.find((o: any) => o.id === newOrg.id)) {
-        userToManage.value.organizations.push(newOrg);
+        userToManage.value.organizations.push(newOrg)
       }
     }
-    addToOrgState.org = undefined;
+    addToOrgState.org = undefined
   } catch (e: any) {
-    toast.add({ title: "Error", description: e.message, color: "error" });
+    toast.add({ title: "Error", description: e.message, color: "error" })
   }
-};
+}
 
 const addUserToTeam = async (orgId: string) => {
-  const selectedTeam = addToTeamStates.value[orgId];
-  if (!userToManage.value || !selectedTeam) return;
+  const selectedTeam = addToTeamStates.value[orgId]
+  if (!userToManage.value || !selectedTeam) return
   try {
     await $fetch("/api/admin/teams/members", {
       method: "POST",
       body: {
         teamId: selectedTeam.id,
         userId: userToManage.value.userId,
-        role: "member",
-      },
-    });
-    toast.add({ title: "Added to team", color: "success" });
-    refresh();
+        role: "member"
+      }
+    })
+    toast.add({ title: "Added to team", color: "success" })
+    refresh()
     if (userToManage.value) {
-      const newTeam = { ...selectedTeam };
+      const newTeam = { ...selectedTeam }
       if (!userToManage.value.teams.find((t) => t.id === newTeam.id)) {
-        userToManage.value.teams.push(newTeam);
+        userToManage.value.teams.push(newTeam)
       }
     }
-    addToTeamStates.value[orgId] = undefined;
+    addToTeamStates.value[orgId] = undefined
   } catch (e: any) {
-    toast.add({ title: "Error", description: e.message, color: "error" });
+    toast.add({ title: "Error", description: e.message, color: "error" })
   }
-};
+}
 
 const items = (row: NormalizedUser) => {
-  const userId = row.userId || row.user.id;
+  const userId = row.userId || row.user.id
 
   return [
     [
       {
         label: "Impersonate",
         icon: "lucide:user-round-search",
-        onSelect: () => impersonateUser(userId),
-      },
+        onSelect: () => impersonateUser(userId)
+      }
     ],
     [
       {
         label: "Manage User",
         icon: "lucide:settings-2",
-        onSelect: () => openManageModal(row),
-      },
+        onSelect: () => openManageModal(row)
+      }
     ],
     [
       {
         label: row.user.banned ? "Unban User" : "Ban User",
         icon: row.user.banned ? "lucide:lock-open" : "lucide:ban",
         color: row.user.banned ? "success" : "warning",
-        onSelect: () => (row.user.banned ? unbanUser(userId) : openBanModal(row)),
-      },
-    ],
-  ];
-};
+        onSelect: () => (row.user.banned ? unbanUser(userId) : openBanModal(row))
+      }
+    ]
+  ]
+}
 
 /* region State */
 /* endregion */

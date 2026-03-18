@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { type Note } from "rimelight-components/db";
+import { type Note } from "rimelight-components/db"
 
 const { data: notes, refresh } = await useApi<Note[]>("/api/notes", {
-  query: { archived: true },
-});
+  query: { archived: true }
+})
 
 const {
   selectedIds,
@@ -11,12 +11,12 @@ const {
   executeBatchAction,
   executeSingleAction,
   clearSelection,
-  noteRefreshTrigger,
-} = useNotes();
+  noteRefreshTrigger
+} = useNotes()
 
 watch(noteRefreshTrigger, () => {
-  refresh();
-});
+  refresh()
+})
 
 /* region State */
 /* endregion */

@@ -1,15 +1,15 @@
-import { relations } from "drizzle-orm";
-import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { id, timestamps } from "rimelight-components/db";
+import { relations } from "drizzle-orm"
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { id, timestamps } from "rimelight-components/db"
 import {
   type Block,
   type Localized,
   type PageType,
-  type RegisterPageTypes,
-} from "rimelight-components/types";
-import { pages } from "./pages";
+  type RegisterPageTypes
+} from "rimelight-components/types"
+import { pages } from "./pages"
 
-export type PageVersionStatus = "pending" | "approved" | "rejected";
+export type PageVersionStatus = "pending" | "approved" | "rejected"
 
 export const pageVersions = pgTable("page_versions", {
   id: id.primaryKey(),
@@ -25,20 +25,20 @@ export const pageVersions = pgTable("page_versions", {
   authorIds: jsonb("author_ids").$type<string[]>().default([]),
   content: jsonb("content")
     .$type<{
-      blocks: Block[];
-      properties: RegisterPageTypes[PageType];
+      blocks: Block[]
+      properties: RegisterPageTypes[PageType]
     }>()
     .notNull(),
   postedAt: timestamp("posted_at", { withTimezone: true }),
   createdBy: text("created_by").notNull(),
   approvedBy: uuid("approved_by"),
   approvedAt: timestamp("approved_at", { withTimezone: true }),
-  ...timestamps,
-});
+  ...timestamps
+})
 
 export const pageVersionsRelations = relations(pageVersions, ({ one }) => ({
   page: one(pages, {
     fields: [pageVersions.pageId],
-    references: [pages.id],
-  }),
-}));
+    references: [pages.id]
+  })
+}))

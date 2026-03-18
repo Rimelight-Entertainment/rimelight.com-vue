@@ -1,33 +1,33 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "wiki",
-});
+  layout: "wiki"
+})
 
 useHead({
-  title: "Contribution Guide | Grand Tale Wiki",
-});
+  title: "Contribution Guide | Grand Tale Wiki"
+})
 
 const rules = [
   {
     title: "Accuracy",
     description:
-      "Ensure all information is verified against in-game data or official developer statements.",
+      "Ensure all information is verified against in-game data or official developer statements."
   },
   {
     title: "Tone",
     description:
-      "Maintain a neutral, encyclopedic tone. Avoid first-person perspectives unless in a specific tips section.",
+      "Maintain a neutral, encyclopedic tone. Avoid first-person perspectives unless in a specific tips section."
   },
   {
     title: "Formatting",
     description:
-      "Use standard headers, bold text for key terms, and properly link to other wiki articles.",
+      "Use standard headers, bold text for key terms, and properly link to other wiki articles."
   },
   {
     title: "Media",
-    description: "Only upload high-quality screenshots and ensure they are properly categorized.",
-  },
-];
+    description: "Only upload high-quality screenshots and ensure they are properly categorized."
+  }
+]
 
 /* region State */
 /* endregion */

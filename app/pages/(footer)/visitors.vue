@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import createGlobe from "cobe";
+import createGlobe from "cobe"
 
 interface Location {
-  latitude: number;
-  longitude: number;
+  latitude: number
+  longitude: number
 }
 
-const myLocation = useState<Location>("location");
-const globe: Ref<HTMLCanvasElement | null> = ref(null);
-const phi = ref(0);
-const locations = ref<Location[]>([]);
+const myLocation = useState<Location>("location")
+const globe: Ref<HTMLCanvasElement | null> = ref(null)
+const phi = ref(0)
+const locations = ref<Location[]>([])
 
 const { data, open } = useWebSocket(
   `/ws/visitors?latitude=${myLocation.value.latitude}&longitude=${myLocation.value.longitude}`,
-  { immediate: false },
-);
+  { immediate: false }
+)
 watch(data, async (newData) => {
-  const rawData = typeof newData === "string" ? newData : await (newData as Blob).text();
-  locations.value = JSON.parse(rawData) as Location[];
-});
+  const rawData = typeof newData === "string" ? newData : await (newData as Blob).text()
+  locations.value = JSON.parse(rawData) as Location[]
+})
 
 onMounted(() => {
-  open();
+  open()
 
   if (globe.value) {
     createGlobe(globe.value, {
@@ -40,23 +40,23 @@ onMounted(() => {
       markers: [],
       opacity: 0.7,
       onRender(state) {
-        const userLat = myLocation.value.latitude;
-        const userLon = myLocation.value.longitude;
+        const userLat = myLocation.value.latitude
+        const userLon = myLocation.value.longitude
 
         state.markers = locations.value.map((location) => ({
           location: [location.latitude, location.longitude],
           // Check for the user's location based on coordinates
-          size: userLat === location.latitude && userLon === location.longitude ? 0.1 : 0.05,
-        }));
+          size: userLat === location.latitude && userLon === location.longitude ? 0.1 : 0.05
+        }))
         // Rotate the globe
-        state.phi = phi.value;
-        phi.value += 0.01;
-      },
-    });
+        state.phi = phi.value
+        phi.value += 0.01
+      }
+    })
   } else {
-    console.error("Canvas element 'globe' is not available on mount.");
+    console.error("Canvas element 'globe' is not available on mount.")
   }
-});
+})
 
 /* region State */
 /* endregion */

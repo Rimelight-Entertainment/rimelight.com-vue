@@ -1,57 +1,57 @@
 <script lang="ts" setup>
-import { breakpointsTailwind } from "@vueuse/core";
+import { breakpointsTailwind } from "@vueuse/core"
 
-import { type Mail } from "#rimelight-components/types";
+import { type Mail } from "#rimelight-components/types"
 
 definePageMeta({
-  layout: "dashboard",
-});
+  layout: "dashboard"
+})
 
 const tabItems = [
   {
     label: "All",
-    value: "all",
+    value: "all"
   },
   {
     label: "Unread",
-    value: "unread",
-  },
-];
+    value: "unread"
+  }
+]
 
-const selectedTab = ref("all");
-const selectedMail = ref<Mail | null>();
+const selectedTab = ref("all")
+const selectedMail = ref<Mail | null>()
 
-const { data: mails } = await useApi<Mail[]>("/api/mails", { default: () => ref([]) as any });
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const { data: mails } = await useApi<Mail[]>("/api/mails", { default: () => ref([]) as any })
+const breakpoints = useBreakpoints(breakpointsTailwind)
 
-const isMobile = breakpoints.smaller("lg");
+const isMobile = breakpoints.smaller("lg")
 
 // Filter mails based on the selected tab
 const filteredMails = computed(() => {
   if (selectedTab.value === "unread") {
-    return mails.value!.filter((mail) => !!mail.unread);
+    return mails.value!.filter((mail) => !!mail.unread)
   }
 
-  return mails.value!;
-});
+  return mails.value!
+})
 
 const isMailPanelOpen = computed({
   get() {
-    return !!selectedMail.value;
+    return !!selectedMail.value
   },
   set(value: boolean) {
     if (!value) {
-      selectedMail.value = null;
+      selectedMail.value = null
     }
-  },
-});
+  }
+})
 
 // Reset selected mail if it's not in the filtered mails
 watch(filteredMails, () => {
   if (!filteredMails.value!.find((mail) => mail.id === selectedMail.value?.id)) {
-    selectedMail.value = null;
+    selectedMail.value = null
   }
-});
+})
 
 /* region State */
 /* endregion */

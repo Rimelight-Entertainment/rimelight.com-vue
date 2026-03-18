@@ -1,33 +1,33 @@
 <script lang="ts" setup>
-import { useDocumentsIndex } from "rimelight-components/composables";
+import { useDocumentsIndex } from "rimelight-components/composables"
 
 /* region State */
-const { permissions } = useAuth();
-const { t, locale } = useI18n();
-const toast = useToast();
+const { permissions } = useAuth()
+const { t, locale } = useI18n()
+const toast = useToast()
 
 const docIndex = useDocumentsIndex({
   onToast: (options) => {
     toast.add({
       color: options.color,
       title: options.title,
-      description: options.description,
-    });
-  },
-});
+      description: options.description
+    })
+  }
+})
 /* endregion */
 
 /* region Meta */
 useHead({
-  title: t("pages.documents.meta.title"),
-});
+  title: t("pages.documents.meta.title")
+})
 
 useSeoMeta({
   title: t("pages.documents.meta.title"),
   ogTitle: t("pages.documents.meta.title"),
   description: t("pages.documents.meta.description"),
-  ogDescription: t("pages.documents.meta.description"),
-});
+  ogDescription: t("pages.documents.meta.description")
+})
 /* endregion */
 
 /* region Lifecycle */
@@ -45,7 +45,7 @@ useSeoMeta({
         :description="t('pages.documents.meta.description')"
         :ui="{
           title: 'text-black',
-          description: 'text-neutral-500',
+          description: 'text-neutral-500'
         }"
       >
         <template #links>
@@ -55,7 +55,7 @@ useSeoMeta({
             :label="t('pages.documents.actions.create_document.label')"
             @click="docIndex.isCreateModalOpen.value = true"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600',
+              base: 'text-white bg-primary-500 hover:bg-primary-600'
             }"
           />
         </template>
@@ -90,9 +90,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                docIndex.drafts.refresh();
-              },
-            },
+                docIndex.drafts.refresh()
+              }
+            }
           ]"
         />
 
@@ -103,7 +103,7 @@ useSeoMeta({
           :description="t('pages.documents.drafts.description')"
           :rc="{
             title: 'text-black',
-            description: 'text-neutral-500',
+            description: 'text-neutral-500'
           }"
         >
           <div v-if="docIndex.drafts.allPages.value.length" class="flex flex-col gap-md">
@@ -134,14 +134,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  docIndex.isCreateModalOpen.value = true;
+                  docIndex.isCreateModalOpen.value = true
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600',
-              },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
+              }
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500',
+              description: 'text-neutral-500'
             }"
           />
 
@@ -198,9 +198,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                docIndex.documents.refresh();
-              },
-            },
+                docIndex.documents.refresh()
+              }
+            }
           ]"
         />
 
@@ -211,7 +211,7 @@ useSeoMeta({
           :description="t('pages.documents.documents.description')"
           :rc="{
             title: 'text-black',
-            description: 'text-neutral-500',
+            description: 'text-neutral-500'
           }"
         >
           <div v-if="docIndex.documents.allPages.value.length" class="flex flex-col gap-md">
@@ -242,14 +242,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  docIndex.isCreateModalOpen.value = true;
+                  docIndex.isCreateModalOpen.value = true
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600',
-              },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
+              }
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500',
+              description: 'text-neutral-500'
             }"
           />
 

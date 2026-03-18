@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PAGE_MAP as pageDefinitions } from "~/types";
+import { PAGE_MAP as pageDefinitions } from "~/types"
 
-const route = useRoute();
-const { user, permissions } = useAuth();
-const isAdmin = permissions?.admin?.canAccess ?? true;
+const route = useRoute()
+const { user, permissions } = useAuth()
+const isAdmin = permissions?.admin?.canAccess ?? true
 
-const slug = computed(() => route.params.slug as string);
-const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin");
+const slug = computed(() => route.params.slug as string)
+const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin")
 
 /* region State */
 /* endregion */
@@ -31,7 +31,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
     :error-redirect-params="{
       redirect: '/documents',
       label: 'Back to Documents',
-      message: 'The requested document could not be located.',
+      message: 'The requested document could not be located.'
     }"
   />
 </template>

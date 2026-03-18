@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import { useBlogIndex } from "rimelight-components/composables";
+import { useBlogIndex } from "rimelight-components/composables"
 
 /* region State */
-const { permissions } = useAuth();
-const { t, locale } = useI18n();
-const toast = useToast();
+const { permissions } = useAuth()
+const { t, locale } = useI18n()
+const toast = useToast()
 
 const blog = useBlogIndex({
   onToast: (options) => {
     toast.add({
       color: options.color,
       title: options.title,
-      description: options.description,
-    });
-  },
-});
+      description: options.description
+    })
+  }
+})
 /* endregion */
 
 /* region Meta */
@@ -25,17 +25,17 @@ useHead({
       rel: "alternate",
       type: "application/atom+xml",
       title: t("pages.blog.meta.rss"),
-      href: "https://rimelight.com/company/blog/rss.xml",
-    },
-  ],
-});
+      href: "https://rimelight.com/company/blog/rss.xml"
+    }
+  ]
+})
 
 useSeoMeta({
   title: t("pages.blog.meta.title"),
   ogTitle: t("pages.blog.meta.title"),
   description: t("pages.blog.meta.description"),
-  ogDescription: t("pages.blog.meta.description"),
-});
+  ogDescription: t("pages.blog.meta.description")
+})
 /* endregion */
 
 /* region Lifecycle */
@@ -52,7 +52,7 @@ useSeoMeta({
         :title="t('pages.blog.meta.title')"
         :ui="{
           title: 'text-black',
-          description: 'text-neutral-500',
+          description: 'text-neutral-500'
         }"
       >
         <template #description>
@@ -65,7 +65,7 @@ useSeoMeta({
               :rc="{
                 label: 'text-black',
                 description: 'text-neutral-500',
-                button: 'text-white bg-primary-500 hover:bg-primary-600',
+                button: 'text-white bg-primary-500 hover:bg-primary-600'
               }"
             />
           </div>
@@ -76,7 +76,7 @@ useSeoMeta({
             :label="t('pages.blog.actions.rss')"
             to="/company/blog/rss.xml"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600',
+              base: 'text-white bg-primary-500 hover:bg-primary-600'
             }"
           />
           <UButton
@@ -85,7 +85,7 @@ useSeoMeta({
             :label="t('pages.blog.actions.create_post.label')"
             @click="blog.isCreateModalOpen.value = true"
             :ui="{
-              base: 'text-white bg-primary-500 hover:bg-primary-600',
+              base: 'text-white bg-primary-500 hover:bg-primary-600'
             }"
           />
         </template>
@@ -118,9 +118,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                blog.drafts.refresh();
-              },
-            },
+                blog.drafts.refresh()
+              }
+            }
           ]"
         />
 
@@ -131,7 +131,7 @@ useSeoMeta({
           :description="t('pages.blog.drafts.description')"
           :rc="{
             title: 'text-black',
-            description: 'text-neutral-500',
+            description: 'text-neutral-500'
           }"
         >
           <UBlogPosts
@@ -148,7 +148,7 @@ useSeoMeta({
                   '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246,
+                height: index === 0 ? 378 : 246
               }"
               :title="getLocalizedContent(post.title, locale)"
               :description="getLocalizedContent(post.description, locale)"
@@ -157,7 +157,7 @@ useSeoMeta({
                 label: t('common.types.' + post.type),
                 color: 'primary',
                 variant: 'outline',
-                class: 'rounded-none p-0 ring-0',
+                class: 'rounded-none p-0 ring-0'
               }"
               :date="post.postedAt ? useDateFormat(post.postedAt, 'DD/MM/YYYY').value : ''"
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
@@ -167,7 +167,7 @@ useSeoMeta({
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
-                description: 'text-neutral-500',
+                description: 'text-neutral-500'
               }"
               :class="[index === 0 && 'col-span-full']"
             />
@@ -186,14 +186,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  blog.isCreateModalOpen.value = true;
+                  blog.isCreateModalOpen.value = true
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600',
-              },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
+              }
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500',
+              description: 'text-neutral-500'
             }"
           />
 
@@ -247,9 +247,9 @@ useSeoMeta({
               variant: 'solid',
               icon: 'lucide:rotate-ccw',
               onClick: () => {
-                blog.posts.refresh();
-              },
-            },
+                blog.posts.refresh()
+              }
+            }
           ]"
         />
 
@@ -260,7 +260,7 @@ useSeoMeta({
           :description="t('pages.blog.posts.description')"
           :rc="{
             title: 'text-black',
-            description: 'text-neutral-500',
+            description: 'text-neutral-500'
           }"
         >
           <UBlogPosts v-if="blog.posts.allPages.value.length" class="md:grid-cols-2 lg:grid-cols-3">
@@ -274,7 +274,7 @@ useSeoMeta({
                   '/images/placeholders/placeholder_home_projects_grand-tale.png',
                 alt: post.banner?.alt,
                 width: index === 0 ? 672 : 437,
-                height: index === 0 ? 378 : 246,
+                height: index === 0 ? 378 : 246
               }"
               :title="getLocalizedContent(post.title, locale)"
               :description="getLocalizedContent(post.description, locale)"
@@ -283,7 +283,7 @@ useSeoMeta({
                 label: t('common.types.' + post.type),
                 color: 'primary',
                 variant: 'outline',
-                class: 'rounded-none p-0 ring-0',
+                class: 'rounded-none p-0 ring-0'
               }"
               :date="post.postedAt ? useDateFormat(post.postedAt, 'DD/MM/YYYY').value : ''"
               :orientation="index === 0 ? 'horizontal' : 'vertical'"
@@ -293,7 +293,7 @@ useSeoMeta({
                 badge: 'text-primary-500',
                 date: 'text-neutral-500',
                 title: 'text-black',
-                description: 'text-neutral-500',
+                description: 'text-neutral-500'
               }"
               :class="[index === 0 && 'col-span-full']"
             />
@@ -312,14 +312,14 @@ useSeoMeta({
                 variant: 'solid',
                 icon: 'lucide:plus',
                 onClick: () => {
-                  blog.isCreateModalOpen.value = true;
+                  blog.isCreateModalOpen.value = true
                 },
-                class: 'text-white bg-primary-500 hover:bg-primary-600',
-              },
+                class: 'text-white bg-primary-500 hover:bg-primary-600'
+              }
             ]"
             :ui="{
               title: 'text-black',
-              description: 'text-neutral-500',
+              description: 'text-neutral-500'
             }"
           />
 

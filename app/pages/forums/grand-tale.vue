@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-const { t } = useI18n();
+const { t } = useI18n()
 
 useHead({
-  title: t("pages.forums.grand_tale.meta.title"),
-});
+  title: t("pages.forums.grand_tale.meta.title")
+})
 
 useSeoMeta({
   title: t("pages.forums.grand_tale.meta.title"),
   ogTitle: t("pages.forums.grand_tale.meta.title"),
   description: t("pages.forums.grand_tale.meta.description"),
-  ogDescription: t("pages.forums.grand_tale.meta.description"),
-});
+  ogDescription: t("pages.forums.grand_tale.meta.description")
+})
 
 /* region State */
 /* endregion */
@@ -33,7 +33,7 @@ useSeoMeta({
         :description="t('pages.forums.grand_tale.meta.description')"
         :ui="{
           title: 'text-black',
-          description: 'text-neutral-500',
+          description: 'text-neutral-500'
         }"
       />
       <UPageBody>

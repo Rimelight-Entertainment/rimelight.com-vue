@@ -1,18 +1,18 @@
-import { desc, eq } from "drizzle-orm";
-import { db, pageVersions } from "#server/db";
-import { getUserSession } from "#server/utils/session";
+import { desc, eq } from "drizzle-orm"
+import { db, pageVersions } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
-  const session = await getUserSession(event);
+  const id = getRouterParam(event, "id")
+  const session = await getUserSession(event)
 
   if (!id) {
-    throw createError({ statusCode: 400, statusMessage: "Missing page ID" });
+    throw createError({ statusCode: 400, statusMessage: "Missing page ID" })
   }
 
   // Check authorization - users need to be authenticated to view versions
   if (!session?.user) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
   }
 
   try {
@@ -20,18 +20,18 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(pageVersions)
       .where(eq(pageVersions.pageId, id))
-      .orderBy(desc(pageVersions.createdAt));
+      .orderBy(desc(pageVersions.createdAt))
 
     return versions.map((version) => ({
       ...version,
       blocks: version.content.blocks,
-      properties: version.content.properties,
-    }));
+      properties: version.content.properties
+    }))
   } catch (error: any) {
-    console.error("Versions Fetch Error:", error);
+    console.error("Versions Fetch Error:", error)
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to fetch page versions",
-    });
+      statusMessage: error.message || "Failed to fetch page versions"
+    })
   }
-});
+})

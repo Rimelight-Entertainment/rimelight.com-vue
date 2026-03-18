@@ -1,12 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "grand-tale",
-});
+  layout: "grand-tale"
+})
 
-import type { ButtonProps } from "@nuxt/ui";
+import type { ButtonProps } from "@nuxt/ui"
 
 /* region State */
-const { t } = useI18n();
+const { t } = useI18n()
 
 const heroLinks = ref<ButtonProps[]>([
   {
@@ -15,19 +15,19 @@ const heroLinks = ref<ButtonProps[]>([
     label: t("pages.franchises.grandTale.home.sections.hero.actions.playNow"),
     to: "/franchises/grand-tale/download",
     ui: {
-      base: "px-8 py-4 text-2xl font-black",
+      base: "px-8 py-4 text-2xl font-black"
     },
     class:
-      "uppercase transition-transform duration-300 hover:scale-110 text-white font-bold bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-600",
-  },
-]);
+      "uppercase transition-transform duration-300 hover:scale-110 text-white font-bold bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-600"
+  }
+])
 
 const overviewLinks = ref<ButtonProps[]>([
   {
     color: "grandTaleSecondary",
     label: t("pages.franchises.grandTale.home.sections.overview.actions.learnMore"),
     to: "/franchises/grand-tale/about",
-    class: "text-white bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-500",
+    class: "text-white bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-500"
   },
   {
     color: "neutral",
@@ -35,26 +35,26 @@ const overviewLinks = ref<ButtonProps[]>([
     trailingIcon: "lucide:arrow-right",
     label: t("pages.franchises.grandTale.home.sections.overview.actions.watchTrailer"),
     to: "/company/about",
-    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
-  },
-]);
+    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white"
+  }
+])
 
-const heroVideo = useTemplateRef<HTMLVideoElement>("heroVideo");
-const LOOP_START = 193; // Seconds
-const LOOP_END = 250; // Seconds
-const isPaused = ref(false);
+const heroVideo = useTemplateRef<HTMLVideoElement>("heroVideo")
+const LOOP_START = 193 // Seconds
+const LOOP_END = 250 // Seconds
+const isPaused = ref(false)
 /* endregion */
 
 /* region Meta */
 useHead({
-  title: "Grand Tale | Home",
-});
+  title: "Grand Tale | Home"
+})
 
 useSeoMeta({
   title: "Grand Tale - An Epic RPG Journey",
   description:
-    "Experience Grand Tale, an epic journey through a shattered world where every choice resonates through eternity.",
-});
+    "Experience Grand Tale, an epic journey through a shattered world where every choice resonates through eternity."
+})
 /* endregion */
 
 /* region Lifecycle */
@@ -62,35 +62,35 @@ useSeoMeta({
 
 /* region Logic */
 const onVideoTimeUpdate = (event: Event) => {
-  const video = event.currentTarget as HTMLVideoElement;
+  const video = event.currentTarget as HTMLVideoElement
   if (video.currentTime >= LOOP_END) {
-    video.currentTime = LOOP_START;
+    video.currentTime = LOOP_START
   }
-};
+}
 
 const onVideoLoadedMetadata = (event: Event) => {
-  const video = event.currentTarget as HTMLVideoElement;
-  video.currentTime = LOOP_START;
-};
+  const video = event.currentTarget as HTMLVideoElement
+  video.currentTime = LOOP_START
+}
 
 const onVideoEnded = (event: Event) => {
-  const video = event.currentTarget as HTMLVideoElement;
-  video.currentTime = LOOP_START;
-  video.play();
-  isPaused.value = false;
-};
+  const video = event.currentTarget as HTMLVideoElement
+  video.currentTime = LOOP_START
+  video.play()
+  isPaused.value = false
+}
 
 const togglePlayback = () => {
-  if (!heroVideo.value) return;
+  if (!heroVideo.value) return
 
   if (heroVideo.value.paused) {
-    heroVideo.value.play();
-    isPaused.value = false;
+    heroVideo.value.play()
+    isPaused.value = false
   } else {
-    heroVideo.value.pause();
-    isPaused.value = true;
+    heroVideo.value.pause()
+    isPaused.value = true
   }
-};
+}
 /* endregion */
 </script>
 
@@ -175,7 +175,7 @@ const togglePlayback = () => {
         :links="overviewLinks"
         :ui="{
           title: 'font-bold uppercase leading-tight',
-          description: 'text-neutral-400',
+          description: 'text-neutral-400'
         }"
         orientation="horizontal"
       >

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "grand-tale",
-});
+  layout: "grand-tale"
+})
 
 useHead({
-  title: "Grand Tale | Support",
-});
+  title: "Grand Tale | Support"
+})
 
 /* region State */
 /* endregion */

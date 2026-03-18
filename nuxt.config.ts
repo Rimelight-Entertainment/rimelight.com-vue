@@ -1,22 +1,19 @@
-import { defu } from "defu"
-import { rimelightViteConfig } from "./.rimelight/rimelight.vite"
-import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { existsSync } from "node:fs";
-import { isCI } from "std-env";
+import { resolve } from "node:path"
+import { fileURLToPath } from "node:url"
+import { existsSync } from "node:fs"
+import { isCI } from "std-env"
 
-
-const isTauri = process.env.NUXT_APP_TARGET === "tauri";
-const currentDir = fileURLToPath(new URL(".", import.meta.url));
-const localLayerPath = resolve(currentDir, "../rimelight-components");
-const isLocalLayer = existsSync(localLayerPath);
+const isTauri = process.env.NUXT_APP_TARGET === "tauri"
+const currentDir = fileURLToPath(new URL(".", import.meta.url))
+const localLayerPath = resolve(currentDir, "../rimelight-components")
+const isLocalLayer = existsSync(localLayerPath)
 
 export default defineNuxtConfig({
   extends: [
     [
       isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
-      { install: true },
-    ],
+      { install: true }
+    ]
   ],
 
   modules: [],
@@ -24,7 +21,7 @@ export default defineNuxtConfig({
   ignore: ["**/src-tauri/**"],
 
   $development: {
-    site: { indexable: false },
+    site: { indexable: false }
   },
 
   $test: {},
@@ -33,24 +30,24 @@ export default defineNuxtConfig({
     nitro: {
       scheduledTasks: {
         // Daily at midnight
-        "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
+        "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"]
       },
-    routeRules: {
-      "/": { prerender: true },
-      "/api/**": { isr: 60 },
-      "/documents/**": { isr: true },
-      "/blog/**": { isr: true },
-      "/dashboard/**": {
-        ssr: false,
-        appLayout: "dashboard",
-      },
-      "/store/**": {
-        appLayout: "store",
-      },
-      "/franchises/grand-tale/**": {
-        appLayout: "grand-tale",
-      },
-    },
+      routeRules: {
+        "/": { prerender: true },
+        "/api/**": { isr: 60 },
+        "/documents/**": { isr: true },
+        "/blog/**": { isr: true },
+        "/dashboard/**": {
+          ssr: false,
+          appLayout: "dashboard"
+        },
+        "/store/**": {
+          appLayout: "store"
+        },
+        "/franchises/grand-tale/**": {
+          appLayout: "grand-tale"
+        }
+      }
     },
     site: {
       url: "https://rimelight.com",
@@ -59,21 +56,14 @@ export default defineNuxtConfig({
     }
   },
 
-  vite: defu({
+  vite: {
     envPrefix: ["TAURI_"],
     server: {
       watch: {
-        ignored: ["**/src-tauri/**"],
-      },
-    },
-    build: {},
-    preview: {},
-    test: {},
-    lint: {},
-    run: {},
-    pack: {},
-    staged: {},
-  }, rimelightViteConfig),
+        ignored: ["**/src-tauri/**"]
+      }
+    }
+  },
 
   alias: {
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
@@ -81,21 +71,21 @@ export default defineNuxtConfig({
     "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
     ...(isLocalLayer
       ? {
-        "#rimelight-components/types": resolve(localLayerPath, "app/types"),
-        "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
-        "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
-        "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
-        "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
-        "rimelight-components": localLayerPath,
-      }
-      : {}),
+          "#rimelight-components/types": resolve(localLayerPath, "app/types"),
+          "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
+          "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
+          "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
+          "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
+          "rimelight-components": localLayerPath
+        }
+      : {})
   },
 
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
-      isTauri,
-    },
+      isTauri
+    }
   },
 
   htmlValidator: {
@@ -114,42 +104,56 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "description",
-          content: "Tell your story.",
+          content: "Tell your story."
         },
         {
           name: "author",
-          content: "Rimelight Entertainment",
+          content: "Rimelight Entertainment"
         },
         {
           name: "creator",
-          content: "Rimelight Entertainment",
-        },
+          content: "Rimelight Entertainment"
+        }
       ],
       link: [
         {
           rel: "icon",
           type: "image/svg+xml",
-          href: "/favicon.svg",
+          href: "/favicon.svg"
         },
         {
           rel: "preconnect",
-          href: "https://cdn.rimelight.com",
+          href: "https://cdn.rimelight.com"
         },
         {
           rel: "dns-prefetch",
-          href: "https://cdn.rimelight.com",
-        },
-      ],
-    },
+          href: "https://cdn.rimelight.com"
+        }
+      ]
+    }
   },
 
   security: {
     headers: {
       contentSecurityPolicy: {
-        "img-src": ["'self'", "data:", "https://cdn.rimelight.com", "https://i.ytimg.com", "https://*.youtube.com"],
+        "img-src": [
+          "'self'",
+          "data:",
+          "https://cdn.rimelight.com",
+          "https://i.ytimg.com",
+          "https://*.youtube.com"
+        ],
         "connect-src": ["'self'", "https://rimelight.com", "https://*.youtube.com"],
         "frame-src": ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
-        "script-src": ["'self'", "https:", "'unsafe-inline'", "'strict-dynamic'", "'nonce-{{nonce}}'", "https://www.youtube.com", "https://s.ytimg.com"]
+        "script-src": [
+          "'self'",
+          "https:",
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
+          "https://www.youtube.com",
+          "https://s.ytimg.com"
+        ]
       }
     }
   },
@@ -161,7 +165,7 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: "i18n_redirected",
       cookieSecure: true,
-      alwaysRedirect: false,
+      alwaysRedirect: false
     },
     locales: [
       //{
@@ -173,7 +177,7 @@ export default defineNuxtConfig({
         code: "en",
         name: "English",
         language: "en-US",
-        file: "en.json",
+        file: "en.json"
       },
       //{
       //  code: "es",
@@ -199,8 +203,8 @@ export default defineNuxtConfig({
         code: "pt",
         name: "Português",
         language: "pt-BR",
-        file: "pt.json",
-      },
+        file: "pt.json"
+      }
       //{
       //  code: "ro",
       //  name: "Română",
@@ -211,7 +215,7 @@ export default defineNuxtConfig({
       //  name: "简体中文",
       //  file: "zh_cn.json"
       //}
-    ],
+    ]
   },
 
   css: ["~/assets/css/main.css"],
@@ -220,50 +224,47 @@ export default defineNuxtConfig({
     {
       path: "~/components",
       pathPrefix: false,
-      prefix: "RL",
+      prefix: "RL"
     },
     {
       path: "~/pages",
       pattern: "**/components/**",
       pathPrefix: false,
-      prefix: "RL",
-    },
+      prefix: "RL"
+    }
   ],
 
   fonts: {
-    families: [],
+    families: []
   },
 
   icon: {
-    customCollections: [],
+    customCollections: []
   },
 
   image: {
     domains: ["rimelight.com"],
     cloudflare: {
-      baseURL: "https://cdn.rimelight.com",
-    },
+      baseURL: "https://cdn.rimelight.com"
+    }
   },
 
   studio: {
     repository: {
       owner: "Rimelight-Entertainment",
-      repo: "rimelight.com",
-    },
+      repo: "rimelight.com"
+    }
   },
 
   llms: {
     domain: "https://rimelight.com",
     title: "Rimelight Entertainment",
-    description: "Tell your story.",
+    description: "Tell your story."
   },
 
   ui: {
     theme: {
-      colors: [
-        "grandTalePrimary",
-        "grandTaleSecondary",
-      ]
+      colors: ["grandTalePrimary", "grandTaleSecondary"]
     }
   }
-});
+})

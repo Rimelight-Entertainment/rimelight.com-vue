@@ -1,16 +1,16 @@
-import { eq } from "drizzle-orm";
-import { db, pages } from "#server/db";
-import { getUserSession } from "#server/utils/session";
+import { eq } from "drizzle-orm"
+import { db, pages } from "#server/db"
+import { getUserSession } from "#server/utils/session"
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
-  const session = await getUserSession(event);
+  const id = getRouterParam(event, "id")
+  const session = await getUserSession(event)
 
-  if (!id) throw createError({ statusCode: 400, statusMessage: "Missing ID" });
+  if (!id) throw createError({ statusCode: 400, statusMessage: "Missing ID" })
 
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member";
+  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member"
   if (!isAuthorized) {
-    throw createError({ statusCode: 403, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 403, statusMessage: "Unauthorized" })
   }
 
   try {
@@ -18,17 +18,17 @@ export default defineEventHandler(async (event) => {
       .update(pages)
       .set({ postedAt: null })
       .where(eq(pages.id, id))
-      .returning();
+      .returning()
 
     if (!updatedPage) {
-      throw createError({ statusCode: 404, statusMessage: "Page not found" });
+      throw createError({ statusCode: 404, statusMessage: "Page not found" })
     }
 
-    return updatedPage;
+    return updatedPage
   } catch (error: any) {
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to unpublish page",
-    });
+      statusMessage: error.message || "Failed to unpublish page"
+    })
   }
-});
+})

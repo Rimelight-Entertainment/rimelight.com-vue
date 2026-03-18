@@ -1,41 +1,41 @@
 <script lang="ts" setup>
-import { type Page } from "#rimelight-components/types";
-import type { ButtonProps } from "@nuxt/ui";
+import { type Page } from "#rimelight-components/types"
+import type { ButtonProps } from "@nuxt/ui"
 
-const { t, locale } = useI18n();
-const { origin } = useRequestURL();
+const { t, locale } = useI18n()
+const { origin } = useRequestURL()
 
 const { data: latestPosts, status: postsStatus } = useLazyAsyncData(
   "latest-blog-posts",
   () =>
     $api<Page[]>("/api/pages", {
       query: { type: "BlogPost", status: "published", limit: 3, offset: 0 },
-      timeout: 10000,
+      timeout: 10000
     }),
-  { server: false },
-);
+  { server: false }
+)
 
 const formatDate = (date: string | Date) => {
-  return useDateFormat(date, "DD/MM/YYYY").value;
-};
+  return useDateFormat(date, "DD/MM/YYYY").value
+}
 
 useHead({
-  title: "Rimelight Entertainment | Home",
-});
+  title: "Rimelight Entertainment | Home"
+})
 
 useSeoMeta({
   title: "Rimelight Entertainment",
   ogTitle: "Rimelight Entertainment",
   description: "Tell your story.",
-  ogDescription: "Tell your story.",
-});
+  ogDescription: "Tell your story."
+})
 
 const heroLinks = ref<ButtonProps[]>([
   {
     color: "primary",
     label: t("pages.home.sections.hero.actions.joinUs"),
     to: "/auth/sign-up",
-    class: "text-white bg-primary-500 hover:bg-primary-600",
+    class: "text-white bg-primary-500 hover:bg-primary-600"
   },
   {
     color: "neutral",
@@ -43,9 +43,9 @@ const heroLinks = ref<ButtonProps[]>([
     trailingIcon: "lucide:arrow-right",
     label: t("pages.home.sections.hero.actions.learnMore"),
     to: "/company/about",
-    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
-  },
-]);
+    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white"
+  }
+])
 
 const featuredProjects = [
   {
@@ -53,25 +53,25 @@ const featuredProjects = [
     title: "Grand Tale",
     description: t("pages.home.sections.projects.content.grandTale.description"),
     image: "/images/placeholders/placeholder_home_projects_grand-tale.png",
-    to: "/franchises/grand-tale",
-  },
-];
+    to: "/franchises/grand-tale"
+  }
+]
 
 const ctaLinks = ref<ButtonProps[]>([
   {
     color: "primary",
     label: t("pages.home.sections.cta.actions.createAccount"),
     to: "/auth/sign-up",
-    class: "text-white bg-primary-500 hover:bg-primary-600",
+    class: "text-white bg-primary-500 hover:bg-primary-600"
   },
   {
     variant: "outline",
     color: "neutral",
     label: t("pages.home.sections.cta.actions.exploreCareers"),
     to: "/company/careers",
-    class: "text-black ring-black bg-transparent hover:bg-black hover:text-white",
-  },
-]);
+    class: "text-black ring-black bg-transparent hover:bg-black hover:text-white"
+  }
+])
 
 /* region State */
 /* endregion */
@@ -138,7 +138,7 @@ const ctaLinks = ref<ButtonProps[]>([
     <UPageSection
       :ui="{
         title: 'font-bold uppercase leading-tight',
-        description: 'text-neutral-400',
+        description: 'text-neutral-400'
       }"
       orientation="horizontal"
     >
@@ -175,7 +175,7 @@ const ctaLinks = ref<ButtonProps[]>([
           video-id="uH1Hw6SDI1M"
           class="aspect-video relative overflow-hidden rounded-xl shadow-2xl"
           :params="{
-            origin: origin,
+            origin: origin
           }"
         />
         <template #fallback>
@@ -287,14 +287,14 @@ const ctaLinks = ref<ButtonProps[]>([
               label: t('common.types.' + post.type),
               color: 'primary',
               variant: 'outline',
-              class: 'rounded-none p-0 ring-0',
+              class: 'rounded-none p-0 ring-0'
             }"
             :date="post.postedAt ? formatDate(post.postedAt) : ''"
             :description="getLocalizedContent(post.description, locale)"
             :image="{
               src:
                 post.banner?.src || '/images/placeholders/placeholder_home_projects_grand-tale.png',
-              alt: post.banner?.alt,
+              alt: post.banner?.alt
             }"
             :title="getLocalizedContent(post.title, locale)"
             :to="`/company/blog/${post.slug}`"

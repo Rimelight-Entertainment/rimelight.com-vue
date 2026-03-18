@@ -1,47 +1,47 @@
 <script lang="ts" setup>
-import { type Note } from "rimelight-components/db";
+import { type Note } from "rimelight-components/db"
 
-const { data: notes, refresh: refreshNotes } = await useApi<Note[]>("/api/notes");
-const { data: labels } = await useApi<any[]>("/api/notes/labels");
+const { data: notes, refresh: refreshNotes } = await useApi<Note[]>("/api/notes")
+const { data: labels } = await useApi<any[]>("/api/notes/labels")
 
-const selectedLabelId = ref<string | undefined>(undefined);
+const selectedLabelId = ref<string | undefined>(undefined)
 
 watch(selectedLabelId, (newId) => {
-  console.log("Selected Label ID changed to:", newId);
-});
+  console.log("Selected Label ID changed to:", newId)
+})
 
 const filterOptions = computed(() => {
   const allNotesOption = {
     id: undefined,
     name: "All Notes",
-    icon: "lucide:list-filter",
-  };
+    icon: "lucide:list-filter"
+  }
 
   const labelOptions =
     labels.value?.map((label) => ({
       id: label.id,
       name: label.name,
-      icon: "lucide:tag",
-    })) || [];
+      icon: "lucide:tag"
+    })) || []
 
-  return [allNotesOption, ...labelOptions];
-});
+  return [allNotesOption, ...labelOptions]
+})
 
 const isNoteMatch = (note: Note) => {
-  if (!selectedLabelId.value) return true;
+  if (!selectedLabelId.value) return true
 
-  if (!note.labels?.length) return false;
+  if (!note.labels?.length) return false
 
-  return note.labels.some((joinEntry) => joinEntry.label?.id === selectedLabelId.value);
-};
+  return note.labels.some((joinEntry) => joinEntry.label?.id === selectedLabelId.value)
+}
 
 const pinnedNotes = computed(
-  () => notes.value?.filter((n) => n.isPinned && !n.isArchived && isNoteMatch(n)) || [],
-);
+  () => notes.value?.filter((n) => n.isPinned && !n.isArchived && isNoteMatch(n)) || []
+)
 
 const otherNotes = computed(
-  () => notes.value?.filter((n) => !n.isPinned && !n.isArchived && isNoteMatch(n)) || [],
-);
+  () => notes.value?.filter((n) => !n.isPinned && !n.isArchived && isNoteMatch(n)) || []
+)
 
 const {
   selectedIds,
@@ -49,29 +49,29 @@ const {
   executeBatchAction,
   executeSingleAction,
   clearSelection,
-  noteRefreshTrigger,
-} = useNotes();
+  noteRefreshTrigger
+} = useNotes()
 
 watch(noteRefreshTrigger, () => {
-  refreshNotes();
-});
+  refreshNotes()
+})
 
-const isModalOpen = ref(false);
-const selectedNote = ref<Note | null>(null);
+const isModalOpen = ref(false)
+const selectedNote = ref<Note | null>(null)
 
 const openCreateModal = () => {
-  selectedNote.value = null;
-  isModalOpen.value = true;
-};
+  selectedNote.value = null
+  isModalOpen.value = true
+}
 
 const openEditModal = (note: Note) => {
-  selectedNote.value = note;
-  isModalOpen.value = true;
-};
+  selectedNote.value = note
+  isModalOpen.value = true
+}
 
 const handleNoteSaved = () => {
-  refreshNotes();
-};
+  refreshNotes()
+}
 
 /* region State */
 /* endregion */
@@ -170,9 +170,9 @@ const handleNoteSaved = () => {
               icon: 'lucide:filter-x',
               label: 'Clear Filter',
               onClick: () => {
-                selectedLabelId = undefined;
-              },
-            },
+                selectedLabelId = undefined
+              }
+            }
           ]"
           description="No notes found for this label."
           icon="lucide:tag"

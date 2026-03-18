@@ -1,48 +1,48 @@
 <script lang="ts" setup>
-import { format, isToday } from "date-fns";
-import { type Mail } from "#rimelight-components/types";
-import { ref, watch } from "vue";
+import { format, isToday } from "date-fns"
+import { type Mail } from "#rimelight-components/types"
+import { ref, watch } from "vue"
 
 export interface InboxListProps {
-  mails: Mail[];
+  mails: Mail[]
 }
 
-const { mails } = defineProps<InboxListProps>();
+const { mails } = defineProps<InboxListProps>()
 
-const mailsRefs = ref<Element[]>([]);
+const mailsRefs = ref<Element[]>([])
 
-const selectedMail = defineModel<Mail | null>();
+const selectedMail = defineModel<Mail | null>()
 
 watch(selectedMail, () => {
   if (!selectedMail.value) {
-    return;
+    return
   }
-  const ref = mailsRefs.value[selectedMail.value.id];
+  const ref = mailsRefs.value[selectedMail.value.id]
   if (ref) {
-    ref.scrollIntoView({ block: "nearest" });
+    ref.scrollIntoView({ block: "nearest" })
   }
-});
+})
 
 defineShortcuts({
   arrowdown: () => {
-    const index = mails.findIndex((mail) => mail.id === selectedMail.value?.id);
+    const index = mails.findIndex((mail) => mail.id === selectedMail.value?.id)
 
     if (index === -1) {
-      selectedMail.value = mails[0];
+      selectedMail.value = mails[0]
     } else if (index < mails.length - 1) {
-      selectedMail.value = mails[index + 1];
+      selectedMail.value = mails[index + 1]
     }
   },
   arrowup: () => {
-    const index = mails.findIndex((mail) => mail.id === selectedMail.value?.id);
+    const index = mails.findIndex((mail) => mail.id === selectedMail.value?.id)
 
     if (index === -1) {
-      selectedMail.value = mails[mails.length - 1];
+      selectedMail.value = mails[mails.length - 1]
     } else if (index > 0) {
-      selectedMail.value = mails[index - 1];
+      selectedMail.value = mails[index - 1]
     }
-  },
-});
+  }
+})
 
 /* region Props */
 /* endregion */
@@ -76,7 +76,7 @@ defineShortcuts({
       :key="index"
       :ref="
         (el) => {
-          mailsRefs[mail.id] = el as Element;
+          mailsRefs[mail.id] = el as Element
         }
       "
     >
@@ -85,7 +85,7 @@ defineShortcuts({
           mail.unread ? 'text-highlighted' : 'text-toned',
           selectedMail && selectedMail.id === mail.id
             ? 'border-primary bg-primary/10'
-            : 'border-bg hover:border-primary hover:bg-primary/5',
+            : 'border-bg hover:border-primary hover:bg-primary/5'
         ]"
         class="cursor-pointer border-l-2 p-4 text-sm transition-colors sm:px-6"
         @click="selectedMail = mail"

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { type Note } from "rimelight-components/db";
+import { type Note } from "rimelight-components/db"
 
-const { confirm } = useConfirm();
+const { confirm } = useConfirm()
 
 const { data: notes, refresh } = await useApi<Note[]>("/api/notes", {
-  query: { trash: true },
-});
+  query: { trash: true }
+})
 
 const {
   selectedIds,
@@ -13,39 +13,39 @@ const {
   executeBatchAction,
   executeSingleAction,
   clearSelection,
-  noteRefreshTrigger,
-} = useNotes();
+  noteRefreshTrigger
+} = useNotes()
 
 watch(noteRefreshTrigger, () => {
-  refresh();
-});
+  refresh()
+})
 
-const handleRestore = (id: string) => executeSingleAction(id, "restore");
+const handleRestore = (id: string) => executeSingleAction(id, "restore")
 
 const handleDeleteForever = async (id: string) => {
   const isConfirmed = await confirm({
     title: "Delete Note?",
     description: "This will permanently remove this note. This action cannot be undone.",
     confirmLabel: "Delete Forever",
-    danger: true,
-  });
+    danger: true
+  })
 
   if (isConfirmed) {
-    await executeSingleAction(id, "hard-delete");
+    await executeSingleAction(id, "hard-delete")
   }
-};
+}
 const confirmBatchDelete = async () => {
   const isConfirmed = await confirm({
     title: "Delete Forever?",
     description: `Are you sure you want to permanently delete ${selectedIds.value.length} notes? This action cannot be undone.`,
     confirmLabel: "Delete Forever",
-    danger: true,
-  });
+    danger: true
+  })
 
   if (isConfirmed) {
-    await executeBatchAction("hard-delete");
+    await executeBatchAction("hard-delete")
   }
-};
+}
 
 /* region State */
 /* endregion */

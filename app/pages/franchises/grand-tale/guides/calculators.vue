@@ -1,38 +1,38 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "guides",
-});
+  layout: "guides"
+})
 
 useHead({
-  title: "Calculators | Grand Tale Guides",
-});
+  title: "Calculators | Grand Tale Guides"
+})
 
 const calculators = [
   {
     title: "DPS Calculator",
     icon: "lucide:sword",
     description:
-      "Calculate your true damage per second based on attack speed, crit rate, and elemental scaling.",
+      "Calculate your true damage per second based on attack speed, crit rate, and elemental scaling."
   },
   {
     title: "Effective HP (EHP)",
     icon: "lucide:shield",
     description:
-      "Determine your actual survivability against physical and magical hits by factoring in armor and resistances.",
+      "Determine your actual survivability against physical and magical hits by factoring in armor and resistances."
   },
   {
     title: "Resonance Finder",
     icon: "lucide:sparkles",
     description:
-      "Identify the optimal Soulstone combinations to trigger your hero's secret passive abilities.",
+      "Identify the optimal Soulstone combinations to trigger your hero's secret passive abilities."
   },
   {
     title: "Resource Yield",
     icon: "lucide:pickaxe",
     description:
-      "Estimate materials gathered per hour based on your current tool tier and gathering efficiency stats.",
-  },
-];
+      "Estimate materials gathered per hour based on your current tool tier and gathering efficiency stats."
+  }
+]
 
 /* region State */
 /* endregion */

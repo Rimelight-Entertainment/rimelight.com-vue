@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "blank",
-});
+  layout: "blank"
+})
 
 /* region State */
 /* endregion */

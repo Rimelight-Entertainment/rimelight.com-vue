@@ -1,12 +1,12 @@
-import { vendureDashboardPlugin } from "@vendure/dashboard/vite";
-import { join, resolve } from "path";
-import { pathToFileURL } from "url";
-import { defineConfig } from "vite";
+import { vendureDashboardPlugin } from "@vendure/dashboard/vite"
+import { join, resolve } from "path"
+import { pathToFileURL } from "url"
+import { defineConfig } from "vite"
 
 export default defineConfig({
   base: "/dashboard",
   build: {
-    outDir: join(__dirname, "dist/dashboard"),
+    outDir: join(__dirname, "dist/dashboard")
   },
   plugins: [
     vendureDashboardPlugin({
@@ -27,14 +27,14 @@ export default defineConfig({
       // be introspected and the types will be generated in this location.
       // These types can be used in your dashboard extensions to provide
       // type safety when writing queries and mutations.
-      gqlOutputPath: "./src/gql",
-    }),
+      gqlOutputPath: "./src/gql"
+    })
   ],
   resolve: {
     alias: {
       // This allows all plugins to reference a shared set of
       // GraphQL types.
-      "@/gql": resolve(__dirname, "./src/gql/graphql.ts"),
-    },
-  },
-});
+      "@/gql": resolve(__dirname, "./src/gql/graphql.ts")
+    }
+  }
+})

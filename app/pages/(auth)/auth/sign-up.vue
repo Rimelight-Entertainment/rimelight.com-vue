@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useHead({
-  title: "Sign Up",
-});
+  title: "Sign Up"
+})
 
 /* region State */
 /* endregion */

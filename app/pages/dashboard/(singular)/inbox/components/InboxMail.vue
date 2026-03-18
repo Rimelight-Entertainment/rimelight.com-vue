@@ -1,63 +1,63 @@
 <script lang="ts" setup>
-import { format } from "date-fns";
-import { type Mail } from "#rimelight-components/types";
-import { ref } from "vue";
+import { format } from "date-fns"
+import { type Mail } from "#rimelight-components/types"
+import { ref } from "vue"
 
 export interface InboxMailProps {
-  mail: Mail;
+  mail: Mail
 }
 
-const { mail } = defineProps<InboxMailProps>();
+const { mail } = defineProps<InboxMailProps>()
 
 export interface InboxMailEmits {
-  close: [];
+  close: []
 }
 
-const emit = defineEmits<InboxMailEmits>();
+const emit = defineEmits<InboxMailEmits>()
 
 const dropdownItems = [
   [
     {
       label: "Mark as unread",
-      icon: "lucide:check-circle",
+      icon: "lucide:check-circle"
     },
     {
       label: "Mark as important",
-      icon: "lucide:triangle-alert",
-    },
+      icon: "lucide:triangle-alert"
+    }
   ],
   [
     {
       label: "Star thread",
-      icon: "lucide:star",
+      icon: "lucide:star"
     },
     {
       label: "Mute thread",
-      icon: "lucide:circle-pause",
-    },
-  ],
-];
+      icon: "lucide:circle-pause"
+    }
+  ]
+]
 
-const toast = useToast();
+const toast = useToast()
 
-const reply = ref("");
-const loading = ref(false);
+const reply = ref("")
+const loading = ref(false)
 
 function onSubmit() {
-  loading.value = true;
+  loading.value = true
 
   setTimeout(() => {
-    reply.value = "";
+    reply.value = ""
 
     toast.add({
       title: "Email sent",
       description: "Your email has been sent successfully",
       icon: "lucide:check-circle",
-      color: "success",
-    });
+      color: "success"
+    })
 
-    loading.value = false;
-  }, 1000);
+    loading.value = false
+  }, 1000)
 }
 
 /* region Props */

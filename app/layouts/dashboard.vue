@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { NavigationMenuItem } from "#ui/types";
-import type { Page } from "#rimelight-components/types";
-import { PAGE_MAP as pageDefinitions } from "~/types";
-import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue";
-import RCFocusTimerTool from "rimelight-components/app/components/dashboard/floating-tools/FocusTimerTool.vue";
+import type { NavigationMenuItem } from "#ui/types"
+import type { Page } from "#rimelight-components/types"
+import { PAGE_MAP as pageDefinitions } from "~/types"
+import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue"
+import RCFocusTimerTool from "rimelight-components/app/components/dashboard/floating-tools/FocusTimerTool.vue"
 
-const { totalHeight } = useHeaderStack();
+const { totalHeight } = useHeaderStack()
 
-const { registerTool, openTool, removeTool } = useFloatingTools();
-const { registerAction, unregisterAction } = useQuickActions();
+const { registerTool, openTool, removeTool } = useFloatingTools()
+const { registerAction, unregisterAction } = useQuickActions()
 
-const focusTimer = useFocusTimer();
+const focusTimer = useFocusTimer()
 
 onMounted(() => {
   registerTool({
@@ -19,16 +19,16 @@ onMounted(() => {
     icon: "lucide:timer",
     component: markRaw(RCFocusTimerTool),
     tooltip: () => useFocusTimer().formattedTime.value,
-    onClose: () => useFocusTimer().resetTimer(),
-  });
+    onClose: () => useFocusTimer().resetTimer()
+  })
 
   registerAction({
     id: "focus-timer-action",
     label: "New Focus Timer",
     icon: "lucide:timer",
     group: 0,
-    onSelect: () => openTool("focusTimer"),
-  });
+    onSelect: () => openTool("focusTimer")
+  })
 
   registerAction({
     id: "action-new-note",
@@ -36,9 +36,9 @@ onMounted(() => {
     icon: "lucide-sticky-note",
     group: 1,
     onSelect: () => {
-      isNoteModalOpen.value = true;
-    },
-  });
+      isNoteModalOpen.value = true
+    }
+  })
 
   registerAction({
     id: "action-new-todo",
@@ -46,9 +46,9 @@ onMounted(() => {
     icon: "lucide:check-circle-2",
     group: 1,
     onSelect: () => {
-      isTodoModalOpen.value = true;
-    },
-  });
+      isTodoModalOpen.value = true
+    }
+  })
 
   registerAction({
     id: "action-new-page",
@@ -56,71 +56,71 @@ onMounted(() => {
     icon: "lucide:file-plus",
     group: 1,
     onSelect: () => {
-      isCreatePageModalOpen.value = true;
-    },
-  });
-});
+      isCreatePageModalOpen.value = true
+    }
+  })
+})
 
 onUnmounted(() => {
-  removeTool("focusTimer");
-  unregisterAction("focus-timer-action");
-  unregisterAction("action-new-note");
-  unregisterAction("action-new-todo");
-  unregisterAction("action-new-page");
-});
+  removeTool("focusTimer")
+  unregisterAction("focus-timer-action")
+  unregisterAction("action-new-note")
+  unregisterAction("action-new-todo")
+  unregisterAction("action-new-page")
+})
 
 watch([focusTimer.isRunning], ([timer]) => {
-  if (timer) openTool("focusTimer");
-});
+  if (timer) openTool("focusTimer")
+})
 
-const isNoteModalOpen = ref(false);
-const { triggerRefresh } = useNotes();
+const isNoteModalOpen = ref(false)
+const { triggerRefresh } = useNotes()
 
-const isTodoModalOpen = ref(false);
-const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos();
+const isTodoModalOpen = ref(false)
+const { createTodo, triggerRefresh: triggerTodoRefresh } = useTodos()
 
-const isAssetModalOpen = ref(false);
+const isAssetModalOpen = ref(false)
 
-const isCreatePageModalOpen = ref(false);
-const isCreatingPage = ref(false);
-const router = useRouter();
-const { t } = useI18n();
-const toast = useToast();
+const isCreatePageModalOpen = ref(false)
+const isCreatingPage = ref(false)
+const router = useRouter()
+const { t } = useI18n()
+const toast = useToast()
 
 const handleCreatePage = async (newPageData: Partial<Page>) => {
   try {
-    isCreatingPage.value = true;
+    isCreatingPage.value = true
     const createdPage = await $fetch<Page>("/api/pages", {
       method: "POST",
-      body: newPageData,
-    });
+      body: newPageData
+    })
 
-    toast.add({ color: "success", title: t("toast_create_success", "Page created successfully") });
+    toast.add({ color: "success", title: t("toast_create_success", "Page created successfully") })
 
-    isCreatePageModalOpen.value = false;
+    isCreatePageModalOpen.value = false
     // Redirect to the new page's editor
-    await router.push(`/${createdPage.slug}/edit`);
+    await router.push(`/${createdPage.slug}/edit`)
   } catch (e) {
-    console.error(e);
-    toast.add({ color: "error", title: t("toast_create_error", "Failed to create page") });
+    console.error(e)
+    toast.add({ color: "error", title: t("toast_create_error", "Failed to create page") })
   } finally {
-    isCreatingPage.value = false;
+    isCreatingPage.value = false
   }
-};
+}
 
-const newTodoTitle = ref("");
-const newTodoDescription = ref("");
+const newTodoTitle = ref("")
+const newTodoDescription = ref("")
 const handleQuickTodoSave = async () => {
-  if (!newTodoTitle.value.trim()) return;
-  await createTodo(newTodoTitle.value.trim(), newTodoDescription.value.trim() || undefined);
-  newTodoTitle.value = "";
-  newTodoDescription.value = "";
-  isTodoModalOpen.value = false;
-};
+  if (!newTodoTitle.value.trim()) return
+  await createTodo(newTodoTitle.value.trim(), newTodoDescription.value.trim() || undefined)
+  newTodoTitle.value = ""
+  newTodoDescription.value = ""
+  isTodoModalOpen.value = false
+}
 
-const open = ref(false);
+const open = ref(false)
 
-const { user, permissions } = useAuth();
+const { user, permissions } = useAuth()
 
 const links = computed<NavigationMenuItem[][]>(() => [
   markRaw([
@@ -130,8 +130,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false;
-      },
+        open.value = false
+      }
     },
     {
       label: "Inbox",
@@ -140,8 +140,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
       badge: "4",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false;
-      },
+        open.value = false
+      }
     },
     {
       label: "Notes",
@@ -149,8 +149,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard/notes",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false;
-      },
+        open.value = false
+      }
     },
     {
       label: "Projects",
@@ -158,9 +158,9 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard/projects",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false;
-      },
-    },
+        open.value = false
+      }
+    }
   ]),
   markRaw([
     ...(user.value?.role && ["admin", "owner"].includes(user.value.role)
@@ -171,9 +171,9 @@ const links = computed<NavigationMenuItem[][]>(() => [
             to: "/dashboard/admin",
             defaultOpen: false,
             onSelect: () => {
-              open.value = false;
-            },
-          },
+              open.value = false
+            }
+          }
         ]
       : []),
 
@@ -183,8 +183,8 @@ const links = computed<NavigationMenuItem[][]>(() => [
       to: "/dashboard/users",
       defaultOpen: false,
       onSelect: () => {
-        open.value = false;
-      },
+        open.value = false
+      }
     },
     ...(permissions.assets.canView.value
       ? [
@@ -192,20 +192,20 @@ const links = computed<NavigationMenuItem[][]>(() => [
             label: "Assets",
             icon: "lucide:folder-open",
             onSelect: () => {
-              open.value = false;
-              isAssetModalOpen.value = true;
-            },
-          },
+              open.value = false
+              isAssetModalOpen.value = true
+            }
+          }
         ]
-      : []),
-  ]),
-]);
+      : [])
+  ])
+])
 
 const groups = computed(() => [
   {
     id: "links",
     label: "Go to",
-    items: links.value.flat(),
+    items: links.value.flat()
   },
   {
     id: "code",
@@ -214,11 +214,11 @@ const groups = computed(() => [
       {
         id: "source",
         label: "View page source",
-        icon: "simple-icons:github",
-      },
-    ],
-  },
-]);
+        icon: "simple-icons:github"
+      }
+    ]
+  }
+])
 </script>
 
 <template>

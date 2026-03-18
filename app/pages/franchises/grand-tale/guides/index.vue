@@ -1,11 +1,11 @@
 ﻿<script setup lang="ts">
 definePageMeta({
-  layout: "guides",
-});
+  layout: "guides"
+})
 
 useHead({
-  title: "Guides | Grand Tale",
-});
+  title: "Guides | Grand Tale"
+})
 
 /* region State */
 /* endregion */

@@ -1,55 +1,55 @@
 <script lang="ts" setup>
-import type { ChipProps, DropdownMenuItem, NavigationMenuItem } from "@nuxt/ui";
+import type { ChipProps, DropdownMenuItem, NavigationMenuItem } from "@nuxt/ui"
 
-const { session, signOut } = useAuth();
-const route = useRoute();
-const { t } = useI18n();
-const toast = useToast();
+const { session, signOut } = useAuth()
+const route = useRoute()
+const { t } = useI18n()
+const toast = useToast()
 
 async function onSignOut() {
-  const { error } = await signOut();
+  const { error } = await signOut()
   if (error) {
     toast.add({
       color: "error",
       title: "Sign Out Failed",
-      description: error.message || "A connection issue occurred.",
-    });
+      description: error.message || "A connection issue occurred."
+    })
   } else {
     toast.add({
       color: "success",
       title: "Sign Out Successful",
-      description: "You have been signed out.",
-    });
+      description: "You have been signed out."
+    })
   }
 }
 
-const layerId = inject<string>("header_layer_id", "default");
+const layerId = inject<string>("header_layer_id", "default")
 
-const { bottomOffsets } = useHeaderStack();
+const { bottomOffsets } = useHeaderStack()
 
 const slideoverState = reactive({
   left: false,
   right: false,
-  notifications: false,
-});
+  notifications: false
+})
 
-const { isNotificationsSlideoverOpen } = useDashboard();
+const { isNotificationsSlideoverOpen } = useDashboard()
 watch(
   isNotificationsSlideoverOpen,
   (val) => {
-    slideoverState.notifications = val;
+    slideoverState.notifications = val
   },
-  { immediate: true },
-);
+  { immediate: true }
+)
 
 watch(
   () => slideoverState.notifications,
   (val) => {
-    isNotificationsSlideoverOpen.value = val;
-  },
-);
+    isNotificationsSlideoverOpen.value = val
+  }
+)
 
-type menuItem = NavigationMenuItem & DropdownMenuItem;
+type menuItem = NavigationMenuItem & DropdownMenuItem
 
 const items = computed<NavigationMenuItem[]>(() =>
   markRaw([
@@ -64,66 +64,66 @@ const items = computed<NavigationMenuItem[]>(() =>
           children: [
             {
               label: t("app.header.links.grand_tale.content.main.news"),
-              to: "/franchises/grand-tale/news",
+              to: "/franchises/grand-tale/news"
             },
             {
               label: t("app.header.links.grand_tale.content.main.about"),
-              to: "/franchises/grand-tale/about",
+              to: "/franchises/grand-tale/about"
             },
             {
               label: t("app.header.links.grand_tale.content.main.wiki"),
-              to: "/franchises/grand-tale/wiki",
+              to: "/franchises/grand-tale/wiki"
             },
             {
               label: t("app.header.links.grand_tale.content.main.guides"),
-              to: "/franchises/grand-tale/guides",
+              to: "/franchises/grand-tale/guides"
             },
             {
               label: t("app.header.links.grand_tale.content.main.forums"),
-              to: "/franchises/grand-tale/forums",
+              to: "/franchises/grand-tale/forums"
             },
             {
               label: t("app.header.links.grand_tale.content.main.leaderboards"),
-              to: "/franchises/grand-tale/leaderboards",
-            },
-          ],
+              to: "/franchises/grand-tale/leaderboards"
+            }
+          ]
         },
         {
           label: t("app.header.links.grand_tale.content.main.series.heading"),
           children: [
             {
               label: t("app.header.links.grand_tale.content.main.series.children_of_the_light"),
-              to: "/franchises/grand-tale/wiki/series/children-of-the-light",
+              to: "/franchises/grand-tale/wiki/series/children-of-the-light"
             },
             {
               label: t("app.header.links.grand_tale.content.main.series.grand_academy"),
-              to: "/franchises/grand-tale/wiki/series/grand-academy",
+              to: "/franchises/grand-tale/wiki/series/grand-academy"
             },
             {
               label: t("app.header.links.grand_tale.content.main.series.goldy_adventures"),
-              to: "/franchises/grand-tale/wiki/series/goldy-adventures",
-            },
-          ],
+              to: "/franchises/grand-tale/wiki/series/goldy-adventures"
+            }
+          ]
         },
         {
           label: t("app.header.links.grand_tale.content.main.books.heading"),
           children: [
             {
               label: t("app.header.links.grand_tale.content.main.books.first_tale"),
-              to: "/franchises/grand-tale/wiki/books/the-first-tale",
-            },
-          ],
+              to: "/franchises/grand-tale/wiki/books/the-first-tale"
+            }
+          ]
         },
         {
           label: t("app.header.links.grand_tale.content.main.comics.heading"),
           children: [
             {
               label: t("app.header.links.grand_tale.content.main.comics.ori_friends"),
-              to: "/franchises/grand-tale/wiki/comics/ori-and-friends",
-            },
-          ],
-        },
-      ],
+              to: "/franchises/grand-tale/wiki/comics/ori-and-friends"
+            }
+          ]
+        }
+      ]
     },
     {
       label: t("app.header.links.community.label"),
@@ -136,14 +136,14 @@ const items = computed<NavigationMenuItem[]>(() =>
             {
               label: t("app.header.links.community.content.main.forums.rimelight"),
               to: "/forums/rimelight",
-              active: route.path.startsWith("/forums/rimelight"),
+              active: route.path.startsWith("/forums/rimelight")
             },
             {
               label: t("app.header.links.community.content.main.forums.grand_tale"),
               to: "/forums/grand-tale",
-              active: route.path.startsWith("/forums/grand-tale"),
-            },
-          ],
+              active: route.path.startsWith("/forums/grand-tale")
+            }
+          ]
         },
         {
           label: t("app.header.links.community.content.main.events.heading"),
@@ -151,11 +151,11 @@ const items = computed<NavigationMenuItem[]>(() =>
             {
               label: t("app.header.links.community.content.main.events.lightcon"),
               to: "/events/lightcon",
-              active: route.path.startsWith("/events/lightcon"),
-            },
-          ],
-        },
-      ],
+              active: route.path.startsWith("/events/lightcon")
+            }
+          ]
+        }
+      ]
     },
     {
       label: t("app.header.links.company.label"),
@@ -169,14 +169,14 @@ const items = computed<NavigationMenuItem[]>(() =>
             {
               label: t("app.header.links.company.content.main.studio.about_us"),
               to: "/company/about",
-              active: route.path.startsWith("/company/about"),
+              active: route.path.startsWith("/company/about")
             },
             {
               label: t("app.header.links.company.content.main.studio.partnerships"),
               to: "/company/studio/partnerships",
-              active: route.path.startsWith("/company/studio/partnerships"),
-            },
-          ],
+              active: route.path.startsWith("/company/studio/partnerships")
+            }
+          ]
         },
         {
           label: t("app.header.links.company.content.main.careers.heading"),
@@ -184,14 +184,14 @@ const items = computed<NavigationMenuItem[]>(() =>
             {
               label: t("app.header.links.company.content.main.careers.life"),
               to: "/company/careers/culture",
-              active: route.path.startsWith("/company/careers/culture"),
+              active: route.path.startsWith("/company/careers/culture")
             },
             {
               label: t("app.header.links.company.content.main.careers.jobs"),
               to: "/company/careers",
-              active: route.path.startsWith("/company/careers"),
-            },
-          ],
+              active: route.path.startsWith("/company/careers")
+            }
+          ]
         },
         {
           label: t("app.header.links.company.content.main.news.heading"),
@@ -199,11 +199,11 @@ const items = computed<NavigationMenuItem[]>(() =>
             {
               label: t("app.header.links.company.content.main.news.blog"),
               to: "/company/blog",
-              active: route.path.startsWith("/company/blog"),
-            },
-          ],
-        },
-      ],
+              active: route.path.startsWith("/company/blog")
+            }
+          ]
+        }
+      ]
     },
     {
       label: t("app.header.links.store.label"),
@@ -213,113 +213,113 @@ const items = computed<NavigationMenuItem[]>(() =>
       children: [
         {
           label: t("app.header.links.store.content.main.digital_goods.heading"),
-          to: "/store/digital",
+          to: "/store/digital"
         },
         {
           label: t("app.header.links.store.content.main.deals.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.deals.new_releases"),
-              to: "/store/deals/new",
+              to: "/store/deals/new"
             },
             {
               label: t("app.header.links.store.content.main.deals.sales"),
-              to: "/store/deals/sales",
+              to: "/store/deals/sales"
             },
             {
               label: t("app.header.links.store.content.main.deals.bundles"),
-              to: "/store/deals/bundles",
-            },
-          ],
+              to: "/store/deals/bundles"
+            }
+          ]
         },
         {
           label: t("app.header.links.store.content.main.clothing.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.clothing.headwear"),
-              to: "/store/clothing/headwear",
+              to: "/store/clothing/headwear"
             },
             {
               label: t("app.header.links.store.content.main.clothing.tops"),
-              to: "/store/clothing/tops",
+              to: "/store/clothing/tops"
             },
             {
               label: t("app.header.links.store.content.main.clothing.bottoms"),
-              to: "/store/clothing/bottoms",
-            },
-          ],
+              to: "/store/clothing/bottoms"
+            }
+          ]
         },
         {
           label: t("app.header.links.store.content.main.accessories.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.accessories.jewelry"),
-              to: "/store/accessories/jewelry",
+              to: "/store/accessories/jewelry"
             },
             {
               label: t("app.header.links.store.content.main.accessories.pins_patches"),
-              to: "/store/merch/pins",
+              to: "/store/merch/pins"
             },
             {
               label: t("app.header.links.store.content.main.accessories.keychains"),
-              to: "/store/accessories/keychains",
-            },
-          ],
+              to: "/store/accessories/keychains"
+            }
+          ]
         },
         {
           label: t("app.header.links.store.content.main.apparel.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.apparel.bottles_mugs"),
-              to: "/store/apparel/bottles-mugs",
-            },
-          ],
+              to: "/store/apparel/bottles-mugs"
+            }
+          ]
         },
         {
           label: t("app.header.links.store.content.main.collectibles.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.collectibles.figurines_statues"),
-              to: "/store/collectibles/figurines",
+              to: "/store/collectibles/figurines"
             },
             {
               label: t("app.header.links.store.content.main.collectibles.plushies"),
-              to: "/store/merch/plushies",
-            },
-          ],
+              to: "/store/merch/plushies"
+            }
+          ]
         },
         {
           label: t("app.header.links.store.content.main.art.heading"),
           children: [
             {
               label: t("app.header.links.store.content.main.art.posters_prints"),
-              to: "/store/merch/posters",
+              to: "/store/merch/posters"
             },
             {
               label: t("app.header.links.store.content.main.art.comics_books"),
-              to: "/store/art/books",
+              to: "/store/art/books"
             },
             {
               label: t("app.header.links.store.content.main.art.physical_games"),
-              to: "/store/art/games",
-            },
-          ],
-        },
-      ],
-    },
-  ]),
-);
+              to: "/store/art/games"
+            }
+          ]
+        }
+      ]
+    }
+  ])
+)
 
 const accountMenuItems = computed<menuItem[][]>(() => {
   return [
     [
       {
-        slot: "user" as const,
+        slot: "user" as const
       },
       {
         label: "Dashboard",
         icon: "lucide:layout-dashboard",
-        to: "/dashboard",
+        to: "/dashboard"
       },
       {
         label: "Available",
@@ -331,40 +331,40 @@ const accountMenuItems = computed<menuItem[][]>(() => {
               label: "Available",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
+              onClick: async () => {}
             },
             {
               label: "Busy",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
-            },
+              onClick: async () => {}
+            }
           ],
           [
             {
               label: "Invisible",
               icon: "pajamas:status-active",
               color: "success",
-              onClick: async () => {},
-            },
-          ],
-        ],
-      },
+              onClick: async () => {}
+            }
+          ]
+        ]
+      }
     ],
     [
       {
         label: "Profile",
-        icon: "lucide:user",
+        icon: "lucide:user"
       },
       {
         label: "Billing",
-        icon: "lucide:credit-card",
-      },
+        icon: "lucide:credit-card"
+      }
     ],
     [
       {
         label: "Team",
-        icon: "lucide:users",
+        icon: "lucide:users"
       },
       {
         label: "Invite users",
@@ -373,74 +373,74 @@ const accountMenuItems = computed<menuItem[][]>(() => {
           [
             {
               label: "Email",
-              icon: "lucide:mail",
+              icon: "lucide:mail"
             },
             {
               label: "Message",
-              icon: "lucide:message-square",
-            },
+              icon: "lucide:message-square"
+            }
           ],
           [
             {
               label: "More",
-              icon: "lucide:circle-plus",
-            },
-          ],
-        ],
+              icon: "lucide:circle-plus"
+            }
+          ]
+        ]
       },
       {
         label: "New team",
         icon: "lucide:plus",
-        kbds: ["meta", "n"],
-      },
+        kbds: ["meta", "n"]
+      }
     ],
     [
       {
         label: "Support",
         icon: "lucide:headset",
-        to: "/docs/components/dropdown-menu",
-      },
+        to: "/docs/components/dropdown-menu"
+      }
     ],
     [
       {
         label: "Settings",
         icon: "lucide:cog",
         to: "/dashboard/settings",
-        kbds: [","],
-      },
-    ],
-  ];
-});
+        kbds: [","]
+      }
+    ]
+  ]
+})
 
-defineShortcuts(extractShortcuts(accountMenuItems.value));
+defineShortcuts(extractShortcuts(accountMenuItems.value))
 
 const availabilityChip = computed<ChipProps | undefined>(() => {
-  const availability = session.value?.user?.availability;
+  const availability = session.value?.user?.availability
 
   if (!availability) {
-    return undefined;
+    return undefined
   }
 
-  let color: ChipProps["color"];
+  let color: ChipProps["color"]
   switch (availability) {
     case "available":
-      color = "success";
-      break;
+      color = "success"
+      break
     case "busy":
-      color = "error";
-      break;
+      color = "error"
+      break
     case "invisible":
-      color = "neutral";
-      break;
+      color = "neutral"
+      break
     default:
-      color = "primary";
+      color = "primary"
   }
 
   return {
     color: color,
-    position: "bottom-right",
-  };
-});
+    position: "bottom-right"
+  }
+})
 
 /* region Props */
 /* endregion */
@@ -485,8 +485,8 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               'text-white transition-colors duration-200',
               'hover:text-primary-400',
               'data-[state=open]:text-primary-400',
-              'aria-[current]:text-primary-400',
-            ],
+              'aria-[current]:text-primary-400'
+            ]
           }"
           variant="link"
         >
@@ -1061,14 +1061,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                           v-if="session"
                           :avatar="{
                             src: session?.user.image ?? '',
-                            alt: session?.user.name ?? '',
+                            alt: session?.user.name ?? ''
                           }"
                           :chip="availabilityChip"
                           :description="session?.user.status ?? ''"
                           :name="session?.user.name"
                           :ui="{
                             name: 'text-white group-hover:text-primary-400 transition-colors duration-200',
-                            description: 'text-left',
+                            description: 'text-left'
                           }"
                           class="group"
                           size="md"
@@ -1084,14 +1084,14 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                         v-if="session"
                         :avatar="{
                           src: session?.user.image ?? '',
-                          alt: session?.user.name ?? '',
+                          alt: session?.user.name ?? ''
                         }"
                         :description="
                           session?.user.status ?? t('app.header.user.status.placeholder')
                         "
                         :ui="{
                           name: 'text-left text-black',
-                          description: 'text-left text-neutral-500',
+                          description: 'text-left text-neutral-500'
                         }"
                         size="md"
                       >
@@ -1163,7 +1163,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             :handle="false"
             :ui="{
               header: 'flex items-center justify-between',
-              content: 'w-full max-w-4/5 rounded-none',
+              content: 'w-full max-w-4/5 rounded-none'
             }"
             side="left"
           >
@@ -1216,7 +1216,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
             :handle="false"
             :ui="{
               header: 'flex items-center justify-between',
-              content: 'w-full max-w-4/5 rounded-none',
+              content: 'w-full max-w-4/5 rounded-none'
             }"
             side="right"
           >
@@ -1231,7 +1231,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 v-if="session"
                 :avatar="{
                   src: session?.user.image ?? '',
-                  alt: session?.user.name ?? '',
+                  alt: session?.user.name ?? ''
                 }"
                 :description="session?.user.status ?? ''"
                 :ui="{ description: 'text-left' }"

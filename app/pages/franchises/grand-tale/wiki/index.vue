@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "wiki",
-});
+  layout: "wiki"
+})
 
 useHead({
-  title: "Grand Tale Wiki",
-});
+  title: "Grand Tale Wiki"
+})
 
 /* region State */
 /* endregion */
@@ -15,8 +15,8 @@ useHead({
 
 /* region Lifecycle */
 const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
-  query: { slugPrefix: "franchises/grand-tale/wiki" },
-});
+  query: { slugPrefix: "franchises/grand-tale/wiki" }
+})
 /* endregion */
 
 /* region Logic */
@@ -53,7 +53,7 @@ const { data: articleCount } = await useApi<number>(() => "/api/pages/count", {
             color="neutral"
             variant="outline"
             :ui="{
-              base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
+              base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors'
             }"
           />
           <UButton color="neutral" icon="lucide:arrow-right" size="xl" />

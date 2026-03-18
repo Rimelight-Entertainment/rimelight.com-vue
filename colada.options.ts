@@ -1,3 +1,3 @@
-import type { PiniaColadaOptions } from "@pinia/colada";
+import type { PiniaColadaOptions } from "@pinia/colada"
 
-export default {} satisfies PiniaColadaOptions;
+export default {} satisfies PiniaColadaOptions

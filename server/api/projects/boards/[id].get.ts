@@ -1,26 +1,26 @@
-import { and, asc, eq, isNull } from "drizzle-orm";
-import { getUserSession } from "#server/utils/session";
-import { board, card, customFieldDefinition, db, list } from "#server/db";
+import { and, asc, eq, isNull } from "drizzle-orm"
+import { getUserSession } from "#server/utils/session"
+import { board, card, customFieldDefinition, db, list } from "#server/db"
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event);
-  const userId = session?.user?.id;
-  const boardId = getRouterParam(event, "id");
+  const session = await getUserSession(event)
+  const userId = session?.user?.id
+  const boardId = getRouterParam(event, "id")
 
   if (!userId) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",
-      message: "Authentication required.",
-    });
+      message: "Authentication required."
+    })
   }
 
   if (!boardId) {
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "Board ID is required",
-    });
+      message: "Board ID is required"
+    })
   }
 
   try {
@@ -33,31 +33,31 @@ export default defineEventHandler(async (event) => {
           with: {
             cards: {
               where: isNull(card.deletedAt),
-              orderBy: [asc(card.order)],
-            },
-          },
+              orderBy: [asc(card.order)]
+            }
+          }
         },
         customFields: {
-          where: isNull(customFieldDefinition.deletedAt),
-        },
-      },
-    });
+          where: isNull(customFieldDefinition.deletedAt)
+        }
+      }
+    })
 
     if (!result) {
       throw createError({
         statusCode: 404,
         statusMessage: "Not Found",
-        message: "Board not found",
-      });
+        message: "Board not found"
+      })
     }
 
-    return result;
+    return result
   } catch (error) {
-    console.error("Failed to fetch board:", error);
+    console.error("Failed to fetch board:", error)
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",
-      message: "Could not fetch board.",
-    });
+      message: "Could not fetch board."
+    })
   }
-});
+})

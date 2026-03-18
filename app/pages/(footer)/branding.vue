@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import mainCss from "~/assets/css/main.css?raw";
+import mainCss from "~/assets/css/main.css?raw"
 
-const appConfig = useAppConfig();
-const { t } = useI18n();
+const appConfig = useAppConfig()
+const { t } = useI18n()
 
 useHead({
-  title: "Branding",
-});
+  title: "Branding"
+})
 
 useSeoMeta({
   title: "Branding",
   ogTitle: "Branding",
   description: `Branding guidelines and assets for ${appConfig.title}.`,
-  ogDescription: `Branding guidelines and assets for ${appConfig.title}.`,
-});
+  ogDescription: `Branding guidelines and assets for ${appConfig.title}.`
+})
 
 /* region State */
 /* endregion */

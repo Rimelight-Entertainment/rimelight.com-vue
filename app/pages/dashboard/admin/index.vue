@@ -3,36 +3,36 @@ const [
   { data: organizationsCount },
   { data: teamsCount },
   { data: usersCount },
-  { data: sessionsCount },
+  { data: sessionsCount }
 ] = await Promise.all([
   useApi<number>("/api/admin/organizations/count"),
   useApi<number>("/api/admin/teams/count"),
   useApi<number>("/api/admin/users/count"),
-  useApi<number>("/api/admin/sessions/count"),
-]);
+  useApi<number>("/api/admin/sessions/count")
+])
 
 const stats = computed(() => [
   {
     label: "Total Organizations",
     value: organizationsCount.value ?? 0,
-    icon: "lucide:building-2",
+    icon: "lucide:building-2"
   },
   {
     label: "Total Teams",
     value: teamsCount.value ?? 0,
-    icon: "lucide:users",
+    icon: "lucide:users"
   },
   {
     label: "Total Users",
     value: usersCount.value ?? 0,
-    icon: "lucide:user",
+    icon: "lucide:user"
   },
   {
     label: "Active Sessions",
     value: sessionsCount.value ?? 0,
-    icon: "lucide:activity",
-  },
-]);
+    icon: "lucide:activity"
+  }
+])
 
 /* region State */
 /* endregion */

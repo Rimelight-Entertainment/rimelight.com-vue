@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const route = useRoute();
-const { user } = useAuth();
+const route = useRoute()
+const { user } = useAuth()
 
-const slug = computed(() => route.params.slug as string);
-const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin");
+const slug = computed(() => route.params.slug as string)
+const canEdit = computed(() => user.value?.role === "owner" || user.value?.role === "admin")
 
 /* region State */
 /* endregion */
@@ -27,7 +27,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
     :error-redirect-params="{
       redirect: '/company/blog',
       label: 'Back to Blog',
-      message: 'The requested blog post could not be located.',
+      message: 'The requested blog post could not be located.'
     }"
   />
 </template>

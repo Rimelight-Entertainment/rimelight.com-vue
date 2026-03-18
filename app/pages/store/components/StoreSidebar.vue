@@ -3,14 +3,14 @@ const categories = [
   { label: "All Products", icon: "lucide:grid-3x3", to: "/store" },
   { label: "Digital Goods", icon: "lucide:zap", to: "/store?category=digital" },
   { label: "Merchandise", icon: "lucide:shirt", to: "/store?category=merch" },
-  { label: "Early Access", icon: "lucide:clock", to: "/store?category=early" },
-];
+  { label: "Early Access", icon: "lucide:clock", to: "/store?category=early" }
+]
 
 const supportLinks = [
   { label: "Shipping Policy", to: "/store/shipping" },
   { label: "Refunds & Returns", to: "/store/returns" },
-  { label: "Contact Support", to: "/support" },
-];
+  { label: "Contact Support", to: "/support" }
+]
 
 /* region Props */
 /* endregion */
@@ -52,7 +52,7 @@ const supportLinks = [
         class="w-full"
         variant="link"
         :ui="{
-          link: 'text-gray-600 dark:text-gray-400 hover:text-primary-500 px-4 py-2 font-medium transition-colors',
+          link: 'text-gray-600 dark:text-gray-400 hover:text-primary-500 px-4 py-2 font-medium transition-colors'
         }"
       />
     </div>

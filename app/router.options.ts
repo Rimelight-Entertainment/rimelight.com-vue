@@ -1,4 +1,4 @@
-import type { RouterConfig } from "@nuxt/schema";
+import type { RouterConfig } from "@nuxt/schema"
 
 /*
  * Filters out 'partials' directories within the Pages directory,
@@ -7,8 +7,8 @@ import type { RouterConfig } from "@nuxt/schema";
 export default <RouterConfig>{
   routes: (_routes) => {
     if (import.meta.env.MODE === "production") {
-      _routes = _routes.filter((route) => !route.path.includes("partials"));
+      _routes = _routes.filter((route) => !route.path.includes("partials"))
     }
-    return _routes;
-  },
-};
+    return _routes
+  }
+}

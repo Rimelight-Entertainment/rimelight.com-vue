@@ -1,15 +1,15 @@
 <script setup lang="ts">
-const { strapiApiBase } = useRuntimeConfig().public;
+const { strapiApiBase } = useRuntimeConfig().public
 const {
   data: productsResult,
   pending,
-  error,
+  error
 } = await useApi<any>("/api/products?populate=*", {
-  baseURL: strapiApiBase as string,
-});
+  baseURL: strapiApiBase as string
+})
 
 const products = computed(() => {
-  if (!productsResult.value?.data) return [];
+  if (!productsResult.value?.data) return []
   return productsResult.value.data.map((p: any) => ({
     id: p.documentId || p.id,
     title: p.Title,
@@ -19,14 +19,14 @@ const products = computed(() => {
       ? p.Image.url.startsWith("http")
         ? p.Image.url
         : `${strapiApiBase}${p.Image.url}`
-      : "/images/placeholders/placeholder_header_store.jpg",
-  }));
-});
+      : "/images/placeholders/placeholder_header_store.jpg"
+  }))
+})
 
 definePageMeta({
   title: "Store",
-  layout: "store",
-});
+  layout: "store"
+})
 
 /* region State */
 /* endregion */

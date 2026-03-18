@@ -1,20 +1,20 @@
 <script setup lang="ts">
-const route = useRoute();
-const id = route.params.id;
-const { strapiApiBase } = useRuntimeConfig().public;
-const storeUrl = useRequestURL().origin;
+const route = useRoute()
+const id = route.params.id
+const { strapiApiBase } = useRuntimeConfig().public
+const storeUrl = useRequestURL().origin
 
 const {
   data: productResult,
   pending,
-  error,
+  error
 } = await useApi<any>(`/api/products/${id}?populate=*`, {
-  baseURL: strapiApiBase as string,
-});
+  baseURL: strapiApiBase as string
+})
 
 const product = computed(() => {
-  if (!productResult.value?.data) return null;
-  const p = productResult.value.data;
+  if (!productResult.value?.data) return null
+  const p = productResult.value.data
   return {
     id: p.id,
     title: p.Title,
@@ -25,37 +25,37 @@ const product = computed(() => {
         ? p.Image.url
         : `${strapiApiBase}${p.Image.url}`
       : "/images/placeholders/placeholder_header_store.jpg",
-    custom_field: p.custom_field || [],
-  };
-});
+    custom_field: p.custom_field || []
+  }
+})
 
 // Adapted custom fields logic from guide for Snipcart
 const customFieldsBind = computed(() => {
-  if (!product.value?.custom_field?.length) return {};
+  if (!product.value?.custom_field?.length) return {}
 
   return product.value.custom_field
     .map(({ title, required, options }: any) => ({
       name: title,
       required,
-      options,
+      options
     }))
     .map((x: any, index: number) =>
       Object.entries(x).map(([key, value]) => ({
-        [`data-item-custom${index + 1}-${key.toString().toLowerCase()}`]: value,
-      })),
+        [`data-item-custom${index + 1}-${key.toString().toLowerCase()}`]: value
+      }))
     )
     .reduce((acc: any, curr: any) => acc.concat(curr), [])
-    .reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {});
-});
+    .reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {})
+})
 
 definePageMeta({
-  layout: "store",
-});
+  layout: "store"
+})
 
 useSeoMeta({
   title: () => product.value?.title || "Product",
-  description: () => product.value?.description || "",
-});
+  description: () => product.value?.description || ""
+})
 
 /* region State */
 /* endregion */

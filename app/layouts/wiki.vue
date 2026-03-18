@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { PAGE_MAP } from "~/types";
+import { PAGE_MAP } from "~/types"
 
-const { registerDefinitions } = usePageRegistry();
-registerDefinitions(PAGE_MAP as any);
+const { registerDefinitions } = usePageRegistry()
+registerDefinitions(PAGE_MAP as any)
 </script>
 
 <template>
