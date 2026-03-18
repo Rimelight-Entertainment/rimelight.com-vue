@@ -2,3 +2,10 @@
 minimumReleaseAgeExclude:
   - "@rimelight/*"
   - "rimelight-cli"
+allowBuilds:
+  "@parcel/watcher": true
+  better-sqlite3: true
+  esbuild: true
+  sharp: true
+  vue-demi: true
+  workerd: true

@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "rimelight-dot-com",
   "compatibility_flags": ["nodejs_compat"],
-  "compatibility_date": "2026-01-01",
+  "compatibility_date": "2026-02-13",
   "routes": [
     {
       "pattern": "rimelight.com",
@@ -43,4 +43,10 @@
       "id": "7b7a717c21114eadbe0a103ae2bfcb7b"
     }
   ]
+  // "hyperdrive": [
+  //   {
+  //     "binding": "HYPERDRIVE",
+  //     "id": "82741a7bfa2140e09a413a2821bfa1b3"
+  //   }
+  // ]
 }

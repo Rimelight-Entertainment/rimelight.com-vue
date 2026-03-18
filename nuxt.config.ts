@@ -57,11 +57,15 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    clearScreen: false,
     envPrefix: ["TAURI_"],
     server: {
       watch: {
         ignored: ["**/src-tauri/**"]
       }
+    },
+    optimizeDeps: {
+      include: ["@vue/devtools-core", "@vue/devtools-kit"]
     }
   },
 
@@ -250,7 +254,12 @@ export default defineNuxtConfig({
   },
 
   studio: {
+    i18n: {
+      defaultLocale: "en"
+    },
+    route: "/studio",
     repository: {
+      provider: "github",
       owner: "Rimelight-Entertainment",
       repo: "rimelight.com"
     }

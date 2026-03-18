@@ -30,10 +30,13 @@
     "i18n:fix": "vue-i18n-extract report --vueFiles \"./{app,server,shared,auth,types}/**/*.?(js|vue|ts)\" --languageFiles \"./i18n/locales/*.?(json|yml|yaml|js)\" --add --remove",
     "knip": "knip",
     "knip:fix": "knip --fix",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
     "tauri": "tauri",
     "dev:tauri": "tauri dev",
     "build:android": "pnpm version:sync && pnpm generate && pnpm tauri android build --target aarch64 armv7",
-    "build:tauri": "NUXT_PUBLIC_API_BASE=https://idantity.me NUXT_APP_TARGET=tauri pnpm generate"
+    "build:tauri": "NUXT_PUBLIC_API_BASE=https://rimelight.com NUXT_APP_TARGET=tauri pnpm generate"
   },
   "dependencies": {
     "cobe": "^0.6.5"
