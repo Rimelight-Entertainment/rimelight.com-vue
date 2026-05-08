@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "rimelight-dot-com",
+  "name": "rimelight-dot-com-vue",
   "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2026-01-01",
   //  "routes": [
