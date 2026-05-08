@@ -2,8 +2,8 @@
 import { reactive, onMounted, useTemplateRef, watch, nextTick, computed } from "vue";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
-import { defaultDocument, defaultWindow } from "#utils";
+import { useRC } from "~/composables";
+import { defaultDocument, defaultWindow } from "#shared/utils";
 
 /* region Props */
 export interface ImageProps {

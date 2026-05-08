@@ -1,4 +1,4 @@
-import type { PageDefinition } from "../../app/types";
+import type { PageDefinition } from "./types";
 
 /**
  * Helper to define a page template with type safety.

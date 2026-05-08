@@ -2,8 +2,8 @@ import { createAuthClient } from "better-auth/vue";
 import { inferAdditionalFields } from "better-auth/client/plugins";
 import { adminClient, organizationClient } from "better-auth/client/plugins";
 import type { AccessControl } from "better-auth/plugins/access";
-import { statement } from "#auth/statements";
-import { ac, owner, admin, member, user } from "#auth/permissions";
+import { statement } from "#shared/auth/statements";
+import { ac, owner, admin, member, user } from "#shared/auth/permissions";
 
 export const authClient = createAuthClient({
   plugins: [

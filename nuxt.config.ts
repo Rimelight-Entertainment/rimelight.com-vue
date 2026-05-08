@@ -139,15 +139,6 @@ export default defineNuxtConfig({
     },
     viewTransition: true,
   },
-  alias: {
-    "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
-    "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
-    "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
-    "#utils": fileURLToPath(new URL("./shared/utils", import.meta.url)),
-    "#auth": fileURLToPath(new URL("./shared/auth", import.meta.url)),
-    "#db": fileURLToPath(new URL("./server/db/schema", import.meta.url)),
-    "#composables": fileURLToPath(new URL("./app/composables", import.meta.url)),
-  },
   vite: {
     clearScreen: false,
     envPrefix: ["VITE_"],

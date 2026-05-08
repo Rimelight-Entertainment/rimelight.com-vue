@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { v7 as uuidv7 } from "uuid";
-import type { Block } from "#types";
-import { useBlockEditor, useRC } from "#composables";
-import { type BlockDefinition } from "#utils/blocks";
+import type { Block } from "~/types";
+import { useBlockEditor, useRC } from "~/composables";
+import { type BlockDefinition } from "#shared/utils/blocks";
 import { useI18n } from "vue-i18n";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";

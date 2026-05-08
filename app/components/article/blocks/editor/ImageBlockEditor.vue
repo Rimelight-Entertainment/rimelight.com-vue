@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { tv } from "../../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { type ImageBlockProps } from "#types";
+import { type ImageBlockProps } from "~/types";
 
 /* region Props */
 export interface ImageBlockEditorProps extends ImageBlockProps {

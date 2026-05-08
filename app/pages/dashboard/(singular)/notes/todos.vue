@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Todo } from "#db";
+import type { Todo } from "../../../../../server/db/schema";
 
 const { data: todos, refresh: refreshTodos } = await useFetch<Todo[]>("/api/todos");
 const { data: archivedTodos, refresh: refreshArchivedTodos } =

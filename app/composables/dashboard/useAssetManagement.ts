@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { useToast } from "@nuxt/ui/composables/useToast";
-import { useConfirm } from "#composables/app/useConfirm";
+import { useConfirm } from "~/composables/app/useConfirm";
 
 export interface Asset {
   key: string;

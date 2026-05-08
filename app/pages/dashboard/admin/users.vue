@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { authClient } from "~~/auth/auth-client";
 
-import { defaultWindow } from "#utils";
+import { defaultWindow } from "#shared/utils";
 import type { TableColumn } from "@nuxt/ui";
 
 const { confirm: confirmAction } = useConfirm();

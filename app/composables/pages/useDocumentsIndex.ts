@@ -1,7 +1,7 @@
 import { computed, reactive, ref, watch } from "vue";
-import type { Page, PageType } from "#types";
+import type { Page, PageType } from "~/types";
 import { usePaginatedPages } from "./usePaginatedPages";
-import { slugify } from "#utils";
+import { slugify } from "#shared/utils";
 
 export interface NewDocumentState {
   title: string;

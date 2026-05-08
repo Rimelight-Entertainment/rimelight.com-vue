@@ -1,5 +1,5 @@
 import { v7 as uuidv7 } from "uuid";
-import type { RichTextContent, InlineText } from "../../app/types/blocks";
+import type { RichTextContent, InlineText } from "./types";
 
 /**
  * Helper: Converts RichTextContent array into a plain string for a simple contenteditable area.

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, provide, watch } from "vue";
-import { type Page, type PageSurround } from "#types";
-import { getLocalizedContent, syncPageWithDefinition } from "#utils";
+import { type Page, type PageSurround } from "~/types";
+import { getLocalizedContent, syncPageWithDefinition } from "#shared/utils";
 import { useI18n } from "vue-i18n";
-import { usePageRegistry, useRC } from "#composables";
+import { usePageRegistry, useRC } from "~/composables";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

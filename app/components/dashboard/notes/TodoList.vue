@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useTodos } from "#composables";
-import type { Todo } from "../../../../shared/db";
+import { useTodos } from "~/composables";
+import type { Todo } from "#shared/db";
 import { useI18n } from "vue-i18n";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";

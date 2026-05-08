@@ -2,7 +2,7 @@ import {
   BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION,
   DOCUMENT_DEFINITION,
 } from "./standardPages";
-import { definePageDefinition } from "#utils";
+import { definePageDefinition } from "#shared/utils";
 import { v7 as uuidv7 } from "uuid";
 
 export { DOCUMENT_DEFINITION };

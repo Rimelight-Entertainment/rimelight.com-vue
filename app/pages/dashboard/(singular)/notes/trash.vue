@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type Note } from "#db";
+import { type Note } from "../../../../../server/db/schema";
 
 const { confirm } = useConfirm();
 

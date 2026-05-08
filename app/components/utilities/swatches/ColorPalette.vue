@@ -3,7 +3,7 @@ import { computed } from "vue";
 import chroma from "chroma-js";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC, useHeaderStack } from "#composables";
+import { useRC, useHeaderStack } from "~/composables";
 
 /* region Props */
 export interface SwatchData {

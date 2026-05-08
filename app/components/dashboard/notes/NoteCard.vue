@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Note } from "../../../../shared/db";
-import { useRC } from "#composables";
+import type { Note } from "#shared/db";
+import { useRC } from "~/composables";
 import { ref } from "vue";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";

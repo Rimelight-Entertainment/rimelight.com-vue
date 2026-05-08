@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type Page, type PageVersion, type PageDefinition } from "#types";
-import { getLocalizedContent, getPageResolutionPath } from "#utils";
+import { type Page, type PageVersion, type PageDefinition } from "~/types";
+import { getLocalizedContent, getPageResolutionPath } from "#shared/utils";
 
 /* region Props */
 export interface PageEditViewProps {

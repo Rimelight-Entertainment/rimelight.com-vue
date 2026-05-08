@@ -13,8 +13,8 @@ import {
   user as userRole,
   createRestrictedSet,
   normalizeUsername,
-} from "#auth";
-import { createGenerateUniqueTag } from "#auth/utils";
+} from "#shared/auth";
+import { createGenerateUniqueTag } from "#shared/auth/utils";
 
 const ac = createAccessControl(statement);
 

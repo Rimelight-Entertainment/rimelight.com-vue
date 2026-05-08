@@ -1,4 +1,4 @@
-import { statement } from "../../../shared/auth/statements";
+import { statement } from "#shared/auth/statements";
 import { computed } from "vue";
 
 interface AuthInterface {

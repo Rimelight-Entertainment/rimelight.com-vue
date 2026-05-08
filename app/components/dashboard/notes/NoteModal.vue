@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { SelectMenuItem } from "@nuxt/ui";
 import { computed, reactive, ref, watch, onUnmounted } from "vue";
-import type { Label, Note } from "../../../../shared/db";
-import { useRC } from "#composables";
+import type { Label, Note } from "#shared/db";
+import { useRC } from "~/composables";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

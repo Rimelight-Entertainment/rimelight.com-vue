@@ -1,4 +1,4 @@
-import { definePageDefinition } from "#utils/cms";
+import { definePageDefinition } from "#shared/utils/cms";
 
 export const DOCUMENT_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.document",

@@ -6,7 +6,7 @@ import {
   type PageVersion,
   type Property,
   type BasePageProperties,
-} from "../../app/types";
+} from "./types";
 
 export const getLocalizedContent = <T = string>(
   field: Localized<T> | T | undefined,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SectionBlockProps } from "#types";
+import type { SectionBlockProps } from "~/types";
 import { tv } from "../../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

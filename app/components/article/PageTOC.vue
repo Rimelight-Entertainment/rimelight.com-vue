@@ -3,9 +3,9 @@ import { computed, ref, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useIntersectionObserver } from "@vueuse/core";
 import { tv } from "../../internal/tv";
-import { useRC } from "#composables";
-import type { Block, SectionBlockProps, HeadingLevel } from "#types";
-import { slugify, defaultDocument } from "#utils";
+import { useRC } from "~/composables";
+import type { Block, SectionBlockProps, HeadingLevel } from "~/types";
+import { slugify, defaultDocument } from "#shared/utils";
 import { type VariantProps } from "tailwind-variants";
 
 /* region Props */

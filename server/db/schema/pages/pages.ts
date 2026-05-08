@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { type Block, type Localized, type PageType, type RegisterPageTypes } from "#types";
+import { type Block, type Localized, type PageType, type RegisterPageTypes } from "~/types";
 
 const id = uuid("id")
   .default(sql`uuidv7()`)

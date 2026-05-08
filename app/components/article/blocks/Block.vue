@@ -2,7 +2,7 @@
 import { inject, ref } from "vue";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 
 /* region Props */
 export interface BlockProps {

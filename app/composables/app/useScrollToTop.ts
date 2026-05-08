@@ -1,5 +1,5 @@
 import { computed, onMounted, onUnmounted } from "vue";
-import { defaultDocument, defaultWindow } from "#utils";
+import { defaultDocument, defaultWindow } from "#shared/utils";
 
 export const useScrollToTop = () => {
   // 1. Initializing (N/A)

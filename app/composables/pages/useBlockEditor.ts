@@ -1,6 +1,6 @@
 import { type Ref, computed, ref, shallowRef } from "vue";
 import { v7 as uuidv7 } from "uuid";
-import type { Block } from "#types";
+import type { Block } from "~/types";
 
 /**
  * Helper: Recursively finds the parent array and index of a block by ID.

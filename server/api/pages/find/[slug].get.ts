@@ -1,7 +1,7 @@
-import { PAGE_MAP } from "#types";
+import { PAGE_MAP } from "~/types";
 import { eq, or, and, isNull } from "drizzle-orm";
-import { type Page } from "#types";
-import { syncPageWithDefinition } from "#utils";
+import { type Page } from "~/types";
+import { syncPageWithDefinition } from "#shared/utils";
 import { db, pages } from "#server/db";
 import { getUserSession } from "#server/utils/session";
 

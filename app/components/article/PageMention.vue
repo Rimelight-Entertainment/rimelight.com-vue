@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { getLocalizedContent } from "#utils";
+import { getLocalizedContent } from "#shared/utils";
 import { useI18n } from "vue-i18n";
-import { type Page } from "#types";
+import { type Page } from "~/types";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 
 /* region Props */
 export interface PageMentionProps {

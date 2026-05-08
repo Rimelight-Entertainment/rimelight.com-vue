@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { tv } from "../../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import type { ParagraphBlockProps, RichTextContent } from "#types";
+import type { ParagraphBlockProps, RichTextContent } from "~/types";
 
 /* region Props */
 export interface ParagraphBlockEditorProps extends ParagraphBlockProps {

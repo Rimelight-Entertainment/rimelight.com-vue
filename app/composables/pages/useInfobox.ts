@@ -1,6 +1,6 @@
 import { useI18n } from "vue-i18n";
 import { type MaybeRefOrGetter, toValue } from "vue";
-import type { Property, PropertyGroup, BasePageProperties } from "#types";
+import type { Property, PropertyGroup, BasePageProperties } from "~/types";
 
 export const useInfobox = (propertiesRef: MaybeRefOrGetter<BasePageProperties>) => {
   // 1. Initializing

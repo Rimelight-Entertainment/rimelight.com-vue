@@ -1,5 +1,5 @@
 import { eq, count, and } from "drizzle-orm";
-import type { user as userTable } from "#db/auth";
+import type { user as userTable } from "../../server/db/schema/auth";
 
 /**
  * Generate a random number between 0000 (inclusive) and 9999 (inclusive)

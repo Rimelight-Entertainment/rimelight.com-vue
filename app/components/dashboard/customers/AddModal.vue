@@ -5,7 +5,7 @@ import { ref, reactive } from "vue";
 import { useToast } from "@nuxt/ui/composables/useToast";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 
 /* region Props */
 export interface AddModalProps {

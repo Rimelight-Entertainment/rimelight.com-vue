@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from "#ui/types";
-import type { Page } from "#types";
+import type { Page } from "~/types";
 import { PAGE_MAP as pageDefinitions } from "~/types";
 import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue";
 import RLFocusTimerTool from "~/components/dashboard/floating-tools/FocusTimerTool.vue";

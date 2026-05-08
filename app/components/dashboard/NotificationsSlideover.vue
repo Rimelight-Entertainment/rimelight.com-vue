@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { formatTimeAgo } from "@vueuse/core";
-import type { Notification } from "#types";
+import type { Notification } from "~/types";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

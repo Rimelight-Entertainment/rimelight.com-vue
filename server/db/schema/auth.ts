@@ -13,7 +13,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import type { UserAvailability } from "../../../app/types";
+import type { UserAvailability } from "~/types";
 
 const id = uuid("id")
   .default(sql`uuidv7()`)

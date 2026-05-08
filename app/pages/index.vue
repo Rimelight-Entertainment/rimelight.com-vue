@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type Page } from "#types";
+import { type Page } from "~/types";
 import type { ButtonProps } from "@nuxt/ui";
 
 const { t, locale } = useI18n();

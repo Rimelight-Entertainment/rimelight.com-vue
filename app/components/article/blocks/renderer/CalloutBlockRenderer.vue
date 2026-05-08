@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CalloutBlockProps } from "#types";
+import type { CalloutBlockProps } from "~/types";
 import { tv } from "../../../../internal/tv";
 
 /* region Props */

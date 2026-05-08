@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import { type PageDefinition, type PageType, type Page } from "#types";
+import { type PageDefinition, type PageType, type Page } from "~/types";
 import { tv } from "../../../internal/tv";
 import { useRC } from "../../../composables/components/useRC";
 import { useI18n } from "vue-i18n";

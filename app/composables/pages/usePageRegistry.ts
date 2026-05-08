@@ -1,6 +1,6 @@
 // composables/usePageRegistry.ts
 import { reactive, readonly } from "vue";
-import { type PageType, type PageDefinition } from "#types";
+import { type PageType, type PageDefinition } from "~/types";
 
 // This would ideally be populated via a Nuxt plugin or at app initialization
 const PAGE_DEFINITIONS = reactive<Partial<Record<PageType, PageDefinition>>>({});

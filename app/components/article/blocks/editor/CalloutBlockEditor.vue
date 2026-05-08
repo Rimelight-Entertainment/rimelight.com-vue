@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CalloutBlockProps, CalloutVariant, Block } from "#types";
+import type { CalloutBlockProps, CalloutVariant, Block } from "~/types";
 import { tv } from "../../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

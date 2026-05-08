@@ -1,5 +1,5 @@
 import { computed, type Ref, shallowRef, watch } from "vue";
-import { type Page } from "#types";
+import { type Page } from "~/types";
 
 export function usePageEditor(page: Ref<Page>, maxHistorySize: number = 100) {
   // 1. Initializing (N/A)

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { breakpointsTailwind } from "@vueuse/core";
 
-import { type Mail } from "#types";
+import { type Mail } from "~/types";
 
 definePageMeta({
   layout: "dashboard",

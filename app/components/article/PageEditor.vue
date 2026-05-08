@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Page, type PageSurround, type PageDefinition, type PageVersion } from "#types";
+import { type Page, type PageSurround, type PageDefinition, type PageVersion } from "~/types";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

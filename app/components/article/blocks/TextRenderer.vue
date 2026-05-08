@@ -5,11 +5,11 @@ import {
   type InlineText,
   type InlineLink,
   type InlineMention,
-} from "#types";
+} from "~/types";
 import { RLTextNode, RLLinkNode, RLPageMention } from "#components";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 
 /* region Props */
 export interface TextRendererProps {

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, inject, defineAsyncComponent } from "vue";
 import draggable from "vuedraggable/src/vuedraggable";
-import type { Block } from "#types";
+import type { Block } from "~/types";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 import { BLOCK_EDITOR_COMPONENT_MAP } from "#build/rimelight-block-editor-map";
 
 /* region Props */

@@ -2,10 +2,10 @@
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@nuxt/ui/composables/useToast";
 import { computed, ref, watch } from "vue";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 import { useI18n } from "vue-i18n";
 import { tv } from "../../internal/tv";
-import type { PageVersion } from "#types";
+import type { PageVersion } from "~/types";
 import { type VariantProps } from "tailwind-variants";
 
 /* region Props */

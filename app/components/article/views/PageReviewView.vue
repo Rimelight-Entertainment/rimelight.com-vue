@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, useTemplateRef } from "vue";
-import { type Page, type PageVersion, type PageDefinition } from "#types";
+import { type Page, type PageVersion, type PageDefinition } from "~/types";
 import {
   convertVersionToPage,
   syncPageWithDefinition,
   getLocalizedContent,
   getPageResolutionPath,
-} from "#utils";
-import { usePageRegistry, useHeaderStack, useRC } from "#composables";
+} from "#shared/utils";
+import { usePageRegistry, useHeaderStack, useRC } from "~/composables";
 import { useI18n } from "vue-i18n";
 import { useToast } from "@nuxt/ui/composables/useToast";
 import { tv } from "../../../internal/tv";

@@ -1,6 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { type Block, type Localized, type PageType, type RegisterPageTypes } from "#types";
+import { type Block, type Localized, type PageType, type RegisterPageTypes } from "~/types";
 import { pages } from "./pages";
 
 const id = uuid("id")

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfirm, useRC } from "#composables";
+import { useConfirm, useRC } from "~/composables";
 import { computed } from "vue";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";

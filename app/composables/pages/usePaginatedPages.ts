@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { Page, PageType } from "#types";
+import type { Page, PageType } from "~/types";
 
 export interface UsePaginatedPagesOptions {
   /** Unique key for the async data */

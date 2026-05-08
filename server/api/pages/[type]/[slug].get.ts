@@ -1,8 +1,8 @@
 import { eq, and } from "drizzle-orm";
 import { db, pages } from "#server/db";
-import { type PageType, type Page } from "#types";
-import { syncPageWithDefinition } from "#utils";
-import { PAGE_MAP } from "#types";
+import { type PageType, type Page } from "~/types";
+import { syncPageWithDefinition } from "#shared/utils";
+import { PAGE_MAP } from "~/types";
 
 export default defineEventHandler(async (event) => {
   const type = getRouterParam(event, "type") as PageType;

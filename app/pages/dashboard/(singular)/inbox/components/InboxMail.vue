@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
-import { type Mail } from "#types";
+import { type Mail } from "~/types";
 import { ref } from "vue";
 
 export interface InboxMailProps {

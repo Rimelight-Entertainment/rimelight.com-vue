@@ -1,6 +1,6 @@
 import { Time } from "@internationalized/date";
 import { computed } from "vue";
-import { defaultWindow } from "#utils";
+import { defaultWindow } from "#shared/utils";
 
 export const useFocusTimer = () => {
   // 1. Initializing

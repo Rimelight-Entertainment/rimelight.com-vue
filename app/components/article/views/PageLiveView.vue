@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type Page } from "#types";
-import { getLocalizedContent, getPageResolutionPath } from "#utils";
+import { type Page } from "~/types";
+import { getLocalizedContent, getPageResolutionPath } from "#shared/utils";
 
 /* region Props */
 export interface PageLiveViewProps {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Todo } from "../../../../shared/db";
-import { useRC } from "#composables";
+import type { Todo } from "#shared/db";
+import { useRC } from "~/composables";
 import { tv } from "../../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 

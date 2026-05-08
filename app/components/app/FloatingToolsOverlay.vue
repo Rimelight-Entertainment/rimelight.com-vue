@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useFloatingTools } from "#composables";
+import { useFloatingTools } from "~/composables";
 import { tv } from "../../internal/tv";
-import { useRC } from "#composables";
+import { useRC } from "~/composables";
 import { type VariantProps } from "tailwind-variants";
 
 /* region Props */

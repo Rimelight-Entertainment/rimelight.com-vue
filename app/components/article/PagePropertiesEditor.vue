@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TabsItem } from "@nuxt/ui";
-import { type Page, type Link, type Localized } from "#types";
+import { type Page, type Link, type Localized } from "~/types";
 import { tv } from "../../internal/tv";
 import { type VariantProps } from "tailwind-variants";
 
