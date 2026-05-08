@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as v from "valibot";
+import { z } from "zod";
 import { reactive, ref } from "vue";
 import type { FormSubmitEvent } from "#ui/types";
 import { useToast } from "@nuxt/ui/composables/useToast";
@@ -97,13 +97,13 @@ const { t } = useI18n();
 const toast = useToast();
 const route = useRoute();
 
-const schema = v.object({
-  email: v.pipe(v.string(), v.email(t("auth_email_invalid"))),
-  password: v.pipe(v.string(), v.minLength(8, t("auth_password_min_length"))),
-  rememberMe: v.boolean(),
+const schema = z.object({
+  email: z.email({ message: t("auth_email_invalid") }),
+  password: z.string().min(8, t("auth_password_min_length")),
+  rememberMe: z.boolean(),
 });
 
-type Schema = v.InferOutput<typeof schema>;
+type Schema = z.infer<typeof schema>;
 
 const state = reactive<Partial<Schema>>({
   email: "",

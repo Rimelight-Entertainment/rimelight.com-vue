@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as v from "valibot";
+import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
 import { ref, reactive } from "vue";
 import { useToast } from "@nuxt/ui/composables/useToast";
@@ -48,12 +48,12 @@ type AddModalVariants = VariantProps<typeof addModalStyles>;
 const open = ref(false);
 const toast = useToast();
 
-const schema = v.object({
-  name: v.pipe(v.string(), v.minLength(2, "Too short")),
-  email: v.pipe(v.string(), v.email("Invalid email")),
+const schema = z.object({
+  name: z.string().min(2, "Too short"),
+  email: z.email({ message: "Invalid email" }),
 });
 
-type Schema = v.InferOutput<typeof schema>;
+type Schema = z.infer<typeof schema>;
 
 const state = reactive<Partial<Schema>>({
   name: undefined,

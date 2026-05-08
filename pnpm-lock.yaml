@@ -80,9 +80,6 @@ importers:
       uuid:
         specifier: ^13.0.0
         version: 13.0.2
-      valibot:
-        specifier: ^1.2.0
-        version: 1.4.0(typescript@5.9.3)
       vue:
         specifier: ^3.5.27
         version: 3.5.34(typescript@5.9.3)

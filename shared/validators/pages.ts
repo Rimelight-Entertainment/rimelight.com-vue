@@ -1,29 +1,29 @@
-import * as v from "valibot";
+import { z } from "zod";
 
-const BaseRules = v.object({
-  id: v.pipe(v.string(), v.uuid()),
+const BaseRules = z.object({
+  id: z.uuid(),
 });
 
-const fields = Object.keys(BaseRules.entries) as [keyof typeof BaseRules.entries];
+const fields = Object.keys(BaseRules.shape) as [keyof typeof BaseRules.shape];
 
-export const CreateRules = v.omit(BaseRules, ["id"]);
+export const CreateRules = BaseRules.omit({ id: true });
 
-export const ListRules = v.object({
-  keywords: v.optional(v.string()),
-  limit: v.optional(v.pipe(v.unknown(), v.toNumber(), v.integer(), v.minValue(1)), 10),
-  offset: v.optional(v.pipe(v.unknown(), v.toNumber(), v.integer(), v.minValue(0)), 0),
-  sortBy: v.optional(v.picklist(fields)),
-  sortOrder: v.optional(v.picklist(["asc", "desc"]), "desc"),
-  include: v.optional(v.picklist(fields)),
+export const ListRules = z.object({
+  keywords: z.string().optional(),
+  limit: z.coerce.number().int().min(1).optional().default(10),
+  offset: z.coerce.number().int().min(0).optional().default(0),
+  sortBy: z.enum(fields).optional(),
+  sortOrder: z.enum(["asc", "desc"]).optional().default("desc"),
+  include: z.enum(fields).optional(),
 });
 
-export const ReadRules = v.object({
-  id: v.pipe(v.string(), v.uuid()),
-  include: v.optional(v.picklist(fields)),
+export const ReadRules = z.object({
+  id: z.uuid(),
+  include: z.enum(fields).optional(),
 });
 
 export const UpdateRules = BaseRules;
 
-export const DeleteRules = v.object({
-  id: v.pipe(v.string(), v.uuid()),
+export const DeleteRules = z.object({
+  id: z.uuid(),
 });

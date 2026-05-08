@@ -38,7 +38,6 @@
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.2.1",
     "uuid": "^13.0.0",
-    "valibot": "^1.2.0",
     "vue": "^3.5.27",
     "vue-router": "^5.0.2",
     "vuedraggable": "^4.1.0",

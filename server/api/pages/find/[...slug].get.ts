@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   let session = null;
   try {
     session = await getUserSession(event);
-  } catch (_error) {
+  } catch {
     // Session optional for public pages
   }
 

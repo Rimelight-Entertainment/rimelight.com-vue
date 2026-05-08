@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeUsername, RESTRICTED_SET } from "../../../shared/auth/restricted-usernames";
-import * as v from "valibot";
+import { z } from "zod";
 import { reactive, ref, computed, useTemplateRef } from "vue";
 import type { FormSubmitEvent, StepperItem } from "#ui/types";
 import { useToast } from "@nuxt/ui/composables/useToast";
@@ -76,59 +76,54 @@ const toast = useToast();
 const { t } = useI18n();
 const route = useRoute();
 
-const step1Schema = v.object({
-  username: v.pipe(
-    v.string(),
-    v.minLength(2, t("auth_username_length_error")),
-    v.maxLength(24, t("auth_username_length_error")),
-    v.transform((val) => val.trim()),
-    v.check((val) => !/\s/.test(val), t("auth_username_no_spaces")),
-    v.check((val) => /^[a-zA-Z0-9._]+$/.test(val), t("auth_username_format_error")),
-    v.check((val) => {
-      const normalizedInput = normalizeUsername(val);
-      return !RESTRICTED_SET.has(normalizedInput);
-    }, t("auth_username_restricted_error")),
-  ),
-  firstName: v.pipe(
-    v.string(),
-    v.minLength(2, t("auth_firstname_length_error")),
-    v.maxLength(24, t("auth_firstname_length_error")),
-  ),
-  lastName: v.pipe(
-    v.string(),
-    v.minLength(2, t("auth_lastname_length_error")),
-    v.maxLength(24, t("auth_lastname_length_error")),
-  ),
-  email: v.pipe(v.string(), v.email(t("auth_email_invalid"))),
-  emailConfirmation: v.pipe(v.string(), v.maxLength(0)), // Honeypot
-});
-
-const step2Schema = v.pipe(
-  v.object({
-    password: v.pipe(
-      v.string(),
-      v.minLength(8, t("auth_password_length_error")),
-      v.maxLength(24, t("auth_password_length_error")),
+const step1Schema = z.object({
+  username: z
+    .string()
+    .min(2, t("auth_username_length_error"))
+    .max(24, t("auth_username_length_error"))
+    .transform((val) => val.trim())
+    .refine((val) => !/\s/.test(val), { message: t("auth_username_no_spaces") })
+    .refine((val) => /^[a-zA-Z0-9._]+$/.test(val), { message: t("auth_username_format_error") })
+    .refine(
+      (val) => {
+        const normalizedInput = normalizeUsername(val);
+        return !RESTRICTED_SET.has(normalizedInput);
+      },
+      { message: t("auth_username_restricted_error") },
     ),
-    passwordConfirmation: v.string(),
-  }),
-  v.forward(
-    v.check((input) => input.password === input.passwordConfirmation, t("auth_passwords_mismatch")),
-    ["passwordConfirmation"],
-  ),
-);
-
-const step3Schema = v.object({
-  terms: v.pipe(
-    v.boolean(),
-    v.check((val) => val, t("auth_terms_required")),
-  ),
-  newsletter: v.optional(v.boolean()),
+  firstName: z
+    .string()
+    .min(2, t("auth_firstname_length_error"))
+    .max(24, t("auth_firstname_length_error")),
+  lastName: z
+    .string()
+    .min(2, t("auth_lastname_length_error"))
+    .max(24, t("auth_lastname_length_error")),
+  email: z.email({ message: t("auth_email_invalid") }),
+  emailConfirmation: z.string().max(0), // Honeypot
 });
 
-const schema = v.intersect([step1Schema, step2Schema, step3Schema]);
+const step2Schema = z
+  .object({
+    password: z
+      .string()
+      .min(8, t("auth_password_length_error"))
+      .max(24, t("auth_password_length_error")),
+    passwordConfirmation: z.string(),
+  })
+  .refine((input) => input.password === input.passwordConfirmation, {
+    message: t("auth_passwords_mismatch"),
+    path: ["passwordConfirmation"],
+  });
 
-type Schema = v.InferOutput<typeof schema>;
+const step3Schema = z.object({
+  terms: z.boolean().refine((val) => val, { message: t("auth_terms_required") }),
+  newsletter: z.boolean().optional(),
+});
+
+const schema = step1Schema.and(step2Schema).and(step3Schema);
+
+type Schema = z.infer<typeof schema>;
 
 const state = reactive<Partial<Schema>>({
   username: "",
