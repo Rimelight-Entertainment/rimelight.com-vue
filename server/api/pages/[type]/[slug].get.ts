@@ -1,7 +1,7 @@
 import { eq, and } from "drizzle-orm";
 import { db, pages } from "#server/db";
-import { type PageType, type Page } from "rimelight-components/types";
-import { syncPageWithDefinition } from "rimelight-components/utils";
+import { type PageType, type Page } from "#types";
+import { syncPageWithDefinition } from "#utils";
 import { PAGE_MAP } from "#types";
 
 export default defineEventHandler(async (event) => {

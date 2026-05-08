@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
-import { type Mail } from "#rimelight-components/types";
+import { type Mail } from "#types";
 import { ref } from "vue";
 
 export interface InboxMailProps {
@@ -13,7 +13,7 @@ export interface InboxMailEmits {
   // TODO: Define emits here
 }
 
-const emit = defineEmits<InboxMailEmits>()
+const emit = defineEmits<InboxMailEmits>();
 
 const dropdownItems = [
   [

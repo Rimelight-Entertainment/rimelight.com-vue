@@ -4,9 +4,9 @@
   <NuxtLayout name="default">
     <template #franchise-header>
       <ClientOnly>
-        <RCHeaderLayer id="franchise-header" :order="3">
+        <RLHeaderLayer id="franchise-header" :order="3">
           <RLGrandTaleHeader />
-        </RCHeaderLayer>
+        </RLHeaderLayer>
       </ClientOnly>
     </template>
 

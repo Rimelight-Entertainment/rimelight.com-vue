@@ -2,14 +2,14 @@
 const { t } = useI18n();
 
 useHead({
-  title: t('pages.forums.grand_tale.meta.title'),
+  title: t("pages.forums.grand_tale.meta.title"),
 });
 
 useSeoMeta({
-  title: t('pages.forums.grand_tale.meta.title'),
-  ogTitle: t('pages.forums.grand_tale.meta.title'),
-  description: t('pages.forums.grand_tale.meta.description'),
-  ogDescription: t('pages.forums.grand_tale.meta.description'),
+  title: t("pages.forums.grand_tale.meta.title"),
+  ogTitle: t("pages.forums.grand_tale.meta.title"),
+  description: t("pages.forums.grand_tale.meta.description"),
+  ogDescription: t("pages.forums.grand_tale.meta.description"),
 });
 
 /* region State */
@@ -38,7 +38,7 @@ useSeoMeta({
       />
       <UPageBody>
         <p class="text-neutral-600">
-          {{ t('pages.forums.grand_tale.welcome') }}
+          {{ t("pages.forums.grand_tale.welcome") }}
         </p>
       </UPageBody>
     </UContainer>

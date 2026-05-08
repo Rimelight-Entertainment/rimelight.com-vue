@@ -1,7 +1,7 @@
 import { PAGE_MAP } from "#types";
 import { eq, or, and, isNull } from "drizzle-orm";
-import { type Page } from "rimelight-components/types";
-import { syncPageWithDefinition } from "rimelight-components/utils";
+import { type Page } from "#types";
+import { syncPageWithDefinition } from "#utils";
 import { db, pages } from "#server/db";
 import { getUserSession } from "#server/utils/session";
 
@@ -27,11 +27,14 @@ export default defineEventHandler(async (event) => {
   let session = null;
   try {
     session = await getUserSession(event);
-  } catch (error) {
+  } catch (_error) {
     // Session optional for public pages
   }
 
-  const isAuthorized = session?.user?.role === "owner" || session?.user?.role === "member" || session?.user?.role === "admin";
+  const isAuthorized =
+    session?.user?.role === "owner" ||
+    session?.user?.role === "member" ||
+    session?.user?.role === "admin";
 
   let pageRecord;
   try {
@@ -42,11 +45,11 @@ export default defineEventHandler(async (event) => {
       .where(
         and(
           or(eq(pages.slug, normalizedSlug), eq(pages.slug, `/${normalizedSlug}`)),
-          isNull(pages.deletedAt)
-        )
+          isNull(pages.deletedAt),
+        ),
       )
       .limit(1);
-    
+
     console.log("[find/...slug] Query completed. Found:", !!pageRecord);
   } catch (error) {
     console.error("[find/...slug] Database error:", error);

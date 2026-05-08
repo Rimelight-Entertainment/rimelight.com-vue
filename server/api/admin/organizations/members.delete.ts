@@ -16,13 +16,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  try {
-    await db
-      .delete(member)
-      .where(and(eq(member.organizationId, organizationId), eq(member.userId, userId)));
-  } catch (e: any) {
-    throw e;
-  }
+  await db
+    .delete(member)
+    .where(and(eq(member.organizationId, organizationId), eq(member.userId, userId)));
 
   return { success: true };
 });

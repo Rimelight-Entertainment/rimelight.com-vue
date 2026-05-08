@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const { strapiApiBase } = useRuntimeConfig().public;
-const { data: productsResult, pending, error } = await useApi<any>("/api/products?populate=*", {
+const {
+  data: productsResult,
+  pending,
+  error,
+} = await useFetch<any>("/api/products?populate=*", {
   baseURL: strapiApiBase,
 });
 
@@ -11,7 +15,11 @@ const products = computed(() => {
     title: p.Title,
     description: p.Description,
     price: p.Price,
-    image: p.Image?.url ? (p.Image.url.startsWith('http') ? p.Image.url : `${strapiApiBase}${p.Image.url}`) : "/images/placeholders/placeholder_header_store.jpg",
+    image: p.Image?.url
+      ? p.Image.url.startsWith("http")
+        ? p.Image.url
+        : `${strapiApiBase}${p.Image.url}`
+      : "/images/placeholders/placeholder_header_store.jpg",
   }));
 });
 
@@ -86,17 +94,21 @@ definePageMeta({
             alt=""
             loading="lazy"
           />
-          
+
           <!-- Quick Add Overlay (aesthetic) -->
-          <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent flex justify-center">
-             <span class="text-white font-bold text-sm">View Details</span>
+          <div
+            class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent flex justify-center"
+          >
+            <span class="text-white font-bold text-sm">View Details</span>
           </div>
         </div>
 
         <!-- Content -->
         <div class="flex flex-col gap-1">
           <div class="flex items-start justify-between gap-2">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white line-clamp-1 group-hover:text-primary-500 transition-colors">
+            <h3
+              class="text-lg font-bold text-gray-900 dark:text-white line-clamp-1 group-hover:text-primary-500 transition-colors"
+            >
               {{ product.title }}
             </h3>
             <span class="text-lg font-black text-primary-600">${{ product.price }}</span>
@@ -107,12 +119,12 @@ definePageMeta({
         </div>
       </NuxtLink>
     </div>
-    
+
     <!-- Empty State -->
     <div v-if="!pending && !error && products.length === 0" class="text-center py-24">
-       <UIcon name="lucide:shopping-bag" class="size-16 text-gray-300 mx-auto" />
-       <h2 class="mt-4 text-2xl font-bold">No products found</h2>
-       <p class="text-gray-500">Check back later for new arrivals.</p>
+      <UIcon name="lucide:shopping-bag" class="size-16 text-gray-300 mx-auto" />
+      <h2 class="mt-4 text-2xl font-bold">No products found</h2>
+      <p class="text-gray-500">Check back later for new arrivals.</p>
     </div>
   </div>
 </template>

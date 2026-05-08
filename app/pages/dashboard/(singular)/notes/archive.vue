@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { type Note } from "rimelight-components/db";
+import { type Note } from "#db";
 
-const { data: notes, refresh } = await useApi<Note[]>("/api/notes", {
+const { data: notes, refresh } = await useFetch<Note[]>("/api/notes", {
   query: { archived: true },
 });
 
@@ -65,7 +65,7 @@ watch(noteRefreshTrigger, () => {
     />
 
     <div v-else class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <RCNoteCard
+      <RLNoteCard
         v-for="note in notes"
         :key="note.id"
         :note="note"

@@ -4,7 +4,11 @@ const id = route.params.id;
 const { strapiApiBase } = useRuntimeConfig().public;
 const storeUrl = useRequestURL().origin;
 
-const { data: productResult, pending, error } = await useApi<any>(`/api/products/${id}?populate=*`, {
+const {
+  data: productResult,
+  pending,
+  error,
+} = await useFetch<any>(`/api/products/${id}?populate=*`, {
   baseURL: strapiApiBase,
 });
 
@@ -16,7 +20,11 @@ const product = computed(() => {
     title: p.Title,
     description: p.Description,
     price: p.Price,
-    image: p.Image?.url ? (p.Image.url.startsWith('http') ? p.Image.url : `${strapiApiBase}${p.Image.url}`) : "/images/placeholders/placeholder_header_store.jpg",
+    image: p.Image?.url
+      ? p.Image.url.startsWith("http")
+        ? p.Image.url
+        : `${strapiApiBase}${p.Image.url}`
+      : "/images/placeholders/placeholder_header_store.jpg",
     custom_field: p.custom_field || [],
   };
 });
@@ -34,7 +42,7 @@ const customFieldsBind = computed(() => {
     .map((x: any, index: number) =>
       Object.entries(x).map(([key, value]) => ({
         [`data-item-custom${index + 1}-${key.toString().toLowerCase()}`]: value,
-      }))
+      })),
     )
     .reduce((acc: any, curr: any) => acc.concat(curr), [])
     .reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {});
@@ -80,13 +88,17 @@ useSeoMeta({
   <div v-else-if="product" class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start py-12">
     <!-- Image Showcase -->
     <div class="sticky top-40">
-      <div class="relative group rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700">
+      <div
+        class="relative group rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700"
+      >
         <NuxtImg
           :src="product.image"
           class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
           alt=""
         />
-        <div class="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-3xl"></div>
+        <div
+          class="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-3xl"
+        ></div>
       </div>
     </div>
 
@@ -102,14 +114,16 @@ useSeoMeta({
         >
           Back to Catalog
         </UButton>
-        
+
         <div class="flex flex-col gap-2">
-          <h1 class="text-5xl font-black tracking-tight text-gray-900 dark:text-white leading-tight">
+          <h1
+            class="text-5xl font-black tracking-tight text-gray-900 dark:text-white leading-tight"
+          >
             {{ product.title }}
           </h1>
           <div class="items-center gap-4 flex">
-             <span class="text-3xl font-bold text-primary-600">${{ product.price }}</span>
-             <UBadge color="primary" variant="subtle" size="md">In Stock</UBadge>
+            <span class="text-3xl font-bold text-primary-600">${{ product.price }}</span>
+            <UBadge color="primary" variant="subtle" size="md">In Stock</UBadge>
           </div>
         </div>
       </div>
@@ -141,25 +155,25 @@ useSeoMeta({
             Secure checkout by Snipcart. Digital items delivered instantly.
           </p>
         </div>
-        
+
         <!-- Features -->
         <div class="grid grid-cols-2 gap-4">
-           <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-              <UIcon name="lucide:zap" class="size-6 text-primary-500" />
-              <span class="text-sm font-semibold">Instant Access</span>
-           </div>
-           <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-              <UIcon name="lucide:shield-check" class="size-6 text-primary-500" />
-              <span class="text-sm font-semibold">Buyer Protection</span>
-           </div>
+          <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <UIcon name="lucide:zap" class="size-6 text-primary-500" />
+            <span class="text-sm font-semibold">Instant Access</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <UIcon name="lucide:shield-check" class="size-6 text-primary-500" />
+            <span class="text-sm font-semibold">Buyer Protection</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div v-else class="flex flex-col items-center justify-center py-24 gap-6">
-     <UIcon name="lucide:search-x" class="size-20 text-gray-200" />
-     <h2 class="text-3xl font-bold">Product not found</h2>
-     <UButton to="/store" size="lg" icon="lucide:store">Return to Store</UButton>
+    <UIcon name="lucide:search-x" class="size-20 text-gray-200" />
+    <h2 class="text-3xl font-bold">Product not found</h2>
+    <UButton to="/store" size="lg" icon="lucide:store">Return to Store</UButton>
   </div>
 </template>

@@ -4,6 +4,15 @@
     "clear": "Go Back Home"
   },
   "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "archive": "Archive",
+    "versions": "Versions",
+    "editing": "Editing",
+    "add": "",
+    "reject": "",
+    "approve": "",
+    "select": "",
     "types": {
       "BlogPost": "Blog Post",
       "Document": "Document",
@@ -225,6 +234,15 @@
         "title": "Home",
         "description": "Tell your story."
       },
+      "hero": {
+        "title": "Rimelight Components",
+        "description": "A component and utility library used at Rimelight Entertainment.",
+        "links": {
+          "01": "View Components",
+          "02": "View Wiki",
+          "03": "View Branding"
+        }
+      },
       "sections": {
         "hero": {
           "title": "We are Rimelight Entertainment",
@@ -279,6 +297,150 @@
         }
       }
     },
+    "blog": {
+      "actions": {
+        "create_post": {
+          "success": {
+            "title": "",
+            "description": ""
+          },
+          "error": {
+            "title": "",
+            "description": ""
+          },
+          "label": "Create Post",
+          "modal": {
+            "title": "Create Post",
+            "description": "Create a new Blog Post.",
+            "fields": {
+              "title": {
+                "title": "Post Title",
+                "placeholder": "Enter a title for your post"
+              },
+              "slug": {
+                "title": "Post Slug",
+                "placeholder": "post-slug",
+                "help": "The URL-friendly name of the post."
+              },
+              "actions": {
+                "cancel": "Cancel",
+                "submit": "Create Post"
+              }
+            }
+          }
+        },
+        "rss": "RSS Feed"
+      },
+      "meta": {
+        "title": "Blog",
+        "description": "Read our latest news, posts, and project updates.",
+        "RSS": "Rimelight Entertainment Blog RSS Feed"
+      },
+      "drafts": {
+        "title": "Drafts",
+        "description": "These posts have currently not been published.",
+        "error": {
+          "title": "Failed to load drafts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No drafts yet.",
+          "description": "Create your first post to get started.",
+          "actions": {
+            "create": "Create Post"
+          }
+        }
+      },
+      "posts": {
+        "title": "Posts",
+        "description": "Our latest posts, including blog posts, press releases, and more.",
+        "error": {
+          "title": "Failed to load posts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No posts yet",
+          "description": "Create your first post to get started.",
+          "actions": {
+            "create": "Create Post"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the posts."
+      }
+    },
+    "documents": {
+      "actions": {
+        "create_document": {
+          "success": {
+            "title": "",
+            "description": ""
+          },
+          "error": {
+            "title": "",
+            "description": ""
+          },
+          "label": "Create Document",
+          "modal": {
+            "title": "Create Document",
+            "description": "Create a new Document.",
+            "fields": {
+              "title": {
+                "title": "Document Title",
+                "placeholder": "Enter a title for your document"
+              },
+              "slug": {
+                "title": "Document Slug",
+                "placeholder": "document-slug",
+                "help": "The URL-friendly name of the document."
+              }
+            },
+            "actions": {
+              "cancel": "Cancel",
+              "submit": "Create Document"
+            }
+          }
+        }
+      },
+      "meta": {
+        "title": "Documents",
+        "description": "View our formal documents, policies, and guidelines."
+      },
+      "drafts": {
+        "title": "Drafts",
+        "description": "These documents have currently not been published.",
+        "error": {
+          "title": "Failed to load drafts",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No drafts yet.",
+          "description": "Create your first document to get started.",
+          "actions": {
+            "create": "Create Document"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the drafts."
+      },
+      "documents": {
+        "title": "Documents",
+        "description": "Our official documents and policies.",
+        "error": {
+          "title": "Failed to load documents",
+          "description": "Please check your connection and try again later."
+        },
+        "empty": {
+          "title": "No documents yet",
+          "description": "Create your first document to get started.",
+          "actions": {
+            "create": "Create Document"
+          }
+        },
+        "load_more": "Load More",
+        "end_of_list": "You've reached the end of the documents."
+      }
+    },
     "franchises": {
       "grandTale": {
         "home": {
@@ -320,8 +482,7 @@
             "features": {
               "title": "Features",
               "description": "Grand Tale is a high-fantasy social life-sim game which hosts sub-games of multiple genres. The game is set in a world where players can explore, create, and explore their own worlds. The game is a living, breathing world that respects your time and intelligence.",
-              "features": {
-              }
+              "features": {}
             },
             "specifications": {
               "title": "Specifications",
@@ -330,21 +491,51 @@
                 "windows": {
                   "label": "Windows",
                   "specs": [
-                    { "label": "OS", "value": "Windows 10/11 64-bit" },
-                    { "label": "CPU", "value": "Intel Core i5-8400 / AMD Ryzen 5 2600" },
-                    { "label": "GPU", "value": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580" },
-                    { "label": "RAM", "value": "16 GB" },
-                    { "label": "Storage", "value": "50 GB (SSD Recommended)" }
+                    {
+                      "label": "OS",
+                      "value": "Windows 10/11 64-bit"
+                    },
+                    {
+                      "label": "CPU",
+                      "value": "Intel Core i5-8400 / AMD Ryzen 5 2600"
+                    },
+                    {
+                      "label": "GPU",
+                      "value": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580"
+                    },
+                    {
+                      "label": "RAM",
+                      "value": "16 GB"
+                    },
+                    {
+                      "label": "Storage",
+                      "value": "50 GB (SSD Recommended)"
+                    }
                   ]
                 },
                 "android": {
                   "label": "Android",
                   "specs": [
-                    { "label": "OS", "value": "Android 10.0 or higher" },
-                    { "label": "CPU", "value": "Snapdragon 845 / Kirin 980 or better" },
-                    { "label": "GPU", "value": "Adreno 630 / Mali-G76 MP10 or better" },
-                    { "label": "RAM", "value": "8 GB" },
-                    { "label": "Storage", "value": "15 GB" }
+                    {
+                      "label": "OS",
+                      "value": "Android 10.0 or higher"
+                    },
+                    {
+                      "label": "CPU",
+                      "value": "Snapdragon 845 / Kirin 980 or better"
+                    },
+                    {
+                      "label": "GPU",
+                      "value": "Adreno 630 / Mali-G76 MP10 or better"
+                    },
+                    {
+                      "label": "RAM",
+                      "value": "8 GB"
+                    },
+                    {
+                      "label": "Storage",
+                      "value": "15 GB"
+                    }
                   ]
                 }
               }
@@ -468,150 +659,6 @@
         }
       }
     },
-    "blog": {
-      "meta": {
-        "title": "Blog",
-        "description": "Read our latest news, posts, and project updates.",
-        "RSS": "Rimelight Entertainment Blog RSS Feed"
-      },
-      "actions": {
-        "rss": "RSS Feed",
-        "create_post": {
-          "label": "Create Post",
-          "success": {
-            "title": "Post created successfully",
-            "description": "You can now edit your post."
-          },
-          "error": {
-            "title": "Failed to create post",
-            "description": "Please check your connection and try again later."
-          },
-          "modal": {
-            "title": "Create Post",
-            "description": "Create a new Blog Post.",
-            "fields": {
-              "title": {
-                "title": "Post Title",
-                "placeholder": "Enter a title for your post"
-              },
-              "slug": {
-                "title": "Post Slug",
-                "placeholder": "post-slug",
-                "help": "The URL-friendly name of the post."
-              },
-              "actions": {
-                "cancel": "Cancel",
-                "submit": "Create Post"
-              }
-            }
-          }
-        }
-      },
-      "drafts": {
-        "title": "Drafts",
-        "description": "These posts have currently not been published.",
-        "error": {
-          "title": "Failed to load drafts",
-          "description": "Please check your connection and try again later."
-        },
-        "empty": {
-          "title": "No drafts yet.",
-          "description": "Create your first post to get started.",
-          "actions": {
-            "create": "Create Post"
-          }
-        }
-      },
-      "posts": {
-        "title": "Posts",
-        "description": "Our latest posts, including blog posts, press releases, and more.",
-        "error": {
-          "title": "Failed to load posts",
-          "description": "Please check your connection and try again later."
-        },
-        "empty": {
-          "title": "No posts yet",
-          "description": "Create your first post to get started.",
-          "actions": {
-            "create": "Create Post"
-          }
-        },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the posts."
-      }
-    },
-    "documents": {
-      "meta": {
-        "title": "Documents",
-        "description": "View our formal documents, policies, and guidelines."
-      },
-      "actions": {
-        "create_document": {
-          "label": "Create Document",
-          "success": {
-            "title": "Document created successfully",
-            "description": "You can now edit your document."
-          },
-          "error": {
-            "title": "Failed to create document",
-            "description": "Please check your connection and try again later."
-          },
-          "modal": {
-            "title": "Create Document",
-            "description": "Create a new Document.",
-            "fields": {
-              "title": {
-                "title": "Document Title",
-                "placeholder": "Enter a title for your document"
-              },
-              "slug": {
-                "title": "Document Slug",
-                "placeholder": "document-slug",
-                "help": "The URL-friendly name of the document."
-              }
-            },
-            "actions": {
-              "cancel": "Cancel",
-              "submit": "Create Document"
-            }
-          }
-        }
-      },
-      "drafts": {
-        "title": "Drafts",
-        "description": "These documents have currently not been published.",
-        "error": {
-          "title": "Failed to load drafts",
-          "description": "Please check your connection and try again later."
-        },
-        "empty": {
-          "title": "No drafts yet.",
-          "description": "Create your first document to get started.",
-          "actions": {
-            "create": "Create Document"
-          }
-        },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the drafts."
-      },
-      "documents": {
-        "title": "Documents",
-        "description": "Our official documents and policies.",
-        "error": {
-          "title": "Failed to load documents",
-          "description": "Please check your connection and try again later."
-        },
-        "empty": {
-          "title": "No documents yet",
-          "description": "Create your first document to get started.",
-          "actions": {
-            "create": "Create Document"
-          }
-        },
-        "load_more": "Load More",
-        "end_of_list": "You've reached the end of the documents."
-      }
-    },
     "forums": {
       "rimelight": {
         "meta": {
@@ -646,5 +693,220 @@
         "cart": "Cart"
       }
     }
-  }
+  },
+  "auth_sign-in_email_help": "Forgot your email?",
+  "auth_sign-in_password_help": "Forgot your password?",
+  "auth_email_invalid": "Invalid email address.",
+  "auth_password_min_length": "Password must be at least 8 characters long.",
+  "auth_sign_in_failed_title": "Authentication Failed",
+  "auth_sign_in_success_title": "Sign In successful.",
+  "auth_sign_in_success_description": "Welcome back {name}!",
+  "auth_connection_error_description": "A network error occurred. Please try again later.",
+  "auth_email_label": "Email",
+  "auth_email_description": "Enter your email address.",
+  "auth_email_placeholder": "email{'@'}example.com",
+  "auth_password_label": "Password",
+  "auth_password_description": "Enter your password.",
+  "auth_remember_me": "Remember Me",
+  "auth_sign_in_button": "Sign In",
+  "auth_terms_agreement": "By signing in, you agree to our",
+  "auth_terms_link": "Terms of Service",
+  "auth_username_length_error": "Username must be between 2 and 24 characters long.",
+  "auth_username_no_spaces": "Username cannot contain spaces.",
+  "auth_username_format_error": "Username can only contain letters, numbers, periods (.), and underscores (_).",
+  "auth_username_restricted_error": "This username is not allowed.",
+  "auth_firstname_length_error": "First name must be between 2 and 24 characters long.",
+  "auth_lastname_length_error": "Last name must be between 2 and 24 characters long.",
+  "auth_password_length_error": "Password must be between 8 and 24 characters long.",
+  "auth_passwords_mismatch": "Passwords do not match.",
+  "auth_terms_required": "You must agree to the terms of service.",
+  "auth_password_req_length": "At least 8 characters",
+  "auth_password_req_number": "At least 1 number",
+  "auth_password_req_lowercase": "At least 1 lowercase letter",
+  "auth_password_req_uppercase": "At least 1 uppercase letter",
+  "auth_password_req_special": "At least 1 special character (e.g., !{'@'}#$%^&*)",
+  "auth_stepper_identity": "Identity",
+  "auth_stepper_security": "Security",
+  "auth_stepper_preferences": "Preferences",
+  "auth_validation_error_title": "Validation Error",
+  "auth_validation_error_description": "Please correct the errors before proceeding.",
+  "auth_account_creation_success_title": "Account creation successful.",
+  "auth_account_creation_success_description": "Welcome!",
+  "auth_sign_up_failed_title": "Failed to sign up.",
+  "auth_username_label": "Username",
+  "auth_firstname_label": "First Name",
+  "auth_lastname_label": "Last Name",
+  "auth_password_confirmation_label": "Password Confirmation",
+  "auth_terms_agreement_signup": "I have read and agree to the",
+  "auth_newsletter_label": "Subscribe to our Newsletter.",
+  "auth_newsletter_description": "Unsubscribe at any time.",
+  "auth_sign_up_button": "Sign Up",
+  "navigation_previous": "Previous",
+  "navigation_next": "Next",
+  "modals": {
+    "assetManager": {
+      "header": {
+        "title": "Asset Manager",
+        "description": "View and manage stored assets."
+      },
+      "toolbar": {
+        "items_count": "{count} Items",
+        "selected_count": "{count} Selected"
+      },
+      "empty": {
+        "title": "No items found",
+        "description": "This location is currently empty."
+      },
+      "upload": {
+        "dropzone_label": "Drag & Drop Here",
+        "dropzone_description": "Max: 5 GB",
+        "select_button": "Upload Files",
+        "add_asset_button": "Upload Asset"
+      },
+      "item": {
+        "folder_label": "Folder",
+        "last_modified": "Last Modified: {date}",
+        "copy_url": "Copy URL",
+        "copy_url_success": "URL copied to clipboard!",
+        "copy_url_failed": "Failed to copy URL to clipboard."
+      },
+      "actions": {
+        "new_subfolder": "New Folder"
+      }
+    },
+    "newFolder": {
+      "title": "New Folder",
+      "description": "Organize your assets by creating a virtual directory",
+      "label": "Entering a name for the folder in {path}:",
+      "placeholder": "e.g. documentation",
+      "cancel_button": "Cancel",
+      "create_button": "Create Folder"
+    },
+    "move": {
+      "title": "Move or Rename Asset",
+      "name_label": "New Name (Basename)",
+      "folder_label": "Target Folder",
+      "current_location": "Current location: {path}",
+      "cancel_button": "Cancel",
+      "move_button": "Move Asset"
+    },
+    "upload": {
+      "title": "Confirm Upload",
+      "filename_label": "Filename",
+      "folder_label": "Upload to Folder",
+      "multiple_files_warning": {
+        "title": "Multiple File Upload",
+        "description": "Renaming is disabled for multiple files. Ensure files are named correctly before uploading, or rename them individually later."
+      },
+      "files_selected": "{count} files selected",
+      "cancel_button": "Cancel",
+      "upload_button": "Start Upload"
+    }
+  },
+  "swatch": {
+    "copy_hex": "Copy HEX",
+    "copy_rgb": "Copy RGB",
+    "copy_hsl": "Copy HSL",
+    "copy_oklch": "Copy OKLCH",
+    "copy_cmyk": "Copy CMYK",
+    "download_jpg": "Download JPG",
+    "download_png": "Download PNG",
+    "download_webp": "Download WEBP",
+    "download_svg": "Download SVG",
+    "color_copied": "Color copied to clipboard!",
+    "color_copy_failed": "Failed to copy color to clipboard.",
+    "copy_error_description": "An unexpected error occurred. Please try again."
+  },
+  "font_palette": {
+    "specimen": "Specimen",
+    "hierarchy": "Hierarchy",
+    "color": "Color",
+    "uppercase": "Uppercase",
+    "lowercase": "Lowercase",
+    "numbers": "Numbers",
+    "symbols": "Symbols",
+    "heading_1": "Heading 1",
+    "heading_2": "Heading 2",
+    "heading_3": "Heading 3",
+    "heading_4": "Heading 4",
+    "heading_5": "Heading 5",
+    "heading_6": "Heading 6"
+  },
+  "page_editor": {
+    "preview": "Preview",
+    "view_page": "View Page",
+    "save": "Save",
+    "publish": "Publish",
+    "publish_page": "Publish Page",
+    "publish_confirmation": "Are you sure you want to publish this page? This will make it visible to the public.",
+    "delete_page": "Delete Page",
+    "unsaved_changes_title": "Unsaved Changes",
+    "unsaved_changes_description": "You have unsaved changes. Are you sure you want to leave?",
+    "leave_anyway": "Leave Anyway",
+    "metadata": "Metadata",
+    "page_id": "Page ID",
+    "created_at": "Created At",
+    "posted_at": "Posted At",
+    "updated_at": "Updated At",
+    "add_block": "Add Block",
+    "search_blocks": "Search blocks...",
+    "no_blocks_found": "No blocks found matching your search.",
+    "unpublish_page": "",
+    "unpublish_confirmation": "",
+    "unpublish": "",
+    "add_banner": ""
+  },
+  "page_properties": {
+    "links": "Links",
+    "no_links": "No links added yet.",
+    "add_link": "Add Link",
+    "edit_link": "Edit Link",
+    "update_link": "Update Link",
+    "label": "Label",
+    "url": "URL (to)",
+    "icon": "Icon",
+    "color": "Color",
+    "variant": "Variant",
+    "page_template": "Page Template",
+    "title": "Title",
+    "slug": "Slug",
+    "create_and_edit": "Create & Edit",
+    "images": "",
+    "edit_image_title": "",
+    "image_name_title": "",
+    "image_name": "",
+    "image_name_placeholder": ""
+  },
+  "todo": {
+    "title": "To-do List",
+    "add_placeholder": "Add a to-do...",
+    "description_placeholder": "Add a description (optional)...",
+    "show_archive": "Show Archive",
+    "hide_archive": "Hide Archive",
+    "no_active": "No active to-dos."
+  },
+  "page_version": {
+    "failed_to_load": "Failed to load versions",
+    "approved_successfully": "Version approved successfully",
+    "failed_to_approve": "Failed to approve version",
+    "reverted_successfully": "Version reverted successfully",
+    "failed_to_revert": "Failed to revert version",
+    "rejected_successfully": "",
+    "failed_to_reject": ""
+  },
+  "label_image": "Image",
+  "editor": {
+    "template_placeholder": "",
+    "delete_page_title": "",
+    "delete_confirm_label": "",
+    "delete_button": ""
+  },
+  "toast_save-post_success_title": "",
+  "toast_save-post_error_title": "",
+  "toast_publish_success": "",
+  "toast_publish_error": "",
+  "toast_unpublish_success": "",
+  "toast_unpublish_error": "",
+  "toast_delete_success": "",
+  "toast_delete_error": ""
 }

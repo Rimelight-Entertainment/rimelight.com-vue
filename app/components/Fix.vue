@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-/* region Props */
+ /* region Props */
 /* endregion */
 
 /* region Emits */

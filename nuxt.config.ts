@@ -1,45 +1,78 @@
-import { existsSync } from "node:fs";
-import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-
-const isTauri = process.env.NUXT_APP_TARGET === "tauri";
+import { existsSync, readdirSync } from "node:fs";
+import { resolve, basename } from "node:path";
+import { addBlockMapTemplates, addEditorBlockMapTemplates } from "./scripts/templates";
 
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
-const localLayerPath = resolve(currentDir, "../rimelight-components");
-const isLocalLayer = existsSync(localLayerPath);
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-02-13",
   future: {
     compatibilityVersion: 5,
   },
-
-  extends: [
-    [
-      isLocalLayer ? localLayerPath : "github:Rimelight-Entertainment/rimelight-components",
-      { install: true },
-    ],
-  ],
+  experimental: { nitroAutoImports: true },
 
   modules: [
-    "@pinia/nuxt",
-    "@pinia/colada-nuxt",
-    "@nuxt/a11y",
+    "@nuxtjs/i18n",
+    "@nuxt/image",
+    "@nuxt/ui",
     "@nuxt/scripts",
-    ...(!isTauri ? ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-og-image"] : []),
+    "@vueuse/nuxt",
+    function (options, nuxt) {
+      const resolvePath = (path: string) => resolve(currentDir, path);
+
+      // Scan the directory for all .vue files
+      const blockRendererPath = resolvePath("./app/components/article/blocks/renderer");
+      if (existsSync(blockRendererPath)) {
+        const blockRendererFiles = readdirSync(blockRendererPath).filter((name) =>
+          name.endsWith(".vue"),
+        );
+
+        // Generate a clean list of component names
+        const blockRendererNames = blockRendererFiles.map((file) => {
+          const baseName = basename(file, ".vue"); // e.g., 'SectionBlockRenderer'
+          return baseName.replace(/Renderer$/, ""); // e.g., 'SectionBlock'
+        });
+
+        // Generate the Component Map Template
+        const blockRendererTemplate = addBlockMapTemplates(blockRendererNames, currentDir);
+
+        // Expose the map template to the runtime via an alias
+        nuxt.options.alias["#build/rimelight-block-renderer-map"] = blockRendererTemplate.dst;
+      }
+
+      const blockEditorPath = resolvePath("./app/components/article/blocks/editor");
+      if (existsSync(blockEditorPath)) {
+        const blockEditorFiles = readdirSync(blockEditorPath).filter((name) =>
+          name.endsWith(".vue"),
+        );
+
+        // Generate a clean list of component names
+        const blockEditorNames = blockEditorFiles.map((file) => {
+          const baseName = basename(file, ".vue"); // e.g., 'SectionBlockEditor'
+          return baseName.replace(/Editor$/, ""); // e.g., 'SectionBlock'
+        });
+
+        // Generate the Component Map Template
+        const blockEditorTemplate = addEditorBlockMapTemplates(blockEditorNames, currentDir);
+
+        // Expose the map template to the runtime via an alias
+        nuxt.options.alias["#build/rimelight-block-editor-map"] = blockEditorTemplate.dst;
+      }
+
+      // Register type definitions
+      nuxt.hook("prepare:types", ({ references }) => {
+        references.push({ path: resolvePath("./app/types/app.config.d.ts") });
+      });
+    },
   ],
 
-  ignore: ["**/src-tauri/**"],
+  ignore: [],
 
   $development: {
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     // Change to true in case the issue gets resolved: https://github.com/fi3ework/vite-plugin-checker/issues/557
     typescript: { typeCheck: false },
-    a11y: {
-      enabled: true,
-      defaultHighlight: false,
-      logIssues: false,
-    },
     site: { indexable: false },
   },
 
@@ -66,20 +99,19 @@ export default defineNuxtConfig({
     },
   },
 
-  ssr: !isTauri,
+  ssr: true,
   router: {
     options: {
-      hashMode: isTauri,
+      scrollBehaviorType: "smooth",
     },
   },
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://rimelight.com",
-      isTauri,
     },
   },
   app: {
-    baseURL: isTauri ? "" : "/",
+    baseURL: "/",
     head: {
       title: "Rimelight Entertainment",
       titleTemplate: "%s | rimelight.com",
@@ -111,20 +143,14 @@ export default defineNuxtConfig({
     "#types": fileURLToPath(new URL("./app/types", import.meta.url)),
     "#validators": fileURLToPath(new URL("./shared/validators", import.meta.url)),
     "drizzle-orm": fileURLToPath(new URL("./node_modules/drizzle-orm", import.meta.url)),
-    ...(isLocalLayer
-      ? {
-          "#rimelight-components/types": resolve(localLayerPath, "app/types"),
-          "#rimelight-components/utils": resolve(localLayerPath, "app/utils"),
-          "#rimelight-components/validators": resolve(localLayerPath, "shared/validators"),
-          "#rimelight-components/auth": resolve(localLayerPath, "shared/auth"),
-          "#rimelight-components/db": resolve(localLayerPath, "shared/db"),
-          "rimelight-components": localLayerPath,
-        }
-      : {}),
+    "#utils": fileURLToPath(new URL("./shared/utils", import.meta.url)),
+    "#auth": fileURLToPath(new URL("./shared/auth", import.meta.url)),
+    "#db": fileURLToPath(new URL("./server/db/schema", import.meta.url)),
+    "#composables": fileURLToPath(new URL("./app/composables", import.meta.url)),
   },
   vite: {
     clearScreen: false,
-    envPrefix: ["VITE_", "TAURI_"],
+    envPrefix: ["VITE_"],
     server: {
       strictPort: true,
       hmr: {
@@ -132,38 +158,17 @@ export default defineNuxtConfig({
         host: "127.0.0.1",
         port: 3000,
       },
-      watch: {
-        ignored: ["**/src-tauri/**"],
-      },
+    },
+    optimizeDeps: {
+      include: ["@vue/devtools-core", "@vue/devtools-kit"],
     },
   },
 
   nitro: {
-    preset: isTauri ? "node" : "cloudflare_module",
-    ...(!isTauri
-      ? {
-          cloudflare: {
-            deployConfig: true,
-            nodeCompat: true,
-          },
-        }
-      : {}),
-    experimental: {
-      websocket: true,
-      tasks: true,
-    },
-    scheduledTasks: {
-      // Run every 5 minutes
-      // '*/5 * * * *': ['cache:cleanup'],
-
-      // Daily at midnight
-      "0 0 * * *": ["cleanup-notes-trash", "cleanup-todos-archived"],
-
-      // Weekly on Sunday at 2 AM
-      // '0 2 * * 0': ['db:optimize']
-    },
-    prerender: {
-      //crawlLinks: true
+    preset: "cloudflare_module",
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
     },
     routeRules: {
       "/documents/**": { isr: 3600 },
@@ -180,20 +185,11 @@ export default defineNuxtConfig({
       },
     },
   },
-  ...(!isTauri
-    ? {
-        site: {
-          url: "https://rimelight.com",
-          name: "Rimelight Entertainment",
-          indexable: false,
-        },
-        robots: {
-          blockAiBots: false,
-          blockNonSeoBots: false,
-          disallow: ["/internal"],
-        },
-      }
-    : {}),
+  site: {
+    url: "https://rimelight.com",
+    name: "Rimelight Entertainment",
+    indexable: false,
+  },
 
   i18n: {
     strategy: "prefix_except_default",
@@ -246,6 +242,12 @@ export default defineNuxtConfig({
       //  file: "zh_cn.json"
       //}
     ],
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      cookieSecure: true,
+      alwaysRedirect: false,
+    },
   },
 
   css: ["~/assets/css/main.css"],
@@ -262,10 +264,21 @@ export default defineNuxtConfig({
       pathPrefix: false,
       prefix: "RL",
     },
+    {
+      path: "~/app/components",
+      pathPrefix: false,
+      prefix: "RL",
+    },
   ],
 
   pages: {
     pattern: ["**/*.vue", "!**/components/**"],
+  },
+
+  colorMode: {
+    preference: "system",
+    fallback: "dark",
+    dataValue: "theme",
   },
 
   image: {
@@ -277,6 +290,7 @@ export default defineNuxtConfig({
   },
 
   icon: {
+    mode: "svg",
     class: "icon",
     size: "24px",
     customCollections: [
@@ -296,5 +310,25 @@ export default defineNuxtConfig({
         normalizeIconName: false,
       },
     ],
+  },
+
+  ui: {
+    prefix: "U",
+    content: true,
+    prose: true,
+    theme: {
+      colors: [
+        "neutral",
+        "primary",
+        "secondary",
+        "info",
+        "success",
+        "warning",
+        "error",
+        "commentary",
+        "ideation",
+        "source",
+      ],
+    },
   },
 });

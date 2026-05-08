@@ -21,7 +21,7 @@ const slug = computed(() => route.params.slug as string);
 </script>
 
 <template>
-  <RCPageEditView
+  <RLPageEditView
     :lookup-path="slug"
     :cache-key="`edit-blog-${slug}`"
     :page-definitions="pageDefinitions"

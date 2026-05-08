@@ -1,7 +1,19 @@
-import { pgTable, text, integer, uuid } from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
+import { pgTable, text, integer, uuid, timestamp } from "drizzle-orm/pg-core";
 import { board } from "./boards";
-import { id, timestamps } from "rimelight-components/db";
-import { relations } from "drizzle-orm";
+
+const id = uuid("id")
+  .default(sql`uuidv7()`)
+  .notNull();
+
+const timestamps = {
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+};
+
 import { card } from "./cards";
 
 export const list = pgTable("kanban_list", {

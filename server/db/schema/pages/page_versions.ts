@@ -1,13 +1,19 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { id, timestamps } from "rimelight-components/db";
-import {
-  type Block,
-  type Localized,
-  type PageType,
-  type RegisterPageTypes,
-} from "rimelight-components/types";
+import { type Block, type Localized, type PageType, type RegisterPageTypes } from "#types";
 import { pages } from "./pages";
+
+const id = uuid("id")
+  .default(sql`uuidv7()`)
+  .notNull();
+
+const timestamps = {
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+};
 
 export type PageVersionStatus = "pending" | "approved" | "rejected";
 

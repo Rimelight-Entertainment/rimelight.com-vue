@@ -2,14 +2,14 @@
 const { t } = useI18n();
 
 useHead({
-  title: t('pages.events.lightcon.meta.title'),
+  title: t("pages.events.lightcon.meta.title"),
 });
 
 useSeoMeta({
-  title: t('pages.events.lightcon.meta.title'),
-  ogTitle: t('pages.events.lightcon.meta.title'),
-  description: t('pages.events.lightcon.meta.description'),
-  ogDescription: t('pages.events.lightcon.meta.description'),
+  title: t("pages.events.lightcon.meta.title"),
+  ogTitle: t("pages.events.lightcon.meta.title"),
+  description: t("pages.events.lightcon.meta.description"),
+  ogDescription: t("pages.events.lightcon.meta.description"),
 });
 
 /* region State */
@@ -38,7 +38,7 @@ useSeoMeta({
       />
       <UPageBody>
         <p class="text-neutral-600">
-          {{ t('pages.events.lightcon.welcome') }}
+          {{ t("pages.events.lightcon.welcome") }}
         </p>
       </UPageBody>
     </UContainer>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { breakpointsTailwind } from "@vueuse/core";
 
-import { type Mail } from "#rimelight-components/types";
+import { type Mail } from "#types";
 
 definePageMeta({
   layout: "dashboard",
@@ -21,7 +21,7 @@ const tabItems = [
 const selectedTab = ref("all");
 const selectedMail = ref<Mail | null>();
 
-const { data: mails } = await useApi<Mail[]>("/api/mails", { default: () => ref([]) as any });
+const { data: mails } = await useFetch<Mail[]>("/api/mails", { default: () => ref([]) as any });
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const isMobile = breakpoints.smaller("lg");

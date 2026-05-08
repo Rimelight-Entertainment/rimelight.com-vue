@@ -30,11 +30,11 @@ const tabs: TabsItem[] = [
 </script>
 
 <template>
-  <RCAuthLayout
+  <RLAuthLayout
     :tabs="tabs"
     background-mobile="/images/auth_background_mobile.jpg"
     background-desktop="/images/auth_background_desktop.jpg"
   >
     <NuxtPage />
-  </RCAuthLayout>
+  </RLAuthLayout>
 </template>

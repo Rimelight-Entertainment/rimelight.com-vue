@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { NuxtError } from "#app";
-
 export interface ErrorProps {
   error: NuxtError;
 }
@@ -27,7 +25,7 @@ useSeoMeta({
             class="text-white bg-primary-500 hover:bg-primary-600"
             @click="() => clearError({ redirect: '/' })"
           >
-            {{ t('error.clear') }}
+            {{ t("error.clear") }}
           </UButton>
         </template>
       </UError>

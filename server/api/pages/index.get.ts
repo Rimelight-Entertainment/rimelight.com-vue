@@ -1,6 +1,6 @@
 import { and, asc, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import { getValidatedQuery } from "h3";
-import type { PageType } from "rimelight-components/types";
+import type { PageType } from "#types";
 import { z } from "zod";
 import { getUserSession } from "#server/utils/session";
 import { db, pages } from "#server/db";

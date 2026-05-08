@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { authClient } from "~~/auth/auth-client";
 
-import { navigateTo } from "#app";
-import { defaultWindow } from "rimelight-components/utils";
+import { defaultWindow } from "#utils";
 import type { TableColumn } from "@nuxt/ui";
 
 const { confirm: confirmAction } = useConfirm();
@@ -56,7 +55,7 @@ interface MembersResponse {
 
 type UsersDataResult = ListUsersResponse | MembersResponse;
 
-const { data: organizations, pending: loadingOrgs } = await useApi<Organization[]>(
+const { data: organizations, pending: loadingOrgs } = await useFetch<Organization[]>(
   "/api/admin/organizations",
 );
 
@@ -308,7 +307,7 @@ const banReason = ref("");
 // Manage User Modal
 const isManageModalOpen = ref(false);
 const userToManage = ref<NormalizedUser | null>(null);
-const { data: allTeams } = await useApi<any[]>("/api/admin/teams", { query: { all: "true" } });
+const { data: allTeams } = await useFetch<any[]>("/api/admin/teams", { query: { all: "true" } });
 
 const openBanModal = (user: any) => {
   selectedUser.value = user;

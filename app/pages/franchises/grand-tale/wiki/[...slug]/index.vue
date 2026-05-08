@@ -29,7 +29,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
 </script>
 
 <template>
-  <RCPageLiveView
+  <RLPageLiveView
     :lookup-path="lookupSlug"
     :cache-key="`wiki-${slug}`"
     base-url="/franchises/grand-tale/wiki"

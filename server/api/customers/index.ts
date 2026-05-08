@@ -1,4 +1,4 @@
-import { type User } from "rimelight-components/types";
+import { type User } from "#types";
 
 const customers: User[] = [
   {

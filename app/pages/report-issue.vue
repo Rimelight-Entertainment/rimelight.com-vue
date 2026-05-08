@@ -1,5 +1,5 @@
 <script setup lang="ts">
-/* region State */
+ /* region State */
 /* endregion */
 
 /* region Meta */

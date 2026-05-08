@@ -1,5 +1,14 @@
 {
   "common": {
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "archive": "Arquivar",
+    "versions": "Versões",
+    "editing": "Editando",
+    "add": "",
+    "reject": "",
+    "approve": "",
+    "select": "",
     "types": {
       "BlogPost": "Artigo de Blog",
       "Document": "Documento",
@@ -103,5 +112,264 @@
   "footer_cookie_policy_label": "Política de Cookies",
   "footer_terms_of_service_label": "Termos de Serviço",
   "footer_code_of_conduct_label": "Código de Conduta",
-  "footer_other_documents_label": "Outros Documentos"
+  "footer_other_documents_label": "Outros Documentos",
+  "auth_sign-in_email_help": "Esqueceu seu e-mail?",
+  "auth_sign-in_password_help": "Esqueceu sua senha?",
+  "auth_email_invalid": "Endereço de e-mail inválido.",
+  "auth_password_min_length": "A senha deve ter pelo menos 8 caracteres.",
+  "auth_sign_in_failed_title": "Falha na Autenticação",
+  "auth_sign_in_success_title": "Login realizado com sucesso.",
+  "auth_sign_in_success_description": "Bem-vindo de volta {name}!",
+  "auth_connection_error_description": "Ocorreu um erro de rede. Por favor, tente novamente mais tarde.",
+  "auth_email_label": "E-mail",
+  "auth_email_description": "Digite seu endereço de e-mail.",
+  "auth_email_placeholder": "email{'@'}exemplo.com",
+  "auth_password_label": "Senha",
+  "auth_password_description": "Digite sua senha.",
+  "auth_remember_me": "Lembrar-me",
+  "auth_sign_in_button": "Entrar",
+  "auth_terms_agreement": "Ao entrar, você concorda com nossos",
+  "auth_terms_link": "Termos de Serviço",
+  "editor": {
+    "template_placeholder": "",
+    "delete_page_title": "",
+    "delete_confirm_label": "",
+    "delete_button": ""
+  },
+  "page_editor": {
+    "unpublish_page": "",
+    "unpublish_confirmation": "",
+    "unpublish": "",
+    "add_banner": "",
+    "add_block": "",
+    "search_blocks": "",
+    "no_blocks_found": "",
+    "unsaved_changes_title": "",
+    "unsaved_changes_description": "",
+    "leave_anyway": "",
+    "publish_page": "",
+    "publish_confirmation": "",
+    "publish": "",
+    "view_page": "",
+    "preview": "",
+    "save": "",
+    "delete_page": "",
+    "metadata": "",
+    "page_id": "",
+    "created_at": "",
+    "posted_at": "",
+    "updated_at": ""
+  },
+  "page_properties": {
+    "images": "",
+    "edit_image_title": "",
+    "image_name_title": "",
+    "image_name": "",
+    "image_name_placeholder": "",
+    "page_template": "",
+    "title": "",
+    "slug": "",
+    "create_and_edit": "",
+    "links": "",
+    "no_links": "",
+    "edit_link": "",
+    "add_link": "",
+    "label": "",
+    "url": "",
+    "icon": "",
+    "color": "",
+    "variant": "",
+    "update_link": ""
+  },
+  "page_version": {
+    "rejected_successfully": "",
+    "failed_to_reject": "",
+    "failed_to_load": "",
+    "approved_successfully": "",
+    "failed_to_approve": "",
+    "reverted_successfully": "",
+    "failed_to_revert": ""
+  },
+  "toast_save-post_success_title": "",
+  "toast_save-post_error_title": "",
+  "toast_publish_success": "",
+  "toast_publish_error": "",
+  "toast_unpublish_success": "",
+  "toast_unpublish_error": "",
+  "toast_delete_success": "",
+  "toast_delete_error": "",
+  "pages": {
+    "blog": {
+      "actions": {
+        "create_post": {
+          "success": {
+            "title": "",
+            "description": ""
+          },
+          "error": {
+            "title": "",
+            "description": ""
+          }
+        }
+      }
+    },
+    "documents": {
+      "actions": {
+        "create_document": {
+          "success": {
+            "title": "",
+            "description": ""
+          },
+          "error": {
+            "title": "",
+            "description": ""
+          }
+        }
+      }
+    },
+    "home": {
+      "hero": {
+        "title": "",
+        "description": "",
+        "links": {
+          "01": "",
+          "02": "",
+          "03": ""
+        }
+      },
+      "meta": {
+        "title": ""
+      }
+    }
+  },
+  "label_image": "",
+  "navigation_previous": "",
+  "navigation_next": "",
+  "auth_username_length_error": "",
+  "auth_username_no_spaces": "",
+  "auth_username_format_error": "",
+  "auth_username_restricted_error": "",
+  "auth_firstname_length_error": "",
+  "auth_lastname_length_error": "",
+  "auth_password_length_error": "",
+  "auth_passwords_mismatch": "",
+  "auth_terms_required": "",
+  "auth_stepper_identity": "",
+  "auth_stepper_security": "",
+  "auth_stepper_preferences": "",
+  "auth_password_req_length": "",
+  "auth_password_req_number": "",
+  "auth_password_req_lowercase": "",
+  "auth_password_req_uppercase": "",
+  "auth_password_req_special": "",
+  "auth_validation_error_title": "",
+  "auth_validation_error_description": "",
+  "auth_sign_up_failed_title": "",
+  "auth_account_creation_success_title": "",
+  "auth_account_creation_success_description": "",
+  "auth_username_label": "",
+  "auth_firstname_label": "",
+  "auth_lastname_label": "",
+  "auth_password_confirmation_label": "",
+  "auth_terms_agreement_signup": "",
+  "auth_newsletter_label": "",
+  "auth_newsletter_description": "",
+  "auth_sign_up_button": "",
+  "modals": {
+    "assetManager": {
+      "item": {
+        "last_modified": "",
+        "copy_url_success": "",
+        "copy_url_failed": "",
+        "folder_label": "",
+        "copy_url": ""
+      },
+      "header": {
+        "title": "",
+        "description": ""
+      },
+      "toolbar": {
+        "selected_count": "",
+        "items_count": ""
+      },
+      "empty": {
+        "title": "",
+        "description": ""
+      },
+      "upload": {
+        "dropzone_label": "",
+        "dropzone_description": "",
+        "select_button": "",
+        "add_asset_button": ""
+      },
+      "actions": {
+        "new_subfolder": ""
+      }
+    },
+    "newFolder": {
+      "title": "",
+      "description": "",
+      "label": "",
+      "placeholder": "",
+      "cancel_button": "",
+      "create_button": ""
+    },
+    "move": {
+      "title": "",
+      "name_label": "",
+      "folder_label": "",
+      "current_location": "",
+      "cancel_button": "",
+      "move_button": ""
+    },
+    "upload": {
+      "title": "",
+      "filename_label": "",
+      "multiple_files_warning": {
+        "title": "",
+        "description": ""
+      },
+      "files_selected": "",
+      "folder_label": "",
+      "cancel_button": "",
+      "upload_button": ""
+    }
+  },
+  "swatch": {
+    "copy_error_description": "",
+    "color_copied": "",
+    "color_copy_failed": "",
+    "copy_hex": "",
+    "copy_rgb": "",
+    "copy_hsl": "",
+    "copy_oklch": "",
+    "copy_cmyk": "",
+    "download_jpg": "",
+    "download_png": "",
+    "download_webp": "",
+    "download_svg": ""
+  },
+  "todo": {
+    "title": "",
+    "hide_archive": "",
+    "show_archive": "",
+    "add_placeholder": "",
+    "description_placeholder": "",
+    "no_active": ""
+  },
+  "font_palette": {
+    "heading_1": "",
+    "heading_2": "",
+    "heading_3": "",
+    "heading_4": "",
+    "heading_5": "",
+    "heading_6": "",
+    "specimen": "",
+    "hierarchy": "",
+    "color": "",
+    "uppercase": "",
+    "lowercase": "",
+    "numbers": "",
+    "symbols": ""
+  }
 }

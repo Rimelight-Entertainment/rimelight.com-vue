@@ -1,11 +1,18 @@
-import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { id, timestamps } from "rimelight-components/db";
-import {
-  type Block,
-  type Localized,
-  type PageType,
-  type RegisterPageTypes,
-} from "rimelight-components/types";
+import { sql } from "drizzle-orm";
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { type Block, type Localized, type PageType, type RegisterPageTypes } from "#types";
+
+const id = uuid("id")
+  .default(sql`uuidv7()`)
+  .notNull();
+
+const timestamps = {
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+};
 
 export const pages = pgTable("pages", {
   id: id.primaryKey(),

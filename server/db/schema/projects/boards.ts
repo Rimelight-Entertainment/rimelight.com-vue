@@ -1,6 +1,19 @@
-import { relations } from "drizzle-orm";
-import { boolean, pgTable, text, uuid } from "drizzle-orm/pg-core";
-import { id, timestamps, user } from "rimelight-components/db";
+import { relations, sql } from "drizzle-orm";
+import { boolean, pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
+import { user } from "../auth";
+
+const id = uuid("id")
+  .default(sql`uuidv7()`)
+  .notNull();
+
+const timestamps = {
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+};
+
 import { customFieldDefinition } from "./custom_fields";
 import { list } from "./lists";
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-/* region State */
+ /* region State */
 /* endregion */
 
 /* region Meta */
@@ -12,10 +12,6 @@
 /* endregion */
 </script>
 
-<template>
+<template></template>
 
-</template>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
 
-import { navigateTo } from "#app";
 import { z } from "zod";
 
 definePageMeta({
@@ -22,7 +21,7 @@ const {
   data: boards,
   refresh: refreshBoards,
   status,
-} = await useAsyncData<any[]>("projects-boards", () => $api("/api/projects/boards"));
+} = await useAsyncData<any[]>("projects-boards", () => $fetch("/api/projects/boards"));
 
 // --- Actions ---
 const createBoardSchema = z.object({
@@ -32,7 +31,7 @@ const createBoardSchema = z.object({
 
 async function createBoard() {
   try {
-    await $api("/api/projects/boards", {
+    await $fetch("/api/projects/boards", {
       method: "POST",
       body: createBoardState.value,
     });
@@ -49,7 +48,7 @@ async function deleteBoard(id: string) {
   if (!confirm("Are you sure you want to delete this board?")) return;
 
   try {
-    await $api(`/api/projects/boards/${id}`, {
+    await $fetch(`/api/projects/boards/${id}`, {
       method: "DELETE",
     });
     toast.add({ title: "Board deleted" });

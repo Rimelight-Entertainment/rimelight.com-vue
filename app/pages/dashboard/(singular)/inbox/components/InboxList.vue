@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { format, isToday } from "date-fns";
-import { type Mail } from "#rimelight-components/types";
+import { type Mail } from "#types";
 import { ref, watch } from "vue";
 
 export interface InboxListProps {

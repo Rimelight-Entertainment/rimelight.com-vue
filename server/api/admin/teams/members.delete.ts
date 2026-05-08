@@ -16,13 +16,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  try {
-    await db
-      .delete(teamMember)
-      .where(and(eq(teamMember.teamId, teamId), eq(teamMember.userId, userId)));
-  } catch (e: any) {
-    throw e;
-  }
+  await db
+    .delete(teamMember)
+    .where(and(eq(teamMember.teamId, teamId), eq(teamMember.userId, userId)));
 
   return { success: true };
 });

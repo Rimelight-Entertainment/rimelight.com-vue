@@ -6,14 +6,17 @@ const { totalHeight } = useHeaderStack();
   <NuxtLayout name="default">
     <template #franchise-header>
       <ClientOnly>
-        <RCHeaderLayer id="store-header" :order="3">
+        <RLHeaderLayer id="store-header" :order="3">
           <RLStoreHeader />
-        </RCHeaderLayer>
+        </RLHeaderLayer>
       </ClientOnly>
     </template>
 
     <template #main>
-      <UMain :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-white min-h-screen flex flex-col">
+      <UMain
+        :style="{ paddingTop: 'var(--total-header-offset)' }"
+        class="bg-white min-h-screen flex flex-col"
+      >
         <UPage class="flex-1">
           <template #left>
             <UPageAside class="hidden lg:block w-64 border-r bg-white border-black">

@@ -236,7 +236,7 @@ const updateSchema = z.object({
 async function createTeam() {
   isSubmitting.value = true;
   try {
-    await $api("/api/admin/teams", {
+    await $fetch("/api/admin/teams", {
       method: "POST",
       body: {
         name: state.name,
@@ -259,7 +259,7 @@ async function updateTeam() {
 
   isSubmitting.value = true;
   try {
-    await $api(`/api/admin/teams/${updateState.id}`, {
+    await $fetch(`/api/admin/teams/${updateState.id}`, {
       method: "PATCH",
       body: { name: updateState.name },
     });
@@ -352,7 +352,7 @@ async function deleteTeam(id: string) {
   }
 
   try {
-    await $api(`/api/admin/teams/${id}`, { method: "DELETE" });
+    await $fetch(`/api/admin/teams/${id}`, { method: "DELETE" });
     toast.add({
       title: "Success",
       description: "Team removed successfully.",

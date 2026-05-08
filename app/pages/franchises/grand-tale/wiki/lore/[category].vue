@@ -2,7 +2,7 @@
 import { h, resolveComponent, ref } from "vue";
 import { getPaginationRowModel } from "@tanstack/vue-table";
 import type { TableColumn } from "@nuxt/ui";
-import type { Page } from "#rimelight-components/types";
+import type { Page } from "#types";
 
 definePageMeta({
   layout: "wiki",
@@ -38,7 +38,7 @@ const {
   data: pages,
   status,
   error,
-} = await useApi<Page[]>("/api/pages", {
+} = await useFetch<Page[]>("/api/pages", {
   query: {
     type: pageType,
     status: "published",

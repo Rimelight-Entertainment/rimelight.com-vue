@@ -1,6 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { requireAdminOrOwner } from "#server/utils/session";
-import { db, team, user } from "#server/db";
+import { db, team } from "#server/db";
 
 export default defineEventHandler(async (event) => {
   const session = await requireAdminOrOwner(event);

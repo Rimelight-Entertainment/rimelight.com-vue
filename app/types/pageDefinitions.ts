@@ -1,8 +1,8 @@
 import {
   BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION,
   DOCUMENT_DEFINITION,
-} from "rimelight-components/types";
-import { definePageDefinition } from "#rimelight-components/utils";
+} from "./standardPages";
+import { definePageDefinition } from "#utils";
 import { v7 as uuidv7 } from "uuid";
 
 export { DOCUMENT_DEFINITION };

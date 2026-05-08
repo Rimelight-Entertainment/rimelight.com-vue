@@ -22,7 +22,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
 </script>
 
 <template>
-  <RCPageReviewView
+  <RLPageReviewView
     :lookup-path="slug"
     :cache-key="`document-review-${slug}`"
     :page-definitions="pageDefinitions"

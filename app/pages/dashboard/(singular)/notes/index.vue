@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { type Note } from "rimelight-components/db";
+import { type Note } from "#db";
 
-const { data: notes, refresh: refreshNotes } = await useApi<Note[]>("/api/notes");
-const { data: labels } = await useApi<any[]>("/api/notes/labels");
+const { data: notes, refresh: refreshNotes } = await useFetch<Note[]>("/api/notes");
+const { data: labels } = await useFetch<any[]>("/api/notes/labels");
 
 const selectedLabelId = ref<string | undefined>(undefined);
 
@@ -184,7 +184,7 @@ const handleNoteSaved = () => {
       <div v-if="pinnedNotes.length > 0" class="flex w-full flex-col gap-2">
         <h3 class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Pinned</h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <RCNoteCard
+          <RLNoteCard
             v-for="note in pinnedNotes"
             :key="note.id"
             :note="note"
@@ -206,7 +206,7 @@ const handleNoteSaved = () => {
           Others
         </h3>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <RCNoteCard
+          <RLNoteCard
             v-for="note in otherNotes"
             :key="note.id"
             :note="note"
@@ -220,7 +220,7 @@ const handleNoteSaved = () => {
         </div>
       </div>
 
-      <RCNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved" />
+      <RLNoteModal v-model:open="isModalOpen" :note="selectedNote" @saved="handleNoteSaved" />
     </div>
   </div>
 </template>

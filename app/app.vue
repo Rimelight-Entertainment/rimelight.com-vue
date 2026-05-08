@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ULink } from "#components";
 import * as locales from "@nuxt/ui/locale";
-import { PiniaColadaDevtools } from "@pinia/colada-devtools";
 import { useFavicon } from "@vueuse/core";
 
 const { locale } = useI18n();
@@ -177,13 +176,12 @@ useSeoMeta({
       <NuxtPage />
     </NuxtLayout>
     <ClientOnly>
-      <RCConfirmModal />
+      <RLConfirmModal />
       <template v-if="session">
-        <RCNotificationsSlideover />
-        <RCFloatingActionsOverlay />
-        <RCFloatingToolsOverlay />
+        <RLNotificationsSlideover />
+        <RLFloatingActionsOverlay />
+        <RLFloatingToolsOverlay />
       </template>
-      <PiniaColadaDevtools />
     </ClientOnly>
   </UApp>
 </template>

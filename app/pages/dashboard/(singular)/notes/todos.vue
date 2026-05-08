@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { Todo } from "rimelight-components/db";
+import type { Todo } from "#db";
 
-const { data: todos, refresh: refreshTodos } = await useApi<Todo[]>("/api/todos");
+const { data: todos, refresh: refreshTodos } = await useFetch<Todo[]>("/api/todos");
 const { data: archivedTodos, refresh: refreshArchivedTodos } =
-  await useApi<Todo[]>("/api/todos/archived");
+  await useFetch<Todo[]>("/api/todos/archived");
 
 const { todoRefreshTrigger } = useTodos();
 
@@ -27,6 +27,6 @@ watch(todoRefreshTrigger, () => {
 
 <template>
   <div class="p-sm">
-    <RCTodoList :todos="todos || []" :archived-todos="archivedTodos || []" />
+    <RLTodoList :todos="todos || []" :archived-todos="archivedTodos || []" />
   </div>
 </template>

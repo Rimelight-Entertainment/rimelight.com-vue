@@ -4,7 +4,7 @@ import { requireAdminOrOwner } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
   const versionId = getRouterParam(event, "versionId");
-  const session = await requireAdminOrOwner(event);
+  const _session = await requireAdminOrOwner(event);
 
   if (!versionId) {
     throw createError({ statusCode: 400, statusMessage: "Missing version ID" });

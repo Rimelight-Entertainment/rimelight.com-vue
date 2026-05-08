@@ -5,10 +5,10 @@ const [
   { data: usersCount },
   { data: sessionsCount },
 ] = await Promise.all([
-  useApi<number>("/api/admin/organizations/count"),
-  useApi<number>("/api/admin/teams/count"),
-  useApi<number>("/api/admin/users/count"),
-  useApi<number>("/api/admin/sessions/count"),
+  useFetch<number>("/api/admin/organizations/count"),
+  useFetch<number>("/api/admin/teams/count"),
+  useFetch<number>("/api/admin/users/count"),
+  useFetch<number>("/api/admin/sessions/count"),
 ]);
 
 const stats = computed(() => [

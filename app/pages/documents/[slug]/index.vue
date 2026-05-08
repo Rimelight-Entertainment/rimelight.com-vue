@@ -18,7 +18,7 @@ const canEdit = computed(() => user.value?.role === "owner" || user.value?.role 
 </script>
 
 <template>
-  <RCPageLiveView
+  <RLPageLiveView
     :lookup-path="slug"
     :cache-key="`document-view-${slug}`"
     base-url="/documents"

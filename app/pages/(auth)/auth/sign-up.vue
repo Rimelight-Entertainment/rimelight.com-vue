@@ -17,5 +17,5 @@ useHead({
 </script>
 
 <template>
-  <RCAuthSignUpForm />
+  <RLAuthSignUpForm />
 </template>

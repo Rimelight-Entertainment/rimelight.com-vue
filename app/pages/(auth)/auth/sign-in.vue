@@ -17,13 +17,14 @@ useHead({
 </script>
 
 <template>
-  <RCAuthSignInForm
+  <RLAuthSignInForm
     :rc="{
       label: 'text-black',
       description: 'text-neutral-500',
-      rememberCheckboxIndicator: 'data-[state=checked]:bg-primary-500 data-[state=checked]:text-white',
+      rememberCheckboxIndicator:
+        'data-[state=checked]:bg-primary-500 data-[state=checked]:text-white',
       rememberText: 'text-black',
-      submit: 'text-white bg-primary-500 hover:bg-primary-600'
+      submit: 'text-white bg-primary-500 hover:bg-primary-600',
     }"
   />
 </template>

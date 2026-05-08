@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from "#ui/types";
-import type { Page } from "#rimelight-components/types";
+import type { Page } from "#types";
 import { PAGE_MAP as pageDefinitions } from "~/types";
 import { computed, markRaw, ref, watch, onMounted, onUnmounted } from "vue";
-import RCFocusTimerTool from "rimelight-components/app/components/dashboard/floating-tools/FocusTimerTool.vue";
+import RLFocusTimerTool from "~/components/dashboard/floating-tools/FocusTimerTool.vue";
 
 const { totalHeight } = useHeaderStack();
 
@@ -17,7 +17,7 @@ onMounted(() => {
     id: "focusTimer",
     title: "Focus Timer",
     icon: "lucide:timer",
-    component: markRaw(RCFocusTimerTool),
+    component: markRaw(RLFocusTimerTool),
     tooltip: () => useFocusTimer().formattedTime.value,
     onClose: () => useFocusTimer().resetTimer(),
   });
@@ -59,7 +59,6 @@ onMounted(() => {
       isCreatePageModalOpen.value = true;
     },
   });
-
 });
 
 onUnmounted(() => {
@@ -223,7 +222,7 @@ const groups = computed(() => [
 </script>
 
 <template>
-  <RCBaseDashboardLayout
+  <RLBaseDashboardLayout
     v-model:sidebar-open="open"
     :links="links[0] ?? []"
     :footer-links="links[1] ?? []"
@@ -265,14 +264,14 @@ const groups = computed(() => [
     <slot />
 
     <template #modals>
-      <RCCreatePageModal
+      <RLCreatePageModal
         v-model:open="isCreatePageModalOpen"
         :definitions="pageDefinitions"
         :loading="isCreatingPage"
         @close="isCreatePageModalOpen = false"
         @confirm="handleCreatePage"
       />
-      <RCNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
+      <RLNoteModal v-model:open="isNoteModalOpen" @saved="triggerRefresh" />
       <UModal v-model:open="isTodoModalOpen" :ui="{ content: 'p-md flex flex-col gap-sm' }">
         <template #content>
           <h3 class="text-lg font-bold">New To-do</h3>
@@ -301,9 +300,9 @@ const groups = computed(() => [
           </div>
         </template>
       </UModal>
-      <RCAssetManagerModal v-model:open="isAssetModalOpen" />
+      <RLAssetManagerModal v-model:open="isAssetModalOpen" />
     </template>
-  </RCBaseDashboardLayout>
+  </RLBaseDashboardLayout>
 </template>
 
 <style scoped></style>

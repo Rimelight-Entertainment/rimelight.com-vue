@@ -27,7 +27,7 @@ const lookupSlug = computed(() => `franchises/grand-tale/wiki/${slug.value}`);
 </script>
 
 <template>
-  <RCPageEditView
+  <RLPageEditView
     :lookup-path="lookupSlug"
     :cache-key="`edit-wiki-${slug}`"
     :page-definitions="pageDefinitions"

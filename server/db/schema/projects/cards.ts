@@ -1,7 +1,18 @@
+import { relations, sql } from "drizzle-orm";
 import { pgTable, text, integer, timestamp, jsonb, uuid } from "drizzle-orm/pg-core";
 import { list } from "./lists";
-import { id, timestamps } from "rimelight-components/db";
-import { relations } from "drizzle-orm";
+
+const id = uuid("id")
+  .default(sql`uuidv7()`)
+  .notNull();
+
+const timestamps = {
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+};
 
 export const card = pgTable("kanban_card", {
   id: id.primaryKey(),

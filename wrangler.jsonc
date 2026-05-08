@@ -3,44 +3,27 @@
   "name": "rimelight-dot-com",
   "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2026-01-01",
-  "routes": [
-    {
-      "pattern": "rimelight.com",
-      "custom_domain": true,
-    },
-    {
-      "pattern": "www.rimelight.com",
-      "custom_domain": true,
-    },
-  ],
+//  "routes": [
+//    {
+//      "pattern": "rimelight.com",
+//      "custom_domain": true,
+//    },
+//    {
+//      "pattern": "www.rimelight.com",
+//      "custom_domain": true,
+//    },
+//  ],
   "observability": {
     "logs": {
       "enabled": true,
       "head_sampling_rate": 1,
       "invocation_logs": true,
-    },
+    }
   },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "rimelight-dot-com",
-      "database_id": "b91e0a97-0a93-41c8-9c91-cdd15ef2bbdc",
-    },
-  ],
   "r2_buckets": [
     {
       "binding": "BLOB",
       "bucket_name": "rimelight-dot-com",
-    },
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "KV",
-      "id": "61c554af1c6349178e71caa758cf1fb7",
-    },
-    {
-      "binding": "CACHE",
-      "id": "7b7a717c21114eadbe0a103ae2bfcb7b",
-    },
-  ],
+    }
+  ]
 }

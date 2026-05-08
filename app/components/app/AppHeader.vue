@@ -54,70 +54,102 @@ type menuItem = NavigationMenuItem & DropdownMenuItem;
 const items = computed<NavigationMenuItem[]>(() =>
   markRaw([
     {
-      label: t('app.header.links.grand_tale.label'),
+      label: t("app.header.links.grand_tale.label"),
       to: "/franchises/grand-tale",
       active: route.path.startsWith("/franchises/grand-tale"),
       slot: "grand-tale" as const,
       children: [
         {
-          label: t('app.header.links.grand_tale.content.main.title'),
+          label: t("app.header.links.grand_tale.content.main.title"),
           children: [
-
-            { label: t('app.header.links.grand_tale.content.main.news'), to: "/franchises/grand-tale/news" },
-            { label: t('app.header.links.grand_tale.content.main.about'), to: "/franchises/grand-tale/about" },
-            { label: t('app.header.links.grand_tale.content.main.wiki'), to: "/franchises/grand-tale/wiki" },
-            { label: t('app.header.links.grand_tale.content.main.guides'), to: "/franchises/grand-tale/guides" },
-            { label: t('app.header.links.grand_tale.content.main.forums'), to: "/franchises/grand-tale/forums" },
-            { label: t('app.header.links.grand_tale.content.main.leaderboards'), to: "/franchises/grand-tale/leaderboards" },
+            {
+              label: t("app.header.links.grand_tale.content.main.news"),
+              to: "/franchises/grand-tale/news",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.about"),
+              to: "/franchises/grand-tale/about",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.wiki"),
+              to: "/franchises/grand-tale/wiki",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.guides"),
+              to: "/franchises/grand-tale/guides",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.forums"),
+              to: "/franchises/grand-tale/forums",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.leaderboards"),
+              to: "/franchises/grand-tale/leaderboards",
+            },
           ],
         },
         {
-          label: t('app.header.links.grand_tale.content.main.series.heading'),
+          label: t("app.header.links.grand_tale.content.main.series.heading"),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.series.children_of_the_light'), to: "/franchises/grand-tale/wiki/series/children-of-the-light" },
-            { label: t('app.header.links.grand_tale.content.main.series.grand_academy'), to: "/franchises/grand-tale/wiki/series/grand-academy" },
-            { label: t('app.header.links.grand_tale.content.main.series.goldy_adventures'), to: "/franchises/grand-tale/wiki/series/goldy-adventures" },
+            {
+              label: t("app.header.links.grand_tale.content.main.series.children_of_the_light"),
+              to: "/franchises/grand-tale/wiki/series/children-of-the-light",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.series.grand_academy"),
+              to: "/franchises/grand-tale/wiki/series/grand-academy",
+            },
+            {
+              label: t("app.header.links.grand_tale.content.main.series.goldy_adventures"),
+              to: "/franchises/grand-tale/wiki/series/goldy-adventures",
+            },
           ],
         },
         {
-          label: t('app.header.links.grand_tale.content.main.books.heading'),
+          label: t("app.header.links.grand_tale.content.main.books.heading"),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.books.first_tale'), to: "/franchises/grand-tale/wiki/books/the-first-tale" },
+            {
+              label: t("app.header.links.grand_tale.content.main.books.first_tale"),
+              to: "/franchises/grand-tale/wiki/books/the-first-tale",
+            },
           ],
         },
         {
-          label: t('app.header.links.grand_tale.content.main.comics.heading'),
+          label: t("app.header.links.grand_tale.content.main.comics.heading"),
           children: [
-            { label: t('app.header.links.grand_tale.content.main.comics.ori_friends'), to: "/franchises/grand-tale/wiki/comics/ori-and-friends" },
+            {
+              label: t("app.header.links.grand_tale.content.main.comics.ori_friends"),
+              to: "/franchises/grand-tale/wiki/comics/ori-and-friends",
+            },
           ],
         },
       ],
     },
     {
-      label: t('app.header.links.community.label'),
+      label: t("app.header.links.community.label"),
       active: route.path.startsWith("/community"),
       slot: "community" as const,
       children: [
         {
-          label: t('app.header.links.community.content.main.forums.heading'),
+          label: t("app.header.links.community.content.main.forums.heading"),
           children: [
             {
-              label: t('app.header.links.community.content.main.forums.rimelight'),
+              label: t("app.header.links.community.content.main.forums.rimelight"),
               to: "/forums/rimelight",
               active: route.path.startsWith("/forums/rimelight"),
             },
             {
-              label: t('app.header.links.community.content.main.forums.grand_tale'),
+              label: t("app.header.links.community.content.main.forums.grand_tale"),
               to: "/forums/grand-tale",
               active: route.path.startsWith("/forums/grand-tale"),
             },
           ],
         },
         {
-          label: t('app.header.links.community.content.main.events.heading'),
+          label: t("app.header.links.community.content.main.events.heading"),
           children: [
             {
-              label: t('app.header.links.community.content.main.events.lightcon'),
+              label: t("app.header.links.community.content.main.events.lightcon"),
               to: "/events/lightcon",
               active: route.path.startsWith("/events/lightcon"),
             },
@@ -126,150 +158,149 @@ const items = computed<NavigationMenuItem[]>(() =>
       ],
     },
     {
-      label: t('app.header.links.company.label'),
+      label: t("app.header.links.company.label"),
       to: "/company",
       active: route.path.startsWith("/company"),
       slot: "company" as const,
       children: [
         {
-          label: t('app.header.links.company.content.main.studio.heading'),
+          label: t("app.header.links.company.content.main.studio.heading"),
           children: [
             {
-              label: t('app.header.links.company.content.main.studio.about_us'),
+              label: t("app.header.links.company.content.main.studio.about_us"),
               to: "/company/about",
               active: route.path.startsWith("/company/about"),
             },
             {
-              label: t('app.header.links.company.content.main.studio.partnerships'),
+              label: t("app.header.links.company.content.main.studio.partnerships"),
               to: "/company/studio/partnerships",
               active: route.path.startsWith("/company/studio/partnerships"),
             },
           ],
         },
         {
-          label: t('app.header.links.company.content.main.careers.heading'),
+          label: t("app.header.links.company.content.main.careers.heading"),
           children: [
             {
-              label: t('app.header.links.company.content.main.careers.life'),
+              label: t("app.header.links.company.content.main.careers.life"),
               to: "/company/careers/culture",
               active: route.path.startsWith("/company/careers/culture"),
             },
             {
-              label: t('app.header.links.company.content.main.careers.jobs'),
+              label: t("app.header.links.company.content.main.careers.jobs"),
               to: "/company/careers",
               active: route.path.startsWith("/company/careers"),
             },
           ],
         },
         {
-          label: t('app.header.links.company.content.main.news.heading'),
+          label: t("app.header.links.company.content.main.news.heading"),
           children: [
             {
-              label: t('app.header.links.company.content.main.news.blog'),
+              label: t("app.header.links.company.content.main.news.blog"),
               to: "/company/blog",
               active: route.path.startsWith("/company/blog"),
             },
           ],
         },
-
       ],
     },
     {
-      label: t('app.header.links.store.label'),
+      label: t("app.header.links.store.label"),
       to: "/store",
       active: route.path.startsWith("/store"),
       slot: "store" as const,
       children: [
         {
-          label: t('app.header.links.store.content.main.digital_goods.heading'),
+          label: t("app.header.links.store.content.main.digital_goods.heading"),
           to: "/store/digital",
         },
         {
-          label: t('app.header.links.store.content.main.deals.heading'),
+          label: t("app.header.links.store.content.main.deals.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.deals.new_releases'),
+              label: t("app.header.links.store.content.main.deals.new_releases"),
               to: "/store/deals/new",
             },
             {
-              label: t('app.header.links.store.content.main.deals.sales'),
+              label: t("app.header.links.store.content.main.deals.sales"),
               to: "/store/deals/sales",
             },
             {
-              label: t('app.header.links.store.content.main.deals.bundles'),
+              label: t("app.header.links.store.content.main.deals.bundles"),
               to: "/store/deals/bundles",
             },
           ],
         },
         {
-          label: t('app.header.links.store.content.main.clothing.heading'),
+          label: t("app.header.links.store.content.main.clothing.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.clothing.headwear'),
+              label: t("app.header.links.store.content.main.clothing.headwear"),
               to: "/store/clothing/headwear",
             },
             {
-              label: t('app.header.links.store.content.main.clothing.tops'),
+              label: t("app.header.links.store.content.main.clothing.tops"),
               to: "/store/clothing/tops",
             },
             {
-              label: t('app.header.links.store.content.main.clothing.bottoms'),
+              label: t("app.header.links.store.content.main.clothing.bottoms"),
               to: "/store/clothing/bottoms",
             },
           ],
         },
         {
-          label: t('app.header.links.store.content.main.accessories.heading'),
+          label: t("app.header.links.store.content.main.accessories.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.accessories.jewelry'),
+              label: t("app.header.links.store.content.main.accessories.jewelry"),
               to: "/store/accessories/jewelry",
             },
             {
-              label: t('app.header.links.store.content.main.accessories.pins_patches'),
+              label: t("app.header.links.store.content.main.accessories.pins_patches"),
               to: "/store/merch/pins",
             },
             {
-              label: t('app.header.links.store.content.main.accessories.keychains'),
+              label: t("app.header.links.store.content.main.accessories.keychains"),
               to: "/store/accessories/keychains",
             },
           ],
         },
         {
-          label: t('app.header.links.store.content.main.apparel.heading'),
+          label: t("app.header.links.store.content.main.apparel.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.apparel.bottles_mugs'),
+              label: t("app.header.links.store.content.main.apparel.bottles_mugs"),
               to: "/store/apparel/bottles-mugs",
             },
           ],
         },
         {
-          label: t('app.header.links.store.content.main.collectibles.heading'),
+          label: t("app.header.links.store.content.main.collectibles.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.collectibles.figurines_statues'),
+              label: t("app.header.links.store.content.main.collectibles.figurines_statues"),
               to: "/store/collectibles/figurines",
             },
             {
-              label: t('app.header.links.store.content.main.collectibles.plushies'),
+              label: t("app.header.links.store.content.main.collectibles.plushies"),
               to: "/store/merch/plushies",
             },
           ],
         },
         {
-          label: t('app.header.links.store.content.main.art.heading'),
+          label: t("app.header.links.store.content.main.art.heading"),
           children: [
             {
-              label: t('app.header.links.store.content.main.art.posters_prints'),
+              label: t("app.header.links.store.content.main.art.posters_prints"),
               to: "/store/merch/posters",
             },
             {
-              label: t('app.header.links.store.content.main.art.comics_books'),
+              label: t("app.header.links.store.content.main.art.comics_books"),
               to: "/store/art/books",
             },
             {
-              label: t('app.header.links.store.content.main.art.physical_games'),
+              label: t("app.header.links.store.content.main.art.physical_games"),
               to: "/store/art/games",
             },
           ],
@@ -437,11 +468,11 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
 </script>
 
 <template>
-  <RCHeader :contain="false" class="bg-black">
+  <RLHeader :contain="false" class="bg-black">
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <ClientOnly>
-          <RCLogo class="h-6 w-auto" variant="mark" />
+          <RLLogo class="h-6 w-auto" variant="mark" />
         </ClientOnly>
         <UNavigationMenu
           :items="items"
@@ -455,7 +486,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               'hover:text-primary-400',
               'data-[state=open]:text-primary-400',
               'aria-[current]:text-primary-400',
-            ]
+            ],
           }"
           variant="link"
         >
@@ -471,7 +502,8 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   <div class="grid grid-cols-2 gap-xl gap-y-4">
                     <!-- Column 1 -->
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
                         >{{ (item as any).children[0].label }}</span
                       >
                       <UButton
@@ -487,8 +519,13 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
 
                     <!-- Column 2 -->
                     <div class="flex flex-col gap-lg">
-                      <div v-for="category in (item as any).children.slice(1)" :key="category.label" class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                      <div
+                        v-for="category in (item as any).children.slice(1)"
+                        :key="category.label"
+                        class="flex flex-col gap-1"
+                      >
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
                           >{{ category.label }}</span
                         >
                         <UButton
@@ -507,9 +544,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >{{ t('app.header.links.grand_tale.content.side.title') }}</span
-                >
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">{{
+                  t("app.header.links.grand_tale.content.side.title")
+                }}</span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
@@ -529,8 +566,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                   />
                 </div>
 
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2"
-                  >{{ t('app.header.links.grand_tale.content.side.socials.title') }}</span
+                <span
+                  class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2"
+                  >{{ t("app.header.links.grand_tale.content.side.socials.title") }}</span
                 >
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
@@ -573,8 +611,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <div class="flex flex-col gap-sm flex-2">
                   <div class="grid grid-cols-2 gap-1">
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.community.content.main.forums.heading') }}</span
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t("app.header.links.community.content.main.forums.heading") }}</span
                       >
                       <UButton
                         :label="t('app.header.links.community.content.main.forums.rimelight')"
@@ -592,8 +631,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       />
                     </div>
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.community.content.main.events.heading') }}</span
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t("app.header.links.community.content.main.events.heading") }}</span
                       >
                       <UButton
                         :label="t('app.header.links.community.content.main.events.lightcon')"
@@ -608,9 +648,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >{{ t('app.header.links.community.content.side.title') }}</span
-                >
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">{{
+                  t("app.header.links.community.content.side.title")
+                }}</span>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
@@ -652,8 +692,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                 <div class="flex flex-col gap-sm flex-2">
                   <div class="grid grid-cols-3 gap-1">
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.studio.heading') }}</span
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t("app.header.links.company.content.main.studio.heading") }}</span
                       >
                       <UButton
                         :label="t('app.header.links.company.content.main.studio.about_us')"
@@ -671,8 +712,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       />
                     </div>
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.careers.heading') }}</span
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t("app.header.links.company.content.main.careers.heading") }}</span
                       >
                       <UButton
                         :label="t('app.header.links.company.content.main.careers.life')"
@@ -690,8 +732,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       />
                     </div>
                     <div class="flex flex-col gap-1">
-                      <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                        >{{ t('app.header.links.company.content.main.news.heading') }}</span
+                      <span
+                        class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                        >{{ t("app.header.links.company.content.main.news.heading") }}</span
                       >
                       <UButton
                         :label="t('app.header.links.company.content.main.news.blog')"
@@ -707,7 +750,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
                 <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">
-                  {{ t('app.header.links.company.content.side.resources.title') }}
+                  {{ t("app.header.links.company.content.side.resources.title") }}
                 </span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
@@ -743,8 +786,10 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     variant="ghost"
                   />
                 </div>
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2">
-                  {{ t('app.header.links.company.content.side.socials.title') }}
+                <span
+                  class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500 mt-2"
+                >
+                  {{ t("app.header.links.company.content.side.socials.title") }}
                 </span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
@@ -782,8 +827,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     <div class="flex flex-col gap-lg">
                       <!-- Deals -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.deals.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.deals.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -809,8 +855,11 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       </div>
                       <!-- Digital Goods -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.digital_goods.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{
+                            t("app.header.links.store.content.main.digital_goods.heading")
+                          }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -822,8 +871,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       </div>
                       <!-- Clothing -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.clothing.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.clothing.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -853,8 +903,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     <div class="flex flex-col gap-lg">
                       <!-- Accessories -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.accessories.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.accessories.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -880,8 +931,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       </div>
                       <!-- Apparel -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.apparel.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.apparel.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -897,13 +949,16 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                     <div class="flex flex-col gap-lg">
                       <!-- Collectibles -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.collectibles.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.collectibles.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
                           color="neutral"
-                          :label="t('app.header.links.store.content.main.collectibles.figurines_statues')"
+                          :label="
+                            t('app.header.links.store.content.main.collectibles.figurines_statues')
+                          "
                           to="/store/collectibles/figurines"
                           variant="ghost"
                         />
@@ -917,8 +972,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
                       </div>
                       <!-- Art -->
                       <div class="flex flex-col gap-1">
-                        <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                          >{{ t('app.header.links.store.content.main.art.heading') }}</span
+                        <span
+                          class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
+                          >{{ t("app.header.links.store.content.main.art.heading") }}</span
                         >
                         <UButton
                           class="text-black hover:bg-neutral-200"
@@ -948,9 +1004,9 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               </div>
 
               <div class="flex flex-col gap-sm p-lg bg-neutral-100 w-64">
-                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500"
-                  >{{ t('app.header.links.store.content.side.title') }}</span
-                >
+                <span class="pl-xs text-xs font-bold uppercase tracking-wider text-primary-500">{{
+                  t("app.header.links.store.content.side.title")
+                }}</span>
                 <div class="grid grid-cols-1 gap-1">
                   <UButton
                     class="text-black hover:bg-neutral-200"
@@ -981,85 +1037,87 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
           <template v-if="session">
             <div class="flex flex-row items-center gap-md">
               <UTooltip text="Notifications">
-                  <UButton
-                    class="text-white hover:bg-primary-500"
-                    color="neutral"
-                    square
-                    variant="ghost"
-                    @click="slideoverState.notifications = true"
-                  >
-                    <UChip color="error" inset>
-                      <UIcon class="size-5 shrink-0" name="lucide:bell" />
-                    </UChip>
-                  </UButton>
-                </UTooltip>
-                <UPopover :ui="{ content: 'w-64' }" arrow mode="hover">
-                  <template #default>
-                    <UTooltip>
-                      <template #default>
-                        <UButton
-                          class="text-white hover:text-primary-400 transition-colors duration-200"
-                          variant="ghost"
-                        >
-                          <UUser
-                            v-if="session"
-                            :avatar="{
-                              src: session?.user.image ?? '',
-                              alt: session?.user.name ?? '',
-                            }"
-                            :chip="availabilityChip"
-                            :description="session?.user.status ?? ''"
-                            :name="session?.user.name"
-                            :ui="{
-                              name: 'text-white group-hover:text-primary-400 transition-colors duration-200',
-                              description: 'text-left',
-                            }"
-                            class="group"
-                            size="md"
-                          />
-                        </UButton>
-                      </template>
-                    </UTooltip>
-                  </template>
-                  <template #content>
-                    <div class="flex flex-col">
-                      <div class="flex flex-col gap-1 bg-white p-sm">
+                <UButton
+                  class="text-white hover:bg-primary-500"
+                  color="neutral"
+                  square
+                  variant="ghost"
+                  @click="slideoverState.notifications = true"
+                >
+                  <UChip color="error" inset>
+                    <UIcon class="size-5 shrink-0" name="lucide:bell" />
+                  </UChip>
+                </UButton>
+              </UTooltip>
+              <UPopover :ui="{ content: 'w-64' }" arrow mode="hover">
+                <template #default>
+                  <UTooltip>
+                    <template #default>
+                      <UButton
+                        class="text-white hover:text-primary-400 transition-colors duration-200"
+                        variant="ghost"
+                      >
                         <UUser
                           v-if="session"
                           :avatar="{
                             src: session?.user.image ?? '',
                             alt: session?.user.name ?? '',
                           }"
-                          :description="session?.user.status ?? t('app.header.user.status.placeholder')"
+                          :chip="availabilityChip"
+                          :description="session?.user.status ?? ''"
+                          :name="session?.user.name"
                           :ui="{
-                            name: 'text-left text-black',
-                            description: 'text-left text-neutral-500',
+                            name: 'text-white group-hover:text-primary-400 transition-colors duration-200',
+                            description: 'text-left',
                           }"
+                          class="group"
                           size="md"
-                        >
-                          <template #name>
-                            <span
-                              >{{ session?.user.name }}
-                              <span class="text-dimmed">#{{ session?.user.tag }}</span></span
-                            >
-                          </template>
-                        </UUser>
-                        <UButton
-                          :label="t('app.header.user.dashboard')"
-                          class="text-black hover:bg-neutral-200"
-                          color="neutral"
-                          leading-icon="lucide:layout-dashboard"
-                          to="/dashboard"
-                          variant="ghost"
                         />
-                        <UButton
-                          :label="t('app.header.user.profile')"
-                          class="text-black hover:bg-neutral-200"
-                          color="neutral"
-                          leading-icon="lucide:user"
-                          variant="ghost"
-                        />
-                      </div>
+                      </UButton>
+                    </template>
+                  </UTooltip>
+                </template>
+                <template #content>
+                  <div class="flex flex-col">
+                    <div class="flex flex-col gap-1 bg-white p-sm">
+                      <UUser
+                        v-if="session"
+                        :avatar="{
+                          src: session?.user.image ?? '',
+                          alt: session?.user.name ?? '',
+                        }"
+                        :description="
+                          session?.user.status ?? t('app.header.user.status.placeholder')
+                        "
+                        :ui="{
+                          name: 'text-left text-black',
+                          description: 'text-left text-neutral-500',
+                        }"
+                        size="md"
+                      >
+                        <template #name>
+                          <span
+                            >{{ session?.user.name }}
+                            <span class="text-dimmed">#{{ session?.user.tag }}</span></span
+                          >
+                        </template>
+                      </UUser>
+                      <UButton
+                        :label="t('app.header.user.dashboard')"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        leading-icon="lucide:layout-dashboard"
+                        to="/dashboard"
+                        variant="ghost"
+                      />
+                      <UButton
+                        :label="t('app.header.user.profile')"
+                        class="text-black hover:bg-neutral-200"
+                        color="neutral"
+                        leading-icon="lucide:user"
+                        variant="ghost"
+                      />
+                    </div>
                     <div class="flex flex-col gap-1 bg-neutral-100 p-sm">
                       <UButton
                         :label="t('app.header.user.support')"
@@ -1116,7 +1174,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
               @click="slideoverState.left = true"
             />
             <template #header>
-              <RCLogo class="h-6 w-auto" variant="mark" />
+              <RLLogo class="h-6 w-auto" variant="mark" />
               <UButton
                 color="neutral"
                 icon="lucide:x"
@@ -1135,7 +1193,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
     </template>
     <template #collapsed-center>
       <ClientOnly>
-        <RCLogo class="h-6 w-auto" variant="mark" />
+        <RLLogo class="h-6 w-auto" variant="mark" />
       </ClientOnly>
     </template>
     <template #collapsed-right>
@@ -1221,7 +1279,7 @@ const availabilityChip = computed<ChipProps | undefined>(() => {
         </ClientOnly>
       </div>
     </template>
-  </RCHeader>
+  </RLHeader>
 </template>
 
 <style scoped></style>

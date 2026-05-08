@@ -6,22 +6,22 @@ const { totalHeight } = useHeaderStack();
   <div :style="{ '--total-header-offset': `${totalHeight}px` }">
     <slot name="banner">
       <ClientOnly>
-        <RCHeaderLayer id="banner" :order="1" hide-on-scroll>
+        <RLHeaderLayer id="banner" :order="1" hide-on-scroll>
           <UBanner
             :ui="{ icon: 'text-white', title: 'text-white' }"
             class="bg-primary-500"
             icon="lucide:construction"
             title="This website is currently under development. You may see placeholder or incomplete content."
           />
-        </RCHeaderLayer>
+        </RLHeaderLayer>
       </ClientOnly>
     </slot>
 
     <slot name="header">
       <ClientOnly>
-        <RCHeaderLayer id="global-header" :order="2">
+        <RLHeaderLayer id="global-header" :order="2">
           <RLAppHeader />
-        </RCHeaderLayer>
+        </RLHeaderLayer>
       </ClientOnly>
     </slot>
 

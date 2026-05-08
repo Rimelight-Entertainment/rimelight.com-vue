@@ -22,7 +22,7 @@ const versionId = computed(() => route.query.version as string);
 </script>
 
 <template>
-  <RCPageReviewView
+  <RLPageReviewView
     :lookup-path="slug"
     :version-id="versionId"
     :page-definitions="pageDefinitions"

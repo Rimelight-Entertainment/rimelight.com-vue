@@ -1,0 +1,22 @@
+shamefullyHoist: true
+
+allowBuilds:
+  "3": true
+  ",": true
+  "-": true
+  "@parcel/watcher": true
+  a: true
+  b: true
+  e: true
+  esbuild: true
+  h: true
+  i: true
+  l: true
+  p: true
+  q: true
+  r: true
+  s: true
+  sharp: true
+  t: true
+  vue-demi: true
+  workerd: true

@@ -1,11 +1,8 @@
 import { eq } from "drizzle-orm";
 import { db, pages } from "#server/db";
-import { getUserSession } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
-  const session = await getUserSession(event);
-
   if (!id) {
     throw createError({ statusCode: 400, statusMessage: "Missing ID" });
   }

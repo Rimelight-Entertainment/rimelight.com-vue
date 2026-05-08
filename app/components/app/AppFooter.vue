@@ -21,7 +21,7 @@ const { t, locale, setLocale, locales: i18nLocales } = useI18n();
 
 const availableLocales = computed(() => {
   return i18nLocales.value.map((l) => (uiLocales as any)[l.code]).filter(Boolean);
-})
+});
 
 const columns = computed<FooterColumn[]>(() => [
   {
@@ -38,7 +38,7 @@ const columns = computed<FooterColumn[]>(() => [
       {
         label: "API",
         to: "/api",
-      }
+      },
     ],
   },
   {
@@ -66,7 +66,7 @@ const columns = computed<FooterColumn[]>(() => [
       },
     ],
   },
-])
+]);
 /* endregion */
 
 /* region Meta */
@@ -80,11 +80,25 @@ const columns = computed<FooterColumn[]>(() => [
 </script>
 
 <template>
-  <RCFooter :contain="false" :rc="{ center: 'lg:items-start' }" class="bg-black z-50 border-t-2 border-primary-500">
+  <RLFooter
+    :contain="false"
+    :rc="{ center: 'lg:items-start' }"
+    class="bg-black z-50 border-t-2 border-primary-500"
+  >
     <template #left>
-      <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-white', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" class="max-w-64" />
+      <RLNewsletterSignup
+        :title="t('app.newsletter.title')"
+        :description="t('app.newsletter.description')"
+        :submit="t('app.newsletter.submit')"
+        :rc="{
+          label: 'text-white',
+          description: 'text-neutral-500',
+          button: 'text-white bg-primary-500 hover:bg-primary-600',
+        }"
+        class="max-w-64"
+      />
       <div class="flex flex-col items-center gap-xs lg:items-start">
-        <RCLogo class="h-6 w-auto" variant="type" />
+        <RLLogo class="h-6 w-auto" variant="type" />
         <p class="text-sm text-white">Tell your story.</p>
         <span class="text-sm text-white">
           © {{ new Date().getFullYear() }} Rimelight Entertainment
@@ -160,7 +174,7 @@ const columns = computed<FooterColumn[]>(() => [
         </div>
       </div>
     </template>
-  </RCFooter>
+  </RLFooter>
 </template>
 
 <style scoped></style>

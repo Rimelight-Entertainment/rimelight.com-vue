@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { navigateTo } from "#app";
 import draggable from "vuedraggable";
 
 const route = useRoute();
@@ -12,7 +11,7 @@ const {
   refresh: refreshBoard,
   status,
 } = await useAsyncData<any>(`project-board-${boardId}`, () =>
-  $api(`/api/projects/boards/${boardId}`),
+  $fetch(`/api/projects/boards/${boardId}`),
 );
 
 // --- State ---
@@ -57,7 +56,7 @@ watch(
 // Lists
 async function createList() {
   try {
-    await $api("/api/projects/lists", {
+    await $fetch("/api/projects/lists", {
       method: "POST",
       body: {
         boardId,
@@ -75,7 +74,7 @@ async function createList() {
 async function deleteList(id: string) {
   if (!confirm("Delete list and all its cards?")) return;
   try {
-    await $api(`/api/projects/lists/${id}`, {
+    await $fetch(`/api/projects/lists/${id}`, {
       method: "DELETE",
     });
     refreshBoard();
@@ -88,7 +87,7 @@ async function onListDrop() {
   // Save new order of lists
   await Promise.all(
     localLists.value.map((list, index) =>
-      $api(`/api/projects/lists/${list.id}`, {
+      $fetch(`/api/projects/lists/${list.id}`, {
         method: "PUT",
         body: { order: index },
       }),
@@ -105,7 +104,7 @@ function openAddCardModal(listId: string) {
 async function createCard() {
   if (!selectedListId.value) return;
   try {
-    await $api("/api/projects/cards", {
+    await $fetch("/api/projects/cards", {
       method: "POST",
       body: {
         listId: selectedListId.value,
@@ -133,7 +132,7 @@ function openCardDetail(card: any) {
 
 async function updateCard() {
   try {
-    await $api(`/api/projects/cards/${selectedCard.value.id}`, {
+    await $fetch(`/api/projects/cards/${selectedCard.value.id}`, {
       method: "PUT",
       body: {
         title: selectedCard.value.title,
@@ -152,7 +151,7 @@ async function updateCard() {
 async function deleteCard() {
   if (!confirm("Delete card?")) return;
   try {
-    await $api(`/api/projects/cards/${selectedCard.value.id}`, {
+    await $fetch(`/api/projects/cards/${selectedCard.value.id}`, {
       method: "DELETE",
     });
     isCardDetailModalOpen.value = false;
@@ -173,7 +172,7 @@ async function onCardDrop(event: any, listId: string) {
     // And if added, update listId
     await Promise.all(
       list.cards.map((card: any, index: number) =>
-        $api(`/api/projects/cards/${card.id}`, {
+        $fetch(`/api/projects/cards/${card.id}`, {
           method: "PUT",
           body: {
             listId: listId,
@@ -188,7 +187,7 @@ async function onCardDrop(event: any, listId: string) {
 // Custom Fields
 async function createField() {
   try {
-    await $api("/api/projects/fields", {
+    await $fetch("/api/projects/fields", {
       method: "POST",
       body: {
         boardId,
@@ -213,7 +212,7 @@ async function createField() {
 async function deleteField(id: string) {
   if (!confirm("Delete field? Data will be hidden.")) return;
   try {
-    await $api(`/api/projects/fields/${id}`, {
+    await $fetch(`/api/projects/fields/${id}`, {
       method: "DELETE",
     });
     refreshBoard();
