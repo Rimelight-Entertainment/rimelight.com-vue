@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, inject } from "vue";
-import { BLOCK_DEFINITIONS, CATEGORY_ORDER, type BlockDefinition } from "../../../utils/blocks";
+import { BLOCK_DEFINITIONS, CATEGORY_ORDER, type BlockDefinition } from "#utils/blocks";
 import { useRC } from "#composables";
 import { useI18n } from "vue-i18n";
 import { tv } from "../../../internal/tv";
