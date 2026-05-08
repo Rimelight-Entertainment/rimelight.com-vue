@@ -2,6 +2,7 @@
 import type { TreeItem } from "@nuxt/ui";
 import draggable from "vuedraggable/src/vuedraggable";
 import { useClipboard } from "@vueuse/core";
+import { tv } from "../../../internal/tv";
 
 /* region Props */
 export interface AssetManagerModalProps {
