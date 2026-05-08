@@ -1,56 +1,56 @@
 <script lang="ts" setup>
-import { navigateTo } from "#app"
-import draggable from "vuedraggable"
+import { navigateTo } from "#app";
+import draggable from "vuedraggable";
 
-const route = useRoute()
-const toast = useToast()
-const boardId = route.params.id as string
+const route = useRoute();
+const toast = useToast();
+const boardId = route.params.id as string;
 
 // --- Data Fetching ---
 const {
   data: board,
   refresh: refreshBoard,
-  status
+  status,
 } = await useAsyncData<any>(`project-board-${boardId}`, () =>
-  $api(`/api/projects/boards/${boardId}`)
-)
+  $api(`/api/projects/boards/${boardId}`),
+);
 
 // --- State ---
-const localLists = ref<any[]>([])
-const isAddListModalOpen = ref(false)
-const isAddCardModalOpen = ref(false)
-const selectedListId = ref<string | null>(null)
-const selectedCard = ref<any>(null)
-const isCardDetailModalOpen = ref(false)
-const isFieldManagerOpen = ref(false)
+const localLists = ref<any[]>([]);
+const isAddListModalOpen = ref(false);
+const isAddCardModalOpen = ref(false);
+const selectedListId = ref<string | null>(null);
+const selectedCard = ref<any>(null);
+const isCardDetailModalOpen = ref(false);
+const isFieldManagerOpen = ref(false);
 
-const newListState = ref({ title: "" })
-const newCardState = ref({ title: "", description: "" })
+const newListState = ref({ title: "" });
+const newCardState = ref({ title: "", description: "" });
 
 // Field Manager State
 const newFieldState = ref<{
-  name: string
-  type: "TEXT" | "NUMBER" | "DATE" | "SELECT" | "CHECKBOX" | "URL"
-  options: { label: string; value: string }[]
-  optionsStr: string
+  name: string;
+  type: "TEXT" | "NUMBER" | "DATE" | "SELECT" | "CHECKBOX" | "URL";
+  options: { label: string; value: string }[];
+  optionsStr: string;
 }>({
   name: "",
   type: "TEXT",
   options: [],
-  optionsStr: ""
-})
-const fieldTypes = ["TEXT", "NUMBER", "DATE", "SELECT", "CHECKBOX", "URL"]
+  optionsStr: "",
+});
+const fieldTypes = ["TEXT", "NUMBER", "DATE", "SELECT", "CHECKBOX", "URL"];
 
 // --- Sync State ---
 watch(
   () => board.value,
   (newBoard) => {
     if (newBoard) {
-      localLists.value = JSON.parse(JSON.stringify(newBoard.lists))
+      localLists.value = JSON.parse(JSON.stringify(newBoard.lists));
     }
   },
-  { immediate: true, deep: true }
-)
+  { immediate: true, deep: true },
+);
 
 // --- Actions ---
 
@@ -61,26 +61,26 @@ async function createList() {
       method: "POST",
       body: {
         boardId,
-        title: newListState.value.title
-      }
-    })
-    isAddListModalOpen.value = false
-    newListState.value.title = ""
-    refreshBoard()
+        title: newListState.value.title,
+      },
+    });
+    isAddListModalOpen.value = false;
+    newListState.value.title = "";
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error creating list", color: "error" })
+    toast.add({ title: "Error creating list", color: "error" });
   }
 }
 
 async function deleteList(id: string) {
-  if (!confirm("Delete list and all its cards?")) return
+  if (!confirm("Delete list and all its cards?")) return;
   try {
     await $api(`/api/projects/lists/${id}`, {
-      method: "DELETE"
-    })
-    refreshBoard()
+      method: "DELETE",
+    });
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error deleting list", color: "error" })
+    toast.add({ title: "Error deleting list", color: "error" });
   }
 }
 
@@ -90,45 +90,45 @@ async function onListDrop() {
     localLists.value.map((list, index) =>
       $api(`/api/projects/lists/${list.id}`, {
         method: "PUT",
-        body: { order: index }
-      })
-    )
-  )
+        body: { order: index },
+      }),
+    ),
+  );
 }
 
 // Cards
 function openAddCardModal(listId: string) {
-  selectedListId.value = listId
-  isAddCardModalOpen.value = true
+  selectedListId.value = listId;
+  isAddCardModalOpen.value = true;
 }
 
 async function createCard() {
-  if (!selectedListId.value) return
+  if (!selectedListId.value) return;
   try {
     await $api("/api/projects/cards", {
       method: "POST",
       body: {
         listId: selectedListId.value,
         title: newCardState.value.title,
-        description: newCardState.value.description
-      }
-    })
-    isAddCardModalOpen.value = false
-    newCardState.value = { title: "", description: "" }
-    selectedListId.value = null
-    refreshBoard()
+        description: newCardState.value.description,
+      },
+    });
+    isAddCardModalOpen.value = false;
+    newCardState.value = { title: "", description: "" };
+    selectedListId.value = null;
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error creating card", color: "error" })
+    toast.add({ title: "Error creating card", color: "error" });
   }
 }
 
 function openCardDetail(card: any) {
-  selectedCard.value = JSON.parse(JSON.stringify(card)) // Deep copy
+  selectedCard.value = JSON.parse(JSON.stringify(card)); // Deep copy
   // Ensure customFields object exists
   if (!selectedCard.value.customFields) {
-    selectedCard.value.customFields = {}
+    selectedCard.value.customFields = {};
   }
-  isCardDetailModalOpen.value = true
+  isCardDetailModalOpen.value = true;
 }
 
 async function updateCard() {
@@ -138,27 +138,27 @@ async function updateCard() {
       body: {
         title: selectedCard.value.title,
         description: selectedCard.value.description,
-        customFields: selectedCard.value.customFields
-      }
-    })
-    isCardDetailModalOpen.value = false
-    refreshBoard()
-    toast.add({ title: "Card updated" })
+        customFields: selectedCard.value.customFields,
+      },
+    });
+    isCardDetailModalOpen.value = false;
+    refreshBoard();
+    toast.add({ title: "Card updated" });
   } catch (err) {
-    toast.add({ title: "Error updating card", color: "error" })
+    toast.add({ title: "Error updating card", color: "error" });
   }
 }
 
 async function deleteCard() {
-  if (!confirm("Delete card?")) return
+  if (!confirm("Delete card?")) return;
   try {
     await $api(`/api/projects/cards/${selectedCard.value.id}`, {
-      method: "DELETE"
-    })
-    isCardDetailModalOpen.value = false
-    refreshBoard()
+      method: "DELETE",
+    });
+    isCardDetailModalOpen.value = false;
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error deleting card", color: "error" })
+    toast.add({ title: "Error deleting card", color: "error" });
   }
 }
 
@@ -166,8 +166,8 @@ async function onCardDrop(event: any, listId: string) {
   if (event.added || event.moved) {
     // We need to save the state of the list that changed
     // Find the list in localLists
-    const list = localLists.value.find((l) => l.id === listId)
-    if (!list) return
+    const list = localLists.value.find((l) => l.id === listId);
+    if (!list) return;
 
     // Update all cards in this list with their new order
     // And if added, update listId
@@ -177,11 +177,11 @@ async function onCardDrop(event: any, listId: string) {
           method: "PUT",
           body: {
             listId: listId,
-            order: index
-          }
-        })
-      )
-    )
+            order: index,
+          },
+        }),
+      ),
+    );
   }
 }
 
@@ -199,26 +199,26 @@ async function createField() {
             ? newFieldState.value.optionsStr
                 .split(",")
                 .map((s) => ({ label: s.trim(), value: s.trim() }))
-            : []
-      }
-    })
-    toast.add({ title: "Field created" })
-    newFieldState.value = { name: "", type: "TEXT", options: [], optionsStr: "" }
-    refreshBoard()
+            : [],
+      },
+    });
+    toast.add({ title: "Field created" });
+    newFieldState.value = { name: "", type: "TEXT", options: [], optionsStr: "" };
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error creating field", color: "error" })
+    toast.add({ title: "Error creating field", color: "error" });
   }
 }
 
 async function deleteField(id: string) {
-  if (!confirm("Delete field? Data will be hidden.")) return
+  if (!confirm("Delete field? Data will be hidden.")) return;
   try {
     await $api(`/api/projects/fields/${id}`, {
-      method: "DELETE"
-    })
-    refreshBoard()
+      method: "DELETE",
+    });
+    refreshBoard();
   } catch (err) {
-    toast.add({ title: "Error deleting field", color: "error" })
+    toast.add({ title: "Error deleting field", color: "error" });
   }
 }
 
@@ -302,7 +302,7 @@ async function deleteField(id: string) {
                             ? 'bg-purple-500'
                             : index % 4 === 2
                               ? 'bg-orange-500'
-                              : 'bg-green-500'
+                              : 'bg-green-500',
                       ]"
                       class="w-3 h-3 rounded-full"
                     />
@@ -330,9 +330,9 @@ async function deleteField(id: string) {
                             label: 'Delete List',
                             icon: 'i-heroicons-trash',
                             color: 'error',
-                            onSelect: () => deleteList(list.id)
-                          }
-                        ]
+                            onSelect: () => deleteList(list.id),
+                          },
+                        ],
                       ]"
                     >
                       <UButton
@@ -710,7 +710,7 @@ async function deleteField(id: string) {
             <UTextarea
               v-model="selectedCard.description"
               :ui="{
-                base: 'bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 min-h-[150px] border-none focus:ring-2 focus:ring-primary-500/30 transition-all font-medium text-sm'
+                base: 'bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 min-h-[150px] border-none focus:ring-2 focus:ring-primary-500/30 transition-all font-medium text-sm',
               }"
               class="w-full"
               placeholder="Add a more detailed description..."

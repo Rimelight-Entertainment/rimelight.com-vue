@@ -1,50 +1,50 @@
 <script lang="ts" setup>
-import type { FormSubmitEvent } from "#ui/types"
-import * as v from "valibot"
+import type { FormSubmitEvent } from "#ui/types";
+import * as z from "zod";
 
-const fileRef = ref<HTMLInputElement>()
+const fileRef = ref<HTMLInputElement>();
 
-const profileSchema = v.object({
-  name: v.pipe(v.string(), v.minLength(2, "Too short")),
-  email: v.pipe(v.string(), v.email("Invalid email")),
-  username: v.pipe(v.string(), v.minLength(2, "Too short")),
-  avatar: v.optional(v.string()),
-  bio: v.optional(v.string())
-})
+const profileSchema = z.object({
+  name: z.string().min(2, "Too short"),
+  email: z.string().email("Invalid email"),
+  username: z.string().min(2, "Too short"),
+  avatar: z.string().optional(),
+  bio: z.string().optional(),
+});
 
-type ProfileSchema = v.InferOutput<typeof profileSchema>
+type ProfileSchema = z.output<typeof profileSchema>;
 
 const profile = reactive<Partial<ProfileSchema>>({
   name: "Benjamin Canac",
   email: "ben@nuxtlabs.com",
   username: "benjamincanac",
   avatar: undefined,
-  bio: undefined
-})
-const toast = useToast()
+  bio: undefined,
+});
+const toast = useToast();
 
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
   toast.add({
     title: "Success",
     description: "Your settings have been updated.",
     icon: "lucide:check",
-    color: "success"
-  })
-  console.log(event.data)
+    color: "success",
+  });
+  console.log(event.data);
 }
 
 function onFileChange(e: Event) {
-  const input = e.target as HTMLInputElement
+  const input = e.target as HTMLInputElement;
 
   if (!input.files?.length) {
-    return
+    return;
   }
 
-  profile.avatar = URL.createObjectURL(input.files[0]!)
+  profile.avatar = URL.createObjectURL(input.files[0]!);
 }
 
 function onFileClick() {
-  fileRef.value?.click()
+  fileRef.value?.click();
 }
 
 /* region State */

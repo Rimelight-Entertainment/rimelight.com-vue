@@ -1,0 +1,80 @@
+{
+  "id": "01995481-c850-76a1-acc8-0aa15c5dacd0",
+  "slug": "internal/departments/community-management/youtube-channel",
+  "blocks": [
+    {
+      "id": "01995481-c850-76a1-acc8-0f61e07ef430",
+      "type": "section",
+      "attrs": {
+        "title": "Sections"
+      },
+      "slots": {
+        "default": [
+          {
+            "id": "01JXZEG82C45N5X72DX2KFMHQ5",
+            "type": "section",
+            "attrs": {
+              "title": "Behind the Scenes"
+            },
+            "slots": {
+              "default": [
+                {
+                  "id": "01JXZEGCQ1JAA6D5K0FWR99J0T",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Behind the Scenes is a monthly livestream meant to show the making of\ncontent, may include art, sound, design, concept, gameplay, balancing,\netc. Doesnt have to be of a single area, a single livestream might cover\nvarious topics. Usually with a showcase of images and videos, as well as\nlive playthroughs narrated by a developer.Naming: Game Name: Behind the\nScenes - Content Name Release Schedule: Monthly on the _ week.Duration:\n30 to 60 minutesCinematicsEvent CoverageLivestreamsData Streams, Lore\ntalksLets PlayQ&APodcasts?Official Soundtrack",
+                        "type": "text",
+                        "marks": []
+                      },
+                      {
+                        "text": "",
+                        "type": "text"
+                      }
+                    ]
+                  },
+                  "slots": {}
+                }
+              ]
+            }
+          },
+          {
+            "id": "01JXZEGM0V5Z6GH2S6P4A31D40",
+            "type": "section",
+            "attrs": {
+              "title": "Patch Highlights"
+            },
+            "slots": {
+              "default": [
+                {
+                  "id": "01JXZEH398TY6TR2RACWH5CE06",
+                  "type": "paragraph",
+                  "attrs": {
+                    "text": [
+                      {
+                        "text": "Patch Highlights are meant as a quick overview of a patchs key points as\nwell as a brief explanation of the reasoning behind certain\nchanges.Naming: Game Name: Patch Highlights - Patch Number Release\nSchedule: Weekly on a patch release (Monday?).Duration: 2 to 5\nminutesPodcastsTrailers",
+                        "type": "text",
+                        "marks": []
+                      },
+                      {
+                        "text": "",
+                        "type": "text"
+                      }
+                    ]
+                  },
+                  "slots": {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "created_at": "2025-09-16T21:50:16.943Z",
+  "updated_at": "2025-09-16T21:50:16.943Z",
+  "title": "YouTube Channel",
+  "type": "Default",
+  "properties": {}
+}

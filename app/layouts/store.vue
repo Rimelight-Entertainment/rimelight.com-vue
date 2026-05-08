@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { totalHeight } = useHeaderStack()
+const { totalHeight } = useHeaderStack();
 </script>
 
 <template>
@@ -13,10 +13,7 @@ const { totalHeight } = useHeaderStack()
     </template>
 
     <template #main>
-      <UMain
-        :style="{ paddingTop: 'var(--total-header-offset)' }"
-        class="bg-white min-h-screen flex flex-col"
-      >
+      <UMain :style="{ paddingTop: 'var(--total-header-offset)' }" class="bg-white min-h-screen flex flex-col">
         <UPage class="flex-1">
           <template #left>
             <UPageAside class="hidden lg:block w-64 border-r bg-white border-black">

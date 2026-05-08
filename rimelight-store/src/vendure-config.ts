@@ -3,17 +3,17 @@ import {
   DefaultJobQueuePlugin,
   DefaultSchedulerPlugin,
   DefaultSearchPlugin,
-  VendureConfig
-} from "@vendure/core"
-import { defaultEmailHandlers, EmailPlugin, FileBasedTemplateLoader } from "@vendure/email-plugin"
-import { AssetServerPlugin } from "@vendure/asset-server-plugin"
-import { DashboardPlugin } from "@vendure/dashboard/plugin"
-import { GraphiqlPlugin } from "@vendure/graphiql-plugin"
-import "dotenv/config"
-import path from "path"
+  VendureConfig,
+} from "@vendure/core";
+import { defaultEmailHandlers, EmailPlugin, FileBasedTemplateLoader } from "@vendure/email-plugin";
+import { AssetServerPlugin } from "@vendure/asset-server-plugin";
+import { DashboardPlugin } from "@vendure/dashboard/plugin";
+import { GraphiqlPlugin } from "@vendure/graphiql-plugin";
+import "dotenv/config";
+import path from "path";
 
-const IS_DEV = process.env.APP_ENV === "dev"
-const serverPort = +process.env.PORT || 3000
+const IS_DEV = process.env.APP_ENV === "dev";
+const serverPort = +process.env.PORT || 3000;
 
 export const config: VendureConfig = {
   apiOptions: {
@@ -27,19 +27,19 @@ export const config: VendureConfig = {
     ...(IS_DEV
       ? {
           adminApiDebug: true,
-          shopApiDebug: true
+          shopApiDebug: true,
         }
-      : {})
+      : {}),
   },
   authOptions: {
     tokenMethod: ["bearer", "cookie"],
     superadminCredentials: {
       identifier: process.env.SUPERADMIN_USERNAME,
-      password: process.env.SUPERADMIN_PASSWORD
+      password: process.env.SUPERADMIN_PASSWORD,
     },
     cookieOptions: {
-      secret: process.env.COOKIE_SECRET
-    }
+      secret: process.env.COOKIE_SECRET,
+    },
   },
   dbConnectionOptions: {
     type: "postgres",
@@ -49,10 +49,10 @@ export const config: VendureConfig = {
     migrations: [path.join(__dirname, "./migrations/*.+(js|ts)")],
     logging: false,
     database: path.join(__dirname, "../vendure.sqlite"),
-    entityPrefix: "vendure_"
+    entityPrefix: "vendure_",
   },
   paymentOptions: {
-    paymentMethodHandlers: [dummyPaymentHandler]
+    paymentMethodHandlers: [dummyPaymentHandler],
   },
   // When adding or altering custom field definitions, the database will
   // need to be updated. See the "Migrations" section in README.md.
@@ -65,7 +65,7 @@ export const config: VendureConfig = {
       // For local dev, the correct value for assetUrlPrefix should
       // be guessed correctly, but for production it will usually need
       // to be set manually to match your production url.
-      assetUrlPrefix: IS_DEV ? undefined : "https://www.my-shop.com/assets/"
+      assetUrlPrefix: IS_DEV ? undefined : "https://www.my-shop.com/assets/",
     }),
     DefaultSchedulerPlugin.init(),
     DefaultJobQueuePlugin.init({ useDatabaseForBuffer: true }),
@@ -76,7 +76,7 @@ export const config: VendureConfig = {
       route: "mailbox",
       handlers: defaultEmailHandlers,
       templateLoader: new FileBasedTemplateLoader(
-        path.join(__dirname, "../static/email/templates")
+        path.join(__dirname, "../static/email/templates"),
       ),
       globalTemplateVars: {
         // The following variables will change depending on your storefront implementation.
@@ -84,12 +84,14 @@ export const config: VendureConfig = {
         fromAddress: '"example" <noreply@example.com>',
         verifyEmailAddressUrl: "http://localhost:8080/verify",
         passwordResetUrl: "http://localhost:8080/password-reset",
-        changeEmailAddressUrl: "http://localhost:8080/verify-email-address-change"
-      }
+        changeEmailAddressUrl: "http://localhost:8080/verify-email-address-change",
+      },
     }),
     DashboardPlugin.init({
       route: "dashboard",
-      appDir: IS_DEV ? path.join(__dirname, "../dist/dashboard") : path.join(__dirname, "dashboard")
-    })
-  ]
-}
+      appDir: IS_DEV
+        ? path.join(__dirname, "../dist/dashboard")
+        : path.join(__dirname, "dashboard"),
+    }),
+  ],
+};

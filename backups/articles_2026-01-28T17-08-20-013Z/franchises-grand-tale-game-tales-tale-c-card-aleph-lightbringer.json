@@ -1,0 +1,24 @@
+{
+  "id": "01995482-11a3-77d0-89cc-d85f5fc34e03",
+  "slug": "franchises/grand-tale/game/tales/tale-c/card/aleph-lightbringer",
+  "blocks": [
+    {
+      "id": "01995482-11a3-77d0-89cc-def5fb96edd7",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:35.714Z",
+  "updated_at": "2025-09-16T21:50:35.714Z",
+  "title": "Aleph Lightbringer",
+  "type": "Character",
+  "properties": {
+    "name": "",
+    "type": "",
+    "alignment": "",
+    "flavourText": ""
+  }
+}

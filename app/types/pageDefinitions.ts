@@ -1,11 +1,11 @@
 import {
   BLOG_POST_DEFINITION as BASE_BLOG_POST_DEFINITION,
-  DOCUMENT_DEFINITION
-} from "rimelight-components/types"
-import { definePageDefinition } from "#rimelight-components/utils"
-import { v7 as uuidv7 } from "uuid"
+  DOCUMENT_DEFINITION,
+} from "rimelight-components/types";
+import { definePageDefinition } from "#rimelight-components/utils";
+import { v7 as uuidv7 } from "uuid";
 
-export { DOCUMENT_DEFINITION }
+export { DOCUMENT_DEFINITION };
 
 export const BLOG_POST_DEFINITION = definePageDefinition({
   ...BASE_BLOG_POST_DEFINITION,
@@ -17,12 +17,12 @@ export const BLOG_POST_DEFINITION = definePageDefinition({
         ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields,
         category: {
           ...BASE_BLOG_POST_DEFINITION.properties["meta"]!.fields["category"]!,
-          options: [{ en: "Company News" }, { en: "Development Log" }, { en: "New Release" }]
-        }
-      }
-    }
-  }
-})
+          options: [{ en: "Company News" }, { en: "Development Log" }, { en: "New Release" }],
+        },
+      },
+    },
+  },
+});
 
 export const PATCH_NOTE_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.patchNote",
@@ -35,12 +35,12 @@ export const PATCH_NOTE_DEFINITION = definePageDefinition({
         releaseDate: {
           defaultValue: { en: "" },
           label: { en: "Release Date" },
-          type: "text"
-        }
-      }
-    }
-  }
-})
+          type: "text",
+        },
+      },
+    },
+  },
+});
 
 export const LOCATION_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.location",
@@ -50,11 +50,11 @@ export const LOCATION_DEFINITION = definePageDefinition({
       defaultOpen: true,
       fields: {
         region: { defaultValue: { en: "" }, label: { en: "Region" }, type: "text" },
-        climate: { defaultValue: "Temperate", label: { en: "Climate" }, type: "text" }
-      }
-    }
-  }
-})
+        climate: { defaultValue: "Temperate", label: { en: "Climate" }, type: "text" },
+      },
+    },
+  },
+});
 
 export const SPECIES_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.species",
@@ -66,18 +66,18 @@ export const SPECIES_DEFINITION = definePageDefinition({
         lifespan: {
           defaultValue: { en: "" },
           label: { en: "Average Lifespan" },
-          type: "text"
+          type: "text",
         },
         homeworld: {
           defaultValue: "",
           label: { en: "Homeworld" },
           type: "page",
-          allowedPageTypes: ["Location"]
-        }
-      }
-    }
-  }
-})
+          allowedPageTypes: ["Location"],
+        },
+      },
+    },
+  },
+});
 
 export const CHARACTER_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.character",
@@ -100,11 +100,11 @@ export const CHARACTER_DEFINITION = definePageDefinition({
             { en: "He/They" },
             { en: "She/They" },
             { en: "Other" },
-            { en: "Unknown" }
-          ]
+            { en: "Unknown" },
+          ],
         },
-        flavourText: { defaultValue: { en: "" }, label: { en: "Flavour Text" }, type: "text" }
-      }
+        flavourText: { defaultValue: { en: "" }, label: { en: "Flavour Text" }, type: "text" },
+      },
     },
     characteristics: {
       label: { en: "Characteristics" },
@@ -114,21 +114,21 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: "",
           label: { en: "Species" },
           type: "page",
-          allowedPageTypes: ["Species"]
+          allowedPageTypes: ["Species"],
         },
         sex: {
           defaultValue: { en: "Unknown" },
           label: { en: "Sex" },
           type: "enum",
-          options: [{ en: "Male" }, { en: "Female" }, { en: "Other" }, { en: "Unknown" }]
+          options: [{ en: "Male" }, { en: "Female" }, { en: "Other" }, { en: "Unknown" }],
         },
         height: { defaultValue: 0, label: { en: "Height" }, type: "number" },
         weight: { defaultValue: 0, label: { en: "Weight" }, type: "number" },
         dateOfBirth: { defaultValue: { en: "" }, label: { en: "Date of Birth" }, type: "text" },
         placeOfBirth: { defaultValue: { en: "" }, label: { en: "Place of Birth" }, type: "text" },
         dateOfDeath: { defaultValue: { en: "" }, label: { en: "Date of Death" }, type: "text" },
-        placeOfDeath: { defaultValue: { en: "" }, label: { en: "Place of Death" }, type: "text" }
-      }
+        placeOfDeath: { defaultValue: { en: "" }, label: { en: "Place of Death" }, type: "text" },
+      },
     },
     inventory: {
       label: { en: "Inventory & Assets" },
@@ -138,21 +138,21 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: [],
           label: { en: "Equipment" },
           type: "page-array",
-          allowedPageTypes: ["Object"]
+          allowedPageTypes: ["Object"],
         },
         pets: {
           defaultValue: [],
           label: { en: "Pets" },
           type: "page-array",
-          allowedPageTypes: ["Character"]
+          allowedPageTypes: ["Character"],
         },
         mounts: {
           defaultValue: [],
           label: { en: "Mounts" },
           type: "page-array",
-          allowedPageTypes: ["Character"]
-        }
-      }
+          allowedPageTypes: ["Character"],
+        },
+      },
     },
     affiliations: {
       label: { en: "Affiliations" },
@@ -162,15 +162,15 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: [],
           label: { en: "Current Affiliations" },
           type: "page-array",
-          allowedPageTypes: ["Group"]
+          allowedPageTypes: ["Group"],
         },
         formerAffiliations: {
           defaultValue: [],
           label: { en: "Former Affiliations" },
           type: "page-array",
-          allowedPageTypes: ["Group"]
-        }
-      }
+          allowedPageTypes: ["Group"],
+        },
+      },
     },
     other: {
       label: { en: "Other" },
@@ -180,32 +180,32 @@ export const CHARACTER_DEFINITION = definePageDefinition({
           defaultValue: { en: "" },
           label: { en: "Favourite Food" },
           type: "page",
-          allowedPageTypes: ["Object"]
-        }
-      }
-    }
+          allowedPageTypes: ["Object"],
+        },
+      },
+    },
   },
   initialBlocks: () => [
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Appearance", children: [] },
-      isTemplated: true
+      isTemplated: true,
     },
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Abilities", children: [] },
-      isTemplated: true
+      isTemplated: true,
     },
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "History", children: [] },
-      isTemplated: true
-    }
-  ]
-})
+      isTemplated: true,
+    },
+  ],
+});
 
 export const SKILL_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.skill",
@@ -220,12 +220,12 @@ export const SKILL_DEFINITION = definePageDefinition({
           defaultValue: { en: "Physical" },
           label: { en: "Damage Type" },
           type: "enum",
-          options: [{ en: "Physical" }, { en: "Magic" }, { en: "True" }, { en: "None" }]
-        }
-      }
-    }
-  }
-})
+          options: [{ en: "Physical" }, { en: "Magic" }, { en: "True" }, { en: "None" }],
+        },
+      },
+    },
+  },
+});
 
 export const ITEM_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.item",
@@ -243,20 +243,20 @@ export const ITEM_DEFINITION = definePageDefinition({
             { en: "Uncommon" },
             { en: "Rare" },
             { en: "Epic" },
-            { en: "Legendary" }
-          ]
+            { en: "Legendary" },
+          ],
         },
         price: { defaultValue: 100, label: { en: "Gold Price" }, type: "number" },
         isQuestItem: {
           defaultValue: { en: "No" },
           label: { en: "Quest Item" },
           type: "enum",
-          options: [{ en: "Yes" }, { en: "No" }]
-        }
-      }
-    }
-  }
-})
+          options: [{ en: "Yes" }, { en: "No" }],
+        },
+      },
+    },
+  },
+});
 
 export const OBJECT_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.object",
@@ -268,12 +268,12 @@ export const OBJECT_DEFINITION = definePageDefinition({
         category: {
           defaultValue: { en: "Miscellaneous" },
           label: { en: "Category" },
-          type: "text"
-        }
-      }
-    }
-  }
-})
+          type: "text",
+        },
+      },
+    },
+  },
+});
 
 export const GROUP_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.group",
@@ -286,18 +286,18 @@ export const GROUP_DEFINITION = definePageDefinition({
           defaultValue: "",
           label: { en: "Leader" },
           type: "page",
-          allowedPageTypes: ["Character"]
+          allowedPageTypes: ["Character"],
         },
         headquarters: {
           defaultValue: "",
           label: { en: "Headquarters" },
           type: "page",
-          allowedPageTypes: ["Location"]
-        }
-      }
-    }
-  }
-})
+          allowedPageTypes: ["Location"],
+        },
+      },
+    },
+  },
+});
 
 export const HERO_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.hero",
@@ -310,47 +310,47 @@ export const HERO_DEFINITION = definePageDefinition({
           defaultValue: { en: "Warrior" },
           label: { en: "Class" },
           type: "enum",
-          options: [{ en: "Warrior" }, { en: "Mage" }, { en: "Rogue" }, { en: "Paladin" }]
+          options: [{ en: "Warrior" }, { en: "Mage" }, { en: "Rogue" }, { en: "Paladin" }],
         },
         difficulty: { defaultValue: 1, label: { en: "Difficulty" }, type: "number" },
         primaryRole: {
           defaultValue: { en: "Tank" },
           label: { en: "Primary Role" },
           type: "enum",
-          options: [{ en: "Tank" }, { en: "DPS" }, { en: "Support" }]
-        }
-      }
+          options: [{ en: "Tank" }, { en: "DPS" }, { en: "Support" }],
+        },
+      },
     },
     progression: {
       label: { en: "Progression" },
       defaultOpen: true,
       fields: {
         baseHp: { defaultValue: 500, label: { en: "Base HP" }, type: "number" },
-        baseMana: { defaultValue: 100, label: { en: "Base Mana" }, type: "number" }
-      }
-    }
+        baseMana: { defaultValue: 100, label: { en: "Base Mana" }, type: "number" },
+      },
+    },
   },
   initialBlocks: () => [
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Playstyle", children: [] },
-      isTemplated: true
+      isTemplated: true,
     },
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Background Lore", children: [] },
-      isTemplated: true
-    }
-  ]
-})
+      isTemplated: true,
+    },
+  ],
+});
 
 export const CARD_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.card",
   properties: {},
-  initialBlocks: () => []
-})
+  initialBlocks: () => [],
+});
 
 export const SERIES_DEFINITION = definePageDefinition({
   typeLabelKey: "page.type.series",
@@ -368,44 +368,44 @@ export const SERIES_DEFINITION = definePageDefinition({
             { en: "In Development" },
             { en: "Ongoing" },
             { en: "Completed" },
-            { en: "Cancelled" }
-          ]
+            { en: "Cancelled" },
+          ],
         },
-        seasons: { defaultValue: 1, label: { en: "Seasons" }, type: "number" }
-      }
-    }
+        seasons: { defaultValue: 1, label: { en: "Seasons" }, type: "number" },
+      },
+    },
   },
   initialBlocks: () => [
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Overview", children: [] },
-      isTemplated: true
+      isTemplated: true,
     },
     {
       id: uuidv7(),
       type: "SectionBlock",
       props: { level: 2, title: "Seasons", children: [] },
-      isTemplated: true
-    }
-  ]
-})
+      isTemplated: true,
+    },
+  ],
+});
 
 declare global {
   interface RimelightRegisterPageTypes {
-    Document: typeof DOCUMENT_DEFINITION.properties
-    BlogPost: typeof BLOG_POST_DEFINITION.properties
-    PatchNote: typeof PATCH_NOTE_DEFINITION.properties
-    Location: typeof LOCATION_DEFINITION.properties
-    Species: typeof SPECIES_DEFINITION.properties
-    Character: typeof CHARACTER_DEFINITION.properties
-    Skill: typeof SKILL_DEFINITION.properties
-    Item: typeof ITEM_DEFINITION.properties
-    Object: typeof OBJECT_DEFINITION.properties
-    Group: typeof GROUP_DEFINITION.properties
-    Card: typeof CARD_DEFINITION.properties
-    Hero: typeof HERO_DEFINITION.properties
-    Series: typeof SERIES_DEFINITION.properties
+    Document: typeof DOCUMENT_DEFINITION.properties;
+    BlogPost: typeof BLOG_POST_DEFINITION.properties;
+    PatchNote: typeof PATCH_NOTE_DEFINITION.properties;
+    Location: typeof LOCATION_DEFINITION.properties;
+    Species: typeof SPECIES_DEFINITION.properties;
+    Character: typeof CHARACTER_DEFINITION.properties;
+    Skill: typeof SKILL_DEFINITION.properties;
+    Item: typeof ITEM_DEFINITION.properties;
+    Object: typeof OBJECT_DEFINITION.properties;
+    Group: typeof GROUP_DEFINITION.properties;
+    Card: typeof CARD_DEFINITION.properties;
+    Hero: typeof HERO_DEFINITION.properties;
+    Series: typeof SERIES_DEFINITION.properties;
   }
 }
 
@@ -425,5 +425,5 @@ export const PAGE_MAP = {
   Series: SERIES_DEFINITION,
   Tale: definePageDefinition({ typeLabelKey: "page.type.tale", properties: {} }),
   Episode: definePageDefinition({ typeLabelKey: "page.type.episode", properties: {} }),
-  Default: definePageDefinition({ typeLabelKey: "page.type.default", properties: {} })
-}
+  Default: definePageDefinition({ typeLabelKey: "page.type.default", properties: {} }),
+};

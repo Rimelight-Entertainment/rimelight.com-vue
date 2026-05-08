@@ -1,24 +1,18 @@
-import * as v from "valibot"
-import { db } from "#server/db"
-import { team } from "#server/db/schema"
-import { requireAdminOrOwner } from "#server/utils/session"
-
-const schema = v.object({
-  name: v.pipe(v.string(), v.minLength(1)),
-  parentId: v.optional(v.nullable(v.pipe(v.string(), v.uuid())))
-})
+import { db } from "#server/db";
+import { team } from "#server/db/schema";
+import { requireAdminOrOwner } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAdminOrOwner(event)
+  const session = await requireAdminOrOwner(event);
 
-  const body = await readValidatedBody(event, (data) => v.parse(schema, data))
-  const orgId = session.session?.activeOrganizationId
+  const body = await readBody(event);
+  const orgId = session.session?.activeOrganizationId;
 
   if (!orgId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "Active organization ID is required"
-    })
+      statusMessage: "Active organization ID is required",
+    });
   }
 
   const [newTeam] = await db
@@ -26,9 +20,9 @@ export default defineEventHandler(async (event) => {
     .values({
       name: body.name,
       organizationId: orgId,
-      parentId: body.parentId ?? null
+      parentId: body.parentId ?? null,
     })
-    .returning()
+    .returning();
 
-  return newTeam
-})
+  return newTeam;
+});

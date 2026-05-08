@@ -12,6 +12,10 @@
 /* endregion */
 </script>
 
-<template></template>
+<template>
 
-<style scoped></style>
+</template>
+
+<style scoped>
+
+</style>

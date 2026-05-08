@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "wiki"
-})
+  layout: "wiki",
+});
 
 useHead({
-  title: "Getting Started | Grand Tale Wiki"
-})
+  title: "Getting Started | Grand Tale Wiki",
+});
 
 /* region State */
 /* endregion */

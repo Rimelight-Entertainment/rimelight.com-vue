@@ -2,10 +2,10 @@
 definePageMeta({
   middleware: [
     function (to, from) {
-      return navigateTo("/company/about")
-    }
-  ]
-})
+      return navigateTo("/company/about");
+    },
+  ],
+});
 
 /* region State */
 /* endregion */

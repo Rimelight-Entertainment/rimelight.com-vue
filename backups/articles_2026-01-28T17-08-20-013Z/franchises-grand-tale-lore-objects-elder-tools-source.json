@@ -1,0 +1,19 @@
+{
+  "id": "01995482-02aa-750f-b5f1-1c122fdf1af7",
+  "slug": "franchises/grand-tale/lore/objects/elder-tools/source",
+  "blocks": [
+    {
+      "id": "01995482-02aa-750f-b5f1-2073e682a14b",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:31.881Z",
+  "updated_at": "2025-09-16T21:50:31.881Z",
+  "title": "Source",
+  "type": "Object",
+  "properties": {}
+}

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "grand-tale"
-})
+  layout: "grand-tale",
+});
 
 useHead({
-  title: "Grand Tale | Latest News"
-})
+  title: "Grand Tale | Latest News",
+});
 
 const newsItems = [
   {
@@ -15,7 +15,7 @@ const newsItems = [
     excerpt:
       "We're excited to announce the start of our second Alpha testing phase, featuring the new 'Shattered Peaks' region.",
     image:
-      "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop",
   },
   {
     title: "Meet the Heroes: Kaelen the Voidweaver",
@@ -24,7 +24,7 @@ const newsItems = [
     excerpt:
       "Learn about the tragic history and devastating powers of the first playable hero in Grand Tale.",
     image:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2568&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2568&auto=format&fit=crop",
   },
   {
     title: "Dev Diary: Building a Living World",
@@ -33,9 +33,9 @@ const newsItems = [
     excerpt:
       "A deep dive into the TaleEngine and how it handles persistent world states across millions of players.",
     image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop"
-  }
-]
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop",
+  },
+];
 
 /* region State */
 /* endregion */

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "grand-tale"
+  layout: "grand-tale",
 })
 
-import type { ButtonProps } from "@nuxt/ui"
+import type { ButtonProps } from "@nuxt/ui";
 
 /* region State */
 const { t } = useI18n()
@@ -15,10 +15,9 @@ const heroLinks = ref<ButtonProps[]>([
     label: t("pages.franchises.grandTale.home.sections.hero.actions.playNow"),
     to: "/franchises/grand-tale/download",
     ui: {
-      base: "px-8 py-4 text-2xl font-black"
+      base: "px-8 py-4 text-2xl font-black",
     },
-    class:
-      "uppercase transition-transform duration-300 hover:scale-110 text-white font-bold bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-600"
+    class: "uppercase transition-transform duration-300 hover:scale-110 text-white font-bold bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-600",
   }
 ])
 
@@ -27,7 +26,7 @@ const overviewLinks = ref<ButtonProps[]>([
     color: "grandTaleSecondary",
     label: t("pages.franchises.grandTale.home.sections.overview.actions.learnMore"),
     to: "/franchises/grand-tale/about",
-    class: "text-white bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-500"
+    class: "text-white bg-grand-tale-secondary-500 hover:bg-grand-tale-secondary-500",
   },
   {
     color: "neutral",
@@ -35,8 +34,8 @@ const overviewLinks = ref<ButtonProps[]>([
     trailingIcon: "lucide:arrow-right",
     label: t("pages.franchises.grandTale.home.sections.overview.actions.watchTrailer"),
     to: "/company/about",
-    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white"
-  }
+    class: "text-white ring-white bg-transparent hover:bg-black hover:text-white",
+  },
 ])
 
 const heroVideo = useTemplateRef<HTMLVideoElement>("heroVideo")
@@ -108,24 +107,13 @@ const togglePlayback = () => {
           @loadedmetadata="onVideoLoadedMetadata"
           @ended="onVideoEnded"
         >
-          <source
-            :src="`https://cdn.rimelight.com/Videos/grandTale_home_hero_bg.mp4#t=${LOOP_START}`"
-            type="video/mp4"
-          />
+          <source :src="`https://cdn.rimelight.com/Videos/grandTale_home_hero_bg.mp4#t=${LOOP_START}`" type="video/mp4"/>
         </video>
       </div>
 
       <div class="absolute inset-0 -z-10 bg-black/20" />
-      <div
-        class="absolute inset-x-0 bottom-0 h-1/2 -z-10 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none"
-      />
-      <div
-        class="absolute inset-x-0 bottom-0 h-64 -z-10 backdrop-blur-xl pointer-events-none"
-        style="
-          mask-image: linear-gradient(to top, black, transparent);
-          -webkit-mask-image: linear-gradient(to top, black, transparent);
-        "
-      />
+      <div class="absolute inset-x-0 bottom-0 h-1/2 -z-10 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+      <div class="absolute inset-x-0 bottom-0 h-64 -z-10 backdrop-blur-xl pointer-events-none" style="mask-image: linear-gradient(to top, black, transparent); -webkit-mask-image: linear-gradient(to top, black, transparent);" />
 
       <UPageHero
         :links="heroLinks"
@@ -138,10 +126,7 @@ const togglePlayback = () => {
       >
         <div class="flex h-full w-full items-center justify-center relative z-20">
           <div class="pointer-events-none">
-            <NuxtImg
-              src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logotype.png"
-              class="h-80 w-full -my-24"
-            />
+            <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logotype.png" class="h-80 w-full -my-24" />
           </div>
         </div>
       </UPageHero>
@@ -174,9 +159,9 @@ const togglePlayback = () => {
         :description="t('pages.franchises.grandTale.home.sections.overview.description')"
         :links="overviewLinks"
         :ui="{
-          title: 'font-bold uppercase leading-tight',
-          description: 'text-neutral-400'
-        }"
+        title: 'font-bold uppercase leading-tight',
+        description: 'text-neutral-400',
+      }"
         orientation="horizontal"
       >
         <template #body>
@@ -184,14 +169,12 @@ const togglePlayback = () => {
             <div>
               <div class="text-4xl font-bold text-white">3+</div>
               <div class="text-sm text-neutral-500 uppercase tracking-widest">
-                {{ t("pages.home.sections.company.stats.titles.label") }}
+                {{ t('pages.home.sections.company.stats.titles.label') }}
               </div>
             </div>
             <div>
               <div class="text-4xl font-bold text-white">50+</div>
-              <div class="text-sm text-neutral-500 uppercase tracking-widest">
-                {{ t("pages.home.sections.company.stats.creators.label") }}
-              </div>
+              <div class="text-sm text-neutral-500 uppercase tracking-widest">{{ t('pages.home.sections.company.stats.creators.label') }}</div>
             </div>
           </div>
         </template>

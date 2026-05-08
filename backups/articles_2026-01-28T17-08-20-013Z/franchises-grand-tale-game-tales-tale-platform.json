@@ -1,0 +1,40 @@
+{
+  "id": "01995481-d5c4-767d-9c57-5ed2f25949be",
+  "slug": "franchises/grand-tale/game/tales/tale-platform",
+  "blocks": [
+    {
+      "id": "01995481-d5c4-767d-9c57-62bdcc648767",
+      "type": "paragraph",
+      "attrs": {
+        "text": [
+          {
+            "text": "References: Have a Nice DEath Hollow Knight Madragora Grand Chase",
+            "type": "text",
+            "marks": []
+          },
+          {
+            "text": "",
+            "type": "text"
+          }
+        ]
+      },
+      "slots": {}
+    },
+    {
+      "id": "01995481-d5c4-767d-9c57-6597f6a6b2c1",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "slots": {
+        "default": []
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:20.387Z",
+  "updated_at": "2025-09-16T21:50:20.387Z",
+  "title": "Tale Platform",
+  "type": "Tale",
+  "properties": {}
+}

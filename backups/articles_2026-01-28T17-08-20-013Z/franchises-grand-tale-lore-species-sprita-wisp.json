@@ -1,0 +1,40 @@
+{
+  "id": "01995473-b299-76bf-af78-ec3c250e3600",
+  "slug": "franchises/grand-tale/lore/species/sprita/wisp",
+  "blocks": [
+    {
+      "id": "01995473-d119-7c69-a5fa-20edccde91cf",
+      "type": "section",
+      "attrs": {
+        "title": "Physiology"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995473-ff57-7a9a-91d8-a41c8c25ba91",
+      "type": "section",
+      "attrs": {
+        "title": "Culture"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995474-1e69-7d62-95d5-99223ab76002",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:36:50.618Z",
+  "updated_at": "2025-09-16T21:36:50.618Z",
+  "title": "Wisp",
+  "type": "Species",
+  "properties": {
+    "diet": "",
+    "name": "",
+    "averageWeight": 0,
+    "averageLifespan": "Years"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "01995481-f489-77a9-bea1-d0d678c610be",
+  "slug": "franchises/grand-tale/lore/species/fauna/octallion",
+  "blocks": [
+    {
+      "id": "01995481-f489-77a9-bea1-d657c63d93f7",
+      "type": "section",
+      "attrs": {
+        "title": "Physiology"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-f489-77a9-bea1-dac5a86a1bed",
+      "type": "section",
+      "attrs": {
+        "title": "Culture"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-f489-77a9-bea1-de6f6206581b",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:28.265Z",
+  "updated_at": "2025-09-16T21:50:28.265Z",
+  "title": "Octallion",
+  "type": "Species",
+  "properties": {
+    "diet": "",
+    "name": "",
+    "averageWeight": 0,
+    "averageLifespan": "Years"
+  }
+}

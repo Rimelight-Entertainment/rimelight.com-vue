@@ -1,19 +1,6 @@
-# Rimelight CLI
-# AI Agents Configuration
-.agent/
-.agents/
-_agent/
-_agents/
-.gemini/
-.claude/
-.cursor/
-.antigravity/
-AGENTS.md
-CLAUDE.md
-GEMINI.md
-CURSOR.md
-ANTIGRAVITY.md
-.cursorrules
+# Utilities
+.rimelight-utilities/**
+!.rimelight-utilities
 
 # Outputs
 .output
@@ -30,7 +17,6 @@ node_modules
 # Logs
 logs
 *.log
-*.cpuprofile
 
 # Misc
 .fleet
@@ -52,7 +38,7 @@ coverage
 !.env.example
 
 # Drizzle‑Kit
-/server/db/drizzle/*.json
+/server/database/drizzle/*.json
 /server/db/drizzle/_journal.json
 /server/db/drizzle/*_draft.sql
 
@@ -71,6 +57,7 @@ coverage
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
+
 
 # Intellij idea
 *.iml

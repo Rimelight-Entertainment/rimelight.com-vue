@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { h, resolveComponent, ref } from "vue"
-import { getPaginationRowModel } from "@tanstack/vue-table"
-import type { TableColumn } from "@nuxt/ui"
-import type { Page } from "#rimelight-components/types"
+import { h, resolveComponent, ref } from "vue";
+import { getPaginationRowModel } from "@tanstack/vue-table";
+import type { TableColumn } from "@nuxt/ui";
+import type { Page } from "#rimelight-components/types";
 
 definePageMeta({
-  layout: "wiki"
-})
+  layout: "wiki",
+});
 
-const route = useRoute()
-const category = ((route.params.category as string) || "characters").toLowerCase()
-const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1)
+const route = useRoute();
+const category = ((route.params.category as string) || "characters").toLowerCase();
+const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
 
 // Map category slug to page type
 const categoryToType: Record<string, string> = {
@@ -22,35 +22,35 @@ const categoryToType: Record<string, string> = {
   groups: "Group",
   skills: "Skill",
   heroes: "Hero",
-  series: "Series"
-}
+  series: "Series",
+};
 
-const pageType = categoryToType[category] || "Character"
+const pageType = categoryToType[category] || "Character";
 
 useHead({
-  title: `${categoryLabel} | Grand Tale Wiki`
-})
+  title: `${categoryLabel} | Grand Tale Wiki`,
+});
 
-const { locale } = useI18n()
+const { locale } = useI18n();
 
 // Fetch pages of this type
 const {
   data: pages,
   status,
-  error
+  error,
 } = await useApi<Page[]>("/api/pages", {
   query: {
     type: pageType,
     status: "published",
     limit: 1000,
     orderBy: "title",
-    order: "asc"
+    order: "asc",
   },
-  key: `wiki-cat-${category}`
-})
+  key: `wiki-cat-${category}`,
+});
 
-const UIcon = resolveComponent("UIcon")
-const NuxtLink = resolveComponent("NuxtLink")
+const UIcon = resolveComponent("UIcon");
+const NuxtLink = resolveComponent("NuxtLink");
 
 const columns: TableColumn<Page>[] = [
   {
@@ -61,42 +61,42 @@ const columns: TableColumn<Page>[] = [
       return h("div", { class: "flex items-center gap-3" }, [
         h(UIcon, {
           name: row.original.icon || "lucide:file-text",
-          class: "size-5 text-grand-tale-secondary-500 flex-shrink-0"
+          class: "size-5 text-grand-tale-secondary-500 flex-shrink-0",
         }),
         h(
           NuxtLink,
           {
             to: `/${row.original.slug}`,
             class:
-              "font-bold text-white hover:text-grand-tale-secondary-400 uppercase transition-colors"
+              "font-bold text-white hover:text-grand-tale-secondary-400 uppercase transition-colors",
           },
           {
-            default: () => getLocalizedContent(row.original.title, locale.value)
-          }
-        )
-      ])
-    }
+            default: () => getLocalizedContent(row.original.title, locale.value),
+          },
+        ),
+      ]);
+    },
   },
   {
     accessorFn: (row) => getLocalizedContent(row.description, locale.value),
     id: "description",
     header: "Description",
     cell: ({ row }) => {
-      const description = getLocalizedContent(row.original.description, locale.value)
+      const description = getLocalizedContent(row.original.description, locale.value);
       return h(
         "span",
         { class: "text-grand-tale-secondary-100/60 line-clamp-1 max-w-md" },
-        description || "---"
-      )
-    }
+        description || "---",
+      );
+    },
   },
   {
     id: "actions",
     header: "",
     meta: {
       class: {
-        td: "text-right"
-      }
+        td: "text-right",
+      },
     },
     cell: ({ row }) => {
       return h(
@@ -104,22 +104,22 @@ const columns: TableColumn<Page>[] = [
         {
           to: `/${row.original.slug}`,
           class:
-            "inline-flex items-center gap-2 text-xs text-grand-tale-secondary-500 font-bold uppercase hover:text-grand-tale-secondary-400 transition-colors"
+            "inline-flex items-center gap-2 text-xs text-grand-tale-secondary-500 font-bold uppercase hover:text-grand-tale-secondary-400 transition-colors",
         },
         {
-          default: () => ["Read More", h(UIcon, { name: "lucide:arrow-right", class: "size-3" })]
-        }
-      )
-    }
-  }
-]
+          default: () => ["Read More", h(UIcon, { name: "lucide:arrow-right", class: "size-3" })],
+        },
+      );
+    },
+  },
+];
 
-const table = useTemplateRef("table")
-const globalFilter = ref("")
+const table = useTemplateRef("table");
+const globalFilter = ref("");
 const pagination = ref({
   pageIndex: 0,
-  pageSize: 15
-})
+  pageSize: 15,
+});
 
 /* region State */
 /* endregion */
@@ -175,7 +175,7 @@ const pagination = ref({
           variant="outline"
           color="neutral"
           :ui="{
-            base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors'
+            base: 'bg-grand-tale-primary-800/20 border-grand-tale-secondary-800/50 focus:border-grand-tale-secondary-500/50 transition-colors',
           }"
         />
       </div>
@@ -187,14 +187,14 @@ const pagination = ref({
         :data="pages || []"
         :columns="columns"
         :pagination-options="{
-          getPaginationRowModel: getPaginationRowModel()
+          getPaginationRowModel: getPaginationRowModel(),
         }"
         sticky
         class="border border-grand-tale-secondary-800/50 bg-grand-tale-primary-800/10"
         :ui="{
           thead: 'bg-grand-tale-primary-900/50 backdrop-blur-sm',
           th: 'text-grand-tale-secondary-400 font-black uppercase tracking-wider border-b border-grand-tale-secondary-800/50',
-          td: 'border-b border-grand-tale-secondary-800/30'
+          td: 'border-b border-grand-tale-secondary-800/30',
         }"
       >
         <template #empty>

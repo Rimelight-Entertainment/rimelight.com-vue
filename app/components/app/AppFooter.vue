@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { FooterColumn } from "@nuxt/ui"
-import * as uiLocales from "@nuxt/ui/locale"
+import type { FooterColumn } from "@nuxt/ui";
+import * as uiLocales from "@nuxt/ui/locale";
 
 /* region Props */
 /* endregion */
@@ -16,11 +16,11 @@ import * as uiLocales from "@nuxt/ui/locale"
 
 /* region State */
 
-const appConfig = useAppConfig()
-const { t, locale, setLocale, locales: i18nLocales } = useI18n()
+const appConfig = useAppConfig();
+const { t, locale, setLocale, locales: i18nLocales } = useI18n();
 
 const availableLocales = computed(() => {
-  return i18nLocales.value.map((l) => (uiLocales as any)[l.code]).filter(Boolean)
+  return i18nLocales.value.map((l) => (uiLocales as any)[l.code]).filter(Boolean);
 })
 
 const columns = computed<FooterColumn[]>(() => [
@@ -29,43 +29,43 @@ const columns = computed<FooterColumn[]>(() => [
     children: [
       {
         label: t("app.footer.links.resources.content.branding"),
-        to: "/branding"
+        to: "/branding",
       },
       {
         label: t("app.footer.links.resources.content.visitors"),
-        to: "/visitors"
+        to: "/visitors",
       },
       {
         label: "API",
-        to: "/api"
+        to: "/api",
       }
-    ]
+    ],
   },
   {
     label: t("app.footer.links.documents.label"),
     children: [
       {
         label: t("app.footer.links.documents.content.privacyPolicy"),
-        to: "/documents/privacy-policy"
+        to: "/documents/privacy-policy",
       },
       {
         label: t("app.footer.links.documents.content.cookiePolicy"),
-        to: "/documents/cookie-policy"
+        to: "/documents/cookie-policy",
       },
       {
         label: t("app.footer.links.documents.content.termsOfService"),
-        to: "/documents/terms-of-service"
+        to: "/documents/terms-of-service",
       },
       {
         label: t("app.footer.links.documents.content.codeOfConduct"),
-        to: "/documents/code-of-conduct"
+        to: "/documents/code-of-conduct",
       },
       {
         label: t("app.footer.links.documents.content.otherDocuments"),
-        to: "/documents"
-      }
-    ]
-  }
+        to: "/documents",
+      },
+    ],
+  },
 ])
 /* endregion */
 
@@ -80,23 +80,9 @@ const columns = computed<FooterColumn[]>(() => [
 </script>
 
 <template>
-  <RCFooter
-    :contain="false"
-    :rc="{ center: 'lg:items-start' }"
-    class="bg-black z-50 border-t-2 border-primary-500"
-  >
+  <RCFooter :contain="false" :rc="{ center: 'lg:items-start' }" class="bg-black z-50 border-t-2 border-primary-500">
     <template #left>
-      <RCNewsletterSignup
-        :title="t('app.newsletter.title')"
-        :description="t('app.newsletter.description')"
-        :submit="t('app.newsletter.submit')"
-        :rc="{
-          label: 'text-white',
-          description: 'text-neutral-500',
-          button: 'text-white bg-primary-500 hover:bg-primary-600'
-        }"
-        class="max-w-64"
-      />
+      <RCNewsletterSignup :title="t('app.newsletter.title')" :description="t('app.newsletter.description')" :submit="t('app.newsletter.submit')" :rc="{ label: 'text-white', description: 'text-neutral-500', button: 'text-white bg-primary-500 hover:bg-primary-600' }" class="max-w-64" />
       <div class="flex flex-col items-center gap-xs lg:items-start">
         <RCLogo class="h-6 w-auto" variant="type" />
         <p class="text-sm text-white">Tell your story.</p>

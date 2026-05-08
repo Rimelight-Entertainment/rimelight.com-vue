@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PAGE_MAP as pageDefinitions } from "~/types"
+import { PAGE_MAP as pageDefinitions } from "~/types";
 
-const route = useRoute()
-const { permissions } = useAuth()
-const isAdmin = permissions.admin.canAccess
+const route = useRoute();
+const { permissions } = useAuth();
+const isAdmin = permissions.admin.canAccess;
 
-const slug = computed(() => route.params.slug as string)
-const versionId = computed(() => route.query.version as string)
+const slug = computed(() => route.params.slug as string);
+const versionId = computed(() => route.query.version as string);
 
 /* region State */
 /* endregion */

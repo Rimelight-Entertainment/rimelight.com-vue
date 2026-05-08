@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { PAGE_MAP as pageDefinitions } from "~/types"
+import { PAGE_MAP as pageDefinitions } from "~/types";
 
-const route = useRoute()
-const { permissions } = useAuth()
-const isAdmin = permissions.admin.canAccess
+const route = useRoute();
+const { permissions } = useAuth();
+const isAdmin = permissions.admin.canAccess;
 
-const slug = computed(() => route.params.slug as string)
+const slug = computed(() => route.params.slug as string);
 
 /* region State */
 /* endregion */
@@ -32,7 +32,7 @@ const slug = computed(() => route.params.slug as string)
     :error-redirect-params="{
       redirect: '/company/blog',
       label: 'Back to Blog',
-      message: 'The requested blog post could not be located.'
+      message: 'The requested blog post could not be located.',
     }"
   />
 </template>

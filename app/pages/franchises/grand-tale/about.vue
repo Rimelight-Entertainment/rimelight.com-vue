@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { AccordionItem } from "@nuxt/ui"
+import type { AccordionItem } from '@nuxt/ui'
 
 /* region State */
 const { t, tm, rt } = useI18n()
 
 const faqGroups = computed(() => {
-  const groups = tm(("pages.franchises.grandTale.about.sections.faq." + "groups") as any) as any
+  const groups = tm(('pages.franchises.grandTale.about.sections.faq.' + 'groups') as any) as any
   return Object.entries(groups).map(([key, group]: [string, any]) => ({
     label: rt(group.title),
     questions: Object.entries(group)
-      .filter(([k]) => k.startsWith("q"))
+      .filter(([k]) => k.startsWith('q'))
       .map(([, q]: [string, any]) => ({
         label: rt(q.question),
         content: rt(q.answer)
@@ -18,9 +18,7 @@ const faqGroups = computed(() => {
 })
 
 const specificationPlatforms = computed(() => {
-  const platforms = tm(
-    ("pages.franchises.grandTale.about.sections.specifications." + "platforms") as any
-  ) as any
+  const platforms = tm(('pages.franchises.grandTale.about.sections.specifications.' + 'platforms') as any) as any
   return Object.entries(platforms).map(([key, platform]: [string, any]) => ({
     label: rt(platform.label),
     specs: platform.specs.map((s: any) => ({
@@ -33,7 +31,7 @@ const specificationPlatforms = computed(() => {
 
 /* region Meta */
 useHead({
-  title: t("pages.franchises.grandTale.about.meta.title")
+  title: t('pages.franchises.grandTale.about.meta.title')
 })
 /* endregion */
 
@@ -58,7 +56,9 @@ useHead({
       :title="t('pages.franchises.grandTale.about.sections.characters.title')"
       :description="t('pages.franchises.grandTale.about.sections.characters.description')"
     >
-      <UTabs> </UTabs>
+      <UTabs>
+
+      </UTabs>
     </UPageSection>
     <UPageSection
       :title="t('pages.franchises.grandTale.about.sections.specifications.title')"
@@ -132,7 +132,7 @@ useHead({
               to="/franchises/grand-tale/forums"
               class="text-grand-tale-secondary-500 font-semibold underline underline-offset-4 hover:text-primary transition-colors"
             >
-              {{ t("app.header.links.community.content.forums.grand_tale") }}
+              {{ t('app.header.links.community.content.forums.grand_tale') }}
             </NuxtLink>
           </template>
         </i18n-t>

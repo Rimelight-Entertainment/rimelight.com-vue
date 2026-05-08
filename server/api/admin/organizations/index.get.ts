@@ -1,26 +1,18 @@
-import * as v from "valibot"
-import { desc } from "drizzle-orm"
-import { requireAdminOrOwner } from "#server/utils/session"
-import { db, organization } from "#server/db"
-
-const schema = v.object({
-  limit: v.optional(
-    v.pipe(v.unknown(), v.toNumber(), v.integer(), v.minValue(1), v.maxValue(100)),
-    50
-  ),
-  offset: v.optional(v.pipe(v.unknown(), v.toNumber(), v.integer(), v.minValue(0)), 0)
-})
+import { desc } from "drizzle-orm";
+import { requireAdminOrOwner } from "#server/utils/session";
+import { db, organization } from "#server/db";
 
 export default defineEventHandler(async (event) => {
-  await requireAdminOrOwner(event)
+  await requireAdminOrOwner(event);
 
-  const query = await getValidatedQuery(event, (data) => v.parse(schema, data))
-  const { limit, offset } = query
+  const query = getQuery(event);
+  const limit = Math.min(Number(query.limit) || 50, 100);
+  const offset = Number(query.offset) || 0;
 
   return db
     .select()
     .from(organization)
     .orderBy(desc(organization.createdAt))
     .limit(limit)
-    .offset(offset)
-})
+    .offset(offset);
+});

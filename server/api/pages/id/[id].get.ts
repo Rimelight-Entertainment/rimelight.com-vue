@@ -1,21 +1,21 @@
-import { eq } from "drizzle-orm"
-import { db, pages } from "#server/db"
-import { getUserSession } from "#server/utils/session"
+import { eq } from "drizzle-orm";
+import { db, pages } from "#server/db";
+import { getUserSession } from "#server/utils/session";
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, "id")
-  const session = await getUserSession(event)
+  const id = getRouterParam(event, "id");
+  const session = await getUserSession(event);
 
   if (!id) {
-    throw createError({ statusCode: 400, statusMessage: "Missing ID" })
+    throw createError({ statusCode: 400, statusMessage: "Missing ID" });
   }
 
   // Fetch page (basic details only by default, or robust select)
-  const [page] = await db.select().from(pages).where(eq(pages.id, id)).limit(1)
+  const [page] = await db.select().from(pages).where(eq(pages.id, id)).limit(1);
 
   if (!page) {
-    throw createError({ statusCode: 404, statusMessage: "Page not found" })
+    throw createError({ statusCode: 404, statusMessage: "Page not found" });
   }
 
-  return page
-})
+  return page;
+});

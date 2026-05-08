@@ -1,0 +1,97 @@
+{
+  "id": "01995481-cfed-73ff-a1f2-423f583a5a69",
+  "slug": "franchises/grand-tale/lore/characters/kali",
+  "blocks": [
+    {
+      "id": "01995481-cfed-73ff-a1f2-44c2078b0062",
+      "type": "paragraph",
+      "attrs": {
+        "text": [
+          {
+            "text": "",
+            "type": "text"
+          },
+          {
+            "text": "Despite being a [Multiple Head\nCase](https://tvtropes.org/pmwiki/pmwiki.php/Main/MultipleHeadCase) Head\nCase, Kali view itself as a single being. While each head may think for\nitself, they are rarely in disagreement. one poison per head, harmless on\nits own, petrifies flesh if you get both [Snakes Are\nSinister](https://tvtropes.org/pmwiki/pmwiki.php/Main/SnakesAreSinister)\nhttps://tvtropes.org/pmwiki/pmwiki.php/Main/SssssnakeTalk Kali is named\nafter both the Hindu goddess Kali, associated with time and death, and\nSaint Sara-la-Kâli, the Romani patron saint.",
+            "type": "text",
+            "marks": []
+          }
+        ]
+      },
+      "slots": {}
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-481de3849f0a",
+      "type": "section",
+      "attrs": {
+        "title": "Appearance"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-4f657b10cc0f",
+      "type": "section",
+      "attrs": {
+        "title": "Personality"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-51ae6b929ce9",
+      "type": "section",
+      "attrs": {
+        "title": "Abilities"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-550d36ec3e2a",
+      "type": "section",
+      "attrs": {
+        "title": "Biography"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-5be0e2fd276c",
+      "type": "section",
+      "attrs": {
+        "title": "Relationships"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-cfed-73ff-a1f2-5eeadbc4a3fe",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:18.892Z",
+  "updated_at": "2025-09-16T21:50:18.892Z",
+  "title": "Kali",
+  "type": "Character",
+  "properties": {
+    "sex": "",
+    "name": "",
+    "pets": [],
+    "title": "",
+    "height": "",
+    "mounts": [],
+    "weight": 0,
+    "aliases": [],
+    "species": "",
+    "pronouns": "",
+    "equipment": [],
+    "dateOfBirth": "",
+    "dateOfDeath": "",
+    "flavourText": "",
+    "placeOfBirth": "",
+    "placeOfDeath": "",
+    "favouriteFood": "",
+    "formerAffiliations": [],
+    "currentAffiliations": []
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "01995482-0102-75af-bbf9-5d5edf56e44c",
+  "slug": "franchises/grand-tale/lore/species/fauna/centaur",
+  "blocks": [
+    {
+      "id": "01995482-0102-75af-bbf9-605d39020073",
+      "type": "section",
+      "attrs": {
+        "title": "Physiology"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995482-0102-75af-bbf9-65a094626a46",
+      "type": "section",
+      "attrs": {
+        "title": "Culture"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995482-0102-75af-bbf9-6b227ff5cbee",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:31.456Z",
+  "updated_at": "2025-09-16T21:50:31.456Z",
+  "title": "Centaur",
+  "type": "Species",
+  "properties": {
+    "diet": "",
+    "name": "",
+    "averageWeight": 0,
+    "averageLifespan": "Years"
+  }
+}

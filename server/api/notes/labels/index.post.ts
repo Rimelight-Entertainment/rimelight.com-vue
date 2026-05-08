@@ -1,28 +1,29 @@
-import { db, noteLabel } from "#server/db"
-import * as v from "valibot"
-import { getUserSession } from "#server/utils/session"
+import { db, noteLabel } from "#server/db";
 
-const createLabelSchema = v.object({
-  name: v.pipe(v.string(), v.minLength(1))
-})
+import { z } from "zod";
+import { getUserSession } from "#server/utils/session";
+
+const createLabelSchema = z.object({
+  name: z.string().min(1),
+});
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  const userId = session?.user?.id
+  const session = await getUserSession(event);
+  const userId = session?.user?.id;
 
   if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" })
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
   }
 
-  const { name } = await readValidatedBody(event, (body) => v.parse(createLabelSchema, body))
+  const { name } = await readValidatedBody(event, createLabelSchema.parse);
 
   const [newLabel] = await db
     .insert(noteLabel)
     .values({
       userId,
-      name
+      name,
     })
-    .returning()
+    .returning();
 
-  return newLabel
-})
+  return newLabel;
+});

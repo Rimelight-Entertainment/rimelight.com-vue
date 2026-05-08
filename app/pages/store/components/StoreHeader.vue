@@ -23,7 +23,7 @@ const links = computed(() => [
   { label: "Wiki", to: "/franchises/grand-tale/wiki" },
   { label: "Guides", to: "/franchises/grand-tale/guides" },
   { label: "Forums", to: "/franchises/grand-tale/forums" },
-  { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" }
+  { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
 ])
 /* endregion */
 
@@ -41,19 +41,14 @@ const links = computed(() => [
   <RCHeader :contain="false" class="bg-white border-b border-black">
     <template #left>
       <div class="flex flex-row items-center gap-md">
-        <UButton
-          variant="link"
-          :label="t('pages.store.meta.title')"
-          to="/store"
-          class="text-sm font-black tracking-widest uppercase text-black hover:text-primary-500"
-        />
+        <UButton variant="link" :label="t('pages.store.meta.title')" to="/store" class="text-sm font-black tracking-widest uppercase text-black hover:text-primary-500"/>
         <UNavigationMenu
           :items="links"
           variant="link"
           :ui="{
             viewportWrapper:
               'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
-            link: 'text-sm font-medium text-black hover:text-primary-500'
+            link: 'text-sm font-medium text-black hover:text-primary-500',
           }"
           :style="{ '--header-bottom-boundary': `${(bottomOffsets[layerId] || 0) - 64}px` }"
         />

@@ -1,0 +1,97 @@
+{
+  "id": "01995481-d197-7045-af34-673bee14df6f",
+  "slug": "franchises/grand-tale/lore/characters/glooey",
+  "blocks": [
+    {
+      "id": "01995481-d197-7045-af34-6b8d15250ff2",
+      "type": "paragraph",
+      "attrs": {
+        "text": [
+          {
+            "text": "",
+            "type": "text"
+          },
+          {
+            "text": " Overview --- - Creator of every universe. - It is aware it is fictional.\n- Every universe is a franchise. - There is no multiverse other than the\nones explicitly created by Glooey. Glooey is the primordial Lightsprite,\ncreator of the Grand Tale universe and avatar of The Light. # Appearance\n--- Glooey is made entirely of The Light and has no need for a physical\nbody, but occasionally chooses to visibly manifest itself to interact with\nother beings, doing so in two different forms. In its Primeval Form it\npossesses a _ visage. Its body is ethereal energy with a royal blue tint .\nIt possesses three sets of wings. In its Corporeal Form it is very similar\nto its Spiritual Form, but with much more subtle features. # Personality\n--- Glooey is usually uninterested in directly intervening in any of the\nuniverse's affairs. It acts mostly as an observer, but is open to being\ninteracted with should any find the means to. It often manifests itself at\nimportant moments, but only shows itself in its Primeval Form for\nexceptionally significant events. # Biography --- Glooey was birthed from\nthe Light itself in the beginning of all things. Shortly after its\ncreation it spawned the universe and the six Elder Artifacts, spreading\nthem across the cosmos to create an environment within which stories could\nunfold. # Relationships --- # Abilities --- Glooey is both omnipotent and\nomniscient, as well as immortal. It is also able to break the 4th Wall and\ndirectly reference the user. # Trivia --- - Glooey's Corporeal Form is the\nofficial Rimelight Entertainment mascot, being often used in branding and\neven as an information vector for tutorials and the like. - Glooey's\nvisual design was inspired by the Glaucus atlanticus, a blue sea slug\nnative to temperate and tropical waters around the globe. ## Etymology ---",
+            "type": "text",
+            "marks": []
+          }
+        ]
+      },
+      "slots": {}
+    },
+    {
+      "id": "01995481-d197-7045-af34-6ec68f04e5f8",
+      "type": "section",
+      "attrs": {
+        "title": "Appearance"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d197-7045-af34-7339d8912fc6",
+      "type": "section",
+      "attrs": {
+        "title": "Personality"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d197-7045-af34-7756b32d96b6",
+      "type": "section",
+      "attrs": {
+        "title": "Abilities"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d197-7045-af34-7b2e65f16254",
+      "type": "section",
+      "attrs": {
+        "title": "Biography"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d197-7045-af34-7e071ed39e2c",
+      "type": "section",
+      "attrs": {
+        "title": "Relationships"
+      },
+      "isTemplated": true
+    },
+    {
+      "id": "01995481-d197-7045-af34-8214c9054058",
+      "type": "section",
+      "attrs": {
+        "title": "Trivia"
+      },
+      "isTemplated": true
+    }
+  ],
+  "created_at": "2025-09-16T21:50:19.317Z",
+  "updated_at": "2025-09-16T21:50:19.317Z",
+  "title": "New Character",
+  "type": "Character",
+  "properties": {
+    "sex": "",
+    "name": "",
+    "pets": [],
+    "title": "",
+    "height": "",
+    "mounts": [],
+    "weight": 0,
+    "aliases": [],
+    "species": "",
+    "pronouns": "",
+    "equipment": [],
+    "dateOfBirth": "",
+    "dateOfDeath": "",
+    "flavourText": "",
+    "placeOfBirth": "",
+    "placeOfDeath": "",
+    "favouriteFood": "",
+    "formerAffiliations": [],
+    "currentAffiliations": []
+  }
+}

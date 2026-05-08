@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { NuxtError } from "#app"
+import type { NuxtError } from "#app";
 
 export interface ErrorProps {
-  error: NuxtError
+  error: NuxtError;
 }
 
-const { error } = defineProps<ErrorProps>()
+const { error } = defineProps<ErrorProps>();
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 useSeoMeta({
   title: "Page not found",
-  description: "We are sorry but this page could not be found."
-})
+  description: "We are sorry but this page could not be found.",
+});
 </script>
 
 <template>
@@ -27,7 +27,7 @@ useSeoMeta({
             class="text-white bg-primary-500 hover:bg-primary-600"
             @click="() => clearError({ redirect: '/' })"
           >
-            {{ t("error.clear") }}
+            {{ t('error.clear') }}
           </UButton>
         </template>
       </UError>

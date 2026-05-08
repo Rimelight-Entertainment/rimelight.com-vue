@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t } = useI18n();
 
 useHead({
-  title: t("about_hero_title")
-})
+  title: t("about_hero_title"),
+});
 
 /* region State */
 /* endregion */

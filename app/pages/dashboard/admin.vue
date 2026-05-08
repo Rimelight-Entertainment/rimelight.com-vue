@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { type NavigationMenuItem } from "#ui/types"
+import { type NavigationMenuItem } from "#ui/types";
 
 definePageMeta({
-  layout: "dashboard"
-})
+  layout: "dashboard",
+});
 
-const { permissions } = useAuth()
+const { permissions } = useAuth();
 
 if (!permissions.admin.canAccess.value) {
   throw showError({
     statusCode: 403,
-    statusMessage: "Forbidden: You do not have permission to access the admin panel."
-  })
+    statusMessage: "Forbidden: You do not have permission to access the admin panel.",
+  });
 }
 
 const links = computed<NavigationMenuItem[][]>(() => [
@@ -20,26 +20,26 @@ const links = computed<NavigationMenuItem[][]>(() => [
       label: "Overview",
       icon: "lucide:layout-dashboard",
       to: "/dashboard/admin",
-      exact: true
+      exact: true,
     },
     {
       label: "Organizations",
       icon: "lucide:building-2",
-      to: "/dashboard/admin/organizations"
+      to: "/dashboard/admin/organizations",
     },
     {
       label: "Teams",
       icon: "lucide:users-round",
-      to: "/dashboard/admin/teams"
+      to: "/dashboard/admin/teams",
     },
     {
       label: "Users",
       icon: "lucide:user",
-      to: "/dashboard/admin/users"
-    }
+      to: "/dashboard/admin/users",
+    },
   ],
-  []
-])
+  [],
+]);
 
 /* region State */
 /* endregion */

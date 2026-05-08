@@ -26,7 +26,7 @@ const links = computed(() => [
   { label: "Wiki", to: "/franchises/grand-tale/wiki" },
   { label: "Guides", to: "/franchises/grand-tale/guides" },
   { label: "Forums", to: "/franchises/grand-tale/forums" },
-  { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" }
+  { label: "Leaderboards", to: "/franchises/grand-tale/leaderboards" },
 ])
 
 const rightLinks = computed(() => [{ label: "Support", to: "/franchises/grand-tale/support" }])
@@ -56,10 +56,7 @@ const isSlideoverOpen = ref(false)
     <template #left>
       <div class="flex flex-row items-center gap-md">
         <NuxtLink to="/franchises/grand-tale">
-          <NuxtImg
-            src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png"
-            class="size-10"
-          />
+          <NuxtImg src="https://cdn.rimelight.com/Franchises/Grand%20Tale/Logos/Grand%20Tale%20-%20Logomark.png" class="size-10"/>
         </NuxtLink>
         <UNavigationMenu
           :items="links"
@@ -67,7 +64,7 @@ const isSlideoverOpen = ref(false)
           :ui="{
             viewportWrapper:
               'top-[var(--header-bottom-boundary)] flex fixed w-screen mt-[var(--ui-header-height)] z-[100]',
-            link: 'text-sm font-medium text-grand-tale-secondary-400 hover:text-white'
+            link: 'text-sm font-medium text-grand-tale-secondary-400 hover:text-white',
           }"
           :style="{ '--header-bottom-boundary': `${(bottomOffsets[layerId] || 0) - 64}px` }"
         />
@@ -80,7 +77,7 @@ const isSlideoverOpen = ref(false)
           :items="rightLinks"
           variant="link"
           :ui="{
-            link: 'text-sm font-medium text-grand-tale-secondary-500 hover:text-white transition-colors py-0 h-10'
+            link: 'text-sm font-medium text-grand-tale-secondary-500 hover:text-white transition-colors py-0 h-10',
           }"
         />
         <UButton
@@ -120,7 +117,7 @@ const isSlideoverOpen = ref(false)
             title="Grand Tale"
             :ui="{
               header: 'flex items-center justify-between',
-              content: 'w-full max-w-[280px] rounded-none'
+              content: 'w-full max-w-[280px] rounded-none',
             }"
           >
             <template #header>
@@ -145,7 +142,7 @@ const isSlideoverOpen = ref(false)
                   variant="link"
                   class="w-full"
                   :ui="{
-                    link: 'text-base font-medium text-grand-tale-secondary-500 hover:text-white transition-colors px-4 py-3'
+                    link: 'text-base font-medium text-grand-tale-secondary-500 hover:text-white transition-colors px-4 py-3',
                   }"
                   @click="isSlideoverOpen = false"
                 />

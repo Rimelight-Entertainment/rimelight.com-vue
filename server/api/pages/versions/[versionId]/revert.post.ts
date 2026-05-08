@@ -1,13 +1,13 @@
-import { and, eq, gt } from "drizzle-orm"
-import { requireAdminOrOwner } from "#server/utils/session"
-import { db, pages, pageVersions } from "#server/db"
+import { and, eq, gt } from "drizzle-orm";
+import { requireAdminOrOwner } from "#server/utils/session";
+import { db, pages, pageVersions } from "#server/db";
 
 export default defineEventHandler(async (event) => {
-  const versionId = getRouterParam(event, "versionId")
-  const session = await requireAdminOrOwner(event)
+  const versionId = getRouterParam(event, "versionId");
+  const session = await requireAdminOrOwner(event);
 
   if (!versionId) {
-    throw createError({ statusCode: 400, statusMessage: "Missing version ID" })
+    throw createError({ statusCode: 400, statusMessage: "Missing version ID" });
   }
 
   try {
@@ -16,17 +16,17 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(pageVersions)
       .where(eq(pageVersions.id, versionId))
-      .limit(1)
+      .limit(1);
 
     if (!version) {
-      throw createError({ statusCode: 404, statusMessage: "Version not found" })
+      throw createError({ statusCode: 404, statusMessage: "Version not found" });
     }
 
     // Verify the page exists
-    const [page] = await db.select().from(pages).where(eq(pages.id, version.pageId)).limit(1)
+    const [page] = await db.select().from(pages).where(eq(pages.id, version.pageId)).limit(1);
 
     if (!page) {
-      throw createError({ statusCode: 404, statusMessage: "Page not found" })
+      throw createError({ statusCode: 404, statusMessage: "Page not found" });
     }
 
     // Update the actual page with the version's data
@@ -38,17 +38,17 @@ export default defineEventHandler(async (event) => {
       authorIds: version.authorIds,
       postedAt: version.postedAt,
       updatedAt: new Date(),
-      content: version.content
-    }
+      content: version.content,
+    };
 
     const [updatedPage] = await db
       .update(pages)
       .set(updateData)
       .where(eq(pages.id, version.pageId))
-      .returning()
+      .returning();
 
     if (!updatedPage) {
-      throw createError({ statusCode: 404, statusMessage: "Page not found" })
+      throw createError({ statusCode: 404, statusMessage: "Page not found" });
     }
 
     // Mark the reverted version as approved
@@ -57,35 +57,35 @@ export default defineEventHandler(async (event) => {
       .set({
         status: "approved",
         approvedBy: session.user.id,
-        approvedAt: new Date()
+        approvedAt: new Date(),
       })
-      .where(eq(pageVersions.id, versionId))
+      .where(eq(pageVersions.id, versionId));
 
     // Mark all versions created AFTER this version as rejected
     // (versions with createdAt greater than this version's createdAt)
     await db
       .update(pageVersions)
       .set({
-        status: "rejected"
+        status: "rejected",
       })
       .where(
-        and(eq(pageVersions.pageId, version.pageId), gt(pageVersions.createdAt, version.createdAt))
-      )
+        and(eq(pageVersions.pageId, version.pageId), gt(pageVersions.createdAt, version.createdAt)),
+      );
 
     return {
       ...updatedPage,
       blocks: updatedPage.content.blocks,
       properties: updatedPage.content.properties,
-      message: "Page reverted to selected version successfully"
-    }
+      message: "Page reverted to selected version successfully",
+    };
   } catch (error: any) {
     if (error.statusCode) {
-      throw error
+      throw error;
     }
-    console.error("Revert Version Error:", error)
+    console.error("Revert Version Error:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || "Failed to revert version"
-    })
+      statusMessage: error.message || "Failed to revert version",
+    });
   }
-})
+});
